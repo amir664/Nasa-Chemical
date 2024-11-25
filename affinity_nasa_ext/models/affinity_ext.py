@@ -13,6 +13,8 @@ class PurchaseRerquestLineInherited(models.Model):
     minimum_stock_level = fields.Float('Minimum Stock Level')
     forecasting_stock = fields.Float('Forecasting Stock')
     on_hand_qty = fields.Float('On Hand Quantity')
+    
+    
     @api.onchange('product_id')
     def _on_change_product_id(self):
         for rec in self:
@@ -30,9 +32,10 @@ class PurchaseRerquestLineInherited(models.Model):
 
             # If a stock quant is found in an internal location
             if quant:
-                if rec.product_id == quant.product_id:
-                    # Set on hand quantity from quant
-                    rec['on_hand_qty'] = quant.inventory_quantity_auto_apply
+                for quan in quant:
+                    if rec.product_id == quan.product_id:
+                        # Set on hand quantity from quant
+                        rec['on_hand_qty'] = quan.inventory_quantity_auto_apply
 
 
 
