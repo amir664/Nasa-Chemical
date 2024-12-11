@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="customer_partner_form_inherit" model="ir.ui.view">
+            <field name="name">res.partner.form.inherit</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//sheet//field[@name='avatar_128']" position="before">
+                    <heade>
+                        <h1>
+                            <field name="sequence_number" class="oe_title"/>
+                        </h1>
+                    </heade>
+                </xpath>
+            </field>
+        </record>
+        <record id="customer_partner_tree_inherit" model="ir.ui.view">
+            <field name="name">res.partner.tree.inherit</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//tree//field['display_name']" position="before">
+                    <field name="sequence_number"/>
+                </xpath>
+            </field>
+        </record>
+        <record id="customer_partner_kanban_inherit" model="ir.ui.view">
+            <field name="name">res.partner.kanban.inherit</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.res_partner_kanban_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//kanban/templates/t//div//div//div[hasclass('o_kanban_tags_section','oe_kanban_partner_categories')]"
+                       position="after">
+                    <field name="sequence_number"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>
