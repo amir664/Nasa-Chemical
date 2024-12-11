@@ -30,5 +30,12 @@ class QualityPoints(models.Model):
 
 
 
+class ProductTemplate(models.Model):
+    _inherit = 'product.tempalte'
+    
+    hs_code = fields.Char(string="HS Code")
+    
+
+
 
 
