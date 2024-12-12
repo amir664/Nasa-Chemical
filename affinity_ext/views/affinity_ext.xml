@@ -25,6 +25,10 @@
             <xpath expr="//field[@name='vat']" position="attributes">
                 <attribute name="string">NTN</attribute>
             </xpath>
+
+            <xpath expr="//form[1]/sheet[1]/group[1]/group[1]/div[1]" position="after">
+                <field name="code"/>
+            </xpath>
     
             <!-- Added IBAN Number  -->
             <!-- <xpath expr="//field[@name='acc_number']" position="after">
