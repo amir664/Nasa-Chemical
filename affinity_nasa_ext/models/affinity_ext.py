@@ -113,6 +113,18 @@ class QualityPoints(models.Model):
     methods = fields.Char(string="Methods")
     quality_parameters = fields.Selection([('physical','Physical Property'),('chemical','Chemical Property')])
 
+
+class QualityCheckInherited(models.Model):
+    
+    _inherit = "quality.check"
+    
+    def do_progress(self):
+        for rec in self:
+            if rec.quality_state:
+                rec['quality_state'] = 'in_progress'
+
+
+
 class ProductTemplateInherited(models.Model):
     _inherit = 'product.template'
 
@@ -138,6 +150,8 @@ class ProductTemplateInherited(models.Model):
         return super(ProductTemplateInherited, self).write(vals)
 
            
+
+
 
 
 
