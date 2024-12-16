@@ -121,7 +121,7 @@ class QualityCheckInherited(models.Model):
     def do_progress(self):
         for rec in self:
             if rec.quality_state:
-                rec['quality_state'] = 'pass'
+                rec['quality_state'] = 'in_progress'
 
 
 
