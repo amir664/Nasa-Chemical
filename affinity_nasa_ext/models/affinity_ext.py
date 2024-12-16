@@ -114,14 +114,14 @@ class QualityPoints(models.Model):
     quality_parameters = fields.Selection([('physical','Physical Property'),('chemical','Chemical Property')])
 
 
-class QualityCheckInherited(models.Model):
+# class QualityCheckInherited(models.Model):
     
-    _inherit = "quality.check"
+#     _inherit = "quality.check"
     
-    def do_progress(self):
-        # for rec in self:
-            # if rec.quality_state:
-        self.quality_state = 'in_progress'
+#     def do_progress(self):
+#         # for rec in self:
+#             # if rec.quality_state:
+#         self.quality_state = 'in_progress'
 
 
 
