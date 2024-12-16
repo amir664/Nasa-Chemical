@@ -119,9 +119,9 @@ class QualityCheckInherited(models.Model):
     _inherit = "quality.check"
     
     def do_progress(self):
-        for rec in self:
-            if rec.quality_state:
-                rec['quality_state'] = 'in_progress'
+        # for rec in self:
+            # if rec.quality_state:
+        self.quality_state = 'in_progress'
 
 
 
