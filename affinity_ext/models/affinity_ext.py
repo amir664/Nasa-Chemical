@@ -20,12 +20,3 @@ class ResPartnerBankInherited(models.Model):
     bank_iban_num = fields.Char('IBAN Number')
 
 
-class QualityCheckInherited(models.Model):
-    
-    _inherit = "quality.check"
-    
-    def do_progress(self):
-        for rec in self:
-            if rec.quality_state:
-                rec['quality_state'] = 'in_progress'
-    
