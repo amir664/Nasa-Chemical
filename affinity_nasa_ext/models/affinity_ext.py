@@ -213,6 +213,10 @@ class SaleOrderInherited(models.Model):
     _inherit = 'sale.order'
 
     amount_in_words = fields.Char(string='Amount in Words', compute='_compute_amount_in_words')
+    comments = fields.Text('Comments')
+
+    cust_ref_no = fields.Char('Customer Reference Number')
+    
     @api.depends('amount_total')
     def _compute_amount_in_words(self):
         for payment in self:

@@ -82,11 +82,17 @@
             <field name="arch" type="xml">
                 <field name="partner_id" position="after">
                     <field name="amount_in_words"/>
-                    <!-- <field name="date_due"/> -->
-                    <!-- <field name="quality_parameters"/> -->
-                    
-                
+                    <field name="comments"/>
+
                 </field>
+                
+                <field name="invoice_status" position="after">
+                    <field name="cust_ref_no"/>
+
+                </field>
+
+
+
                  <xpath expr="//form[1]/sheet[1]/notebook[1]/page[@name='order_lines']/field[@name='order_line']/tree[1]/field[@name='tax_id']" position="after">
                         <field name="is_discount"/>
                     </xpath>
