@@ -86,10 +86,10 @@
 
                 </field>
                 
-                <!-- <field name="invoice_status" position="after">
+                <field name="client_order_ref" position="after">
                     <field name="cust_ref_no"/>
 
-                </field> -->
+                </field>
 
 
 
