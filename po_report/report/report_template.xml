@@ -106,7 +106,7 @@
                                         <td style="text-align:center; padding:2px;"><span t-esc="value['prno']"/></td>
                                         <td style="text-align:center; padding:2px;"><span t-esc="value['pono']"/></td>
                                         <td style="text-align:center; padding:2px;"><span t-esc="value['grn']"/></td>
-                                        <td style="text-align:center; padding:2px;"><span t-esc="value['invoiceno']"/>WH/IN/00022</td>
+                                        <td style="text-align:center; padding:2px;"><span t-esc="value['invoiceno']"/></td>
                                         <td style="text-align:center; padding:2px;"><span t-esc="value['location']"/></td>
                                         <td style="text-align:center; padding:2px;"><span t-esc="value['unit']"/></td>
                                         <td style="text-align:center; padding:2px;"><span t-esc="value['orderqty']"/></td>
