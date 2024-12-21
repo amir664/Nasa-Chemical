@@ -5,9 +5,9 @@ class PurchaseReportWizard(models.TransientModel):
     _name = 'vendors.report'
     _description = 'Advance to Vendors Report'
     
-    date_from = fields.Date(string='From Date', required=True)
-    date_to = fields.Date(string='To Date', required=True)
-    vendor_ids = fields.Many2many('res.partner', string = "Vendor", required=True)
+    date_from = fields.Date(string='From Date')
+    date_to = fields.Date(string='To Date')
+    vendor_ids = fields.Many2many('res.partner', string = "Vendor")
 
     
 

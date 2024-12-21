@@ -5,13 +5,13 @@ class PurchaseReportWizard(models.TransientModel):
     _name = 'pr.report'
     _description = 'Party Wise Purchase Report'
     
-    date_from = fields.Date(string='From Date', required=True)
-    date_to = fields.Date(string='To Date', required=True)
-    product_ids = fields.Many2many('product.template', string='Product', required=True)
-    party_ids = fields.Many2many('res.partner', string = "Party", required=True)
-    po_no = fields.Char(string = "po_no", required=True)
-    grn = fields.Char(string = "grn", required=True)
-    invoice_no = fields.Char(string = "invoice_no", required=True)
+    date_from = fields.Date(string='From Date')
+    date_to = fields.Date(string='To Date')
+    product_ids = fields.Many2many('product.template', string='Product')
+    party_ids = fields.Many2many('res.partner', string = "Party")
+    po_no = fields.Char(string = "po_no")
+    grn = fields.Char(string = "grn")
+    invoice_no = fields.Char(string = "invoice_no")
     
 
     def print_report(self):

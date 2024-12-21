@@ -1,26 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <template id="pr_reports">
-            <t t-call="web.html_container">
-
+        <t t-call="web.html_container">
+            <t t-call="web.basic_layout">
                 <div class="header">
-                    <div class="row">
-                        <div class="row text-center">
-                            <h1>NASA CHEMICALS</h1>
-                                <br/>
-                            <h1>Purchase - Report</h1>
-                            <t t-if="other['from_date']">
-                                    <b>From :</b>
-                                    <t t-esc="other['from_date']" />
+                    <div class="row mt-2">
+                        <div class="col-2">
+                            <t t-set="comp" t-value=""/>
+                            <t t-foreach="data" t-as="vals">
+                                <t t-set="comp" t-value="env['res.company'].search([('id','=',vals['id'])])"/>
                             </t>
-                            <br />
-                            <t t-if="other['to_date']">
-                                <b>To :</b>
-
-                                <t t-esc="other['to_date']" />
-                            </t>
+                            
+                            <div class="row">
+                                <div class="col-12" style="text-align: center;">
+                                    <img t-if="comp.logo" t-att-src="image_data_uri(comp.logo)" style="max-height: 100px; width: 100; margin-top: 5px;" alt="header"/>
+                                    <!--margin-left: -10px;-->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-10">
+                            <div class="row text-center">
+                                <h1>NASA CHEMICALS</h1>
+                            </div>
+                            <div class="row text-center">
+                                <h1>Purchase Order - Report</h1>
+                            </div>
+                            <div class="row">
+                                <div class="col-12" style="text-align:center">
+                                    <t t-if="other['date_from']">
+                                        <b>From:</b>
+                                        <t t-esc="other['date_from']"/>
+                                    </t>
+                                    <br/>
+                                    <t t-if="other['date_to']">
+                                        <b>To:</b>
+        
+                                        <t t-esc="other['date_to']"/>
+                                    </t>
+                                </div>
+                                
+                            </div>
                         </div>
                     </div>
+                    <!--</div>-->
                 </div>
                 
                 <div class="page">
@@ -34,20 +56,20 @@
                                         <th style="text-align:center;border-bottom:1px solid black;padding:10px;width:180px;">
                                             <b>Date</b>
                                         </th>
-                                        <th style="text-align:center;border-bottom:1px solid black;padding:10px;width:200px;">
+                                        <th style="text-align:center;border-bottom:1px solid black;padding:10px;width:300px;">
                                             <b>Item</b>
                                         </th>
-                                        <th style="text-align:center;border-bottom:1px solid black;padding:10px;width:200px;">
+                                        <th style="text-align:center;border-bottom:1px solid black;padding:10px;width:120px;">
                                             <b>Req No</b>
                                         </th>
                                         <th style="text-align:center;border-bottom:1px solid black;padding:10px;width:120px;">
                                             <b>PO No</b>
                                         </th>
-                                        <th style="text-align:center;border-bottom:1px solid black;padding:10px;width:100px;">
+                                        <th style="text-align:center;border-bottom:1px solid black;padding:10px;width:120px;">
                                             <b>GRN</b>
                                         </th>
                                         
-                                        <th style="text-align:center;border-bottom:1px solid black;padding:10px;width:100px;">
+                                        <th style="text-align:center;border-bottom:1px solid black;padding:10px;width:120px;">
                                             <b>Invoice No</b>
                                         </th>
                                         <th style="text-align:center;border-bottom:1px solid black;padding:10px;width:100px;">
@@ -107,7 +129,7 @@
                     </div>
                     
                 </div>
-            <!-- </t> -->
+            </t>
         </t>
 
     </template>

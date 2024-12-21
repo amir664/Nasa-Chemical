@@ -5,18 +5,12 @@ from odoo import _, api, fields, models
 
 class CustomReport(models.AbstractModel):
     _name = "report.po_analysis.po_analysiss"
-    _description = "Purchase Order Report"
+    _description = "Purchase Order Analysis Report"
 
 
     def _get_report_values(self, docids, data=None):
         
-    #     product_ids = fields.Many2many('product.template', string='Product', required=True)
-    # warehouse_id = fields.Many2one('stock.warehouse', string = "Ware House")
-    # vendor = fields.Char(string = "Vendor")
-    # po_no = fields.Char(string = "po_no")
-    # grn = fields.Char(string = "grn")
-    # invoice_no = fields.Char(string = "invoice_no")
-    # pr_no = fields.Char(string = "pr_no")
+    
 
         
         other_details = {}
@@ -30,8 +24,8 @@ class CustomReport(models.AbstractModel):
 
 
         other_details.update({
-                'from_date': date_from,
-                'to_date': date_to,
+                'date_from': date_from,
+                'date_to': date_to,
                 'product_ids': product_ids,
                 'warehouse_id': warehouse_id,
                 'vendor_ids': vendor_ids,
@@ -48,12 +42,13 @@ class CustomReport(models.AbstractModel):
         query = ("""
                 SELECT 
                     pt.name ->> 'en_US' as item,
+                    po.company_id as id,
                     mm.name ->> 'en_US'  AS Unit,
                     pol.product_qty AS qty,  
                     pol.price_subtotal AS amount
 
-                    FROM purchase_order_line pol 
-                    INNER JOIN purchase_order po ON po.id = pol.order_id
+                    FROM purchase_order po 
+                    INNER JOIN purchase_order_line pol ON pol.order_id = po.id
                     inner JOIN product_product pp ON pp.id = pol.product_id
                     inner JOIN product_template pt ON pt.id = pp.product_tmpl_id
                     inner join res_partner rs on rs.id = po.partner_id 
@@ -63,21 +58,32 @@ class CustomReport(models.AbstractModel):
                     inner join stock_warehouse sw on sw.id = spt.warehouse_id
                     inner join uom_uom mm on mm.id = pol.product_uom
 
-                WHERE 
-                    po.date_order BETWEEN '%s' AND '%s'
-                    AND pt.id in (%s)
-                    AND spt.warehouse_id = %s
-                    AND rs.id in (%s)
-                    AND po.name = '%s'
-                    AND sp.name = '%s'
-
-                order by po.name
+                WHERE po.id is not null
                 
-                """
+                """)
+                 
+
+        if date_from and date_to:
+            query += "AND po.date_order BETWEEN '%s' AND '%s'" % (date_from, date_to)
         
-        % (date_from, date_to,product_ids_str,warehouse_id, vendor_ids_str, po_no, grn) )
-        #  % (date_from,date_to)
-# ,category_ids,stock_location_id
+        if product_ids:
+            query += "AND pt.id in (%s)" % (product_ids_str)
+
+        if vendor_ids:
+            query += "AND rs.id in (%s)" % (vendor_ids_str)
+        
+        if warehouse_id:
+            query += "AND spt.warehouse_id = %s" % (warehouse_id)
+
+        if po_no:
+            query += "AND po.name = '%s'" % (po_no)
+
+        if grn:
+            query += "AND sp.name = '%s'" % (grn)
+
+        query += "order by po.name"
+
+        
         cr.execute(query)
         data = cr.dictfetchall()
 

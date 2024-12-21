@@ -10,15 +10,6 @@ class CustomReport(models.AbstractModel):
 
     def _get_report_values(self, docids, data=None):
         
-    #     product_ids = fields.Many2many('product.template', string='Product', required=True)
-    # warehouse_id = fields.Many2one('stock.warehouse', string = "Ware House")
-    # vendor = fields.Char(string = "Vendor")
-    # po_no = fields.Char(string = "po_no")
-    # grn = fields.Char(string = "grn")
-    # invoice_no = fields.Char(string = "invoice_no")
-    # pr_no = fields.Char(string = "pr_no")
-
-        
         other_details = {}
         date_from = data['date_from']
         date_to = data['date_to']
@@ -28,8 +19,8 @@ class CustomReport(models.AbstractModel):
 
 
         other_details.update({
-                'from_date': date_from,
-                'to_date': date_to,
+                'date_from': date_from,
+                'date_to': date_to,
                 'product_ids': product_ids,
                 'vendor_ids': vendor_ids,
 
@@ -59,10 +50,11 @@ class CustomReport(models.AbstractModel):
                     SUM(CASE WHEN EXTRACT(MONTH FROM po.date_order) = 12 THEN pol.product_qty ELSE 0 END) AS qty_dec,
                     SUM(CASE WHEN EXTRACT(MONTH FROM po.date_order) = 12 THEN pol.price_subtotal ELSE 0 END) AS amount_dec,
                     SUM(pol.product_qty) AS qty,
-                    SUM(pol.price_subtotal) AS amount
+                    SUM(pol.price_subtotal) AS amount,
+                    max(po.company_id) as id
 
-                FROM purchase_order_line pol 
-                INNER JOIN purchase_order po ON po.id = pol.order_id
+                FROM purchase_order po 
+                INNER JOIN purchase_order_line pol ON pol.order_id = po.id
                 INNER JOIN product_product pp ON pp.id = pol.product_id
                 INNER JOIN product_template pt ON pt.id = pp.product_tmpl_id
                 INNER JOIN res_partner rs ON rs.id = po.partner_id 
@@ -73,15 +65,21 @@ class CustomReport(models.AbstractModel):
                 INNER JOIN uom_uom mm ON mm.id = pol.product_uom
 
                 WHERE 
-                    po.date_order BETWEEN '%s' AND '%s'
-                    AND pt.id IN (%s)
-                    AND rs.id IN (%s)
+                    po.id is not null
+                """)
 
-                GROUP BY pt.name, mm.name
-                ORDER BY pt.name;
-                """
+
+        if date_from and date_to:
+            query += "AND po.date_order BETWEEN '%s' AND '%s'" % (date_from, date_to)
         
-        % (date_from, date_to,product_ids_str, vendor_ids_str) )
+        if product_ids:
+            query += "AND pt.id in (%s)" % (product_ids_str)
+
+        if vendor_ids:
+            query += "AND rs.id in (%s)" % (vendor_ids_str)
+
+        query += "GROUP BY pt.name, mm.name ORDER BY pt.name;" 
+
         #  % (date_from,date_to)
 # ,category_ids,stock_location_id
         cr.execute(query)
@@ -108,9 +106,6 @@ class CustomReport(models.AbstractModel):
             
             'total_qty': sum(item['qty'] for item in data),
             'total_amount': sum(item['amount'] for item in data),
-
-
-
         }
 
         return {

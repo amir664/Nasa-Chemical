@@ -1,24 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <template id="po_analysiss">
-            <t t-call="web.html_container">
-
+        <t t-call="web.html_container">
+            <t t-call="web.basic_layout">
                 <div class="header">
-                    <div class="row">
-                        <div class="row text-center">
-                            <h1>NASA CHEMICALS</h1>
-                                <br/>
-                            <h1>Purchase Order - Report</h1>
-                            <t t-if="other['from_date']">
-                                    <b>From :</b>
-                                    <t t-esc="other['from_date']" />
+                    <div class="row mt-2">
+                        <div class="col-2">
+                            <t t-set="comp" t-value=""/>
+                            <t t-foreach="data" t-as="vals">
+                                <t t-set="comp" t-value="env['res.company'].search([('id','=',vals['id'])])"/>
                             </t>
-                            <br />
-                            <t t-if="other['to_date']">
-                                <b>To :</b>
-
-                                <t t-esc="other['to_date']" />
-                            </t>
+                            
+                            <div class="row">
+                                <div class="col-12" style="text-align: center;">
+                                    <img t-if="comp.logo" t-att-src="image_data_uri(comp.logo)" style="max-height: 100px; width: 100; margin-top: 5px;" alt="header"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-10">
+                            <div class="row text-center">
+                                <h1>NASA CHEMICALS</h1>
+                            </div>
+                            <div class="row text-center">
+                                <h1>Purchase Order - Report</h1>
+                            </div>
+                            <div class="row">
+                                <div class="col-12" style="text-align:center">
+                                    <t t-if="other['date_from']">
+                                        <b>From :</b>
+                                        <t t-esc="other['date_from']"/>
+                                    </t>
+                                    <br/>
+                                    <t t-if="other['date_to']">
+                                        <b>To :</b>
+        
+                                        <t t-esc="other['date_to']"/>
+                                    </t>
+                                </div>
+                                
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -29,27 +49,27 @@
                             <table class="table-bordered">
                                 <thead>
                                     <tr>
-                                        <th style="text-align:center;border-bottom:1px solid black;padding:10px;width:200px;">
+                                        <th style="text-align:center;border-bottom:1px solid black;padding:6px;width:400px;">
                                             <b>Item</b>
                                         </th>
-                                        <th style="text-align:center;border-bottom:1px solid black;padding:10px;width:100px;">
+                                        <th style="text-align:center;border-bottom:1px solid black;padding:6px;width:150px;">
                                             <b>Unit</b>
                                         </th>
-                                        <th style="text-align:center;border-bottom:1px solid black;padding:10px;width:120px;">
-                                            <b>Purc. Qty.</b>
+                                        <th style="text-align:center;border-bottom:1px solid black;padding:6px;width:200px;">
+                                            <b>Purchase Quantity</b>
                                         </th>
-                                        <th style="text-align:center;border-bottom:1px solid black;padding:10px;width:150px;">
-                                            <b>Purc. Amt.</b>
+                                        <th style="text-align:right;border-bottom:1px solid black;padding:6px;width:200px;">
+                                            <b>Purchase Amount</b>
                                         </th>
 
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr t-foreach="data" t-as="value">
-                                        <td style="text-align:left;"><span t-esc="value['item']"/></td>
-                                        <td style="text-align:left;"><span t-esc="value['unit']"/></td>
-                                        <td style="text-align:right;"><span t-esc="value['qty']"/></td>
-                                        <td style="text-align:right;"><span t-esc="value['amount']"/></td>
+                                        <td style="text-align:center; padding:2px;"><span t-esc="value['item']"/></td>
+                                        <td style="text-align:center; padding:2px;"><span t-esc="value['unit']"/></td>
+                                        <td style="text-align:center; padding:2px;"><span t-esc="value['qty']"/></td>
+                                        <td style="text-align:right; padding:2px;"><span t-esc="value['amount']"/></td>
                                         
                                     </tr>
 
@@ -58,12 +78,12 @@
                                             <b>Totals</b>
                                         </td>
                                         
-                                        <td class="total-cell" style="text-align:right; padding:4px;">
-                                            <b><span t-esc="totals['total_qty']" t-options='{"widget": "float", "precision": 2, "thousands_sep": ","}'/></b>
+                                        <td class="total-cell" style="text-align:center; padding:2px;">
+                                            <b><span t-esc="totals['total_qty']" t-options="{&quot;widget&quot;: &quot;float&quot;, &quot;precision&quot;: 2, &quot;thousands_sep&quot;: &quot;,&quot;}"/></b>
                                         </td>
 
-                                        <td class="total-cell" style="text-align:right; padding:4px;">
-                                            <b><span t-esc="totals['total_amount']" t-options='{"widget": "float", "precision": 2, "thousands_sep": ","}'/></b>
+                                        <td class="total-cell" style="text-align:right; padding:2px;">
+                                            <b><span t-esc="totals['total_amount']" t-options="{&quot;widget&quot;: &quot;float&quot;, &quot;precision&quot;: 2, &quot;thousands_sep&quot;: &quot;,&quot;}"/></b>
                                         </td>
                                     </tr>
 
@@ -77,7 +97,7 @@
                     </div>
                     
                 </div>
-            <!-- </t> -->
+            </t>
         </t>
 
     </template>

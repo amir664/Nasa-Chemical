@@ -5,11 +5,11 @@ class POReportWizard(models.TransientModel):
     _name = 'monthly.report'
     _description = 'Purchase Order Month Wise Report'
     
-    date_from = fields.Date(string='From Date', required=True)
-    date_to = fields.Date(string='To Date', required=True)
-    product_ids = fields.Many2many('product.template', string='Product', required=True)
-    # warehouse_id = fields.Many2one('stock.warehouse', string = "Ware House", required=True)
-    vendor_ids = fields.Many2many('res.partner', string='Vendor', required=True)
+    date_from = fields.Date(string='From Date')
+    date_to = fields.Date(string='To Date')
+    product_ids = fields.Many2many('product.template', string='Product')
+    # warehouse_id = fields.Many2one('stock.warehouse', string = "Ware House")
+    vendor_ids = fields.Many2many('res.partner', string='Vendor')
     
     
 

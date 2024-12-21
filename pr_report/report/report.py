@@ -22,8 +22,8 @@ class CustomReport(models.AbstractModel):
 
 
         other_details.update({
-                'from_date': date_from,
-                'to_date': date_to,
+                'date_from': date_from,
+                'date_to': date_to,
                 'product_ids': product_ids,
                 'party_ids': party_ids,
                 'po_no': po_no,
@@ -39,7 +39,8 @@ class CustomReport(models.AbstractModel):
         cr = self._cr
         query = ("""
                 SELECT 
-                    po.date_order AS Date,                    
+                    po.date_order AS Date,
+                    po.company_id as id,                    
                     pt.name ->> 'en_US' as item,
                     po.origin as reqno,
                     po.name AS PONo,
@@ -61,18 +62,32 @@ class CustomReport(models.AbstractModel):
                 inner join stock_warehouse sw on sw.id = spt.warehouse_id
                 inner join uom_uom mm on mm.id = pol.product_uom
 
-                WHERE 
-                    po.date_order BETWEEN '%s' AND '%s'
-                    AND pt.id in (%s)
-                    AND rs.id in (%s)
-                    AND po.name = '%s'
-                    AND sp.name = '%s'
-                    AND am.name = '%s'
-                order by po.name
-                
-                """
+                WHERE po.id is not null
+                """)
         
-        % (date_from, date_to,product_ids_str, party_ids_str, po_no, grn, invoice_no) )
+        if date_from and date_to:
+            query += "AND po.date_order BETWEEN '%s' AND '%s'" % (date_from, date_to)
+        
+        if product_ids:
+            query += "AND pt.id in (%s)" % (product_ids_str)
+
+        if party_ids:
+            query += "AND rs.id in (%s)" % (party_ids_str)
+        
+        if po_no:
+            query += "AND po.name = '%s'" % (po_no)
+
+        if grn:
+            query += "AND sp.name = '%s'" % (grn)
+
+        if invoice_no:
+            query += "AND am.name = '%s'" % (invoice_no)
+
+        
+
+        query += "order by po.name"
+        
+        # % (date_from, date_to,product_ids_str, party_ids_str, po_no, grn, invoice_no) )
 
         cr.execute(query)
         data = cr.dictfetchall()
