@@ -144,19 +144,57 @@ class CONSReportController(http.Controller):
         data_style_bold_right.alignment = alignment_right_bold
 
 
-        # Title with date range
-        report_title = "Sales Detail Report"
+        # # Title with date range
+        # report_title = "Sales Detail Report"
 
-        # Merge cells for the title row
-        sheet.write_merge(0, 0, 0, 11, report_title, title_style)
+        # # Merge cells for the title row
+        # sheet.write_merge(0, 0, 0, 11, report_title, title_style)
 
         item_group = env['product.category'].search([('id', '=', category_id)])
         sales_type = env['res.partner.category'].search([('id', '=', partner_tag_id)])
         cust = env['res.partner'].search([('id', '=', partner_id)])
 
+        # # Additional Information Rows
+        # additional_info = [
+        #     ('Print out date:', datetime.datetime.now().strftime('%d/%m/%Y')),
+        #     ('Fiscal Year:', f"{from_date}"),  # Replace with actual fiscal year logic if needed
+        #     ('Period:', f"{from_date} to {to_date}" if from_date and to_date else ''),
+        #     ('Branch:', branch if branch else ''),
+        #     ('City:', city if city else ''),
+        #     ('Customer:', cust.name if cust else ''),
+        #     ('Area:', area if area else ''),
+        #     ('Items Group:', item_group.complete_name if item_group else ''),
+        #     ('Sales Type:', sales_type.name if sales_type else ''),
+        # ]
+
+        # # Write Additional Information Rows
+        # row_offset = 1  # Start writing additional info below the title
+        # for row, (label, value) in enumerate(additional_info, start=row_offset):
+        #     sheet.write(row, 0, label, data_style_bold_center)
+        #     sheet.write(row, 1, value, data_style_center)
+
+        # # Adjust the row where headers start
+        # header_start_row = len(additional_info) + 2
+        #  # Write headers
+        # headers = [
+        #     'Date', 'Customer', 'Item', 'Broker', 'Sales Type', 'City',
+        #     'Invoice No', 'Qty', 'Unit', 'Price', 'Amount'
+        # ]
+
+        # # Write headers with the center alignment style
+        # for col, header in enumerate(headers):
+        #     sheet.write(header_start_row, col, header, header_style_center)
+
+
+                # Title with date range
+        report_title = "Sales Detail Report"
+
+        # Merge cells for the title row
+        sheet.write_merge(0, 0, 0, 11, report_title, title_style)
+
         # Additional Information Rows
         additional_info = [
-            ('Print out date:', datetime.datetime.now().strftime('%d/%m/%Y')),
+            ('Print out date:', datetime.now().strftime('%d/%m/%Y')),
             ('Fiscal Year:', f"{from_date}"),  # Replace with actual fiscal year logic if needed
             ('Period:', f"{from_date} to {to_date}" if from_date and to_date else ''),
             ('Branch:', branch if branch else ''),
@@ -174,11 +212,7 @@ class CONSReportController(http.Controller):
             sheet.write(row, 1, value, data_style_center)
 
         # Adjust the row where headers start
-        header_start_row = len(additional_info) + 2
-
-        # # Title with date range (already present in your code)
-        # report_title = "Sales Detail Report"
-        # sheet.write_merge(0, 0, 0, 11, report_title, title_style)
+        header_start_row = row_offset + len(additional_info) + 1  # Avoid overlap with info rows
 
         # Write headers
         headers = [
@@ -189,6 +223,7 @@ class CONSReportController(http.Controller):
         # Write headers with the center alignment style
         for col, header in enumerate(headers):
             sheet.write(header_start_row, col, header, header_style_center)
+
 
         # Write data rows
         for row, record in enumerate(records, start=10):
