@@ -43,7 +43,7 @@ class CONSReportController(http.Controller):
         
         if to_date != False and from_date != False:
 
-            form_date = from_date[0].split('(')
+            # form_date = from_date[0].split('(')
 
             # # Extract the `datetime.date` objects from the tuples
             # if isinstance(from_date, tuple):
@@ -51,7 +51,7 @@ class CONSReportController(http.Controller):
             #     raise UserError(from_date)
             # if isinstance(to_date, tuple):
             #     to_date = to_date[0]  # Extract the date from the tuple
-            raise UserError(str(form_date))
+            raise UserError(str(from_date[0]))
 
             
             # Add the formatted dates to the query
