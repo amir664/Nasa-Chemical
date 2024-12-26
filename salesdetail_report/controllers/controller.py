@@ -51,7 +51,7 @@ class CONSReportController(http.Controller):
             #     raise UserError(from_date)
             # if isinstance(to_date, tuple):
             #     to_date = to_date[0]  # Extract the date from the tuple
-            raise UserError(str(from_date[0]))
+            raise UserError(str(from_date))
 
             
             # Add the formatted dates to the query
