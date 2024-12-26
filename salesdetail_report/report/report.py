@@ -74,7 +74,7 @@ class CustomReport(models.AbstractModel):
             query += "and rprpc.category_id = %s"%(partner_tag_id)
 
         if category_id:
-            query += "and pt.categ_id in %s"%(category_id)
+            query += "and pt.categ_id = %s"%(category_id)
 
         if from_date and to_date:
             query += "and so.date_order between '%s' and '%s'"%(from_date, to_date)
