@@ -50,9 +50,9 @@ class CONSReportController(http.Controller):
         # raise UserError(str(type(partner_id)) + "--"+ str(type(category_id)))
     
 
-        if partner_id != 'False':
-           query += " AND rp.id = %s" % partner_id
-
+        if partner_id != False:
+            query += " AND rp.id = %s" % partner_id
+            raise UserError('working')
            
         if category_id and category_id != 'False':
            query +=  " and pt.categ_id = %s" % category_id
