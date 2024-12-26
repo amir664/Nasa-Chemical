@@ -41,19 +41,19 @@ class CONSReportController(http.Controller):
             query += " and so.date_order between '%s' and '%s'"%(from_date, to_date)
 
         if partner_ids and partner_ids!='[]':
-           partner_ids_str = partner_ids.split('[')[-1].split(']')[0]
+        #    partner_ids_str = partner_ids.split('[')[-1].split(']')[0]
         #    partner = env['res.partner'].search([('id', '=', )])
-           query += " AND rp.id in (%s)" % partner_ids_str
+           query += " AND rp.id = %s" % partner_ids
 
            
         if category_ids and category_ids!='[]':
-           category_ids_str = category_ids.split('[')[-1].split(']')[0]
+        #    category_ids_str = category_ids.split('[')[-1].split(']')[0]
         #    raise UserError(str(category_ids_str))
-           query +=  "and pt.categ_id in (%s)"%(category_ids_str)
+           query +=  "and pt.categ_id = %s"%(category_ids)
         
         if partner_tag_ids and partner_tag_ids!='[]':
-           partner_tag_ids_str = partner_tag_ids.split('[')[-1].split(']')[0]
-           query += " and rprpc.category_id in (%s)" % partner_tag_ids_str
+        #    partner_tag_ids_str = partner_tag_ids.split('[')[-1].split(']')[0]
+           query += " and rprpc.category_id = %s" % partner_tag_ids
 
         if city != False:
             query += " and rp.city = '%s'" % city

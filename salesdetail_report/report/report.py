@@ -12,9 +12,9 @@ class CustomReport(models.AbstractModel):
         other_details = {}
         to_date = data['to_date']
         from_date = data['from_date']
-        partner_ids = data['partner_ids']
-        category_ids = data['category_ids']
-        partner_tag_ids = data['partner_tag_ids']
+        partner_id = data['partner_id']
+        category_id = data['category_id']
+        partner_tag_id = data['partner_tag_id']
         city = data['city']
         branch = data['branch']
         area = data['area']
@@ -23,20 +23,20 @@ class CustomReport(models.AbstractModel):
         other_details.update({
                 'to_date': to_date,
                 'from_date': from_date,
-                'partner_ids' : partner_ids,
-                'category_ids' : category_ids,
-                'partner_tag_ids' : partner_tag_ids,
+                'partner_id' : partner_id,
+                'category_id' : category_id,
+                'partner_tag_id' : partner_tag_id,
                 'city': city,
                 'branch': branch,
                 'area': area
            })
 
-        if partner_ids != []:
-            partner_ids_str = ','.join(map(str,partner_ids))
-        if partner_tag_ids != []:
-            partner_tag_ids_str = ','.join(map(str,partner_tag_ids))
-        if category_ids != []:
-            category_ids_str = ','.join(map(str,category_ids))
+        # if partner_id != []:
+        #     partner_id_str = ','.join(map(str,partner_id))
+        # if partner_tag_id != []:
+        #     partner_tag_id_str = ','.join(map(str,partner_tag_id))
+        # if category_id != []:
+        #     category_id_str = ','.join(map(str,category_id))
         
         
         cr_1 = self._cr
@@ -67,14 +67,14 @@ class CustomReport(models.AbstractModel):
             )
 
 
-        if partner_ids:
-            query += "and rp.id in (%s)"%(partner_ids_str)
+        if partner_id:
+            query += "and rp.id = %s"%(partner_id)
 
-        if partner_tag_ids:
-            query += "and rprpc.category_id in (%s)"%(partner_tag_ids_str)
+        if partner_tag_id:
+            query += "and rprpc.category_id = %s"%(partner_tag_id)
 
-        if category_ids:
-            query += "and pt.categ_id in (%s)"%(category_ids_str)
+        if category_id:
+            query += "and pt.categ_id in %s"%(category_id)
 
         if from_date and to_date:
             query += "and so.date_order between '%s' and '%s'"%(from_date, to_date)
