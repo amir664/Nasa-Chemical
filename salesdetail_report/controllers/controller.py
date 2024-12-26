@@ -138,9 +138,13 @@ class CONSReportController(http.Controller):
         for col, header in enumerate(headers):
             sheet.write(2, col, header, header_style_center)
 
+
         # Write data rows
         for row, record in enumerate(records, start=3):
 
+            order_date = str(record['date']).split(' ')[0]
+            raise UserError(str(order_date))
+            
             user = env['res.users'].search([('id', '=', record['broker'])])
             cust = env['res.partner'].search([('id', '=', record['rp_id'])])
             sales_type = env['res.partner.category'].search([('id', '=', cust.category_id.id)])
@@ -150,7 +154,6 @@ class CONSReportController(http.Controller):
             
             sheet.write(row, 2, record['item'] if record['item'] else '', data_style_center)
             sheet.write(row, 3, user.name if user else '', data_style_center)
-            # sheet.write(row, 4, record['item'] if record['item'] else '', data_style_center)
             sheet.write(row, 4, sales_type.name if sales_type else '', data_style_center)
             sheet.write(row, 5, record['city'] if record['city'] else '', data_style_center)
             sheet.write(row, 6, record['invoice_no'] if record['invoice_no'] else 0.0, data_style_center)
