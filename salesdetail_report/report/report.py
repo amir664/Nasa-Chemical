@@ -52,8 +52,6 @@ class CustomReport(models.AbstractModel):
                     inner join uom_uom um on um.id = sol.product_uom 
                     inner join account_move am on am.invoice_origin = so.name
                     inner join product_template pt on pt.id = sol.product_id
-                    -- left join res_partner_res_partner_category_rel rprpc on rprpc.partner_id = rp.id
-                    -- left join res_partner_category rpc on rpc.id = rprpc.category_id
                     where so.id is not null     
             """    
             )
