@@ -38,7 +38,7 @@ class SalesDetailReportWizard(models.TransientModel):
             'to_date': self.to_date if self.to_date else datetime.datetime.today().date(),
 
             
-            'partner_tags': partner_tag_ids,
+            'partner_tag_ids': partner_tag_ids,
             'category_ids': category_ids,
             'partner_ids': partner_ids,
             'city': self.city,
