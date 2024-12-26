@@ -46,16 +46,12 @@ class CONSReportController(http.Controller):
             # Extract the `datetime.date` objects from the tuples
             if isinstance(from_date, tuple):
                 from_date = from_date[0]  # Extract the date from the tuple
+                raise UserError(from_date)
             if isinstance(to_date, tuple):
                 to_date = to_date[0]  # Extract the date from the tuple
+                raise UserError(to_date)
 
-            # Convert the date to string format YYYY-MM-DD
-            # from_date_str = from_date.strftime('%Y-%m-%d')
-            # to_date_str = to_date.strftime('%Y-%m-%d')
-
-            # Debugging: Raise an error to check the formatted values
-            # raise UserError(f"From Date: {from_date_str} //// To Date: {to_date_str}")
-
+            
             # Add the formatted dates to the query
             query += " and so.date_order between '%s' and '%s'" % (from_date, to_date)
 
