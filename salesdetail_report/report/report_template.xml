@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="salesdetail_reports">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">        
+                <div class="page">
+
+                    <div class="header_row text-center">
+                        <h1>Sales Detail Report</h1>
+                    </div>
+                    <div class="row mt-5 mb-3">
+                        <!-- <t t-set="months" t-value="['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']"/>  
+                        <t t-set="month1" t-value="str(to_date).split('-')[1]"/>
+                        <t t-set="month2" t-value="int(month1) - 1"/>
+                        <t t-set="month3" t-value="int(month1) - 2"/>
+                        <t t-set="month1_name" t-value="months[int(month1) - 1]"/>
+                        <t t-set="month2_name" t-value="months[int(month2) - 1]"/>
+                        <t t-set="month3_name" t-value="months[int(month3) - 1]"/> -->
+                        <div class="col-12">
+                            <table style="border-collapse:collapse;" class="table-bordered">
+                                <thead>
+                                    <tr>
+                                                    
+
+                                        <th style="text-align:center;border-bottom:1px solid black;padding:4px; width:90px; background-color:#A9A9A9;">
+                                            <span style="text-align:center;">Date</span>
+                                        </th>
+                                        <th style="border-bottom:1px solid black;padding:4px;width:120px; background-color:#A9A9A9;">
+                                            <span style="text-align:center;">Customer</span>
+                                        </th>
+                                        
+                                        <th style="border-bottom:1px solid black;padding:4px;width:250px; background-color:#A9A9A9;">
+                                            <span style="text-align:center;">Item</span>
+                                        </th>
+                                        
+                                        <th style="border-bottom:1px solid black;padding:4px;width:120px; background-color:#A9A9A9;">
+                                            <span style="text-align:center;">Broker</span>
+                                        </th>
+                                        
+                                        <th style="border-bottom:1px solid black;padding:4px;width:120px; background-color:#A9A9A9;">
+                                            <span style="text-align:center;">Sales Type</span>
+                                        </th>
+                                        <th style="text-align:center;border-bottom:1px solid black;padding:4px;width:120px; background-color:#A9A9A9;">
+                                            <span style="text-align:center;">City</span></th>
+                                        <th style="border-bottom:1px solid black;padding:4px;width:90px; background-color:#A9A9A9;">
+                                            <span style="text-align:center;">Invoice No</span>
+                                        </th>
+                                        <th style="border-bottom:1px solid black;padding:4px;width:90px; background-color:#A9A9A9;">
+                                            <span style="text-align:center;">Qty</span>
+                                        </th>
+                                        
+                                        <th style="border-bottom:1px solid black;padding:4px;width:90px; background-color:#A9A9A9;">
+                                            <span style="text-align:center;">Unit</span>
+                                        </th>
+                                        
+                                        <th style="border-bottom:1px solid black;padding:4px;width:120px; background-color:#A9A9A9;">
+                                            <span style="text-align:center;">Price</span>
+                                        </th>
+                                        
+                                        <th style="border-bottom:1px solid black;padding:4px;width:120px; background-color:#A9A9A9;">
+                                            <span style="text-align:center;">Amount</span>
+                                        </th>
+
+                                        
+                                        
+                                    </tr>
+
+                                </thead>
+                                <tbody>
+                                    <tr t-foreach="data" t-as="value">
+                                        <td style="text-align:center; padding:4px;">
+                                            <span t-esc="value['date']"/>
+                                        </td>
+                                        <td style="text-align:center; padding:4px;">
+                                            <span t-esc="value['customer']"/>
+                                        </td>
+                                        
+                                        <td style="text-align:center; padding:4px;">
+                                            <span t-esc="value['broker']"/>
+                                        </td>
+                                        
+                                        <td style="text-align:center; padding:4px;">
+                                            <span t-esc="value['sales_type']"/>
+                                        </td>
+                                        
+
+                                        <td style="text-align:center; padding:4px;">
+                                            <span t-esc="value['city']"/>
+                                        </td>
+                                        <td style="text-align:center; padding:4px;">
+                                            <span t-esc="value['invoice_no']"/>
+                                            
+                                        </td>
+                                        <td style="text-align:center; padding:4px;">
+                                            <span t-esc="'{:.2f}'.format(value['quantity'] or 0.0)"/>
+                                        </td>
+                                        
+                                        <td style="text-align:center; padding:4px;">
+                                            <span t-esc="value['uom']"/>
+                                            
+                                            
+                                        </td>
+                                        
+                                        <td style="text-align:center; padding:4px;">
+                                            <span t-esc="'{:.2f}'.format(value['price'] or 0.0)"/>
+                                        </td>
+
+                                        <td style="text-align:center; padding:4px;">
+                                            <span t-esc="'{:.2f}'.format(value['amount'] or 0.0)"/>
+
+                                        </td>
+                                        
+                                        
+
+                                            
+                                    </tr>
+                                    
+
+                                    
+                                </tbody>
+
+                            </table>
+                        </div>
+                    </div>
+
+                    
+                </div>
+
+            </t>
+           
+        </t>
+    </template>
+</odoo>
