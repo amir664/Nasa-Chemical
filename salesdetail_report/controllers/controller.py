@@ -139,10 +139,10 @@ class CONSReportController(http.Controller):
 
         # Write headers with the center alignment style
         for col, header in enumerate(headers):
-            sheet.write(3, col, header, header_style_center)
+            sheet.write(2, col, header, header_style_center)
 
         # Write data rows
-        for row, record in enumerate(records, start=4):
+        for row, record in enumerate(records, start=3):
 
             user = env['res.users'].search([('id', '=', record['broker'])])
 
