@@ -49,12 +49,12 @@ class CONSReportController(http.Controller):
 
         # raise UserError(type(partner_id))
 
-        if partner_id and partner_id != 'False':
+        if partner_id and partner_id != 'False' and  partner_id.isdigit():
            query += " AND rp.id = %s" % partner_id
 
            
-        if category_id and category_id != 'False':
-           query +=  " and pt.categ_id = %s"%(category_id)
+        if category_id and category_id != 'False' and  category_id.isdigit():
+           query +=  " and pt.categ_id = %s" % category_id
         
         
         if city and city != 'False':
