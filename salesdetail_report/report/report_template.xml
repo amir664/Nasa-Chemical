@@ -8,6 +8,9 @@
                     <div class="header_row text-center">
                         <h1>Sales Detail Report</h1>
                     </div>
+                    <t t-set="cust" t-value="env['res.partner'].search([('id', '=', other['partner_id'])])"/>
+                    <t t-set="item_group" t-value="env['product.category'].search([('id', '=', other['category_id'])])"/>
+                    <t t-set="sales_type" t-value="env['res.partner.category'].search([('id', '=', other['partner_tag_id'])])"/>
                     
                     <div class="row mt-2">
                         <div class="col-6">
@@ -75,7 +78,7 @@
                                     </b>
                                 </div>
                                 <div class="col-8">
-                                    <t t-esc="other['partner_id'] or ''"/>
+                                    <t t-esc="cust.name or ''"/>
                                     
                                 </div>
                             </div>              
@@ -97,7 +100,7 @@
                                     </b>
                                 </div>
                                 <div class="col-8">
-                                    <t t-esc="other['category_id'] or ''"/>
+                                    <t t-esc="item_group.complete_name or ''"/>
                                     
                                 </div>
                             </div>              
@@ -108,7 +111,7 @@
                                     </b>
                                 </div>
                                 <div class="col-8">
-                                    <t t-esc="other['partner_tag_id'] or ''"/>
+                                    <t t-esc="sales_type.name or ''"/>
                                     
                                 </div>
                             </div>              
@@ -172,54 +175,59 @@
                                 </thead>
                                 <tbody>
                                     <tr t-foreach="data" t-as="value">
-                                        <td style="text-align:center; padding:4px;">
-                                            <span t-esc="value['date']"/>
-                                        </td>
-                                        <td style="text-align:center; padding:4px;">
-                                            <span t-esc="value['customer']"/>
-                                        </td>
                                         
-                                        <td style="text-align:center; padding:4px;">
-                                            <span t-esc="value['item']"/>
-                                        </td>
-                                        
-                                        <t t-set='user' t-value="env['res.users'].search([('id', '=', value['broker'])])"/>
-                                        
-                                        <td style="text-align:center; padding:4px;">
-                                            <span t-esc="user.name or ''"/>
-                                        </td>
-                                        
-                                        <td style="text-align:center; padding:4px;">
-                                            <span t-esc="value['sales_type']"/>
-                                        </td>
-                                        
-
-                                        <td style="text-align:center; padding:4px;">
-                                            <span t-esc="value['city']"/>
-                                        </td>
-                                        <td style="text-align:center; padding:4px;">
-                                            <span t-esc="value['invoice_no']"/>
+                                        <t t-if="value['sales_type'] == sales_type.name">
                                             
-                                        </td>
-                                        <td style="text-align:center; padding:4px;">
-                                            <span t-esc="'{:.2f}'.format(value['quantity'] or 0.0)"/>
-                                        </td>
                                         
-                                        <td style="text-align:center; padding:4px;">
-                                            <span t-esc="value['uom']"/>
+                                            <td style="text-align:center; padding:4px;">
+                                                <span t-esc="value['date']"/>
+                                            </td>
+                                            <td style="text-align:center; padding:4px;">
+                                                <span t-esc="value['customer']"/>
+                                            </td>
                                             
+                                            <td style="text-align:center; padding:4px;">
+                                                <span t-esc="value['item']"/>
+                                            </td>
                                             
-                                        </td>
-                                        
-                                        <td style="text-align:center; padding:4px;">
-                                            <span t-esc="'{:.2f}'.format(value['price'] or 0.0)"/>
-                                        </td>
-
-                                        <td style="text-align:center; padding:4px;">
-                                            <span t-esc="'{:.2f}'.format(value['amount'] or 0.0)"/>
-
-                                        </td>
-                                        
+                                            <t t-set="user" t-value="env['res.users'].search([('id', '=', value['broker'])])"/>
+                                            
+                                            <td style="text-align:center; padding:4px;">
+                                                <span t-esc="user.name or ''"/>
+                                            </td>
+                                            
+                                            <td style="text-align:center; padding:4px;">
+                                                <span t-esc="value['sales_type']"/>
+                                            </td>
+                                            
+    
+                                            <td style="text-align:center; padding:4px;">
+                                                <span t-esc="value['city']"/>
+                                            </td>
+                                            <td style="text-align:center; padding:4px;">
+                                                <span t-esc="value['invoice_no']"/>
+                                                
+                                            </td>
+                                            <td style="text-align:center; padding:4px;">
+                                                <span t-esc="'{:.2f}'.format(value['quantity'] or 0.0)"/>
+                                            </td>
+                                            
+                                            <td style="text-align:center; padding:4px;">
+                                                <span t-esc="value['uom']"/>
+                                                
+                                                
+                                            </td>
+                                            
+                                            <td style="text-align:center; padding:4px;">
+                                                <span t-esc="'{:.2f}'.format(value['price'] or 0.0)"/>
+                                            </td>
+    
+                                            <td style="text-align:center; padding:4px;">
+                                                <span t-esc="'{:.2f}'.format(value['amount'] or 0.0)"/>
+    
+                                            </td>
+                                            
+                                        </t>
                                         
 
                                             
