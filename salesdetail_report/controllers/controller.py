@@ -67,7 +67,7 @@ class CONSReportController(http.Controller):
 
 
         if partner_id != False:
-           raise UserError(partner_id)
+           raise UserError(type(partner_id))
            query += " AND rp.id = %s" % partner_id
 
            
