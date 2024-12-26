@@ -40,8 +40,9 @@ class CONSReportController(http.Controller):
         
         env = http.request.env
         # partners = []
+        
         if to_date != False and from_date != False:
-
+            raise UserError(str(from_date) + '////' +str(to_date))
             query += " and so.date_order between '%s' and '%s'" % (from_date, to_date)
 
 
