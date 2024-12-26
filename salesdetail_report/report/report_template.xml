@@ -176,59 +176,63 @@
                                 <tbody>
                                     <tr t-foreach="data" t-as="value">
                                         
-                                        <t t-if="value['sales_type'] == sales_type.name">
                                             
                                         
-                                            <td style="text-align:center; padding:4px;">
-                                                <span t-esc="value['date']"/>
-                                            </td>
-                                            <td style="text-align:center; padding:4px;">
-                                                <span t-esc="value['customer']"/>
-                                            </td>
-                                            
-                                            <td style="text-align:center; padding:4px;">
-                                                <span t-esc="value['item']"/>
-                                            </td>
-                                            
-                                            <t t-set="user" t-value="env['res.users'].search([('id', '=', value['broker'])])"/>
-                                            
-                                            <td style="text-align:center; padding:4px;">
-                                                <span t-esc="user.name or ''"/>
-                                            </td>
-                                            
-                                            <td style="text-align:center; padding:4px;">
-                                                <span t-esc="value['sales_type']"/>
-                                            </td>
-                                            
-    
-                                            <td style="text-align:center; padding:4px;">
-                                                <span t-esc="value['city']"/>
-                                            </td>
-                                            <td style="text-align:center; padding:4px;">
-                                                <span t-esc="value['invoice_no']"/>
-                                                
-                                            </td>
-                                            <td style="text-align:center; padding:4px;">
-                                                <span t-esc="'{:.2f}'.format(value['quantity'] or 0.0)"/>
-                                            </td>
-                                            
-                                            <td style="text-align:center; padding:4px;">
-                                                <span t-esc="value['uom']"/>
-                                                
-                                                
-                                            </td>
-                                            
-                                            <td style="text-align:center; padding:4px;">
-                                                <span t-esc="'{:.2f}'.format(value['price'] or 0.0)"/>
-                                            </td>
-    
-                                            <td style="text-align:center; padding:4px;">
-                                                <span t-esc="'{:.2f}'.format(value['amount'] or 0.0)"/>
-    
-                                            </td>
-                                            
-                                        </t>
+                                        <td style="text-align:center; padding:4px;">
+                                            <span t-esc="value['date']"/>
+                                        </td>
+                                        <td style="text-align:center; padding:4px;">
+                                            <span t-esc="value['customer']"/>
+                                        </td>
                                         
+                                        <td style="text-align:center; padding:4px;">
+                                            <span t-esc="value['item']"/>
+                                        </td>
+                                        
+                                        <t t-set="user" t-value="env['res.users'].search([('id', '=', value['broker'])])"/>
+                                        
+                                        <td style="text-align:center; padding:4px;">
+                                            <span t-esc="user.name or ''"/>
+                                        </td>
+                                        
+                                        <t t-set="customer" t-value="env['res.partner'].search([('id', '=', value['rp_id'])])"/>
+                                        <t t-set="sales" t-value="env['res.partner.category'].search([('id', '=', customer.category_id.id)])"/>
+                                        
+                                        <td style="text-align:center; padding:4px;">
+                                            <t t-if="sales">
+                                                
+                                                <span t-esc="sales.name"/>
+                                            </t>
+                                            
+                                        </td>
+                                        
+
+                                        <td style="text-align:center; padding:4px;">
+                                            <span t-esc="value['city']"/>
+                                        </td>
+                                        <td style="text-align:center; padding:4px;">
+                                            <span t-esc="value['invoice_no']"/>
+                                            
+                                        </td>
+                                        <td style="text-align:center; padding:4px;">
+                                            <span t-esc="'{:.2f}'.format(value['quantity'] or 0.0)"/>
+                                        </td>
+                                        
+                                        <td style="text-align:center; padding:4px;">
+                                            <span t-esc="value['uom']"/>
+                                            
+                                            
+                                        </td>
+                                        
+                                        <td style="text-align:center; padding:4px;">
+                                            <span t-esc="'{:.2f}'.format(value['price'] or 0.0)"/>
+                                        </td>
+
+                                        <td style="text-align:center; padding:4px;">
+                                            <span t-esc="'{:.2f}'.format(value['amount'] or 0.0)"/>
+
+                                        </td>
+                                    
 
                                             
                                     </tr>
