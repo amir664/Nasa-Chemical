@@ -142,14 +142,14 @@ class CONSReportController(http.Controller):
         # Write data rows
         for row, record in enumerate(records, start=3):
 
-            order_date = str(record['date']).split(' ')[0]
-            raise UserError(str(order_date))
+            order_date = str(record['date']).split(' ')[0] if record['date'] else ''
+            # raise UserError(str(order_date))
             
             user = env['res.users'].search([('id', '=', record['broker'])])
             cust = env['res.partner'].search([('id', '=', record['rp_id'])])
             sales_type = env['res.partner.category'].search([('id', '=', cust.category_id.id)])
 
-            sheet.write(row, 0, str(record['date']) if record['date'] else '', data_style_center)
+            sheet.write(row, 0, order_date, data_style_center)
             sheet.write(row, 1, record['customer'] if record['customer'] else '', data_style_center)
             
             sheet.write(row, 2, record['item'] if record['item'] else '', data_style_center)
