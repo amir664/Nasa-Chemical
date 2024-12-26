@@ -179,7 +179,10 @@
                                             
                                         
                                         <td style="text-align:center; padding:4px;">
-                                            <span t-esc="value['date']"/>
+                                            <t t-if="value['date']">
+                                                <t t-set="date_order" t-value="str(record['date']).split(' ')[0]"/>
+                                                <span t-esc="date_order"/>
+                                            </t>
                                         </td>
                                         <td style="text-align:center; padding:4px;">
                                             <span t-esc="value['customer']"/>
