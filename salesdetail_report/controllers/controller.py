@@ -55,6 +55,7 @@ class CONSReportController(http.Controller):
             # raise UserError(partner_id)
            
         if category_id != 'false':
+           raise UserError(category_id)
            query +=  " and pt.categ_id = %s" % category_id
         
         
