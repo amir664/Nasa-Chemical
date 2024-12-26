@@ -55,7 +55,7 @@ class CONSReportController(http.Controller):
             # raise UserError(partner_id)
            
         if category_id != 'false':
-           raise UserError(category_id)
+        #    raise UserError(category_id)
            query +=  " and pt.categ_id = %s" % category_id
         
         
@@ -134,9 +134,15 @@ class CONSReportController(http.Controller):
         # # Merge cells for the title row
         # sheet.write_merge(0, 0, 0, 11, report_title, title_style)
 
-        item_group = env['product.category'].search([('id', '=', category_id)])
-        sales_type = env['res.partner.category'].search([('id', '=', partner_tag_id)])
-        cust = env['res.partner'].search([('id', '=', partner_id)])
+        item_group = ''
+        sales_type = ''
+        cust = ''
+        if category_id != False:
+            item_group = env['product.category'].search([('id', '=', category_id)])
+        if category_id != False:
+            sales_type = env['res.partner.category'].search([('id', '=', partner_tag_id)])
+        if category_id != False:
+            cust = env['res.partner'].search([('id', '=', partner_id)])
 
         report_title = "Sales Detail Report"
 
@@ -150,10 +156,10 @@ class CONSReportController(http.Controller):
             ('Period:', f"{from_date} to {to_date}" if from_date and to_date else ''),
             ('Branch:', branch if branch else ''),
             ('City:', city if city else ''),
-            ('Customer:', cust.name if cust else ''),
+            ('Customer:', cust.name if cust.name else ''),
             ('Area:', area if area else ''),
-            ('Items Group:', item_group.complete_name if item_group else ''),
-            ('Sales Type:', sales_type.name if sales_type else ''),
+            ('Items Group:', item_group.complete_name if item_group.complete_name else ''),
+            ('Sales Type:', sales_type.name if sales_type.name else ''),
         ]
 
         # Write Additional Information Rows
