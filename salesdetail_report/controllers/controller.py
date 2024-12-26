@@ -39,28 +39,20 @@ class CONSReportController(http.Controller):
         
         env = http.request.env
         # partners = []
-        partner_id_str = ''
         if to_date != False and from_date != False:
             query += " and so.date_order between '%s' and '%s'"%(from_date, to_date)
 
         if partner_id != False and partner_id!='[]':
-        #    partner_id_str = partner_id.split('[')[-1].split(']')[0]
-        #    partner = env['res.partner'].search([('id', '=', )])
            query += " AND rp.id = %s" % partner_id
 
            
         if category_id != False and category_id!='[]':
-        #    category_id_str = category_id.split('[')[-1].split(']')[0]
-        #    raise UserError(str(category_id_str))
            query +=  " and pt.categ_id = %s"%(category_id)
         
         
         if city != False:
             query += " and rp.city = '%s'" % city
         
-        
-        # if branch != False:
-        #     query += " and rp.city = '%s'" % branch
         
         if area != False:
             query += " and rp.street = '%s'" % area
