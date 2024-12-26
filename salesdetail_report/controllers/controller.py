@@ -1,8 +1,9 @@
 import io
 from odoo import http
 import xlwt
-import datetime
+# import datetime
 from odoo.exceptions import UserError, AccessError
+from datetime import datetime
 
 class CONSReportController(http.Controller):
 
@@ -41,7 +42,7 @@ class CONSReportController(http.Controller):
         # partners = []
         if to_date != False and from_date != False:
             # query += " and so.date_order between '%s' and '%s'"%(from_date, to_date)
-            query += " and so.date_order between '%s' and '%s'" % (from_date.strftime('%Y-%m-%d'), to_date.strftime('%Y-%m-%d'))
+            query += " and so.date_order between '%s' and '%s'" % (from_date.datetime.strftime('%Y-%m-%d'), to_date.datetime.strftime('%Y-%m-%d'))
 
 
 
