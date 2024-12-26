@@ -10,29 +10,32 @@ class CONSReportController(http.Controller):
     def generate_excel_report(self, to_date, from_date, partner_tag_id, category_id, partner_id, city, branch, area):
         query = ("""
                         
-                select distinct
-                    so.date_order as date,
-                    rp.name as customer,
-                    so.user_id as broker,
-                    rp.city as city,
-                    am.name as invoice_no,
-                    rpc.name ->> 'en_US' as sales_type,
-                    sol.name as item,
-                    sol.product_uom_qty as quantity,
-                    um.name ->> 'en_US' as uom,
-                    sol.price_unit as price,
-                    sol.price_total as amount
-                from sale_order so
-                inner join res_partner rp on rp.id = so.partner_id
-                inner join sale_order_line sol on sol.order_id = so.id
-                inner join uom_uom um on um.id = sol.product_uom 
-                inner join account_move am on am.invoice_origin = so.name
-                left join res_partner_res_partner_category_rel rprpc on rprpc.partner_id = rp.id
-                left join res_partner_category rpc on rpc.id = rprpc.category_id
-                where so.id is not null
 
+                    select distinct
+                        so.date_order as date,
+                        rp.name as customer,
+                        rp.id as rp_id,
+                        so.user_id as broker,
+                        rp.city as city,
+                        am.name as invoice_no,
+                        --rpc.name ->> 'en_US' as sales_type,
+                        sol.name as item,
+                        sol.product_uom_qty as quantity,
+                        um.name ->> 'en_US' as uom,
+                        sol.price_unit as price,
+                        sol.price_total as amount
+                    from sale_order so
+                    inner join res_partner rp on rp.id = so.partner_id
+                    inner join sale_order_line sol on sol.order_id = so.id
+                    inner join uom_uom um on um.id = sol.product_uom 
+                    inner join account_move am on am.invoice_origin = so.name
+                    inner join product_template pt on pt.id = sol.product_id
+                    where so.id is not null    
                 
             """)
+        
+
+                    
         
         env = http.request.env
         # partners = []
@@ -51,16 +54,13 @@ class CONSReportController(http.Controller):
         #    raise UserError(str(category_id_str))
            query +=  "and pt.categ_id = %s"%(category_id)
         
-        if partner_tag_id and partner_tag_id!='[]':
-        #    partner_tag_id_str = partner_tag_id.split('[')[-1].split(']')[0]
-           query += " and rprpc.category_id = %s" % partner_tag_id
-
+        
         if city != False:
             query += " and rp.city = '%s'" % city
         
         
-        if branch != False:
-            query += " and rp.city = '%s'" % branch
+        # if branch != False:
+        #     query += " and rp.city = '%s'" % branch
         
         if area != False:
             query += " and rp.street = '%s'" % area
@@ -133,6 +133,9 @@ class CONSReportController(http.Controller):
         # Merge cells for the title row
         sheet.write_merge(0, 0, 0, 11, report_title, title_style)
 
+        item_group = env['product.category'].search([('id', '=', category_id)])
+        sales_type = env['res.partner.category'].search([('id', '=', partner_tag_id)])
+        cust = env['res.partner'].search([('id', '=', partner_id)])
 
         # Additional Information Rows
         additional_info = [
@@ -141,16 +144,10 @@ class CONSReportController(http.Controller):
             ('Period:', f"{from_date} to {to_date}" if from_date and to_date else ''),
             ('Branch:', branch if branch else ''),
             ('City:', city if city else ''),
-            ('Customer:', ', '.join(
-                env['res.partner'].browse(eval(partner_id)).mapped('name')
-            ) if partner_id and partner_id != '[]' else ''),
+            ('Customer:', cust.name if cust else ''),
             ('Area:', area if area else ''),
-            ('Items Group:', ', '.join(
-                env['product.category'].browse(eval(category_id)).mapped('name')
-            ) if category_id and category_id != '[]' else ''),
-            ('Sales Type:', ', '.join(
-                env['res.partner.category'].browse(eval(partner_tag_id)).mapped('name')
-            ) if partner_tag_id and partner_tag_id != '[]' else ''),
+            ('Items Group:', item_group.complete_name if item_group else ''),
+            ('Sales Type:', sales_type.name if sales_type else ''),
         ]
 
         # Write Additional Information Rows

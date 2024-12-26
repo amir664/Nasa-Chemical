@@ -69,8 +69,8 @@ class CustomReport(models.AbstractModel):
         if city:
             query += "and rp.city = '%s'"%(city)
         
-        if branch:
-            query += "and rp.city = '%s'"%(branch)
+        # if branch:
+        #     query += "and rp.city = '%s'"%(branch)
 
         if area:
             query += "and rp.street = '%s'"%(area)
