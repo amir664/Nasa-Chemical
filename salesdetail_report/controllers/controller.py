@@ -127,7 +127,7 @@ class CONSReportController(http.Controller):
         report_title = "Sales Detail Report"
 
         # Merge cells for the title row
-        sheet.write_merge(0, 0, 0, 11, report_title, title_style)
+        sheet.write_merge(0, 0, 0, 10, report_title, title_style)
         # Write headers
         headers = [
             'Date', 'Customer', 'Item', 'Broker', 'Sales Type', 'City',
@@ -145,21 +145,21 @@ class CONSReportController(http.Controller):
             cust = env['res.partner'].search([('id', '=', record['rp_id'])])
             sales_type = env['res.partner.category'].search([('id', '=', cust.category_id.id)])
 
-            sheet.write(row, 0, record['date'] if record['date'] else '', data_style_center)
+            sheet.write(row, 0, str(record['date']) if record['date'] else '', data_style_center)
             sheet.write(row, 1, record['customer'] if record['customer'] else '', data_style_center)
             
             sheet.write(row, 2, record['item'] if record['item'] else '', data_style_center)
             sheet.write(row, 3, user.name if user else '', data_style_center)
-            sheet.write(row, 4, record['item'] if record['item'] else '', data_style_center)
-            sheet.write(row, 5, sales_type.name if sales_type else '', data_style_center)
-            sheet.write(row, 6, record['city'] if record['city'] else '', data_style_center)
-            sheet.write(row, 7, record['invoice_no'] if record['invoice_no'] else 0.0, data_style_center)
+            # sheet.write(row, 4, record['item'] if record['item'] else '', data_style_center)
+            sheet.write(row, 4, sales_type.name if sales_type else '', data_style_center)
+            sheet.write(row, 5, record['city'] if record['city'] else '', data_style_center)
+            sheet.write(row, 6, record['invoice_no'] if record['invoice_no'] else 0.0, data_style_center)
     
 
-            sheet.write(row, 8, record['quantity'] if record['quantity'] else 0.0, data_style_center)
-            sheet.write(row, 9, record['uom'] if record['uom'] else 0.0, data_style_center)  # Keeping it empty as per your original code
-            sheet.write(row, 10, record['price'] if record['price'] else 0.0, data_style_right)
-            sheet.write(row, 11, record['amount'] if record['amount'] else 0.0, data_style_right)
+            sheet.write(row, 7, record['quantity'] if record['quantity'] else 0.0, data_style_center)
+            sheet.write(row, 8, record['uom'] if record['uom'] else 0.0, data_style_center)  # Keeping it empty as per your original code
+            sheet.write(row, 9, record['price'] if record['price'] else 0.0, data_style_right)
+            sheet.write(row, 10, record['amount'] if record['amount'] else 0.0, data_style_right)
 
         # Save to stream
         stream = io.BytesIO()
