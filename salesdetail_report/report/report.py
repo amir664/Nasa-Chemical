@@ -39,7 +39,7 @@ class CustomReport(models.AbstractModel):
                         so.user_id as broker,
                         rp.city as city,
                         am.name as invoice_no,
-                        rpc.name ->> 'en_US' as sales_type,
+                        --rpc.name ->> 'en_US' as sales_type,
                         sol.name as item,
                         sol.product_uom_qty as quantity,
                         um.name ->> 'en_US' as uom,
@@ -50,9 +50,9 @@ class CustomReport(models.AbstractModel):
                     inner join sale_order_line sol on sol.order_id = so.id
                     inner join uom_uom um on um.id = sol.product_uom 
                     inner join account_move am on am.invoice_origin = so.name
-                    left join res_partner_res_partner_category_rel rprpc on rprpc.partner_id = rp.id
-                    left join res_partner_category rpc on rpc.id = rprpc.category_id
                     inner join product_template pt on pt.id = sol.product_id
+                    -- left join res_partner_res_partner_category_rel rprpc on rprpc.partner_id = rp.id
+                    -- left join res_partner_category rpc on rpc.id = rprpc.category_id
                     where so.id is not null     
             """    
             )
@@ -60,9 +60,6 @@ class CustomReport(models.AbstractModel):
 
         if partner_id:
             query += "and rp.id = %s"%(partner_id)
-
-        # if partner_tag_id:
-        #     query += "and rprpc.category_id = %s"%(partner_tag_id)
 
         if category_id:
             query += "and pt.categ_id = %s"%(category_id)
@@ -74,10 +71,10 @@ class CustomReport(models.AbstractModel):
             query += "and rp.city = '%s'"%(city)
         
         if branch:
-            query += "and rp.city = '%s'"%(city)
+            query += "and rp.city = '%s'"%(branch)
 
         if area:
-            query += "and rp.street = '%s'"%(city)
+            query += "and rp.street = '%s'"%(area)
 
 
 
