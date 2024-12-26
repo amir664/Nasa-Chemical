@@ -176,9 +176,9 @@ class CONSReportController(http.Controller):
         # Adjust the row where headers start
         header_start_row = len(additional_info) + 2
 
-        # Title with date range (already present in your code)
-        report_title = "Sales Detail Report"
-        sheet.write_merge(0, 0, 0, 11, report_title, title_style)
+        # # Title with date range (already present in your code)
+        # report_title = "Sales Detail Report"
+        # sheet.write_merge(0, 0, 0, 11, report_title, title_style)
 
         # Write headers
         headers = [
