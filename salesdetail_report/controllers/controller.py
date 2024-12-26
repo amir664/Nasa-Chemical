@@ -49,7 +49,7 @@ class CONSReportController(http.Controller):
                 raise UserError(from_date)
             if isinstance(to_date, tuple):
                 to_date = to_date[0]  # Extract the date from the tuple
-                raise UserError(to_date)
+            raise UserError(str(to_date) + str(from_date))
 
             
             # Add the formatted dates to the query
@@ -62,11 +62,11 @@ class CONSReportController(http.Controller):
 
 
 
-        if partner_id != False and partner_id!='[]':
+        if partner_id != False:
            query += " AND rp.id = %s" % partner_id
 
            
-        if category_id != False and category_id!='[]':
+        if category_id != False:
            query +=  " and pt.categ_id = %s"%(category_id)
         
         
