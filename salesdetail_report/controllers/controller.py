@@ -134,42 +134,42 @@ class CONSReportController(http.Controller):
         # # Merge cells for the title row
         # sheet.write_merge(0, 0, 0, 11, report_title, title_style)
 
-        item_group = ''
-        sales_type = ''
-        cust = ''
-        if category_id != False:
-            item_group = env['product.category'].search([('id', '=', category_id)])
-        if category_id != False:
-            sales_type = env['res.partner.category'].search([('id', '=', partner_tag_id)])
-        if category_id != False:
-            cust = env['res.partner'].search([('id', '=', partner_id)])
+        # item_group = ''
+        # sales_type = ''
+        # cust = ''
+        # if category_id != False:
+        #     item_group = env['product.category'].search([('id', '=', category_id)])
+        # if category_id != False:
+        #     sales_type = env['res.partner.category'].search([('id', '=', partner_tag_id)])
+        # if category_id != False:
+        #     cust = env['res.partner'].search([('id', '=', partner_id)])
 
         report_title = "Sales Detail Report"
 
         # Merge cells for the title row
         sheet.write_merge(0, 0, 0, 11, report_title, title_style)
 
-        # Additional Information Rows
-        additional_info = [
-            ('Print out date:', datetime.now().strftime('%d/%m/%Y')),
-            ('Fiscal Year:', f"{from_date}"),  # Replace with actual fiscal year logic if needed
-            ('Period:', f"{from_date} to {to_date}" if from_date and to_date else ''),
-            ('Branch:', branch if branch else ''),
-            ('City:', city if city else ''),
-            ('Customer:', cust.name if cust.name else ''),
-            ('Area:', area if area else ''),
-            ('Items Group:', item_group.complete_name if item_group.complete_name else ''),
-            ('Sales Type:', sales_type.name if sales_type.name else ''),
-        ]
+        # # Additional Information Rows
+        # additional_info = [
+        #     ('Print out date:', datetime.now().strftime('%d/%m/%Y')),
+        #     ('Fiscal Year:', f"{from_date}"),  # Replace with actual fiscal year logic if needed
+        #     ('Period:', f"{from_date} to {to_date}" if from_date and to_date else ''),
+        #     ('Branch:', branch if branch else ''),
+        #     ('City:', city if city else ''),
+        #     ('Customer:', cust.name if cust.name else ''),
+        #     ('Area:', area if area else ''),
+        #     ('Items Group:', item_group.complete_name if item_group.complete_name else ''),
+        #     ('Sales Type:', sales_type.name if sales_type.name else ''),
+        # ]
 
-        # Write Additional Information Rows
-        row_offset = 1  # Start writing additional info below the title
-        for row, (label, value) in enumerate(additional_info, start=row_offset):
-            sheet.write(row, 0, label, data_style_bold_center)
-            sheet.write(row, 1, value, data_style_center)
+        # # Write Additional Information Rows
+        # row_offset = 1  # Start writing additional info below the title
+        # for row, (label, value) in enumerate(additional_info, start=row_offset):
+        #     sheet.write(row, 0, label, data_style_bold_center)
+        #     sheet.write(row, 1, value, data_style_center)
 
-        # Adjust the row where headers start
-        header_start_row = row_offset + len(additional_info) + 1  # Avoid overlap with info rows
+        # # Adjust the row where headers start
+        # header_start_row = row_offset + len(additional_info) + 1  # Avoid overlap with info rows
 
         # Write headers
         headers = [
@@ -179,11 +179,11 @@ class CONSReportController(http.Controller):
 
         # Write headers with the center alignment style
         for col, header in enumerate(headers):
-            sheet.write(header_start_row, col, header, header_style_center)
+            sheet.write(2, col, header, header_style_center)
 
 
         # Write data rows
-        for row, record in enumerate(records, start=10):
+        for row, record in enumerate(records, start=3):
 
             user = env['res.users'].search([('id', '=', record['broker'])])
 
