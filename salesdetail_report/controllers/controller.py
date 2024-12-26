@@ -42,32 +42,14 @@ class CONSReportController(http.Controller):
         # partners = []
         
         if to_date != False and from_date != False:
-
-            # form_date = from_date[0].split('(')
-
-            # # Extract the `datetime.date` objects from the tuples
-            # if isinstance(from_date, tuple):
-            #     from_date = from_date[0]  # Extract the date from the tuple
-            #     raise UserError(from_date)
-            # if isinstance(to_date, tuple):
-            #     to_date = to_date[0]  # Extract the date from the tuple
-            # raise UserError(str(from_date).split('datetime.date(')[1].split('),')[0])
             form_date = from_date.split('datetime.date(')[1].split('),')[0]
             date_to = to_date.split('datetime.date(')[1].split('),')[0]
 
-            
-            # Add the formatted dates to the query
             query += " and so.date_order between '%s' and '%s'" % (form_date, date_to)
 
-
-
-            # raise UserError(str(from_date) + '////' +str(to_date))
-            # query += " and so.date_order between '%s' and '%s'" % (from_date, to_date)
-
-
+        raise UserError(str(partner_id))
 
         if partner_id != 'False':
-        #    raise UserError(type(partner_id))
            query += " AND rp.id = %s" % partner_id
 
            
@@ -154,39 +136,6 @@ class CONSReportController(http.Controller):
         sales_type = env['res.partner.category'].search([('id', '=', partner_tag_id)])
         cust = env['res.partner'].search([('id', '=', partner_id)])
 
-        # # Additional Information Rows
-        # additional_info = [
-        #     ('Print out date:', datetime.datetime.now().strftime('%d/%m/%Y')),
-        #     ('Fiscal Year:', f"{from_date}"),  # Replace with actual fiscal year logic if needed
-        #     ('Period:', f"{from_date} to {to_date}" if from_date and to_date else ''),
-        #     ('Branch:', branch if branch else ''),
-        #     ('City:', city if city else ''),
-        #     ('Customer:', cust.name if cust else ''),
-        #     ('Area:', area if area else ''),
-        #     ('Items Group:', item_group.complete_name if item_group else ''),
-        #     ('Sales Type:', sales_type.name if sales_type else ''),
-        # ]
-
-        # # Write Additional Information Rows
-        # row_offset = 1  # Start writing additional info below the title
-        # for row, (label, value) in enumerate(additional_info, start=row_offset):
-        #     sheet.write(row, 0, label, data_style_bold_center)
-        #     sheet.write(row, 1, value, data_style_center)
-
-        # # Adjust the row where headers start
-        # header_start_row = len(additional_info) + 2
-        #  # Write headers
-        # headers = [
-        #     'Date', 'Customer', 'Item', 'Broker', 'Sales Type', 'City',
-        #     'Invoice No', 'Qty', 'Unit', 'Price', 'Amount'
-        # ]
-
-        # # Write headers with the center alignment style
-        # for col, header in enumerate(headers):
-        #     sheet.write(header_start_row, col, header, header_style_center)
-
-
-                # Title with date range
         report_title = "Sales Detail Report"
 
         # Merge cells for the title row
