@@ -7,7 +7,7 @@ class SalesDetailReportWizard(models.TransientModel):
 
     partner_ids = fields.Many2many('res.partner', string = "Customer")
     category_ids = fields.Many2many('product.category', string = "Item Group")
-    partner_tag_ids = fields.Many2many('res.partner.tags', string = "Sales Type")
+    partner_tag_ids = fields.Many2many('res.partner.category', string = "Sales Type")
     city = fields.Char(string = "City")
     branch = fields.Char(string = "Branch")
     area = fields.Char(string = "Area")

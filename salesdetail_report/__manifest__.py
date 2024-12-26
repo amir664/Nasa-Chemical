@@ -1,6 +1,5 @@
 {
     'name': 'Sales Detail Report',
-    # 'version': '14.0.1',
     'version': '17.0.1.0.0',
 
     'depends': ['base','sale'],
@@ -12,13 +11,6 @@
              'report/report_template.xml',
 
              ],
-    
-    # "images" : [
-    #          'img/header.png'
-    #          'img/footer.jpeg'
-    #         #  'static/description/footer.jpeg',
-    #             ],
-    
     'installable': True,
     'auto_install': False,
     'application': False,
