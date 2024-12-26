@@ -16,20 +16,20 @@ class SalesDetailReportWizard(models.TransientModel):
     
     def print_report(self):
 
-        # category_ids = []
-        # if self.category_ids:
-        #     for id in self.category_ids:
-        #         category_ids.append(id.id)
+        # category_id = []
+        # if self.category_id:
+        #     for id in self.category_id:
+        #         category_id.append(id.id)
 
-        # partner_tag_ids = []
-        # if self.partner_tag_ids:
-        #     for id in self.partner_tag_ids:
-        #         partner_tag_ids.append(id.id)
+        # partner_tag_id = []
+        # if self.partner_tag_id:
+        #     for id in self.partner_tag_id:
+        #         partner_tag_id.append(id.id)
 
-        # partner_ids = []
-        # if self.partner_ids:
-        #     for id in self.partner_ids:
-        #         partner_ids.append(id.id)
+        # partner_id = []
+        # if self.partner_id:
+        #     for id in self.partner_id:
+        #         partner_id.append(id.id)
 
 
         
@@ -54,6 +54,6 @@ class SalesDetailReportWizard(models.TransientModel):
 
         return {
             'type': 'ir.actions.act_url',
-            'url': '/salesdetail_report/excel?to_date=%s&from_date=%s&partner_tag_ids=%s&category_ids=%s&partner_ids=%s&city=%s&branch=%s&area=%s'%(to_date, from_date, self.partner_tag_id.id, self.category_id.id, self.partner_id.id, self.city, self.branch, self.area),
+            'url': '/salesdetail_report/excel?to_date=%s&from_date=%s&partner_tag_id=%s&category_id=%s&partner_id=%s&city=%s&branch=%s&area=%s'%(to_date, from_date, self.partner_tag_id.id, self.category_id.id, self.partner_id.id, self.city, self.branch, self.area),
             'target': 'self',
         }  

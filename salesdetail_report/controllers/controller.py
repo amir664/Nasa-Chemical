@@ -7,7 +7,7 @@ from odoo.exceptions import UserError, AccessError
 class CONSReportController(http.Controller):
 
     @http.route('/salesdetail_report/excel', type='http', auth='user')
-    def generate_excel_report(self, to_date, from_date, partner_tag_ids, category_ids, partner_ids, city, branch, area):
+    def generate_excel_report(self, to_date, from_date, partner_tag_id, category_id, partner_id, city, branch, area):
         query = ("""
                         
                 select distinct
@@ -36,24 +36,24 @@ class CONSReportController(http.Controller):
         
         env = http.request.env
         # partners = []
-        partner_ids_str = ''
+        partner_id_str = ''
         if to_date != False and from_date != False:
             query += " and so.date_order between '%s' and '%s'"%(from_date, to_date)
 
-        if partner_ids and partner_ids!='[]':
-        #    partner_ids_str = partner_ids.split('[')[-1].split(']')[0]
+        if partner_id and partner_id!='[]':
+        #    partner_id_str = partner_id.split('[')[-1].split(']')[0]
         #    partner = env['res.partner'].search([('id', '=', )])
-           query += " AND rp.id = %s" % partner_ids
+           query += " AND rp.id = %s" % partner_id
 
            
-        if category_ids and category_ids!='[]':
-        #    category_ids_str = category_ids.split('[')[-1].split(']')[0]
-        #    raise UserError(str(category_ids_str))
-           query +=  "and pt.categ_id = %s"%(category_ids)
+        if category_id and category_id!='[]':
+        #    category_id_str = category_id.split('[')[-1].split(']')[0]
+        #    raise UserError(str(category_id_str))
+           query +=  "and pt.categ_id = %s"%(category_id)
         
-        if partner_tag_ids and partner_tag_ids!='[]':
-        #    partner_tag_ids_str = partner_tag_ids.split('[')[-1].split(']')[0]
-           query += " and rprpc.category_id = %s" % partner_tag_ids
+        if partner_tag_id and partner_tag_id!='[]':
+        #    partner_tag_id_str = partner_tag_id.split('[')[-1].split(']')[0]
+           query += " and rprpc.category_id = %s" % partner_tag_id
 
         if city != False:
             query += " and rp.city = '%s'" % city
@@ -142,15 +142,15 @@ class CONSReportController(http.Controller):
             ('Branch:', branch if branch else ''),
             ('City:', city if city else ''),
             ('Customer:', ', '.join(
-                env['res.partner'].browse(eval(partner_ids)).mapped('name')
-            ) if partner_ids and partner_ids != '[]' else ''),
+                env['res.partner'].browse(eval(partner_id)).mapped('name')
+            ) if partner_id and partner_id != '[]' else ''),
             ('Area:', area if area else ''),
             ('Items Group:', ', '.join(
-                env['product.category'].browse(eval(category_ids)).mapped('name')
-            ) if category_ids and category_ids != '[]' else ''),
+                env['product.category'].browse(eval(category_id)).mapped('name')
+            ) if category_id and category_id != '[]' else ''),
             ('Sales Type:', ', '.join(
-                env['res.partner.category'].browse(eval(partner_tag_ids)).mapped('name')
-            ) if partner_tag_ids and partner_tag_ids != '[]' else ''),
+                env['res.partner.category'].browse(eval(partner_tag_id)).mapped('name')
+            ) if partner_tag_id and partner_tag_id != '[]' else ''),
         ]
 
         # Write Additional Information Rows

@@ -9,14 +9,14 @@
                    <group>
                         <field name="from_date"/>
                         <field name="to_date"/>
-                        <field name="partner_ids" />
+                        <field name="partner_id" />
                             <!-- #widget="many2many_tags" -->
 
 
-                        <field name="category_ids"/>    
+                        <field name="category_id"/>    
                     </group>
                    <group>
-                        <field name="partner_tag_ids"/>
+                        <field name="partner_tag_id"/>
                         <field name="city"/>
                         <field name="branch"/>
                         <field name="area"/>    

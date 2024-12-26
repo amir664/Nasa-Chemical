@@ -75,7 +75,7 @@
                                     </b>
                                 </div>
                                 <div class="col-8">
-                                    <t t-esc="other['partner_ids'] or ''"/>
+                                    <t t-esc="other['partner_id'] or ''"/>
                                     
                                 </div>
                             </div>              
@@ -97,7 +97,7 @@
                                     </b>
                                 </div>
                                 <div class="col-8">
-                                    <t t-esc="other['category_ids'] or ''"/>
+                                    <t t-esc="other['category_id'] or ''"/>
                                     
                                 </div>
                             </div>              
@@ -108,7 +108,7 @@
                                     </b>
                                 </div>
                                 <div class="col-8">
-                                    <t t-esc="other['partner_tag_ids'] or ''"/>
+                                    <t t-esc="other['partner_tag_id'] or ''"/>
                                     
                                 </div>
                             </div>              
