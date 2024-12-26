@@ -50,8 +50,8 @@ class CONSReportController(http.Controller):
                 to_date = to_date[0]  # Extract the date from the tuple
 
             # Convert the date to string format YYYY-MM-DD
-            from_date_str = from_date.strftime('%Y-%m-%d')
-            to_date_str = to_date.strftime('%Y-%m-%d')
+            # from_date_str = from_date.strftime('%Y-%m-%d')
+            # to_date_str = to_date.strftime('%Y-%m-%d')
 
             # Debugging: Raise an error to check the formatted values
             # raise UserError(f"From Date: {from_date_str} //// To Date: {to_date_str}")
