@@ -3,7 +3,7 @@
     # 'version': '14.0.1',
     'version': '17.0.1.0.0',
 
-    'depends': ['base','sale_order'],
+    'depends': ['base','sale'],
     
     'data': [
              'wizard/wizard.xml',
