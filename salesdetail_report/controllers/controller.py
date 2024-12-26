@@ -57,7 +57,7 @@ class CONSReportController(http.Controller):
             # raise UserError(f"From Date: {from_date_str} //// To Date: {to_date_str}")
 
             # Add the formatted dates to the query
-            query += " and so.date_order between '%s' and '%s'" % (from_date_str, to_date_str)
+            query += " and so.date_order between '%s' and '%s'" % (from_date, to_date)
 
 
 
