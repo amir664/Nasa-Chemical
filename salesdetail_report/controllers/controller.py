@@ -47,21 +47,21 @@ class CONSReportController(http.Controller):
 
             query += " and so.date_order between '%s' and '%s'" % (form_date, date_to)
 
-        raise UserError(type(partner_id))
+        # raise UserError(type(partner_id))
 
-        if partner_id != 'False':
+        if partner_id and partner_id != 'False':
            query += " AND rp.id = %s" % partner_id
 
            
-        if category_id != 'False':
+        if category_id and category_id != 'False':
            query +=  " and pt.categ_id = %s"%(category_id)
         
         
-        if city != 'False':
+        if city and city != 'False':
             query += " and rp.city = '%s'" % city
         
         
-        if area != 'False':
+        if area and area != 'False':
             query += " and rp.street = '%s'" % area
         
 
