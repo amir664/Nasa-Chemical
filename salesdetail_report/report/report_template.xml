@@ -2,20 +2,124 @@
 <odoo>
     <template id="salesdetail_reports">
         <t t-call="web.html_container">
-            <t t-call="web.external_layout">        
+            <t t-call="web.basic_layout">        
                 <div class="page">
 
                     <div class="header_row text-center">
                         <h1>Sales Detail Report</h1>
                     </div>
+                    
+                    <div class="row mt-2">
+                        <div class="col-6">
+                                          
+                            <div class="row">
+                                <div class="col-4">
+                                    <b>
+                                        Print Out Date:
+                                    </b>
+                                </div>
+                                <div class="col-8">
+                                    
+                                </div>
+                            </div>              
+                            <div class="row">
+                                <div class="col-4">
+                                    <b>
+                                        Fiscal Year:
+                                        
+                                    </b>
+                                </div>
+                                <div class="col-8">
+                                    <t t-esc="other['to_date'] or ''"/>
+                                </div>
+                            </div>              
+                            <div class="row">
+                                <div class="col-4">
+                                    <b>
+                                        Period:
+                                    </b>
+                                </div>
+                                <div class="col-8">
+                                    
+                                    <t t-esc="(other['from_date']) or ''"/>
+                                    -
+                                    <t t-esc="(other['to_date']) or ''"/>
+                                </div>
+                            </div>              
+                            <div class="row">
+                                <div class="col-4">
+                                    <b>
+                                        Branch:
+                                    </b>
+                                </div>
+                                <div class="col-8">
+                                    <t t-esc="other['branch'] or ''"/>
+                                    
+                                </div>
+                            </div>              
+                            <div class="row">
+                                <div class="col-4">
+                                    <b>
+                                        City:
+                                    </b>
+                                </div>
+                                <div class="col-8">
+                                    <t t-esc="other['city'] or ''"/>
+                                    
+                                </div>
+                            </div>              
+                            <div class="row">
+                                <div class="col-4">
+                                    <b>
+                                        Customer ID:
+                                    </b>
+                                </div>
+                                <div class="col-8">
+                                    <t t-esc="other['partner_ids'] or ''"/>
+                                    
+                                </div>
+                            </div>              
+                            <div class="row">
+                                <div class="col-4">
+                                    <b>
+                                        Area:
+                                    </b>
+                                </div>
+                                <div class="col-8">
+                                    <t t-esc="other['area'] or ''"/>
+                                    
+                                </div>
+                            </div>              
+                            <div class="row">
+                                <div class="col-4">
+                                    <b>
+                                        Items Group:
+                                    </b>
+                                </div>
+                                <div class="col-8">
+                                    <t t-esc="other['category_ids'] or ''"/>
+                                    
+                                </div>
+                            </div>              
+                            <div class="row">
+                                <div class="col-4">
+                                    <b>
+                                        Sales Type:
+                                    </b>
+                                </div>
+                                <div class="col-8">
+                                    <t t-esc="other['partner_tag_ids'] or ''"/>
+                                    
+                                </div>
+                            </div>              
+                                                        
+                        </div>
+                    </div>
+                    
+                    
+                    
+                    
                     <div class="row mt-5 mb-3">
-                        <!-- <t t-set="months" t-value="['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']"/>  
-                        <t t-set="month1" t-value="str(to_date).split('-')[1]"/>
-                        <t t-set="month2" t-value="int(month1) - 1"/>
-                        <t t-set="month3" t-value="int(month1) - 2"/>
-                        <t t-set="month1_name" t-value="months[int(month1) - 1]"/>
-                        <t t-set="month2_name" t-value="months[int(month2) - 1]"/>
-                        <t t-set="month3_name" t-value="months[int(month3) - 1]"/> -->
                         <div class="col-12">
                             <table style="border-collapse:collapse;" class="table-bordered">
                                 <thead>
@@ -76,7 +180,13 @@
                                         </td>
                                         
                                         <td style="text-align:center; padding:4px;">
-                                            <span t-esc="value['broker']"/>
+                                            <span t-esc="value['item']"/>
+                                        </td>
+                                        
+                                        <t t-set='user' t-value="env['res.users'].search([('id', '=', value['broker'])])"/>
+                                        
+                                        <td style="text-align:center; padding:4px;">
+                                            <span t-esc="user.name or ''"/>
                                         </td>
                                         
                                         <td style="text-align:center; padding:4px;">
