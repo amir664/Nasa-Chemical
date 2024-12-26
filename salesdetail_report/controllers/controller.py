@@ -82,9 +82,6 @@ class CONSReportController(http.Controller):
         title_alignment.horz = xlwt.Alignment.HORZ_CENTER
         title_style.alignment = title_alignment
 
-        # Merge cells for title (0 to 12 for 13 columns)
-        sheet.write_merge(0, 0, 0, 11, '', title_style)
-
         # Header Style (center aligned)
         header_style_center = xlwt.XFStyle()
         header_font = xlwt.Font()
