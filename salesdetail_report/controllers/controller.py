@@ -66,20 +66,20 @@ class CONSReportController(http.Controller):
 
 
 
-        if partner_id != False:
-           raise UserError(type(partner_id))
+        if partner_id != 'False':
+        #    raise UserError(type(partner_id))
            query += " AND rp.id = %s" % partner_id
 
            
-        if category_id != False:
+        if category_id != 'False':
            query +=  " and pt.categ_id = %s"%(category_id)
         
         
-        if city != False:
+        if city != 'False':
             query += " and rp.city = '%s'" % city
         
         
-        if area != False:
+        if area != 'False':
             query += " and rp.street = '%s'" % area
         
 
