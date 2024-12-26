@@ -47,10 +47,10 @@ class CONSReportController(http.Controller):
 
             query += " and so.date_order between '%s' and '%s'" % (form_date, date_to)
 
-        raise UserError(str(type(partner_id)) + "--"+ str(type(category_id)))
+        # raise UserError(str(type(partner_id)) + "--"+ str(type(category_id)))
     
 
-        if partner_id and partner_id != 'False':
+        if partner_id != 'False':
            query += " AND rp.id = %s" % partner_id
 
            
