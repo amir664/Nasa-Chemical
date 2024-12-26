@@ -26,8 +26,9 @@ class CustomReport(models.AbstractModel):
                 'partner_ids' : partner_ids,
                 'category_ids' : category_ids,
                 'partner_tag_ids' : partner_tag_ids,
-
-
+                'city': city,
+                'branch': branch,
+                'area': area
            })
 
         if partner_ids != []:
