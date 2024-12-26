@@ -41,9 +41,6 @@ class CONSReportController(http.Controller):
         env = http.request.env
         # partners = []
         if to_date != False and from_date != False:
-            # query += " and so.date_order between '%s' and '%s'"%(from_date, to_date)
-            from_date = datetime.strptime(from_date, '%Y,%m,%d')
-            to_date = datetime.strptime(to_date, '%Y,%m,%d') 
 
             query += " and so.date_order between '%s' and '%s'" % (from_date, to_date)
 
