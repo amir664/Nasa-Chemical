@@ -54,6 +54,6 @@ class SalesDetailReportWizard(models.TransientModel):
 
         return {
             'type': 'ir.actions.act_url',
-            'url': '/salesdetail_report/excel?to_date=%s&from_date=%s&partner_tag_id=%s&category_id=%s&partner_id=%s&city=%s&branch=%s&area=%s'%(to_date, from_date, self.partner_tag_id.id, self.category_id.id, self.partner_id.id or 'false', self.city, self.branch, self.area),
+            'url': '/salesdetail_report/excel?to_date=%s&from_date=%s&partner_tag_id=%s&category_id=%s&partner_id=%s&city=%s&branch=%s&area=%s'%(to_date, from_date, self.partner_tag_id.id, self.category_id.id or 'false', self.partner_id.id or 'false', self.city, self.branch, self.area),
             'target': 'self',
         }  

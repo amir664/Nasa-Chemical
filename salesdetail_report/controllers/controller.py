@@ -54,7 +54,7 @@ class CONSReportController(http.Controller):
             query += " AND rp.id = %s" % partner_id
             # raise UserError(partner_id)
            
-        if category_id and category_id != 'False':
+        if category_id != 'false':
            query +=  " and pt.categ_id = %s" % category_id
         
         
