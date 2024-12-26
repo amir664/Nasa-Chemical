@@ -36,6 +36,7 @@ class CustomReport(models.AbstractModel):
                     select distinct
                         so.date_order as date,
                         rp.name as customer,
+                        rp.id as rp_id,
                         so.user_id as broker,
                         rp.city as city,
                         am.name as invoice_no,
