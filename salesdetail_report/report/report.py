@@ -30,15 +30,6 @@ class CustomReport(models.AbstractModel):
                 'branch': branch,
                 'area': area
            })
-
-        # if partner_id != []:
-        #     partner_id_str = ','.join(map(str,partner_id))
-        # if partner_tag_id != []:
-        #     partner_tag_id_str = ','.join(map(str,partner_tag_id))
-        # if category_id != []:
-        #     category_id_str = ','.join(map(str,category_id))
-        
-        
         cr_1 = self._cr
         query = ("""
 
@@ -70,8 +61,8 @@ class CustomReport(models.AbstractModel):
         if partner_id:
             query += "and rp.id = %s"%(partner_id)
 
-        if partner_tag_id:
-            query += "and rprpc.category_id = %s"%(partner_tag_id)
+        # if partner_tag_id:
+        #     query += "and rprpc.category_id = %s"%(partner_tag_id)
 
         if category_id:
             query += "and pt.categ_id = %s"%(category_id)
