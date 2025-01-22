@@ -22,9 +22,9 @@ class CustomerTargetLine(models.Model):
     sales_target = fields.Float(string="Sales Target")
     current_sales = fields.Float( string = "Current Sales")
 
-    @api.onchange('customer')
+    @api.onchange('customer',"customer_target_id.sale_person_id")
     def get_sales_target_sum(self ):
-        records = self.env['sale.order'].search([('user_id', '=', self.sale_person_id.id),('partner_id', '=', self.customer.id),('state', '!=', 'cancel')])
+        records = self.env['sale.order'].search([('user_id', '=', self.customer_target_id.sale_person_id.id),('partner_id', '=', self.customer.id),('state', '!=', 'cancel')])
         total_sales_target = sum(records.mapped('amount_total'))
         
         self.current_sales = total_sales_target
