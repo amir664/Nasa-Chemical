@@ -1,0 +1,30 @@
+<?xml version = "1.0" encoding = "utf-8"?>
+<odoo>
+    <record id = "view_customer_target_line_tree" model = "ir.ui.view">
+        <field name = "name">customer.target.line.tree</field>
+        <field name = "model">customer.target.line</field>
+        <field name = "arch" type = "xml">
+            <tree string = "Customer Target Line" editable="top">
+                <field name = "customer"/>
+                <field name = "target"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_customer_target_line" model="ir.actions.act_window">
+        <field name="name">Customer Target</field>
+        <field name="res_model">customer.target.line</field>
+        <field name="view_mode">tree</field>
+        <field name="help" type="html">
+            
+        </field>
+    </record>
+
+    <menuitem id = "menu_customer_target_line"
+              name = "Customer Target"
+              action = "action_customer_target_line"
+              parent = "menu_customer_target"
+              />
+
+
+</odoo>
