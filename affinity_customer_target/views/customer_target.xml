@@ -26,7 +26,7 @@
                     <group>
                         <field name="start_date"/>
                         <field name="end_date"/>
-                        <field name="origin"/>
+                        <field name="region"/>
                     </group>
                     <group>
                         <field name="sale_person_id"/>
@@ -56,5 +56,6 @@
 
     <menuitem id="menu_customer_target"
               name="Customer Target"
-              action="action_customer_target"/>
+              action="action_customer_target"
+              parent = "contacts.menu_contacts"/>
 </odoo>
