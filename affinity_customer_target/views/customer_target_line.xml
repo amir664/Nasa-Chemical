@@ -6,7 +6,8 @@
         <field name = "arch" type = "xml">
             <tree string = "Customer Target Line" editable="top">
                 <field name = "customer"/>
-                <field name = "target"/>
+                <field name = "sales_target"/>
+                <field name = "current_sales"/>
             </tree>
         </field>
     </record>
