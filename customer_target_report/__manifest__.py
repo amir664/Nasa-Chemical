@@ -4,7 +4,7 @@
     'depends': ['base','contacts'],
     'data':[
         'wizard/wizard.xml',
-        # 'security/ir.model.access.csv',
+        'security/ir.model.access.csv',
         # 'report/report.xml',
         # 'report/report_template.xml'
     ],
