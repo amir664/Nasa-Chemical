@@ -7,15 +7,15 @@ class CustomReport(models.AbstractModel):
     _description = "Customer Target Report"
 
     def _get_report_values(self, docids, data=None):
-    #     customer = data['customer']
-    #     start_date = data['start_date']
-    #     end_date = data['end_date']
+        customer = data['customer']
+        start_date = data['start_date']
+        end_date = data['end_date']
 
-        # other = {
-        #     'customer': customer,
-        #     'start_date': start_date,
-        #     'end_date': end_date
-        # }
+        other = {
+            'customer': customer,
+            'start_date': start_date,
+            'end_date': end_date
+        }
 
         cr = self._cr
 
