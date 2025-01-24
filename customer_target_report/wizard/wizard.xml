@@ -27,7 +27,6 @@
 
     <menuitem id="customer_target_report_id"
               name="Customer Target Report"
-              parent="contacts.menu_contacts_reports"
               action="customer_target_report_action"
     />
 </odoo>
