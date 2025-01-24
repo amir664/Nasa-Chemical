@@ -1,7 +1,7 @@
 from odoo import _, fields, api, models
 
 class CustomerTargetReport(models.TransientModel):
-    _name = "customer.target"
+    _name = "customer.target.report"
     _description = "Customer Target Report"
 
     customer = fields.Many2one('res.partner', string = "Customer")
