@@ -31,7 +31,7 @@ class CustomReport(models.AbstractModel):
                     LEFT JOIN 
                     customer_target_line AS ctl ON ct.id = ctl.customer_target_id
                     LEFT JOIN 
-                    sres_partner rp ON ctl.customer_target_id = rp.id
+                    res_partner rp ON ctl.customer_target_id = rp.id
 
                  """)
         
