@@ -16,8 +16,8 @@ class CustomReport(models.AbstractModel):
 
         other = {
             'customer': customer,
-            'start_date': start_date,
-            'end_date': end_date,
+            # 'start_date': start_date,
+            # 'end_date': end_date,
         }
         # raise UserError(str(other))
 
@@ -41,14 +41,14 @@ class CustomReport(models.AbstractModel):
                         customer_target_line AS ctl ON ct.id = ctl.customer_target_id
                     LEFT JOIN 
                         res_partner rp ON ctl.customer_target_id = rp.id
-                    WHERE 
-                        rp.id = %s 
-                        AND 
-                        ct.start_date >= %s 
-                        AND 
-                        ct.start_date <= %s
                 """
         )
+                    # WHERE 
+                    #     rp.id = %s 
+                    #     AND 
+                    #     ct.start_date >= %s 
+                    #     AND 
+                    #     ct.start_date <= %s
 
 
         # if other['customer'] and start_date and end_date:
@@ -64,8 +64,8 @@ class CustomReport(models.AbstractModel):
         # if other['customer'] and start_date != 'False' and end_date != 'False':
             # query += " where rp.id = (%s) and ct.start_date between '%s' and '%s'" % (other['customer'],start_date,end_date)
 
-        # if start_date != 'False' and end_date != 'False':
-        #     query += " ct.start_date >= '%s' and ct.start_date <= '%s'" % (start_date,end_date)
+        if start_date != 'False' and end_date != 'False':
+            query += " ct.start_date >= '%s' and ct.start_date <= '%s'" % (start_date,end_date)
 
 
 
