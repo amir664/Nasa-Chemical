@@ -85,9 +85,20 @@ class CustomReport(models.AbstractModel):
         
 
 
+                    # Convert string to date object if data is a string
+        if isinstance(data['start_date'], str):
+            start_date = datetime.strptime(data['start_date'], '%Y-%m-%d').date()
+        else:
+            start_date = data['start_date']
+
+        if isinstance(data['end_date'], str):
+            end_date = datetime.strptime(data['end_date'], '%Y-%m-%d').date()
+        else:
+            end_date = data['end_date']
+
         # Convert dates to string format for query
-        start_date = data['start_date'].strftime('%Y-%m-%d') if data.get('start_date') else None
-        end_date = data['end_date'].strftime('%Y-%m-%d') if data.get('end_date') else None
+        start_date_str = start_date.strftime('%Y-%m-%d') if start_date else None
+        end_date_str = end_date.strftime('%Y-%m-%d') if end_date else None
 
         # Query to fetch the customer details along with target data
         query = """
@@ -104,12 +115,11 @@ class CustomReport(models.AbstractModel):
             AND target.start_date >= %s
             AND target.end_date <= %s
         """
-        params = (data['customer'], start_date, end_date)
+        params = (data['customer'], start_date_str, end_date_str)
 
         # Execute query and fetch results
         self.env.cr.execute(query, params)
         result = self.env.cr.fetchall()
-
         raise UserError(result)
         return {
             'data' : result,
