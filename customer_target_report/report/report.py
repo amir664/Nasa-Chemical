@@ -82,6 +82,14 @@ class CustomReport(models.AbstractModel):
     
             # raise UserError(str(result))        
 
+        
+
+
+        # Convert dates to string format for query
+        start_date = data['start_date'].strftime('%Y-%m-%d') if data.get('start_date') else None
+        end_date = data['end_date'].strftime('%Y-%m-%d') if data.get('end_date') else None
+
+        # Query to fetch the customer details along with target data
         query = """
             SELECT 
             partner.name AS customer_name,
@@ -92,16 +100,17 @@ class CustomReport(models.AbstractModel):
             FROM customer_target_line line
             JOIN customer_target target ON target.id = line.customer_target_id
             JOIN res_partner partner ON partner.id = line.customer
-
-            WHERE line.customer = %s            
+            WHERE line.customer = %s
+            AND target.start_date >= %s
+            AND target.end_date <= %s
         """
-        params = (data['customer'],)# data['start_date'], data['end_date'])
+        params = (data['customer'], start_date, end_date)
+
+        # Execute query and fetch results
         self.env.cr.execute(query, params)
         result = self.env.cr.fetchall()
 
-
         raise UserError(result)
-
         return {
             'data' : result,
             'other': other
