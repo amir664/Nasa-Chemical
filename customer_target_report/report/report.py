@@ -86,7 +86,7 @@ class CustomReport(models.AbstractModel):
             SELECT line.sales_target, line.current_sales
             FROM customer_target_line line
             JOIN customer_target target ON target.id = line.customer_target_id
-            WHERE line.customer_id = %s
+            WHERE line.customer = %s
             AND target.start_date <= %s
             AND target.end_date >= %s
         """
