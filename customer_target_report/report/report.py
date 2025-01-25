@@ -89,7 +89,7 @@ class CustomReport(models.AbstractModel):
             WHERE line.customer = %s
             
         """
-        params = (data['customer'], data['start_date'], data['end_date'])
+        params = (data['customer'],)# data['start_date'], data['end_date'])
         self.env.cr.execute(query, params)
         result = self.env.cr.fetchall()
 
