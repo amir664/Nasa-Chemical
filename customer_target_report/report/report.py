@@ -89,7 +89,6 @@ class CustomReport(models.AbstractModel):
             line.current_sales AS current_sales
             target.start_date AS start_date,
             target.end_date AS end_date
-
             FROM customer_target_line line
             JOIN customer_target target ON target.id = line.customer_target_id
             JOIN res_partner partner ON partner.id = line.customer
