@@ -71,13 +71,15 @@ class CustomReport(models.AbstractModel):
         # if other['customer'] and start_date != 'False' and end_date != 'False':
             # query += " where rp.id = (%s) and ct.start_date between '%s' and '%s'" % (other['customer'],start_date,end_date)
 
-        if start_date != 'False' and end_date != 'False':
-            query += "and ctr.start_date between '%s' and '%s'" % (start_date, end_date)
-
-
+        # if start_date != 'False' and end_date != 'False':
+        #     query += "and ctr.start_date between '%s' and '%s'" % (start_date, end_date)
+        params = []
+        if start_date not in [False, None, 'False', ''] and end_date not in [False, None, 'False', '']:
+            query += " WHERE ctr.start_date BETWEEN '%s' AND '%s'" % (start_date, end_date)
+            params = [start_date, end_date]
 
         # self.env.cr.execute(query)
-        cr.execute(query)
+        cr.execute(query,params)
         result = cr.dictfetchall()
     
         # raise UserError(str(result))        
