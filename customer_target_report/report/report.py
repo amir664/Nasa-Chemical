@@ -3,7 +3,7 @@ from odoo import _, api, fields, models
 from datetime import datetime
 
 class CustomReport(models.AbstractModel):
-    _name = "report.customer_target.customer_target_reports"
+    _name = "report.customer_target_report.customer_target_reports"
     _description = "Customer Target Report"
 
     def _get_report_values(self, docids, data=None):
