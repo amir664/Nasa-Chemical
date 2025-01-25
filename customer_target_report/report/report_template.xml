@@ -5,7 +5,7 @@
             <t t-call="web.basic_layout">
                 <div class="page">
                     <h2 style="text-align: center;">Customer Target Report</h2>
-                    <h3 style="text-align: right;">Date</h3>
+                    <!-- <h3 style="text-align: right;">Date</h3> -->
                     <table class="table table-bordered" style="width: 100%; margin-top: 20px;">
                         <thead>
                             <tr>
@@ -19,12 +19,11 @@
                         <tbody>
                             <t t-foreach="data" t-as="test">
                                 <tr>
-                                    <td></td>
+                                    <td><t t-esc="test['customer']"/></td>
                                     <td><t t-esc="test['start_date']"/></td>
                                     <td><t t-esc="test['end_date']"/></td>
-                                    <!-- <td><t t-esc="o.customer"/></td>
-                                    <td><t t-esc="o.sales_target"/></td>
-                                    <td><t t-esc="o.current_sales"/></td> -->
+                                    <td><t t-esc="test['sales_target']"/></td>
+                                    <td><t t-esc="test['current_sales']"/></td>
                                 </tr>
                             </t>
                         </tbody>
