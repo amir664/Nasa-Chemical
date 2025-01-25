@@ -29,33 +29,31 @@ class CustomReport(models.AbstractModel):
         # if customer_id != []:
         #     customer_id_str = ','.join(map(str,customer_id))
 
-        cr = self._cr
+        # cr = self._cr
 
-        query = (f"""
+        # query = (f"""
                    
-                    SELECT 
-                        ct.start_date as start_date, 
-                        ct.end_date as end_date,
-                        rp.name AS customer_name,
-                        ctr.customer,
-                        ctl.sales_target, 
-                        ctl.current_sales
-                    FROM 
-                        customer_target ct
-                    LEFT JOIN 
-                        customer_target_line AS ctl ON ct.id = ctl.customer_target_id
-                    LEFT JOIN 
-                        res_partner rp ON ctl.customer_target_id = rp.id
-                    LEFT JOIN 
-                        customer_target_report ctr 
-                """
-        )
-                    # WHERE 
-                    #     rp.id = %s 
-                    #     AND 
-                    #     ct.start_date >= %s 
-                    #     AND 
-                    #     ct.start_date <= %s
+        #             SELECT 
+        #                 ct.start_date as start_date, 
+        #                 ct.end_date as end_date,
+        #                 rp.name AS customer_name,
+        #                 ctl.sales_target, 
+        #                 ctl.current_sales
+        #             FROM 
+        #                 customer_target ct
+        #             LEFT JOIN 
+        #                 customer_target_line AS ctl ON ct.id = ctl.customer_target_id
+        #             LEFT JOIN 
+        #                 res_partner rp ON ctl.customer_target_id = rp.id
+                    
+        #         """
+        # )
+        #             # WHERE 
+        #             #     rp.id = %s 
+        #             #     AND 
+        #             #     ct.start_date >= %s 
+        #             #     AND 
+        #             #     ct.start_date <= %s
 
 
         # if other['customer'] and start_date and end_date:
@@ -73,16 +71,31 @@ class CustomReport(models.AbstractModel):
 
         # if start_date != 'False' and end_date != 'False':
         #     query += "and ctr.start_date between '%s' and '%s'" % (start_date, end_date)
-        params = []
-        if start_date not in [False, None, 'False', ''] and end_date not in [False, None, 'False', '']:
-            query += " where ctr.start_date BETWEEN '%s' AND '%s'" % (start_date, end_date)
-            params = [start_date, end_date]
+        # params = []
+        # if start_date not in [False, None, 'False', ''] and end_date not in [False, None, 'False', '']:
+        #     query += "  ct.start_date BETWEEN '%s' AND '%s'" % (start_date, end_date)
+        #     params = [start_date, end_date]
 
-        # self.env.cr.execute(query)
-        cr.execute(query,params)
-        result = cr.dictfetchall()
+        # # self.env.cr.execute(query)
+        # cr.execute(query,params)
+        # result = cr.dictfetchall()
     
-        # raise UserError(str(result))        
+            # raise UserError(str(result))        
+
+        query = """
+            SELECT line.sales_target, line.current_sales
+            FROM customer_target_line line
+            JOIN customer_target target ON target.id = line.customer_target_id
+            WHERE line.customer_id = %s
+            AND target.start_date <= %s
+            AND target.end_date >= %s
+        """
+        params = (data['customer'], data['start_date'], data['end_date'])
+        self.env.cr.execute(query, params)
+        result = self.env.cr.fetchall()
+
+
+        raise UserError(result)
 
         return {
             'data' : result,
