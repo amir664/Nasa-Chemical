@@ -86,7 +86,7 @@ class CustomReport(models.AbstractModel):
             SELECT 
             partner.name As customer_name,
             customer_target_line.sales_target AS sales_target,
-            customer_target_line.current_sales AS current_sales,
+            customer_target_line.current_sales AS current_sales
             FROM customer_target_line line
             JOIN customer_target target ON target.id = line.customer_target_id
             
