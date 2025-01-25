@@ -40,8 +40,9 @@ class CustomReport(models.AbstractModel):
                     
                  """)
         
-        if start_date != 'False':
-            query += " and ct.start_date between '%s' and '%s'" % (start_date)
+        # if start_date != 'False':
+        query += " and ct.start_date >= '%s'" % start_date
+            # query += " and ct.start_date between '%s' and '%s'" % (start_date,end_date)
 
 
         cr.execute(query)
