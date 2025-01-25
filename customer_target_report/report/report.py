@@ -19,6 +19,10 @@ class CustomReport(models.AbstractModel):
             'start_date': start_date,
             'end_date': end_date
         }
+        raise UserError("Data found")
+
+        if customer_id != []:
+            customer_id_str = ','.join(map(str,customer_id))
 
         cr = self._cr
 
@@ -40,15 +44,17 @@ class CustomReport(models.AbstractModel):
                     
                  """)
         
-        # if start_date != 'False':
-        query += " and ct.start_date >= '%s'" % start_date
-            # query += " and ct.start_date between '%s' and '%s'" % (start_date,end_date)
+
+        if customer_id:
+            query += " and rp.id = (%s)" % customer_id_str
+
+        if start_date != 'False' and end_date != 'False':
+            query += " and ap.create_date between '%s' and '%s'" % (start_date,end_date) 
 
 
         cr.execute(query)
         result = cr.dictfetchall()
 
-        # raise UserError(str(result))
         
 
         return {
