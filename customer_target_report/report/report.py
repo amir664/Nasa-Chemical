@@ -36,9 +36,14 @@ class CustomReport(models.AbstractModel):
                         customer_target_line AS ctl ON ct.id = ctl.customer_target_id
                     LEFT JOIN 
                         res_partner rp ON ctl.customer_target_id = rp.id
+                 
                     
                  """)
         
+        if start_date != 'False' and end_date != 'False':
+            query += " and ct.start_date between '%s' and '%s'" % (start_date,end_date)
+
+
         cr.execute(query)
         result = cr.dictfetchall()
 
