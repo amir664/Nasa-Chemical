@@ -33,6 +33,7 @@ class CustomReport(models.AbstractModel):
                         ct.start_date as start_date, 
                         ct.end_date as end_date,
                         rp.name AS customer_name,
+                        ctr.customer,
                         ctl.sales_target, 
                         ctl.current_sales
                     FROM 
@@ -41,6 +42,8 @@ class CustomReport(models.AbstractModel):
                         customer_target_line AS ctl ON ct.id = ctl.customer_target_id
                     LEFT JOIN 
                         res_partner rp ON ctl.customer_target_id = rp.id
+                    LEFT JOIN 
+                        customer_target_report ctr 
                 """
         )
                     # WHERE 
@@ -69,7 +72,7 @@ class CustomReport(models.AbstractModel):
 
 
 
-        self.env.cr.execute(query, (other['customer'], start_date, end_date))
+        self.env.cr.execute(query, (start_date, end_date))
         # cr.execute(query)
         result = cr.dictfetchall()
     
