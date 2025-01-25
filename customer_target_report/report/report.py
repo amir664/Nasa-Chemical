@@ -41,25 +41,28 @@ class CustomReport(models.AbstractModel):
                         customer_target_line AS ctl ON ct.id = ctl.customer_target_id
                     LEFT JOIN 
                         res_partner rp ON ctl.customer_target_id = rp.id
-                 
+                    where 
+                        rp.id '%s' 
+                        and 
+                        ct.start_date >= '%s' and ct.start_date <= '%s'
                     
-                 """)
+                 """ % other['customer'],start_date,end_date)
         
 
 
 
-        if other['customer'] and start_date and end_date:
-            query += " WHERE rp.id = %s AND ct.start_date BETWEEN '%s' AND '%s'" % (other['customer'], start_date, end_date)
+        # if other['customer'] and start_date and end_date:
+        #     query += " WHERE rp.id = %s AND ct.start_date BETWEEN '%s' AND '%s'" % (other['customer'], start_date, end_date)
 
-        elif start_date and end_date:
-            query += " WHERE ct.start_date BETWEEN '%s' AND '%s'" % (start_date, end_date)
+        # elif start_date and end_date:
+        #     query += " WHERE ct.start_date BETWEEN '%s' AND '%s'" % (start_date, end_date)
 
-        if start_date and end_date and other.get('some_other_condition'):
-            query += " AND some_column = %s" % other['some_other_condition']
+        # if start_date and end_date and other.get('some_other_condition'):
+        #     query += " AND some_column = %s" % other['some_other_condition']
 
 
         # if other['customer'] and start_date != 'False' and end_date != 'False':
-        #     query += " where rp.id = (%s) and ct.start_date between '%s' and '%s'" % (other['customer'],start_date,end_date)
+            # query += " where rp.id = (%s) and ct.start_date between '%s' and '%s'" % (other['customer'],start_date,end_date)
 
         # if start_date != 'False' and end_date != 'False':
         #     query += " ct.start_date >= '%s' and ct.start_date <= '%s'" % (start_date,end_date)
@@ -68,7 +71,7 @@ class CustomReport(models.AbstractModel):
 
         cr.execute(query)
         result = cr.dictfetchall()
-
+    
         # raise UserError(str(result))        
 
         return {
