@@ -75,7 +75,7 @@ class CustomReport(models.AbstractModel):
         #     query += "and ctr.start_date between '%s' and '%s'" % (start_date, end_date)
         params = []
         if start_date not in [False, None, 'False', ''] and end_date not in [False, None, 'False', '']:
-            query += " WHERE ctr.start_date BETWEEN '%s' AND '%s'" % (start_date, end_date)
+            query += " and ctr.start_date BETWEEN '%s' AND '%s'" % (start_date, end_date)
             params = [start_date, end_date]
 
         # self.env.cr.execute(query)
