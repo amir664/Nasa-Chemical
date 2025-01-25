@@ -10,7 +10,6 @@ class CustomReport(models.AbstractModel):
         customer = data['customer']
         start_date = data['start_date']
         end_date = data['end_date']
-        customer_id = data['customer_id']
         # sales_target = data['sales_target']
         # current_sales = data['current_sales']
 
@@ -19,7 +18,6 @@ class CustomReport(models.AbstractModel):
             'customer': customer,
             'start_date': start_date,
             'end_date': end_date,
-            'customer_id':customer_id
         }
         # raise UserError(str(other))
 
