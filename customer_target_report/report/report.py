@@ -72,8 +72,8 @@ class CustomReport(models.AbstractModel):
 
 
 
-        self.env.cr.execute(query)
-        # cr.execute(query)
+        # self.env.cr.execute(query)
+        cr.execute(query)
         result = cr.dictfetchall()
     
         # raise UserError(str(result))        
