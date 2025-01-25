@@ -83,7 +83,7 @@ class CustomReport(models.AbstractModel):
             # raise UserError(str(result))        
 
         query = """
-            SELECT *
+            SELECT line
             FROM customer_target_line line
             JOIN customer_target target ON target.id = line.customer_target_id
             WHERE line.customer = %s
