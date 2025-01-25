@@ -94,7 +94,8 @@ class CustomReport(models.AbstractModel):
             JOIN res_partner partner ON partner.id = line.customer
 
             WHERE line.customer = %s
-            
+
+                        
         """
         params = (data['customer'],)# data['start_date'], data['end_date'])
         self.env.cr.execute(query, params)
