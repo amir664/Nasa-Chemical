@@ -42,9 +42,9 @@ class CustomReport(models.AbstractModel):
                     LEFT JOIN 
                         res_partner rp ON ctl.customer_target_id = rp.id
                     where 
-                        rp.id '%s' 
+                        rp.id = %s 
                         and 
-                        ct.start_date >= '%s' and ct.start_date <= '%s'
+                        ct.start_date >= %s and ct.start_date <= %s
                     
                  """ % other['customer'],start_date,end_date)
         
