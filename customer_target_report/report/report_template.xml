@@ -16,10 +16,10 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <t t-foreach="data" t-as="o">
+                            <t t-foreach="data" t-as="test">
                                 <tr>
-                                    <td><t t-esc="o['start_date']"/></td>
-                                    <td><t t-esc="o['end_date']"/></td>
+                                    <td><t t-esc="test['start_date']"/></td>
+                                    <td><t t-esc="test['end_date']"/></td>
                                     <!-- <td><t t-esc="o.customer"/></td>
                                     <td><t t-esc="o.sales_target"/></td>
                                     <td><t t-esc="o.current_sales"/></td> -->
