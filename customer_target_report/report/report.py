@@ -87,8 +87,7 @@ class CustomReport(models.AbstractModel):
             FROM customer_target_line line
             JOIN customer_target target ON target.id = line.customer_target_id
             WHERE line.customer = %s
-            AND target.start_date <= %s
-            AND target.end_date >= %s
+            
         """
         params = (data['customer'], data['start_date'], data['end_date'])
         self.env.cr.execute(query, params)
