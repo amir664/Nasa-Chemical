@@ -47,7 +47,7 @@ class CustomReport(models.AbstractModel):
         
 
         if other['customer'] and start_date != 'False' and end_date != 'False':
-            query += " where rp.id = (%s) and ct.create_date between '%s' and '%s'" % (other['customer'],start_date,end_date)
+            query += " where rp.id = (%s) and ct.start_date between '%s' and '%s'" % (other['customer'],start_date,end_date)
 
         if start_date != 'False' and end_date != 'False':
             query += " ct.start_date >= '%s' and ct.start_date <= '%s'" % (start_date,end_date)
