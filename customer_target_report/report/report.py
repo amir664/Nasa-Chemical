@@ -41,6 +41,8 @@ class CustomReport(models.AbstractModel):
         
         cr.execute(query)
         result = cr.dictfetchall()
+
+        raise UserError(str(result))
         
 
         return {
