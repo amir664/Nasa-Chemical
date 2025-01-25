@@ -17,4 +17,4 @@ class CustomerTargetReport(models.TransientModel):
             'customer': self.customer,
         }
     
-        # return self.env.ref('account_report_os.accounting_report_pdf').with_context(landscape=True).report_action(self, data = data)
+        return self.env.ref('customer_target_report.customer_target_report_pdf').with_context(landscape=True).report_action(self, data = data)

@@ -4,7 +4,7 @@
         <t t-call="web.html_container">
             <t t-call="web.basic_layout">
                 <div class="page">
-                    <h2 style="text-align: center;">Product Report</h2>
+                    <h2 style="text-align: center;">Customer Target Report</h2>
                     <table class="table table-bordered" style="width: 100%; margin-top: 20px;">
                         <thead>
                             <tr>
@@ -20,6 +20,9 @@
                                 <tr>
                                     <td><t t-esc="o.start_date"/></td>
                                     <td><t t-esc="o.end_date"/></td>
+                                    <td><t t-esc="o.customer"/></td>
+                                    <td><t t-esc="o.sales_target"/></td>
+                                    <td><t t-esc="o.current_sales"/></td>
                                 </tr>
                             </t>
                         </tbody>
