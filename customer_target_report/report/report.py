@@ -10,6 +10,7 @@ class CustomReport(models.AbstractModel):
         customer = data['customer']
         start_date = data['start_date']
         end_date = data['end_date']
+        customer_id = data['customer_id']
         # sales_target = data['sales_target']
         # current_sales = data['current_sales']
 
@@ -17,12 +18,13 @@ class CustomReport(models.AbstractModel):
         other = {
             'customer': customer,
             'start_date': start_date,
-            'end_date': end_date
+            'end_date': end_date,
         }
-        raise UserError(str(other))
+        # raise UserError(str(other))
 
-        if customer_id != []:
-            customer_id_str = ','.join(map(str,customer_id))
+
+        # if customer_id != []:
+        #     customer_id_str = ','.join(map(str,customer_id))
 
         cr = self._cr
 
@@ -45,17 +47,18 @@ class CustomReport(models.AbstractModel):
                  """)
         
 
-        if customer_id:
-            query += " and rp.id = (%s)" % customer_id_str
+        if other['customer'] and start_date != 'False' and end_date != 'False':
+            query += " where rp.id = (%s) and ct.create_date between '%s' and '%s'" % (other['customer'],start_date,end_date)
 
         if start_date != 'False' and end_date != 'False':
-            query += " and ap.create_date between '%s' and '%s'" % (start_date,end_date) 
+            query += " ct.start_date >= '%s' and ct.start_date <= '%s'" % (start_date,end_date)
+
 
 
         cr.execute(query)
         result = cr.dictfetchall()
 
-        
+        raise UserError(str(result))        
 
         return {
             'data' : result,

@@ -5,6 +5,7 @@
             <t t-call="web.basic_layout">
                 <div class="page">
                     <h2 style="text-align: center;">Customer Target Report</h2>
+                    <h3 style="text-align: right;">Date</h3>
                     <table class="table table-bordered" style="width: 100%; margin-top: 20px;">
                         <thead>
                             <tr>
