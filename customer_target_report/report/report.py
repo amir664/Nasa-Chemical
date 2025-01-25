@@ -41,14 +41,14 @@ class CustomReport(models.AbstractModel):
                         customer_target_line AS ctl ON ct.id = ctl.customer_target_id
                     LEFT JOIN 
                         res_partner rp ON ctl.customer_target_id = rp.id
-                    where 
+                    WHERE 
                         rp.id = %s 
-                        and 
-                        ct.start_date >= %s and ct.start_date <= %s
-                    
-                 """ % other['customer'],start_date,end_date)
-        
-
+                        AND 
+                        ct.start_date >= %s 
+                        AND 
+                        ct.start_date <= %s
+                """
+        )
 
 
         # if other['customer'] and start_date and end_date:
@@ -69,7 +69,8 @@ class CustomReport(models.AbstractModel):
 
 
 
-        cr.execute(query)
+        self.env.cr.execute(query, (other['customer'], start_date, end_date))
+        # cr.execute(query)
         result = cr.dictfetchall()
     
         # raise UserError(str(result))        
