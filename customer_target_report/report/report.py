@@ -19,6 +19,7 @@ class CustomReport(models.AbstractModel):
             'customer': customer,
             'start_date': start_date,
             'end_date': end_date,
+            'customer_id':customer_id
         }
         # raise UserError(str(other))
 
