@@ -18,6 +18,7 @@
                         <tbody>
                             <t t-foreach="data" t-as="test">
                                 <tr>
+                                    <td></td>
                                     <td><t t-esc="test['start_date']"/></td>
                                     <td><t t-esc="test['end_date']"/></td>
                                     <!-- <td><t t-esc="o.customer"/></td>
