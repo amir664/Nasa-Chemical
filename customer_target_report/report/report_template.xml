@@ -20,9 +20,9 @@
                                 <tr>
                                     <td><t t-esc="o['start_date']"/></td>
                                     <td><t t-esc="o['end_date']"/></td>
-                                    <td><t t-esc="o.customer"/></td>
+                                    <!-- <td><t t-esc="o.customer"/></td>
                                     <td><t t-esc="o.sales_target"/></td>
-                                    <td><t t-esc="o.current_sales"/></td>
+                                    <td><t t-esc="o.current_sales"/></td> -->
                                 </tr>
                             </t>
                         </tbody>
