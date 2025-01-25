@@ -15,12 +15,16 @@ class CustomReport(models.AbstractModel):
 
 
         other = {
-            'customer': customer,
+            # 'customer': customer,
             # 'start_date': start_date,
             # 'end_date': end_date,
         }
         # raise UserError(str(other))
-
+        other.update({
+            'customer' : data['customer'],
+            'start_date' : data['start_date'],
+            'end_date' : data['end_date'],
+        })
 
         # if customer_id != []:
         #     customer_id_str = ','.join(map(str,customer_id))
@@ -80,5 +84,6 @@ class CustomReport(models.AbstractModel):
 
         return {
             'data' : result,
+            'other': other
         
         }
