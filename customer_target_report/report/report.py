@@ -112,8 +112,8 @@ class CustomReport(models.AbstractModel):
             JOIN customer_target target ON target.id = line.customer_target_id
             JOIN res_partner partner ON partner.id = line.customer
             WHERE line.customer = %s
-            AND target.start_date >= %s
-            AND target.end_date <= %s
+            --AND target.start_date >= %s
+            --AND target.end_date <= %s
         """
         params = (data['customer'], start_date_str, end_date_str)
 
