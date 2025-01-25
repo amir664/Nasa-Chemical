@@ -4,7 +4,7 @@
         <field name="name">Customer Target Report</field>
         <field name="model">customer.target.report</field>
         <field name="report_type">qweb-pdf</field>
-        <field name="report_name">customer_target_report.customer_target_reports</field>
-        <field name="report_file">customer_target_report.customer_target_reports</field>
+        <field name="report_name">customer_target_report.customer_target_report</field>
+        <field name="report_file">customer_target_report.customer_target_report</field>
     </record>
 </odoo>

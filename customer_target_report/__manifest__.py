@@ -6,7 +6,7 @@
         'wizard/wizard.xml',
         'security/ir.model.access.csv',
         'report/report.xml',
-        # 'report/report_template.xml'
+        'report/report_template.xml'
     ],
     'installable':True,
     'auto-install':False,
