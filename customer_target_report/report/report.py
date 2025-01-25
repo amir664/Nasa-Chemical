@@ -19,7 +19,7 @@ class CustomReport(models.AbstractModel):
             'start_date': start_date,
             'end_date': end_date
         }
-        raise UserError("Data found")
+        raise UserError(other)
 
         if customer_id != []:
             customer_id_str = ','.join(map(str,customer_id))
