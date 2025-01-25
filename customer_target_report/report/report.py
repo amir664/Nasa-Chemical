@@ -24,17 +24,20 @@ class CustomReport(models.AbstractModel):
 
         query = (f"""
                     SELECT 
-                    ct.start_date, 
-                    ct.end_date, 
-                    rp.name AS customer_name,
-                    ctl.sales_target, 
-                    ctl.current_sales
+                        ct.start_date, 
+                        ct.end_date,
+                        ctr.customer, 
+                        rp.name AS customer_name,
+                        ctl.sales_target, 
+                        ctl.current_sales
                     FROM 
-                    customer_target ct
+                        customer_target ct
                     LEFT JOIN 
-                    customer_target_line AS ctl ON ct.id = ctl.customer_target_id
+                        customer_target_line AS ctl ON ct.id = ctl.customer_target_id
                     LEFT JOIN 
-                    res_partner rp ON ctl.customer_target_id = rp.id
+                        res_partner rp ON ctl.customer_target_id = rp.id
+                    LEFT JOIN
+                        customer_target_report AS ctr 
 
                  """)
         
