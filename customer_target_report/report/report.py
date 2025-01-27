@@ -119,8 +119,8 @@ class CustomReport(models.AbstractModel):
 
         # Execute query and fetch results
         self.env.cr.execute(query, params)
-        result = self.env.cr.fetchall()
-        raise UserError(result)
+        result = self.env.cr.dictfetchall()
+        # raise UserError(result)
         return {
             'data' : result,
             'other': other
