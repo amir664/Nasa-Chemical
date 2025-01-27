@@ -33,10 +33,15 @@ class CustomReport(models.AbstractModel):
             FROM customer_target_line line
             JOIN customer_target target ON target.id = line.customer_target_id
             JOIN res_partner partner ON partner.id = line.customer
+                 WHERE line.customer = %s
+            AND target.start_date Between '%s'
+            AND  '%s'
+
             
                     
                 """
-                # % (customer, start_date, end_date) 
+                 
+                % (customer, start_date, end_date) 
                 )
         
         cr.execute(query)
