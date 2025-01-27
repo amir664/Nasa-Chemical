@@ -7,7 +7,7 @@ class CustomReport(models.AbstractModel):
     _description = "Customer Target Report"
 
     def _get_report_values(self, docids, data=None):
-        # customer = data['customer']
+        customer = data['customer']
         start_date = data['start_date']
         end_date = data['end_date']
         # sales_target = data['sales_target']
@@ -21,7 +21,7 @@ class CustomReport(models.AbstractModel):
         }
         # raise UserError(str(other))
         other.update({
-            # 'customer' : data['customer'],
+            'customer' : data['customer'],
             'start_date' : data['start_date'],
             'end_date' : data['end_date'],
             # 'sales_target':data['sales_target'],
@@ -33,23 +33,24 @@ class CustomReport(models.AbstractModel):
 
         # cr = self._cr
 
-        # query = (f"""
+        query = ("""
                    
-        #             SELECT 
-        #                 ct.start_date as start_date, 
-        #                 ct.end_date as end_date,
-        #                 rp.name AS customer_name,
-        #                 ctl.sales_target, 
-        #                 ctl.current_sales
-        #             FROM 
-        #                 customer_target ct
-        #             LEFT JOIN 
-        #                 customer_target_line AS ctl ON ct.id = ctl.customer_target_id
-        #             LEFT JOIN 
-        #                 res_partner rp ON ctl.customer_target_id = rp.id
+                    SELECT 
+            partner.name AS customer_name,
+            --line.sales_target AS sales_target,
+            line.current_sales AS current_sales,
+            target.start_date AS start_date,
+            target.end_date AS end_date
+            FROM customer_target_line line
+            JOIN customer_target target ON target.id = line.customer_target_id
+            JOIN res_partner partner ON partner.id = line.customer
+            WHERE line.customer = %s
+            AND target.start_date >= '%s'
+            AND target.end_date <= '%s'
+
                     
-        #         """
-        # )
+                """
+                % customer, start_date, end_date )
         #             # WHERE 
         #             #     rp.id = %s 
         #             #     AND 
@@ -88,37 +89,37 @@ class CustomReport(models.AbstractModel):
 
 
                     # Convert string to date object if data is a string
-        if isinstance(data['start_date'], str):
-            start_date = datetime.strptime(data['start_date'], '%Y-%m-%d').date()
-        else:
-            start_date = data['start_date']
+        # if isinstance(data['start_date'], str):
+        #     start_date = datetime.strptime(data['start_date'], '%Y-%m-%d').date()
+        # else:
+        #     start_date = data['start_date']
 
-        if isinstance(data['end_date'], str):
-            end_date = datetime.strptime(data['end_date'], '%Y-%m-%d').date()
-        else:
-            end_date = data['end_date']
+        # if isinstance(data['end_date'], str):
+        #     end_date = datetime.strptime(data['end_date'], '%Y-%m-%d').date()
+        # else:
+        #     end_date = data['end_date']
 
-        start_date_str = start_date.strftime('%Y-%m-%d') if start_date else None
-        end_date_str = end_date.strftime('%Y-%m-%d') if end_date else None
+        # start_date_str = start_date.strftime('%Y-%m-%d') if start_date else None
+        # end_date_str = end_date.strftime('%Y-%m-%d') if end_date else None
 
-        query = """
-            SELECT 
-            partner.name AS customer_name,
-            --line.sales_target AS sales_target,
-            line.current_sales AS current_sales,
-            target.start_date AS start_date,
-            target.end_date AS end_date
-            FROM customer_target_line line
-            JOIN customer_target target ON target.id = line.customer_target_id
-            JOIN res_partner partner ON partner.id = line.customer
-            WHERE line.customer = %s
-            --AND target.start_date >= %s
-            --AND target.end_date <= %s
-        """
-        params = (data['customer'], start_date_str, end_date_str)
+        # query = """
+        #     SELECT 
+        #     partner.name AS customer_name,
+        #     --line.sales_target AS sales_target,
+        #     line.current_sales AS current_sales,
+        #     target.start_date AS start_date,
+        #     target.end_date AS end_date
+        #     FROM customer_target_line line
+        #     JOIN customer_target target ON target.id = line.customer_target_id
+        #     JOIN res_partner partner ON partner.id = line.customer
+        #     WHERE line.customer = %s
+        #     --AND target.start_date >= %s
+        #     --AND target.end_date <= %s
+        # """
+        # params = (data['customer'], start_date_str, end_date_str)
 
         # Execute query and fetch results
-        self.env.cr.execute(query, params)
+        self.env.cr.execute(query)
         result = self.env.cr.dictfetchall()
         # raise UserError(result)
         return {
