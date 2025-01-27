@@ -10,28 +10,17 @@ class CustomReport(models.AbstractModel):
         customer = data['customer']
         start_date = data['start_date']
         end_date = data['end_date']
-        # sales_target = data['sales_target']
-        # current_sales = data['current_sales']
+        
 
-
-        other = {
-            # 'customer': customer,
-            # 'start_date': start_date,
-            # 'end_date': end_date,
-        }
-        # raise UserError(str(other))
-        other.update({
-            'customer' : data['customer'],
-            'start_date' : data['start_date'],
-            'end_date' : data['end_date'],
-            # 'sales_target':data['sales_target'],
-            # 'current_sales':['current_sales']
-        })
-
-        # if customer_id != []:
-        #     customer_id_str = ','.join(map(str,customer_id))
+        others = {}
 
         cr = self._cr
+
+        others= {
+            'start_date':start_date,
+            'end_date':end_date,
+            'customer':customer,
+        }
 
         query = ("""
                    
@@ -51,79 +40,11 @@ class CustomReport(models.AbstractModel):
                     
                 """
                 % (customer, start_date, end_date) )
-        #             # WHERE 
-        #             #     rp.id = %s 
-        #             #     AND 
-        #             #     ct.start_date >= %s 
-        #             #     AND 
-        #             #     ct.start_date <= %s
-
-
-        # if other['customer'] and start_date and end_date:
-        #     query += " WHERE rp.id = %s AND ct.start_date BETWEEN '%s' AND '%s'" % (other['customer'], start_date, end_date)
-
-        # elif start_date and end_date:
-        #     query += " WHERE ct.start_date BETWEEN '%s' AND '%s'" % (start_date, end_date)
-
-        # if start_date and end_date and other.get('some_other_condition'):
-        #     query += " AND some_column = %s" % other['some_other_condition']
-
-
-        # if other['customer'] and start_date != 'False' and end_date != 'False':
-            # query += " where rp.id = (%s) and ct.start_date between '%s' and '%s'" % (other['customer'],start_date,end_date)
-
-        # if start_date != 'False' and end_date != 'False':
-        #     query += "and ctr.start_date between '%s' and '%s'" % (start_date, end_date)
-        # params = []
-        # if start_date not in [False, None, 'False', ''] and end_date not in [False, None, 'False', '']:
-        #     query += "  ct.start_date BETWEEN '%s' AND '%s'" % (start_date, end_date)
-        #     params = [start_date, end_date]
-
-        # # self.env.cr.execute(query)
-        # cr.execute(query,params)
-        # result = cr.dictfetchall()
-    
-            # raise UserError(str(result))        
-
         
-
-
-                    # Convert string to date object if data is a string
-        # if isinstance(data['start_date'], str):
-        #     start_date = datetime.strptime(data['start_date'], '%Y-%m-%d').date()
-        # else:
-        #     start_date = data['start_date']
-
-        # if isinstance(data['end_date'], str):
-        #     end_date = datetime.strptime(data['end_date'], '%Y-%m-%d').date()
-        # else:
-        #     end_date = data['end_date']
-
-        # start_date_str = start_date.strftime('%Y-%m-%d') if start_date else None
-        # end_date_str = end_date.strftime('%Y-%m-%d') if end_date else None
-
-        # query = """
-        #     SELECT 
-        #     partner.name AS customer_name,
-        #     --line.sales_target AS sales_target,
-        #     line.current_sales AS current_sales,
-        #     target.start_date AS start_date,
-        #     target.end_date AS end_date
-        #     FROM customer_target_line line
-        #     JOIN customer_target target ON target.id = line.customer_target_id
-        #     JOIN res_partner partner ON partner.id = line.customer
-        #     WHERE line.customer = %s
-        #     --AND target.start_date >= %s
-        #     --AND target.end_date <= %s
-        # """
-        # params = (data['customer'], start_date_str, end_date_str)
-
-        # Execute query and fetch results
         cr.execute(query)
-        result = cr.dictfetchall()
-        # raise UserError(result)
+        data = cr.dictfetchall()
+
         return {
-            'data' : result,
-            'other': other
-        
+            'others' : others,
+            'data' : data,
         }
