@@ -50,7 +50,7 @@ class CustomReport(models.AbstractModel):
 
                     
                 """
-                % customer, start_date, end_date )
+                % (customer, start_date, end_date) )
         #             # WHERE 
         #             #     rp.id = %s 
         #             #     AND 
