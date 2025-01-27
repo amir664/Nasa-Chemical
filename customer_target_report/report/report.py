@@ -104,7 +104,7 @@ class CustomReport(models.AbstractModel):
         query = """
             SELECT 
             partner.name AS customer_name,
-            line.sales_target AS sales_target,
+            --line.sales_target AS sales_target,
             line.current_sales AS current_sales,
             target.start_date AS start_date,
             target.end_date AS end_date,
