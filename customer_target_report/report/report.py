@@ -10,8 +10,8 @@ class CustomReport(models.AbstractModel):
         customer = data['customer']
         start_date = data['start_date']
         end_date = data['end_date']
-        sales_target = data['sales_target',0]
-        current_sales = data['current_sales',0]
+        sales_target = data['sales_target']
+        current_sales = data['current_sales']
 
         others = {}
 
