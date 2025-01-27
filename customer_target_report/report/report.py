@@ -33,17 +33,21 @@ class CustomReport(models.AbstractModel):
             FROM customer_target_line line
             JOIN customer_target target ON target.id = line.customer_target_id
             JOIN res_partner partner ON partner.id = line.customer
-                 WHERE line.customer = %s
+            Where id is not Null
+             WHERE line.customer = %s
             AND target.start_date Between '%s'
-            AND  '%s'
+            AND '%s'
 
-            
                     
                 """
                  
-                % (customer, start_date, end_date) 
                 )
-        
+        if start_date and end_date:
+            query += " and target.start_date Between '%s' AND '%s'" % (start_date, end_date)
+        if customer:
+            query += " and line.customer = %s" % (customer)
+        if customer and start_date and end_date:
+            query += " and line.customer = %s AND target.start_date Between '%s' AND '%s'" % (customer, start_date, end_date)
         cr.execute(query)
         data = cr.dictfetchall()
 
