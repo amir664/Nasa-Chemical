@@ -10,8 +10,8 @@ class CustomReport(models.AbstractModel):
         customer = data['customer']
         start_date = data['start_date']
         end_date = data['end_date']
-        # sales_target = data['sales_target']
-        # current_sales = data['current_sales']
+        sales_target = data['sales_target']
+        current_sales = data['current_sales']
 
 
         other = {
@@ -96,11 +96,9 @@ class CustomReport(models.AbstractModel):
         else:
             end_date = data['end_date']
 
-        # Convert dates to string format for query
         start_date_str = start_date.strftime('%Y-%m-%d') if start_date else None
         end_date_str = end_date.strftime('%Y-%m-%d') if end_date else None
 
-        # Query to fetch the customer details along with target data
         query = """
             SELECT 
             partner.name AS customer_name,
