@@ -7,11 +7,11 @@ class CustomReport(models.AbstractModel):
     _description = "Customer Target Report"
 
     def _get_report_values(self, docids, data=None):
-        customer = data['customer']
+        # customer = data['customer']
         start_date = data['start_date']
         end_date = data['end_date']
-        sales_target = data['sales_target']
-        current_sales = data['current_sales']
+        # sales_target = data['sales_target']
+        # current_sales = data['current_sales']
 
 
         other = {
@@ -21,11 +21,11 @@ class CustomReport(models.AbstractModel):
         }
         # raise UserError(str(other))
         other.update({
-            'customer' : data['customer'],
+            # 'customer' : data['customer'],
             'start_date' : data['start_date'],
             'end_date' : data['end_date'],
-            'sales_target':data['sales_target'],
-            'current_sales':['current_sales']
+            # 'sales_target':data['sales_target'],
+            # 'current_sales':['current_sales']
         })
 
         # if customer_id != []:
