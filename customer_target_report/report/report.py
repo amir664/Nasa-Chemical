@@ -34,10 +34,7 @@ class CustomReport(models.AbstractModel):
             JOIN customer_target target ON target.id = line.customer_target_id
             JOIN res_partner partner ON partner.id = line.customer
             Where id is not Null
-             WHERE line.customer = %s
-            AND target.start_date Between '%s'
-            AND '%s'
-
+            
                     
                 """
                  
