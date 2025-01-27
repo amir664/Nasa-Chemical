@@ -10,8 +10,6 @@ class CustomReport(models.AbstractModel):
         customer = data['customer']
         start_date = data['start_date']
         end_date = data['end_date']
-        # sales_target = data['sales_target']
-        # current_sales = data['current_sales']
 
         others = {}
 
@@ -21,8 +19,6 @@ class CustomReport(models.AbstractModel):
             'start_date':start_date,
             'end_date':end_date,
             'customer':customer,
-            # 'sales_target':sales_target,
-            # 'current_sales':current_sales
 
         }
 
