@@ -31,7 +31,7 @@ class CustomReport(models.AbstractModel):
         # if customer_id != []:
         #     customer_id_str = ','.join(map(str,customer_id))
 
-        # cr = self._cr
+        cr = self._cr
 
         query = ("""
                    
@@ -119,8 +119,8 @@ class CustomReport(models.AbstractModel):
         # params = (data['customer'], start_date_str, end_date_str)
 
         # Execute query and fetch results
-        self.env.cr.execute(query)
-        result = self.env.cr.dictfetchall()
+        cr.execute(query)
+        result = cr.dictfetchall()
         # raise UserError(result)
         return {
             'data' : result,
