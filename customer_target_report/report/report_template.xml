@@ -21,7 +21,7 @@
                                     <td><t t-esc="test['customer_name']"/></td>
                                     <td><t t-esc="test['start_date']"/></td>
                                     <td><t t-esc="test['end_date']"/></td>
-                                    <!-- <td><t t-esc="test['sales_target']"/></td> -->
+                                    <td><t t-esc="test['sales_target']"/></td>
                                     <td><t t-esc="test['current_sales']"/></td>
                                 </tr>
                             </t>
