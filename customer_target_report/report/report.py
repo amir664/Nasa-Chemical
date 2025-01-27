@@ -24,6 +24,8 @@ class CustomReport(models.AbstractModel):
             'customer' : data['customer'],
             'start_date' : data['start_date'],
             'end_date' : data['end_date'],
+            'sales_target':data['sales_target'],
+            'current_sales':['current_sales']
         })
 
         # if customer_id != []:
