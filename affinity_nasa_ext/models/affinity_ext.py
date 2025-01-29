@@ -44,11 +44,11 @@ class PurchaseOrderLineInherited(models.Model):
 
     payment_terms = fields.Many2one('account.payment.term', string = "Payment Terms")
 
-    @api.depends('order_id.payment_term_id')
+    @api.depends('id.payment_term_id')
     def compute_pt(self):
         for line in self:
-            if line.order_id and line.order_id.payment_term_id:
-                line.payment_terms = line.order_id.payment_term_id
+            if id.payment_term_id:
+                line.payment_terms = id.payment_term_id
             else:
                 line.payment_terms = False
     # @api.model
