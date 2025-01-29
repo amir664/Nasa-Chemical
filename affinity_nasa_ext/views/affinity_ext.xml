@@ -53,7 +53,7 @@
             <field name="inherit_id" ref="purchase_requisition.purchase_order_line_compare_tree"/>
             <field name="arch" type="xml">            
                 <field name="partner_id" position="after">
-                    <field name="payment_terms"/>
+                    <field name="payment_terms" invisible="1"/>
                     <!-- <field name="quality_parameters"/> -->
                 </field>
                 <field name="price_subtotal" position="after">
