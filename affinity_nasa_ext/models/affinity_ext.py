@@ -42,7 +42,7 @@ class PurchaseRerquestLineInherited(models.Model):
 class PurchaseOrderLineInherited(models.Model):
     _inherit = 'purchase.order.line'
 
-    payment_terms = fields.Many2one('account.payment.term','payment_term_id', string = "Payment Terms")
+    payment_terms = fields.Many2one('purchase.order','payment_term_id', string = "Payment Terms")
 
     # @api.model
     # def write(self, vals):
