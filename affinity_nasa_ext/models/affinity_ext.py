@@ -42,8 +42,15 @@ class PurchaseRerquestLineInherited(models.Model):
 class PurchaseOrderLineInherited(models.Model):
     _inherit = 'purchase.order.line'
 
-    payment_terms = fields.Many2one('account.payment.term', string = "Payment Terms")
+    payment_terms = fields.Many2one('account.payment.term', string = "Payment Terms",compute="compute_pt")
 
+    @api.depends('order_id.payment_term_id')
+    def compute_pt(self):
+        for line in self:
+            if line.order_id and line.order_id.payment_term_id:
+                line.payment_terms = line.order_id.payment_term_id
+            else:
+                line.payment_terms = False
     # @api.model
     # def write(self, vals):
     #     # Loop through each record in self (to handle multi-records)
