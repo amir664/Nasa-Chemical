@@ -171,13 +171,14 @@ class AccountMoveInherited(models.Model):
 class StockPickingInherited(models.Model):
     _inherit = 'stock.picking'
 
-    @api.constrains('state')
-    def not_validate(self):
-        for rec in self:
-            qc = self.env['quality.check'].search([('picking_id','=',rec.id)])
-            if qc:
-                if rec.state == "done":
-                    raise UserError("State cannot move forward to done stage when qc is failed")
+    # @api.constrains('state')
+    # def not_validate(self):
+    #     for rec in self:
+    #         qccheck = self.env['quality.check'].search([('picking_id','=',rec.id)])
+    #         if qccheck:
+    #             for qc in qccheck:
+    #                 if qc.state == "done":
+    #                     raise UserError("State cannot move forward to done stage when qc is failed")
 
     # Override the write method to check purchase tolerance before saving the record
     @api.model
