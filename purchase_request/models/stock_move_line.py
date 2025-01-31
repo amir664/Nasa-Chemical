@@ -18,7 +18,8 @@ class StockMoveLine(models.Model):
         message = "<h3>%s</h3>" % title
         message += _(
             "The following requested items from Purchase Request %(request_name)s "
-            "have now been received in %(location_name)s using Picking %(picking_name)s:"
+            "have now been received in %(location_name)s using Picking "
+            "%(picking_name)s:"
         ) % {
             "request_name": message_data["request_name"],
             "location_name": message_data["location_name"],
@@ -106,7 +107,9 @@ class StockMoveLine(models.Model):
                         message_data
                     )
                     request.message_post(
-                        body=message, subtype_id=self.env.ref("mail.mt_comment").id
+                        body=message,
+                        subtype_id=self.env.ref("mail.mt_comment").id,
+                        body_is_html=True,
                     )
 
                     picking_message = self._picking_confirm_done_message_content(
@@ -115,6 +118,7 @@ class StockMoveLine(models.Model):
                     ml.move_id.picking_id.message_post(
                         body=picking_message,
                         subtype_id=self.env.ref("mail.mt_comment").id,
+                        body_is_html=True,
                     )
 
                 allocation._compute_open_product_qty()

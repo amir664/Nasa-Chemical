@@ -2,6 +2,8 @@
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl-3.0).
 from datetime import datetime
 
+import pytz
+
 from odoo import _, api, fields, models
 from odoo.exceptions import UserError
 from odoo.tools import get_lang
@@ -27,9 +29,6 @@ class PurchaseRequestLineMakePurchaseOrder(models.TransientModel):
         string="Purchase Order",
         domain=[("state", "=", "draft")],
     )
-
-    # brand_id  =  fields.Many2one('brand', string ="Brand")
-
     sync_data_planned = fields.Boolean(
         string="Match existing PO lines by Scheduled Date",
         help=(
@@ -223,7 +222,9 @@ class PurchaseRequestLineMakePurchaseOrder(models.TransientModel):
         purchase_obj = self.env["purchase.order"]
         po_line_obj = self.env["purchase.order.line"]
         pr_line_obj = self.env["purchase.request.line"]
+        user_tz = pytz.timezone(self.env.user.tz or "UTC")
         purchase = False
+
         for item in self.item_ids:
             line = item.line_id
             if item.product_qty <= 0.0:
@@ -286,11 +287,14 @@ class PurchaseRequestLineMakePurchaseOrder(models.TransientModel):
             # unit price (which is what we want, to honor graduate pricing)
             # but also the scheduled date which is what we don't want.
             date_required = item.line_id.date_required
-            po_line.date_planned = datetime(
-                date_required.year, date_required.month, date_required.day
+            # we enforce to save the datetime value in the current tz of the user
+            po_line.date_planned = (
+                user_tz.localize(
+                    datetime(date_required.year, date_required.month, date_required.day)
+                )
+                .astimezone(pytz.utc)
+                .replace(tzinfo=None)
             )
-            # raise UserError(purchase)
-            purchase['purchase_request_id'] = line.request_id.id
             res.append(purchase.id)
 
         return {
@@ -302,6 +306,7 @@ class PurchaseRequestLineMakePurchaseOrder(models.TransientModel):
             "context": False,
             "type": "ir.actions.act_window",
         }
+
 
 class PurchaseRequestLineMakePurchaseOrderItem(models.TransientModel):
     _name = "purchase.request.line.make.purchase.order.item"
@@ -317,7 +322,6 @@ class PurchaseRequestLineMakePurchaseOrderItem(models.TransientModel):
     line_id = fields.Many2one(
         comodel_name="purchase.request.line", string="Purchase Request Line"
     )
-
     request_id = fields.Many2one(
         comodel_name="purchase.request",
         related="line_id.request_id",
@@ -344,59 +348,11 @@ class PurchaseRequestLineMakePurchaseOrderItem(models.TransientModel):
         "wizard in the new PO.",
     )
 
-class PurchaseRequestLineMakePurchaseOrderItem(models.TransientModel):
-    _name = "purchase.request.line.make.purchase.order.item"
-    _description = "Purchase Request Line Make Purchase Order Item"
-
-    wiz_id = fields.Many2one(
-        comodel_name="purchase.request.line.make.purchase.order",
-        string="Wizard",
-        required=True,
-        ondelete="cascade",
-        readonly=True,
-    )
-    line_id = fields.Many2one(
-        comodel_name="purchase.request.line", string="Purchase Request Line"
-    )
-
-    # brand_id = fields.Many2one(
-    #     "brand",
-    # #     related="line_id.brand_id",
-    #     string="Brand",
-    # )
-
-
-    request_id = fields.Many2one(
-        comodel_name="purchase.request",
-        related="line_id.request_id",
-        string="Purchase Request",
-        readonly=False,
-    )
-    product_id = fields.Many2one(
-        comodel_name="product.product",
-        string="Product",
-        related="line_id.product_id",
-        readonly=False,
-    )
-    name = fields.Char(string="Description", required=True)
-    product_qty = fields.Float(
-        string="Quantity to purchase", digits="Product Unit of Measure"
-    )
-    product_uom_id = fields.Many2one(
-        comodel_name="uom.uom", string="UoM", required=True
-    )
-    keep_description = fields.Boolean(
-        string="Copy descriptions to new PO",
-        help="Set true if you want to keep the "
-             "descriptions provided in the "
-             "wizard in the new PO.",
-    )
-
     @api.onchange("product_id")
     def onchange_product_id(self):
         if self.product_id:
             if not self.keep_description:
-                name = self.product_id.name   
+                name = self.product_id.name
             code = self.product_id.code
             sup_info_id = self.env["product.supplierinfo"].search(
                 [
@@ -417,4 +373,4 @@ class PurchaseRequestLineMakePurchaseOrderItem(models.TransientModel):
                 name += "\n" + self.product_id.description_purchase
             self.product_uom_id = self.product_id.uom_id.id
             if name:
-                self.name = name           
+                self.name = name

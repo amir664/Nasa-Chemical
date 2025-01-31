@@ -7,7 +7,6 @@ from odoo import _, api, exceptions, fields, models
 class PurchaseOrder(models.Model):
     _inherit = "purchase.order"
 
-    purchase_request_id = fields.Many2one('purchase.request', string="Purchase Request")
     def _purchase_request_confirm_message_content(self, request, request_dict=None):
         self.ensure_one()
         if not request_dict:
@@ -61,7 +60,9 @@ class PurchaseOrder(models.Model):
                     request, requests_dict[request_id]
                 )
                 request.message_post(
-                    body=message, subtype_id=self.env.ref("mail.mt_comment").id
+                    body=message,
+                    subtype_id=self.env.ref("mail.mt_comment").id,
+                    body_is_html=True,
                 )
         return True
 
@@ -181,7 +182,9 @@ class PurchaseOrderLine(models.Model):
                     message_data
                 )
                 alloc.purchase_request_line_id.request_id.message_post(
-                    body=message, subtype_id=self.env.ref("mail.mt_comment").id
+                    body=message,
+                    subtype_id=self.env.ref("mail.mt_comment").id,
+                    body_is_html=True,
                 )
 
                 alloc.purchase_request_line_id._compute_qty()

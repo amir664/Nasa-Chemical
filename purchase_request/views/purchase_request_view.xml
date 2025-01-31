@@ -44,11 +44,9 @@
                         class="oe_highlight"
                         groups="purchase_request.group_purchase_request_manager"
                     />
-                    <!-- , 'approved' -->
                     <button
                         name="button_rejected"
-                        invisible="state not in ('to_approve')"
-                        
+                        invisible="state not in ('to_approve', 'approved')"
                         string="Reject"
                         type="object"
                         groups="purchase_request.group_purchase_request_manager"
