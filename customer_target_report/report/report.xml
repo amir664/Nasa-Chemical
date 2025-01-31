@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="customer_target_report_pdf" model="ir.actions.report">
+        <field name="name">Customer Target Report</field>
+        <field name="model">customer.target.report</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">customer_target_report.customer_target_reports</field>
+        <field name="report_file">customer_target_report.customer_target_reports</field>
+    </record>
+</odoo>

@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="salesdetail_reports">
+        <t t-call="web.html_container">
+            <t t-call="web.basic_layout">        
+                <div class="page">
+
+                    <div class="header_row text-center">
+                        <h1>Sales Detail Report</h1>
+                    </div>
+                    <t t-set="cust" t-value="env['res.partner'].search([('id', '=', other['partner_id'])])"/>
+                    <t t-set="item_group" t-value="env['product.category'].search([('id', '=', other['category_id'])])"/>
+                    <t t-set="sales_type" t-value="env['res.partner.category'].search([('id', '=', other['partner_tag_id'])])"/>
+                    
+                    <div class="row mt-2">
+                        <div class="col-6">
+                                          
+                            <div class="row">
+                                <div class="col-4">
+                                    <b>
+                                        Print Out Date:
+                                    </b>
+                                </div>
+                                <div class="col-8">
+                                    
+                                </div>
+                            </div>              
+                            <div class="row">
+                                <div class="col-4">
+                                    <b>
+                                        Fiscal Year:
+                                        
+                                    </b>
+                                </div>
+                                <div class="col-8">
+                                    <t t-esc="other['to_date'] or ''"/>
+                                </div>
+                            </div>              
+                            <div class="row">
+                                <div class="col-4">
+                                    <b>
+                                        Period:
+                                    </b>
+                                </div>
+                                <div class="col-8">
+                                    
+                                    <t t-esc="(other['from_date']) or ''"/>
+                                    -
+                                    <t t-esc="(other['to_date']) or ''"/>
+                                </div>
+                            </div>              
+                            <div class="row">
+                                <div class="col-4">
+                                    <b>
+                                        Branch:
+                                    </b>
+                                </div>
+                                <div class="col-8">
+                                    <t t-esc="other['branch'] or ''"/>
+                                    
+                                </div>
+                            </div>              
+                            <div class="row">
+                                <div class="col-4">
+                                    <b>
+                                        City:
+                                    </b>
+                                </div>
+                                <div class="col-8">
+                                    <t t-esc="other['city'] or ''"/>
+                                    
+                                </div>
+                            </div>              
+                            <div class="row">
+                                <div class="col-4">
+                                    <b>
+                                        Customer ID:
+                                    </b>
+                                </div>
+                                <div class="col-8">
+                                    <t t-esc="cust.name or ''"/>
+                                    
+                                </div>
+                            </div>              
+                            <div class="row">
+                                <div class="col-4">
+                                    <b>
+                                        Area:
+                                    </b>
+                                </div>
+                                <div class="col-8">
+                                    <t t-esc="other['area'] or ''"/>
+                                    
+                                </div>
+                            </div>              
+                            <div class="row">
+                                <div class="col-4">
+                                    <b>
+                                        Items Group:
+                                    </b>
+                                </div>
+                                <div class="col-8">
+                                    <t t-esc="item_group.complete_name or ''"/>
+                                    
+                                </div>
+                            </div>              
+                            <div class="row">
+                                <div class="col-4">
+                                    <b>
+                                        Sales Type:
+                                    </b>
+                                </div>
+                                <div class="col-8">
+                                    <t t-esc="sales_type.name or ''"/>
+                                    
+                                </div>
+                            </div>              
+                                                        
+                        </div>
+                    </div>
+                    
+                    
+                    
+                    
+                    <div class="row mt-5 mb-3">
+                        <div class="col-12">
+                            <table style="border-collapse:collapse;" class="table-bordered">
+                                <thead>
+                                    <tr>
+                                                    
+
+                                        <th style="text-align:center;border-bottom:1px solid black;padding:4px; width:90px; background-color:#A9A9A9;">
+                                            <span style="text-align:center;">Date</span>
+                                        </th>
+                                        <th style="border-bottom:1px solid black;padding:4px;width:120px; background-color:#A9A9A9;">
+                                            <span style="text-align:center;">Customer</span>
+                                        </th>
+                                        
+                                        <th style="border-bottom:1px solid black;padding:4px;width:250px; background-color:#A9A9A9;">
+                                            <span style="text-align:center;">Item</span>
+                                        </th>
+                                        
+                                        <th style="border-bottom:1px solid black;padding:4px;width:120px; background-color:#A9A9A9;">
+                                            <span style="text-align:center;">Broker</span>
+                                        </th>
+                                        
+                                        <th style="border-bottom:1px solid black;padding:4px;width:120px; background-color:#A9A9A9;">
+                                            <span style="text-align:center;">Sales Type</span>
+                                        </th>
+                                        <th style="text-align:center;border-bottom:1px solid black;padding:4px;width:120px; background-color:#A9A9A9;">
+                                            <span style="text-align:center;">City</span></th>
+                                        <th style="border-bottom:1px solid black;padding:4px;width:90px; background-color:#A9A9A9;">
+                                            <span style="text-align:center;">Invoice No</span>
+                                        </th>
+                                        <th style="border-bottom:1px solid black;padding:4px;width:90px; background-color:#A9A9A9;">
+                                            <span style="text-align:center;">Qty</span>
+                                        </th>
+                                        
+                                        <th style="border-bottom:1px solid black;padding:4px;width:90px; background-color:#A9A9A9;">
+                                            <span style="text-align:center;">Unit</span>
+                                        </th>
+                                        
+                                        <th style="border-bottom:1px solid black;padding:4px;width:120px; background-color:#A9A9A9;">
+                                            <span style="text-align:center;">Price</span>
+                                        </th>
+                                        
+                                        <th style="border-bottom:1px solid black;padding:4px;width:120px; background-color:#A9A9A9;">
+                                            <span style="text-align:center;">Amount</span>
+                                        </th>
+
+                                        
+                                        
+                                    </tr>
+
+                                </thead>
+                                <tbody>
+                                    <tr t-foreach="data" t-as="value">
+                                        
+                                            
+                                        
+                                        <td style="text-align:center; padding:4px;">
+                                            <t t-if="value['date']">
+                                                <t t-set="date_order" t-value="str(record['date']).split(' ')[0]"/>
+                                                <span t-esc="date_order"/>
+                                            </t>
+                                        </td>
+                                        <td style="text-align:center; padding:4px;">
+                                            <span t-esc="value['customer']"/>
+                                        </td>
+                                        
+                                        <td style="text-align:center; padding:4px;">
+                                            <span t-esc="value['item']"/>
+                                        </td>
+                                        
+                                        <t t-set="user" t-value="env['res.users'].search([('id', '=', value['broker'])])"/>
+                                        
+                                        <td style="text-align:center; padding:4px;">
+                                            <span t-esc="user.name or ''"/>
+                                        </td>
+                                        
+                                        <t t-set="customer" t-value="env['res.partner'].search([('id', '=', value['rp_id'])])"/>
+                                        <t t-set="sales" t-value="env['res.partner.category'].search([('id', '=', customer.category_id.id)])"/>
+                                        
+                                        <td style="text-align:center; padding:4px;">
+                                            <t t-if="sales">
+                                                
+                                                <span t-esc="sales.name"/>
+                                            </t>
+                                            
+                                        </td>
+                                        
+
+                                        <td style="text-align:center; padding:4px;">
+                                            <span t-esc="value['city']"/>
+                                        </td>
+                                        <td style="text-align:center; padding:4px;">
+                                            <span t-esc="value['invoice_no']"/>
+                                            
+                                        </td>
+                                        <td style="text-align:center; padding:4px;">
+                                            <span t-esc="'{:.2f}'.format(value['quantity'] or 0.0)"/>
+                                        </td>
+                                        
+                                        <td style="text-align:center; padding:4px;">
+                                            <span t-esc="value['uom']"/>
+                                            
+                                            
+                                        </td>
+                                        
+                                        <td style="text-align:center; padding:4px;">
+                                            <span t-esc="'{:.2f}'.format(value['price'] or 0.0)"/>
+                                        </td>
+
+                                        <td style="text-align:center; padding:4px;">
+                                            <span t-esc="'{:.2f}'.format(value['amount'] or 0.0)"/>
+
+                                        </td>
+                                    
+
+                                            
+                                    </tr>
+                                    
+
+                                    
+                                </tbody>
+
+                            </table>
+                        </div>
+                    </div>
+
+                    
+                </div>
+
+            </t>
+           
+        </t>
+    </template>
+</odoo>
