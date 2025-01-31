@@ -1,0 +1,61 @@
+<odoo>
+    <data>
+        <!-- Add the inheritance to the existing view -->
+        <record id="mjt_view_account_payment_form_inherit" model="ir.ui.view">
+            <field name="name">mjt.account.payment.form.inherit</field>
+            <field name="model">account.payment</field>
+            <field name="inherit_id" ref="account.view_account_payment_form" />
+            <field name="arch" type="xml">
+                <!-- Add the group3 field inside the existing group -->
+                <xpath expr="//form[1]/sheet[1]/group[1]" position="after">
+                        <field name="wht_line_ids" mode="tree,kanban" nolabel="1">
+                            <tree editable="bottom" string="Witholding Items">
+                                <field name="account_id" />
+                                <field name="name" required="1" />
+                                <field name="analytic_precision" widget="analytic_distribution"/>
+                                <field name="amount_wht" />
+                            </tree>
+                            <form>
+                                <sheet>
+                                    <group>
+                                        <field name="account_id" />
+                                        <field name="name" required="1" />
+                                        <field name="analytic_precision" widget="analytic_distribution"/>
+                                        <field name="amount_wht" />
+                                    </group>
+                                </sheet>
+                            </form>
+                        </field>
+                </xpath>
+<!-- <xpath expr="//form[1]/sheet[1]/group[1]" position="after"> -->
+<!-- 
+                <notebook>
+                    <page string="Bukti Potong" name="bukti_potong_line">
+                            <field name="bukti_potong_ids" mode="tree,kanban" nolabel="1">
+                                <tree editable="bottom" string="Bukti Potong Items">
+                                    <field name="number_bukti_potong" />
+                                    <field name="date_bukti_potong" />
+                                    <field name="jumlah" />
+                                    <field name="sisa" />
+                                    <field name="date_terima_bukti_potong" />
+                                </tree>
+                                <form>
+                                    <sheet>
+                                        <group>
+                                            <field name="payment_id" />
+                                            <field name="number_bukti_potong" />
+                                            <field name="date_bukti_potong" />
+                                            <field name="jumlah" />
+                                            <field name="sisa" />
+                                            <field name="date_terima_bukti_potong" />
+                                        </group>
+                                    </sheet>
+                                </form>
+                            </field>
+                    </page>
+                </notebook>
+                  </xpath> -->
+            </field> 
+        </record>
+    </data>
+</odoo>

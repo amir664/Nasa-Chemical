@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="monthly_reports">
+        <t t-call="web.html_container">
+            <t t-call="web.basic_layout">
+
+                <div class="header">
+                    <div class="row mt-2">
+                        <div class="col-2">
+                            <t t-set="comp" t-value=""/>
+                            <t t-foreach="data" t-as="vals">
+                                <t t-set="comp" t-value="env['res.company'].search([('id','=',vals['id'])])"/>
+                            </t>
+                            
+                            <div class="row">
+                                <div class="col-12" style="text-align: center;">
+                                    <img t-if="comp.logo" t-att-src="image_data_uri(comp.logo)" style="max-height: 100px; width: 100; margin-top: 5px;" alt="header"/>
+                                    <!--margin-left: -10px;-->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-10">
+                            <div class="row text-center">
+                                <h1>NASA CHEMICALS</h1>
+                            </div>
+                            <div class="row text-center">
+                                <h1>Month Wise Purchase Order Report</h1>
+                            </div>
+                            <div class="row">
+                                <div class="col-12" style="text-align:center">
+                                    <t t-if="other['date_from']">
+                                        <b>From:</b>
+                                        <t t-esc="other['date_from']"/>
+                                    </t>
+                                    <br/>
+                                    <t t-if="other['date_to']">
+                                        <b>To:</b>
+        
+                                        <t t-esc="other['date_to']"/>
+                                    </t>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <!--</div>-->
+                </div>
+                
+                <div class="page">
+                    <div class="row mt-5 mb-3">
+                        <div class="col-12">
+                            <table class="table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th rowspan="2" style="text-align:center;border-bottom:1px solid black;padding:6px;width:300px;">Item Details</th>
+                                        <th rowspan="2" style="text-align:center;border-bottom:1px solid black;padding:6px;width:100px;">Unit</th>
+                                        <th colspan="2" style="text-align:center;border-bottom:1px solid black;padding:6px;width:180px;">Jul</th>
+                                        <th colspan="2" style="text-align:center;border-bottom:1px solid black;padding:6px;width:180px;">Aug</th>
+                                        <th colspan="2" style="text-align:center;border-bottom:1px solid black;padding:6px;width:180px;">Sep</th>
+                                        <th colspan="2" style="text-align:center;border-bottom:1px solid black;padding:6px;width:180px;">Oct</th>
+                                        <th colspan="2" style="text-align:center;border-bottom:1px solid black;padding:6px;width:180px;">Nov</th>
+                                        <th colspan="2" style="text-align:center;border-bottom:1px solid black;padding:6px;width:180px;">Dec</th>
+                                        <th colspan="2" style="text-align:center;border-bottom:1px solid black;padding:6px;width:180px;">Total</th>
+                                    </tr>
+                                    <tr>
+                                        <th style="text-align:center;border-bottom:1px solid black;padding:6px;width:80px;">Qty</th>
+                                        <th style="text-align:center;border-bottom:1px solid black;padding:6px;width:100px;">Amount</th>
+                                        <th style="text-align:center;border-bottom:1px solid black;padding:6px;width:80px;">Qty</th>
+                                        <th style="text-align:center;border-bottom:1px solid black;padding:6px;width:100px;">Amount</th>
+                                        <th style="text-align:center;border-bottom:1px solid black;padding:6px;width:80px;">Qty</th>
+                                        <th style="text-align:center;border-bottom:1px solid black;padding:6px;width:100px;">Amount</th>
+                                        <th style="text-align:center;border-bottom:1px solid black;padding:6px;width:80px;">Qty</th>
+                                        <th style="text-align:center;border-bottom:1px solid black;padding:6px;width:100px;">Amount</th>
+                                        <th style="text-align:center;border-bottom:1px solid black;padding:6px;width:80px;">Qty</th>
+                                        <th style="text-align:center;border-bottom:1px solid black;padding:6px;width:100px;">Amount</th>
+                                        <th style="text-align:center;border-bottom:1px solid black;padding:6px;width:80px;">Qty</th>
+                                        <th style="text-align:center;border-bottom:1px solid black;padding:6px;width:100px;">Amount</th>
+                                        <th style="text-align:center;border-bottom:1px solid black;padding:6px;width:80px;">Qty</th>
+                                        <th style="text-align:center;border-bottom:1px solid black;padding:6px;width:100px;">Amount</th>
+                                    </tr>
+                                </thead>
+                                
+                                <tbody>
+                                
+                                    <tr t-foreach="data" t-as="value">
+                                        <td style="text-align:center; padding:2px;"><span t-esc="value['item']"/></td>
+                                        <td style="text-align:center; padding:2px;"><span t-esc="value['unit']"/></td>
+                                        <td style="text-align:center; padding:2px;"><span t-esc="value['qty_jul']"/></td>
+                                        <td style="text-align:right; padding:2px;"><span t-esc="value['amount_jul']"/></td>
+                                        <td style="text-align:center; padding:2px;"><span t-esc="value['qty_aug']"/></td>
+                                        <td style="text-align:right; padding:2px;"><span t-esc="value['amount_aug']"/></td>
+                                        <td style="text-align:center; padding:2px;"><span t-esc="value['qty_sep']"/></td>
+                                        <td style="text-align:right; padding:2px;"><span t-esc="value['amount_sep']"/></td>
+                                        <td style="text-align:center; padding:2px;"><span t-esc="value['qty_oct']"/></td>
+                                        <td style="text-align:right; padding:2px;"><span t-esc="value['amount_oct']"/></td>
+                                        <td style="text-align:center; padding:2px;"><span t-esc="value['qty_nov']"/></td>
+                                        <td style="text-align:right; padding:2px;"><span t-esc="value['amount_nov']"/></td>
+                                        <td style="text-align:center; padding:2px;"><span t-esc="value['qty_dec']"/></td>
+                                        <td style="text-align:right; padding:2px;"><span t-esc="value['amount_dec']"/></td>
+                                        <td style="text-align:center; padding:2px;"><span t-esc="value['qty']"/></td>
+                                        <td style="text-align:right; padding:2px;"><span t-esc="value['amount']"/></td>                                    
+                                    </tr>
+
+                                    <tr>
+                                        <td colspan="2" class="total-cell" style="text-align:right; padding:4px;">
+                                            <b>Totals</b>
+                                        </td>
+                                        
+                                        <td class="total-cell" style="text-align:center; padding:2px;">
+                                            <b><span t-esc="totals['total_qty_jul']" t-options="{&quot;widget&quot;: &quot;float&quot;, &quot;precision&quot;: 2, &quot;thousands_sep&quot;: &quot;,&quot;}"/></b>
+                                        </td>
+
+                                        <td class="total-cell" style="text-align:right; padding:2px;">
+                                            <b><span t-esc="totals['total_amount_jul']" t-options="{&quot;widget&quot;: &quot;float&quot;, &quot;precision&quot;: 2, &quot;thousands_sep&quot;: &quot;,&quot;}"/></b>
+                                        </td>
+
+                                        <td class="total-cell" style="text-align:center; padding:2px;">
+                                            <b><span t-esc="totals['total_qty_aug']" t-options="{&quot;widget&quot;: &quot;float&quot;, &quot;precision&quot;: 2, &quot;thousands_sep&quot;: &quot;,&quot;}"/></b>
+                                        </td>
+
+                                        <td class="total-cell" style="text-align:right; padding:2px;">
+                                            <b><span t-esc="totals['total_amount_aug']" t-options="{&quot;widget&quot;: &quot;float&quot;, &quot;precision&quot;: 2, &quot;thousands_sep&quot;: &quot;,&quot;}"/></b>
+                                        </td>
+
+                                        <td class="total-cell" style="text-align:center; padding:2px;">
+                                            <b><span t-esc="totals['total_qty_sep']" t-options="{&quot;widget&quot;: &quot;float&quot;, &quot;precision&quot;: 2, &quot;thousands_sep&quot;: &quot;,&quot;}"/></b>
+                                        </td>
+
+                                        <td class="total-cell" style="text-align:right; padding:2px;">
+                                            <b><span t-esc="totals['total_amount_sep']" t-options="{&quot;widget&quot;: &quot;float&quot;, &quot;precision&quot;: 2, &quot;thousands_sep&quot;: &quot;,&quot;}"/></b>
+                                        </td>
+
+                                        <td class="total-cell" style="text-align:center; padding:2px;">
+                                            <b><span t-esc="totals['total_qty_oct']" t-options="{&quot;widget&quot;: &quot;float&quot;, &quot;precision&quot;: 2, &quot;thousands_sep&quot;: &quot;,&quot;}"/></b>
+                                        </td>
+
+                                        <td class="total-cell" style="text-align:right; padding:2px;">
+                                            <b><span t-esc="totals['total_amount_oct']" t-options="{&quot;widget&quot;: &quot;float&quot;, &quot;precision&quot;: 2, &quot;thousands_sep&quot;: &quot;,&quot;}"/></b>
+                                        </td>
+
+                                        <td class="total-cell" style="text-align:center; padding:2px;">
+                                            <b><span t-esc="totals['total_qty_nov']" t-options="{&quot;widget&quot;: &quot;float&quot;, &quot;precision&quot;: 2, &quot;thousands_sep&quot;: &quot;,&quot;}"/></b>
+                                        </td>
+
+                                        <td class="total-cell" style="text-align:right; padding:2px;">
+                                            <b><span t-esc="totals['total_amount_nov']" t-options="{&quot;widget&quot;: &quot;float&quot;, &quot;precision&quot;: 2, &quot;thousands_sep&quot;: &quot;,&quot;}"/></b>
+                                        </td>
+
+                                        <td class="total-cell" style="text-align:center; padding:2px;">
+
+                                            <b><span t-esc="totals['total_qty_dec']" t-options="{&quot;widget&quot;: &quot;float&quot;, &quot;precision&quot;: 2, &quot;thousands_sep&quot;: &quot;,&quot;}"/></b>
+                                        </td>
+
+                                        <td class="total-cell" style="text-align:right; padding:2px;">
+                                            <b><span t-esc="totals['total_amount_dec']" t-options="{&quot;widget&quot;: &quot;float&quot;, &quot;precision&quot;: 2, &quot;thousands_sep&quot;: &quot;,&quot;}"/></b>
+                                        </td>
+
+                                        <td class="total-cell" style="text-align:center; padding:2px;">
+                                            <b><span t-esc="totals['total_qty']" t-options="{&quot;widget&quot;: &quot;float&quot;, &quot;precision&quot;: 2, &quot;thousands_sep&quot;: &quot;,&quot;}"/></b>
+                                        </td>
+
+                                        <td class="total-cell" style="text-align:right; padding:2px;">
+                                            <b><span t-esc="totals['total_amount']" t-options="{&quot;widget&quot;: &quot;float&quot;, &quot;precision&quot;: 2, &quot;thousands_sep&quot;: &quot;,&quot;}"/></b>
+                                        </td>
+
+                                        
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+                </div>
+            </t>
+        </t>
+
+    </template>
+</odoo>

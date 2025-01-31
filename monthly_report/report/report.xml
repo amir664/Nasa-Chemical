@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="monthly_report_pdf" model="ir.actions.report">
+        <field name="name">Purchase Order Month Wise Report</field>
+        <field name="model">monthly.report</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">monthly_report.monthly_reports</field>
+        <field name="report_file">monthly.report.monthly_reports</field>
+    </record>
+</odoo>

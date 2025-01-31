@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="po_analysis_pdf" model="ir.actions.report">
+        <field name="name">Purchase Order Analysis Report</field>
+        <field name="model">po.analysis</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">po_analysis.po_analysiss</field>
+        <field name="report_file">po_analysis.po_analysiss</field>
+    </record>
+</odoo>

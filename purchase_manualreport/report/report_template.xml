@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="purchase_manualreports">
+            <t t-call="web.html_container">
+
+                <div class="header">
+                    <div class="row">
+                        <div class="row text-center">
+                            <h1>NASA CHEMICALS</h1>
+                                <br/>
+                            <h1>Purchase - Report</h1>
+                            <t t-if="other['from_date']">
+                                    <b>From :</b>
+                                    <t t-esc="other['from_date']" />
+                            </t>
+                            <br />
+                            <t t-if="other['to_date']">
+                                <b>To :</b>
+
+                                <t t-esc="other['to_date']" />
+                            </t>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="page">
+                    <div class="row mt-5 mb-3">
+                        <div class="col-12">
+                            <table class="table-bordered">
+
+                                <thead>
+                                    <tr>
+                                        <th style="text-align:center;border-bottom:1px solid black;padding:10px;width:180px;">
+                                            <b>Date</b>
+                                        </th>
+                                        <th style="text-align:center;border-bottom:1px solid black;padding:10px;width:200px;">
+                                            <b>Vendor</b>
+                                        </th>
+                                        <th style="text-align:center;border-bottom:1px solid black;padding:10px;width:120px;">
+                                            <b>PO No</b>
+                                        </th>
+                                        <th style="text-align:center;border-bottom:1px solid black;padding:10px;width:100px;">
+                                            <b>GRN</b>
+                                        </th>
+                                        
+                                        <th style="text-align:center;border-bottom:1px solid black;padding:10px;width:100px;">
+                                            <b>Invoice No</b>
+                                        </th>
+                                        <th style="text-align:center;border-bottom:1px solid black;padding:10px;width:150px;">
+                                            <b>Rcvd Locaion</b>
+                                        </th>
+                                        <th style="text-align:center;border-bottom:1px solid black;padding:10px;width:100px;">
+                                            <b>Qty</b>
+                                        </th>
+                                        <th style="text-align:center;border-bottom:1px solid black;padding:10px;width:100px;">
+                                            <b>Unit</b>
+                                        </th>
+                                        <th style="text-align:center;border-bottom:1px solid black;padding:10px;width:100px;">
+                                            <b>Price</b>
+                                        </th>
+                                        <th style="text-align:center;border-bottom:1px solid black;padding:10px;width:100px;">
+                                            <b>Amount</b>
+                                        </th>
+                                        
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr t-foreach="data" t-as="value">
+
+                                        <td style="text-align:left;"><span t-esc="value['date']"/></td>
+                                        <td style="text-align:left;"><span t-esc="value['vendor']"/></td>
+                                        <td style="text-align:left;"><span t-esc="value['pono']"/></td>
+                                        <td style="text-align:left;"><span t-esc="value['grn']"/></td>
+                                        <td style="text-align:left;"><span t-esc="value['invoiceno']"/></td>
+                                        <td style="text-align:left;"><span t-esc="value['location']"/></td>
+                                        <td style="text-align:right;"><span t-esc="value['qty']"/></td>
+                                        <td style="text-align:right;"><span t-esc="value['unit']"/></td>
+                                        <td style="text-align:right;"><span t-esc="value['price']"/></td>
+                                        <td style="text-align:right;"><span t-esc="value['amount']"/></td>
+                                        
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td colspan="7" class="total-cell" style="text-align:right; padding:4px;">
+                                            <b>Totals</b>
+                                        </td>
+                                        <td class="total-cell" style="text-align:right; padding:4px;">
+                                            <b><span t-esc="totals['total_qty']" t-options='{"widget": "float", "precision": 2, "thousands_sep": ","}'/></b>
+                                        </td>
+                                        <td class="total-cell" style="text-align:right; padding:4px;">
+                                            <b><span t-esc="totals['total_price']" t-options='{"widget": "float", "precision": 2, "thousands_sep": ","}'/></b>
+                                        </td>
+                                        <td class="total-cell" style="text-align:right; padding:4px;">
+                                            <b><span t-esc="totals['total_amount']" t-options='{"widget": "float", "precision": 2, "thousands_sep": ","}'/></b>
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+
+
+
+                                    
+                            </table>
+                        </div>
+                    </div>
+                    
+                </div>
+            <!-- </t> -->
+        </t>
+
+    </template>
+</odoo>

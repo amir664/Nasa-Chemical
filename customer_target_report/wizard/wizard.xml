@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id = "customer_target_report_wizard" model="ir.ui.view">
+        <field name="name">Customer Target Report</field>
+        <field name="model">customer.target.report</field>
+        <field name="arch" type="xml">
+            <form string = "Customer Target Reports">
+                <group>
+                    <field name = 'customer'/>
+                    <field name = 'start_date' widget="date"/>
+                    <field name = 'end_date' widget="date"/>
+                </group>
+                <footer>
+                    <button name="print_report" type="object" string="Print" class="oe_highlight"/>
+                    <button string="Cancel" class="btn btn-default" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="customer_target_report_action" model="ir.actions.act_window">
+        <field name="name">Customer Target Report Action</field>
+        <field name="res_model">customer.target.report</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="customer_target_report_id"
+              name="Customer Target Report"
+              parent="contacts.menu_contacts"
+              action="customer_target_report_action"
+    />
+</odoo>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="po_report_wizard" model="ir.ui.view">
+        <field name="name">Purchase Order Report</field>
+        <field name="model">po.report</field>
+        <field name="arch" type="xml">
+            <form string="Purchase Order Report">
+                <group>
+                   <group>
+                        <field name="date_from"/>
+                        <field name="date_to"/>
+                        <field name="product_ids" widget="many2many_tags"/>
+                        <field name="warehouse_id" widget="many2one_tags"/>
+                        <field name="vendor_ids" widget="many2many_tags"/>
+                    </group>
+                   <group>
+                        <field name="po_no"/>
+                        <field name="grn"/>
+                        <field name="invoice_no"/>
+                        <field name="pr_no"/>
+                    </group>
+                </group>
+                <footer>
+                    <button name="print_report" type="object" string="Print" class="oe_highlight"/>
+                    <button string="Cancel" class="btn btn-default" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="po_report_action" model="ir.actions.act_window">
+        <field name="name">Purchase Order Report</field>
+        <field name="res_model">po.report</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="po_report_id"
+              name="Purchase Order Report"
+              parent="account.menu_finance_reports"
+              action="po_report_action"
+    />
+</odoo>

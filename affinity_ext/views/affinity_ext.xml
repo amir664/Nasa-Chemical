@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="res_partner_inherited_form" model="ir.ui.view">
+            <field name="name">res.partner.inherited.form</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <field name="category_id" position="after">
+                <field name="major_client"/>
+                <field name="legal_status"/>
+                <field name="company_reg"/>
+                <field name="artical"/>
+                
+            </field>
+            
+            <field name="vat" position="after">
+                <field name="strn_no"/>
+                <!-- <field name="cnic_no"/> -->
+                <field name="vendor_status"/>
+                
+                
+
+            </field>
+            
+            <xpath expr="//field[@name='vat']" position="attributes">
+                <attribute name="string">NTN</attribute>
+            </xpath>
+
+            <xpath expr="//form[1]/sheet[1]/notebook[1]/page[@name='contact_addresses']/field[@name='child_ids']/form[1]/sheet[1]/group[1]/group[2]/field[@name='phone']" position="after">
+                <field name="cnic_no"/>
+            </xpath>
+    
+            <!-- Added IBAN Number  -->
+            <!-- <xpath expr="//field[@name='acc_number']" position="after">
+                <field name="bank_iban_num" optional="show"/>
+            </xpath> -->
+                
+
+            </field>
+        </record>
+
+  </data>
+</odoo>
+    
