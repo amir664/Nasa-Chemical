@@ -390,6 +390,7 @@ class PurchaseRequestLineMakePurchaseOrderItem(models.TransientModel):
         help="Set true if you want to keep the "
              "descriptions provided in the "
              "wizard in the new PO.",
+        default=True
     )
 
     @api.onchange("product_id")
