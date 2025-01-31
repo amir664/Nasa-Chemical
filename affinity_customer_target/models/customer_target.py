@@ -22,7 +22,7 @@ class CustomerTargetLine(models.Model):
     sales_target = fields.Float(string="Sales Target", required=True)
     current_sales = fields.Float( string = "Current Sales", readonly=True, required=True, compute= "get_sales_target_sum")
 
-    @api.depends('customer',"customer_target_id.sale_person_id")
+    @api.depends('customer',"customer_target_id.sale_person_id") 
     def get_sales_target_sum(self ):
         for rec in self:
             rec.current_sales = 0
