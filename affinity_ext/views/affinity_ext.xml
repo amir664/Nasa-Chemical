@@ -66,11 +66,11 @@
                     <field name="forecasting_stock" optional="show"/>
                     <field name="on_hand_qty" optional="show"/>
                 </xpath>
-                <field name="description" position="after">
+                <!-- <field name="description" position="after">
                     <field name="department"/>
                     <field name="date_due"/>
-                    <!-- <field name="quality_parameters"/> -->
-                </field>
+                    <field name="quality_parameters"/>
+                </field> -->
             </field>
         </record>
   </data>
