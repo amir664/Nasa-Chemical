@@ -52,6 +52,27 @@
                 </field>
             </field>
         </record>
+
+
+        <record id="purchase_request_inherited_form" model="ir.ui.view">
+            <field name="name">purchase.request.inherited.form</field>
+            <field name="model">purchase.request</field>
+            <field name="inherit_id" ref="purchase_request.view_purchase_request_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form[1]/sheet[1]/notebook[1]/page[1]/field[@name='line_ids']/tree[1]/field[@name='name']" position="after">
+                    
+                    <field name="minimum_stock_level" optional="show"/>
+                    <!--  -->
+                    <field name="forecasting_stock" optional="show"/>
+                    <field name="on_hand_qty" optional="show"/>
+                </xpath>
+                <field name="description" position="after">
+                    <field name="department"/>
+                    <field name="date_due"/>
+                    <!-- <field name="quality_parameters"/> -->
+                </field>
+            </field>
+        </record>
   </data>
 </odoo>
     
