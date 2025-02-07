@@ -54,6 +54,11 @@ class PurchaseOrderInherited(models.Model):
     _inherit = "purchase.order"
 
     notes = fields.Html(
-        string="Terms and Condition",
-        default="<p>HAHAHAHAHA</p>"
+        string="Terms and Condition" 
     )
+
+    @api.model
+    def default_get(self, fields_list):
+        res = super(PurchaseOrderInherited, self).default_get(fields_list)
+        res['notes'] = "<p>HAHAHAHAHA</p>"
+        return res
