@@ -34,7 +34,6 @@ class StockPickingInherited(models.Model):
     # Override the write method to check purchase tolerance before saving the record
     @api.model
     def write(self, vals):
-        # Loop through each record in self (to handle multi-records)
         res =  super(StockPickingInherited, self).write(vals)
         high_perc_qty = 0
         for rec in self:
