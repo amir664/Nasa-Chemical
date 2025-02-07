@@ -2,7 +2,7 @@
     'name' : 'Affinity Fields Extension',
     'version' : '1.0.0',
     'summary' : 'For Customization Purpose',
-    'depends' : ['base', 'product','stock'],
+    'depends' : ['base', 'product','stock','purchase'],
     'data' : ['views/affinity_ext.xml',],
     'installable' : True,
     'application' : True,
