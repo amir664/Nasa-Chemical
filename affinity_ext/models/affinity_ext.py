@@ -60,5 +60,5 @@ class PurchaseOrderInherited(models.Model):
     @api.model
     def default_get(self, fields_list):
         res = super(PurchaseOrderInherited, self).default_get(fields_list)
-        res['notes'] = "<p>HAHAHAHAHA</p>"
+        res['notes'] = "<p>Terms And Conditions</p>"
         return res
