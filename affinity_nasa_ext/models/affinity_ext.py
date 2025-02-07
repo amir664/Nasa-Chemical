@@ -205,7 +205,7 @@ class StockPickingInherited(models.Model):
                         # raise UserError(str(high_perc_qty))
                         # or line.quantity < low_perc_qty:
                         
-                    if line.quantity > high_perc_qty:
+                    if line.quantity >= high_perc_qty:
                         raise UserError('You have violated the purchase tolerance limit')
 
         # Proceed with the default write behavior after the checks
