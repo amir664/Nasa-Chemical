@@ -55,5 +55,5 @@ class PurchaseOrderInherited(models.Model):
 
     notes = fields.Html(
         string="Terms and Condition",
-        default="<p><b>Default Terms and Conditions:</b></p><ul><li>Condition 1</li><li>Condition 2</li><li>Condition 3</li></ul>"
+        default="<p>HAHAHAHAHA</p>"
     )
