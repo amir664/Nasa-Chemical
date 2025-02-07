@@ -1,4 +1,5 @@
 from odoo import fields, models, api
+from odoo.exceptions import UserError
 
 
 class ResPartnerInherited(models.Model):
@@ -17,4 +18,42 @@ class ResPartnerBankInherited(models.Model):
     _inherit = "res.partner.bank"
     
     bank_iban_num = fields.Char('IBAN Number')
-    
+
+
+
+
+class StockPickingInherited(models.Model):
+    _inherit = 'stock.picking'
+
+    # @api.constrains('state')
+    # def not_validate(self):
+    #     for rec in self:
+    #         qccheck = self.env['quality.check'].search([('picking_id','=',rec.id)])
+    #         if qccheck:
+    #             for qc in qccheck:
+    #                 if qc.state == "done":
+    #                     raise UserError("State cannot move forward to done stage when qc is failed")
+
+    # Override the write method to check purchase tolerance before saving the record
+    @api.model
+    def write(self, vals):
+        # Loop through each record in self (to handle multi-records)
+        res =  super(StockPickingInherited, self).write(vals)
+        high_perc_qty = 0
+        # low_perc_qty = 0
+        for rec in self:
+            if rec.picking_type_id.name == 'Receipts':
+                for line in rec.move_ids_without_package:
+                    if line.quantity and line.product_uom_qty:
+                        
+                        high_perc_qty =  line.product_uom_qty + ((line.product_uom_qty * line.product_id.purchase_tolerance) / 100) 
+                        # low_perc_qty =  line.product_uom_qty - ((line.product_uom_qty * line.product_id.purchase_tolerance) / 100 )
+                        
+                        # raise UserError(str(high_perc_qty))
+                        # or line.quantity < low_perc_qty:
+                        
+                    if line.quantity >= high_perc_qty:
+                        raise UserError('You have violated the purchase tolerance limit')
+
+        # Proceed with the default write behavior after the checks
+        return res
