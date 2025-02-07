@@ -7,35 +7,35 @@ from num2words import num2words
 
 #     company_id = fields.Many2one('res.company', string = 'Companies', default=lambda self: self.env.company)
 
-class PurchaseRerquestLineInherited(models.Model):
-    _inherit = 'purchase.request.line'
+# class PurchaseRerquestLineInherited(models.Model):
+#     _inherit = 'purchase.request.line'
 
-    minimum_stock_level = fields.Float('Minimum Stock Level')
-    forecasting_stock = fields.Float('Forecasting Stock')
-    on_hand_qty = fields.Float('On Hand Quantity')
+#     minimum_stock_level = fields.Float('Minimum Stock Level')
+#     forecasting_stock = fields.Float('Forecasting Stock')
+#     on_hand_qty = fields.Float('On Hand Quantity')
     
     
-    @api.onchange('product_id')
-    def _on_change_product_id(self):
-        for rec in self:
+#     @api.onchange('product_id')
+#     def _on_change_product_id(self):
+#         for rec in self:
             
-            order = rec.env['stock.warehouse.orderpoint'].search([('product_id', '=', rec.product_id.id)])
-            # Search for the stock quant for the product
-            quant = rec.env['stock.quant'].search([('product_id', '=', rec.product_id.id), ('location_id.usage', '=', 'internal')])
+#             order = rec.env['stock.warehouse.orderpoint'].search([('product_id', '=', rec.product_id.id)])
+#             # Search for the stock quant for the product
+#             quant = rec.env['stock.quant'].search([('product_id', '=', rec.product_id.id), ('location_id.usage', '=', 'internal')])
             
-            # If a warehouse orderpoint is found
-            if rec.product_id:
-                if rec.product_id == order.product_id:
-                    # Set minimum stock level and forecasting stock from orderpoint
-                    rec['minimum_stock_level'] = order.product_min_qty
-                    rec['forecasting_stock'] = order.qty_forecast
+#             # If a warehouse orderpoint is found
+#             if rec.product_id:
+#                 if rec.product_id == order.product_id:
+#                     # Set minimum stock level and forecasting stock from orderpoint
+#                     rec['minimum_stock_level'] = order.product_min_qty
+#                     rec['forecasting_stock'] = order.qty_forecast
 
-            # If a stock quant is found in an internal location
-            if quant:
-                for quan in quant:
-                    if rec.product_id == quan.product_id:
-                        # Set on hand quantity from quant
-                        rec['on_hand_qty'] = quan.inventory_quantity_auto_apply
+#             # If a stock quant is found in an internal location
+#             if quant:
+#                 for quan in quant:
+#                     if rec.product_id == quan.product_id:
+#                         # Set on hand quantity from quant
+#                         rec['on_hand_qty'] = quan.inventory_quantity_auto_apply
 
 
 
