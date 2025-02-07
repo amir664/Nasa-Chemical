@@ -47,3 +47,10 @@ class StockPickingInherited(models.Model):
 
         # Proceed with the default write behavior after the checks
         return res
+
+
+
+class PurchaseOrderInherited(models.Model):
+    _inherit = "purchase.order"
+
+    notes = fields.html(string="Terms and Condition",default=lambda self: "<p><b>Default Terms and Conditions:</b></p>")
