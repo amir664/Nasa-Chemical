@@ -53,4 +53,7 @@ class StockPickingInherited(models.Model):
 class PurchaseOrderInherited(models.Model):
     _inherit = "purchase.order"
 
-    notes = fields.html(string="Terms and Condition",default=lambda self: "<p><b>Default Terms and Conditions:</b></p>")
+    notes = fields.Html(
+        string="Terms and Condition",
+        default="<p><b>Default Terms and Conditions:</b></p><ul><li>Condition 1</li><li>Condition 2</li><li>Condition 3</li></ul>"
+    )
