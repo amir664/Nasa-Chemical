@@ -72,8 +72,16 @@ class PurchaseOrderInherited(models.Model):
                                     <ul>
                                         <li><b>Product Specifications Sheet:</b> Must include detailed information such as product dimensions, materials used, performance characteristics, and compliance with relevant industry standards.</li>
                                         <li><b>Technical Data Sheet (TDS): </b>Should provide comprehensive technical information, including product properties, recommended applications, handling instructions, and safety data.</li>
-                                        <li><b>Certificate of Analysis (CoA): </b></li>
+                                        <li><b>Certificate of Analysis (CoA): </b>Must include test results confirming that the product meets the agreed-upon specifications, including any relevant batch or lot numbers.</li>
                                     </ul>
+                                <li><b>Inspection: <b/>Goods/services are subject to inspection. Non-conforming items may be rejected and returned at the Supplier’s expense.</li>
+                                <li><b>Warranty: </b>The Supplier warrants that goods/services are free of defects, conform to specifications, and are fit for purpose. In case any damaged goods are identified during the production process, the goods will be rejected, and company will have the right to deduct payment and send the rejected material back to the vendor, at the vendor’s expense.</li>
+                                <li><b>Damages: <b/>Any damages to our finished goods resulting from leakages/damages in suppliers’ material will be fully covered by the supplier, including all associated costs and losses.</li>
+                                <li><b>Changes: </b>The Buyer may request changes to the order. Price or schedule adjustments require mutual agreement.</li>
+                                <li><b>Termination: </b>The Buyer may terminate this order for convenience or cause. In the case of termination for cause, no further payment is due.</li>
+                                <li><b>Liability: </b>The Supplier agrees to indemnify the Buyer for any damages arising from defective goods/services.</li>
+                                <li><b>Compliance: </b>Supplier must comply with all applicable laws and regulations.</li>
+                                <li><b>Governing Law: </b>This order is governed by the laws of PPRA. </li>
                             </ul>"""
         return res
     
