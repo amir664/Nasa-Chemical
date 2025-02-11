@@ -62,7 +62,19 @@ class PurchaseOrderInherited(models.Model):
     @api.model
     def default_get(self, fields_list):
         res = super(PurchaseOrderInherited, self).default_get(fields_list)
-        res['notes'] = "<p>Terms And Conditions</p>"
+        res['notes'] = """<strong>Purchase Order Terms and Conditions:</strong>
+                            <ul>
+                                <li><b>Acceptance:</b> By accepting this Purchase Order, the Supplier agrees to all terms and conditions stated herein. Any modifications must be approved in writing by the Buyer.</li>
+                                <li><b>Pricing and Payment:</b> Prices are fixed and include all charges. Payment will be due in 30/60 days after receipt of invoice and goods or services.</li>
+                                <li><b>Delivery:</b> Timely delivery is essential. NASA Chemicals reserves the right to reject late deliveries or cancel the order if deadlines are missed. Delivery timings are 8am-3:00 pm. Any deliveries earlier or later than this time may be cancelled or returned.</li>
+                                <li><b>Delivery Tolerance:</b> The Supplier is allowed to deliver no more than 10% extra material beyond the quantity specified in the purchase order. Any delivery exceeding the 10% allowance must be pre-approved by the Buyer in writing. Failure to obtain approval may result in the return of excess material at the Supplier's expense.</li>
+                                <li><b>Content Of Document</b></li>
+                                    <ul>
+                                        <li><b>Product Specifications Sheet:</b> Must include detailed information such as product dimensions, materials used, performance characteristics, and compliance with relevant industry standards.</li>
+                                        <li><b>Technical Data Sheet (TDS): </b>Should provide comprehensive technical information, including product properties, recommended applications, handling instructions, and safety data.</li>
+                                        <li><b>Certificate of Analysis (CoA): </b></li>
+                                    </ul>
+                            </ul>"""
         return res
     
 
