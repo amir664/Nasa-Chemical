@@ -84,7 +84,7 @@
 
                     <field name="forecasting_stock" optional="show"/>
                 </xpath> -->
-                <xpath expr="//field[@name='company_id']" postition="after">
+                <xpath expr="//form[1]/sheet[1]/field[@name='company_id']" postition="after">
                     <field name="methods"/>
                 </xpath>
                 <!-- <field name="description" position="after">
