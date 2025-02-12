@@ -116,3 +116,9 @@ class PurchaseRerquestLineInherited(models.Model):
                         # Set on hand quantity from quant
                         rec['on_hand_qty'] = quan.inventory_quantity_auto_apply
 
+
+
+class QualityCheckInherited(models.Model):
+    _inherit = "quality.check"
+
+    methods = fields.Char(string="Method")
