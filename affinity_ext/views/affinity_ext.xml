@@ -78,7 +78,7 @@
             <field name="model">quality.check</field>
             <field name="inherit_id" ref="quality_control.quality_check_view_form"/>
             <field name="arch" type="xml">
-                <xpath expr="//form/sheet/field[@name='company_id']" postition="after">
+                <xpath expr="//field[@name='measure']" postition="after">
                     <field name="methods"/>
                 </xpath>
             </field>
