@@ -27,10 +27,11 @@ class CustomReport(models.AbstractModel):
                     SELECT 
             partner.name AS customer_name,
             line.sales_target AS sales_target,
+            line.current_sales AS current_sales,
             target.start_date AS start_date,
             target.end_date AS end_date
-            FROM customer_target_line line
-            JOIN customer_target target ON target.id = line.customer_target_id
+            FROM customer_target_line AS line
+            JOIN customer_target AS target ON target.id = line.customer_target_id
             JOIN res_partner partner ON partner.id = line.customer
             Where target.id is not Null
             
