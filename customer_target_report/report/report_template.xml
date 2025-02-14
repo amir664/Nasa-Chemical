@@ -22,7 +22,8 @@
                                     <td><t t-esc="test['start_date']"/></td>
                                     <td><t t-esc="test['end_date']"/></td>
                                     <td><t t-esc="test['sales_target']"/></td>
-                                    <td><t t-esc="test['current_sales']"/></td>
+                                    <t t-set="lines" t-value="env['customer.target.line'].search([('id','=',test['current_sales'])])"/>
+                                    <td><t t-esc="lines.current_sales"/></td>
                                 </tr>
                             </t>
                         </tbody>
