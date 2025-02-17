@@ -9,7 +9,8 @@ class AnalyticAccount(models.Model):
     shipping_detail_ids = fields.One2many('shipment.model', 'analytic_account_id', string="Shipping Details")
     letter_credit_count = fields.Integer(string="Shipping Count", compute="compute_letter_credit_count")
     letter_credit_detail_ids = fields.One2many('letter.of.credit', 'analytic_account_id', string="Letter Of Credit Details")
-
+    analytic_account_id =fields.Many2one('account.analytic.account',string="Analytic Account")
+    
     def compute_shipping_count(self):
         for rec in self:
             rec.shipping_count = len(rec.shipping_detail_ids)

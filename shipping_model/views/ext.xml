@@ -13,6 +13,7 @@
                                 class="oe_stat_button"
                                 icon="fa-spinner">
                             <field name="shipping_count" widget="statinfo" string="Shipping Details"/>
+                            <field name="analytic_account_id" widget="statinfo"/>
                         </button>
                     </div>   
                     <div class="oe_button_box" name="button_box">
