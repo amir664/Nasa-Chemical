@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_letter_of_credit_tree" model="ir.ui.view">
+        <field name="name">letter.of.credit.tree</field>
+        <field name="model">letter.of.credit</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="analytic_account_id"/>
+                <field name="currency_id"/>
+                <field name="issuance_of_bank"/>
+                <field name="issuance_date"/>
+                <field name="expiry_date"/>
+                <field name="lc_type"/>
+                <field name="lc_amount"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_letter_of_credit_form" model="ir.ui.view">
+        <field name="name">letter.of.credit.form</field>
+        <field name="model">letter.of.credit</field>
+        <field name="arch" type="xml">
+                        <!--else type="action" -->
+            <form>
+                <div class="oe_button_box" name="button_box">
+                <button name="action_open_release_details"
+                        type="object"
+                    
+                        class="oe_stat_button"
+                        icon="fa-spinner">
+                    <field name="release_count" widget="statinfo" string="Processing Details"/>
+                </button>
+            </div>
+                <header>
+                    <field name="state" widget="statusbar" options="{'clickable': '1'}"/>
+                    <!-- <button name= 'line_manager_button' string="Line Manager" type="object"/> -->
+                    </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="analytic_account_id"/>
+                            <field name="lc_type"/>
+                            <field name="lc_amount"/>
+                            <field name="currency_id"/>
+                            <!-- <field name="shipment_company_name"/>
+                            <field name="dimension"/>
+                            <field name="weight"/> -->
+                            
+                        </group>
+                        <group>
+                            <field name="issuance_of_bank"/>
+                            <field name="issuance_date"/>
+                            <field name="expiry_date"/>
+                            <!-- <field name="etd_date"/> -->
+
+                            
+                            
+                            
+                        </group>
+                        
+                    </group>
+
+                    
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="letter_of_credit_action" model="ir.actions.act_window">
+            <field name="name">Letter Of Credit</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">letter.of.credit</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+    <menuitem id="letter_of_credit" name="Letter Of Credit" parent="shipment_model_root" action="letter_of_credit_action" sequence="12"/>
+</odoo>

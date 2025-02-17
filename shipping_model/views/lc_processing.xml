@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_lc_processing_release_detail_tree" model="ir.ui.view">
+        <field name="name">lc.processing.release.detail.tree</field>
+        <field name="model">lc.processing.release.detail</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <!-- <field name="analytic_account_id"/>
+                <field name="currency_id"/>
+                <field name="issuance_of_bank"/>
+                <field name="issuance_date"/>
+                <field name="expiry_date"/>
+                <field name="lc_type"/>
+                <field name="lc_amount"/>
+                <field name="state"/> -->
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_lc_processing_release_detail_form" model="ir.ui.view">
+        <field name="name">lc.processing.release.detail.form</field>
+        <field name="model">lc.processing.release.detail</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <!-- <button name= 'line_manager_button' string="Line Manager" type="object"/> -->
+                    </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="lc_id"/>
+                            <field name="lc_request_date"/>
+                            <field name="doc_submission_date"/>
+                            <field name="shipment_date"/>
+                            <field name="payment_date"/>
+                            <!-- <field name="shipment_company_name"/>
+                            <field name="dimension"/>
+                            <field name="weight"/> -->
+                            
+                        </group>
+                        <group>
+                            <field name="submission_date"/>
+                            <field name="doc_revision_date"/>
+                            <field name="doc_recieved_date"/>
+                            <field name="bill_landing_no"/>
+                            <!-- <field name="etd_date"/> -->
+
+                            
+                            
+                            
+                        </group>
+                        
+                    </group>
+
+                    
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="lc_processing_release_detail_action" model="ir.actions.act_window">
+            <field name="name">LC Processiong And Release Details</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">lc.processing.release.detail</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+    <menuitem id="lc_processing_release_detail" name="LC Processiong And Release Details" parent="shipment_model_root" action="lc_processing_release_detail_action" sequence="13"/>
+</odoo>

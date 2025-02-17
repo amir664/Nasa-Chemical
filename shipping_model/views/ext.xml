@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="analytic_account_form_inherited" model="ir.ui.view">   
+        <field name="name">account.analytic.account.form.inherited</field>   
+        <field name="model">account.analytic.account</field>   
+        <field name="inherit_id" ref="analytic.view_account_analytic_account_form"/>
+        <field name="arch" type="xml">       
+                <xpath expr="//button[@name='235']" position="after">
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_open_shipping"
+                                type="object"
+                            
+                                class="oe_stat_button"
+                                icon="fa-spinner">
+                            <field name="shipping_count" widget="statinfo" string="Shipping Details"/>
+                        </button>
+                    </div>   
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_open_letter_credit"
+                                type="object"
+                            
+                                class="oe_stat_button"
+                                icon="fa-spinner">
+                            <field name="letter_credit_count" widget="statinfo" string="Letter Of Credit Details"/>
+                        </button>
+                    </div>   
+                </xpath>  
+        </field>
+    </record>
+
+</odoo>

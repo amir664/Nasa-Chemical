@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_shipment_model,access.shipment_model,model_shipment_model,,1,1,1,1
+access_letter_of_credit,access.letter_of_credit,model_letter_of_credit,,1,1,1,1
+access_lc_processing_release_detail,access.lc_processing_release_detail,model_lc_processing_release_detail,,1,1,1,1

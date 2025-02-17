@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_shipment_model_tree" model="ir.ui.view">
+        <field name="name">shipment.model.tree</field>
+        <field name="model">shipment.model</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="shipping_name"/>
+                <field name="shipment_date"/>
+                <field name="port_of_origin"/>
+                <field name="port_of_destination"/>
+                <field name="invoice_no"/>
+                <field name="eta_date"/>
+                <field name="etd_date"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_shipment_model_form" model="ir.ui.view">
+        <field name="name">shipment.model.form</field>
+        <field name="model">shipment.model</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <field name="state" widget="statusbar" options="{'clickable': '1'}"/>
+                    <!-- <button name= 'line_manager_button' string="Line Manager" type="object"/> -->
+                    </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="shipping_name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="analytic_account_id"/>
+                            <field name="invoice_no"/>
+                            <field name="port_of_origin"/>
+                            <!-- <field name="shipment_company_name"/>
+                            <field name="dimension"/>
+                            <field name="weight"/> -->
+                            
+                        </group>
+                        <group>
+                            <field name="shipment_date"/>
+                            <field name="port_of_destination"/>
+                            <field name="eta_date"/>
+                            <field name="etd_date"/>
+
+                            
+                            
+                            
+                        </group>
+                        
+                    </group>
+
+                    
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="shipment_model_action" model="ir.actions.act_window">
+            <field name="name">Shipment Model</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">shipment.model</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+    <data>
+    <menuitem id="shipment_model_root" name="Import" parent="purchase.menu_purchase_root"  sequence="3"/>
+    <menuitem id="shipment_model" name="Shipment" parent="shipment_model_root" action="shipment_model_action" sequence="11"/>
+    </data>
+</odoo>
