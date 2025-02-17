@@ -13,7 +13,7 @@
                                 class="oe_stat_button"
                                 icon="fa-spinner">
                             <field name="shipping_count" widget="statinfo" string="Shipping Details"/>
-                            <field name="analytic_account_id" widget="statinfo"/>
+                        
                         </button>
                     </div>   
                     <div class="oe_button_box" name="button_box">
@@ -28,5 +28,19 @@
                 </xpath>  
         </field>
     </record>
+
+    <record id="purchase_order_form_inherited" model="ir.ui.view">
+        <field name="name">purchase.order.form.inherited</field>   
+        <field name="model">purchase.order</field>   
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="arch" type="xml">
+            <form>
+                <field name="status" widget="statusbar" options="{'clickable': '1'}"/>
+                <field name="analytic_account_id"/>
+            </form>
+        </field>
+
+    </record>
+
 
 </odoo>

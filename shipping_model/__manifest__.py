@@ -10,7 +10,7 @@
     'summary': '',
     'description': """""",
     # ,'purchase_request','purchase','stock','stock_landed_costs'
-    'depends': ['base','base_setup','analytic'],
+    'depends': ['base','base_setup','analytic','purchase'],
     'demo': [],
     'data':[
         'security/ir.model.access.csv',
