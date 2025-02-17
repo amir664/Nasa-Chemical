@@ -43,7 +43,7 @@ class AnalyticAccount(models.Model):
 
 
 class PurchaseOrderInherit(models.Model):
-    inherit = "purchase.order"
+    _inherit = "purchase.order"
 
 
     analytic_account_id =fields.Many2one('account.analytic.account',string="Analytic Account")
