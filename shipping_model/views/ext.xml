@@ -5,7 +5,7 @@
         <field name="model">account.analytic.account</field>   
         <field name="inherit_id" ref="analytic.view_account_analytic_account_form"/>
         <field name="arch" type="xml">       
-                <xpath expr="//button[@name='235']" position="after">
+                <xpath expr="//button[@name='145']" position="after">
                     <div class="oe_button_box" name="button_box">
                         <button name="action_open_shipping"
                                 type="object"
