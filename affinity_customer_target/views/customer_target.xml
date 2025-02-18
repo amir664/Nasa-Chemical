@@ -38,7 +38,7 @@
                                 <tree editable='bottom'>
                                     <field name = "customer"/>
                                     <field name = "sales_target"/>
-                                    <field name = "current_sales"/>
+                                    <!-- <field name = "current_sales"/> -->
                                 </tree>
                             </field>    
                         </page>
