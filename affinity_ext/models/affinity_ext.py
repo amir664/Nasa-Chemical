@@ -2,6 +2,7 @@ from odoo import fields, models, api
 from odoo.exceptions import UserError
 
 
+
 class ResPartnerInherited(models.Model):
     _inherit = "res.partner"
 
