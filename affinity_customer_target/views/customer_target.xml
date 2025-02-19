@@ -72,8 +72,8 @@
         <field name="view_mode">tree,form</field>
     </record>
 
-    <menuitem id="menu_customer_target"
+    <!-- <menuitem id="menu_customer_target"
               name="Customer Target"
               action="action_customer_target"
-              parent = "contacts.menu_contacts"/>
+              parent = "contacts.menu_contacts"/> -->
 </odoo>
