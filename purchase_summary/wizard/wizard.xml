@@ -8,14 +8,11 @@
                 <group>
                     <group>
                         <field name="date_from"/>
-                        <field name="date_to"/>
-                        <field name="vendor_id"/>
+                        <field name="date_to"/>                        
                     </group>
                     <group>
                         <field name="item_wise"/>
-                        <field name="vendor_accounts_wise"/>
-                        <field name="vendor_group_wise"/>
-                        <field name="item_group_wise"/>
+                        <field name="vendor_id"/>
                     </group>
                 </group>
                 <footer>

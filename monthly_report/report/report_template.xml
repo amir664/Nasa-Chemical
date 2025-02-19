@@ -53,7 +53,7 @@
 <table class="table table-sm o_account_report_table">
     <thead>
         <tr>
-            <th rowspan="2">Products</th>
+            <th rowspan="2">Account</th>
             <t t-foreach="range(0, (date_to.year - date_from.year) * 12 + date_to.month - date_from.month + 1)" t-as="i">
                 <th colspan="2">
                     <t t-set="month_date" t-value="date_from + relativedelta(months=i)"/>
@@ -64,11 +64,11 @@
         </tr>
         <tr>
             <t t-foreach="range(0, (date_to.year - date_from.year) * 12 + date_to.month - date_from.month + 1)" t-as="i">
-                <th>Quantity</th>
-                <th>Amount</th>
+                <th class="text-end">Quantity</th>
+                <th class="text-end">Amount</th>
             </t>
-            <th>Quantity</th>
-            <th>Amount</th>
+            <th class="text-end">Quantity</th>
+            <th class="text-end">Amount</th>
         </tr>
     </thead>
     <tbody>
@@ -106,19 +106,19 @@
                     <!-- Update dictionary manually -->
                     <t t-set="month_totals" t-value="month_totals.update({qty_key: prev_qty_total + qty_value, amount_key: prev_amount_total + amount_value}) or month_totals"/>
 
-                    <td>
+                    <td class="text-end">
                         <span t-esc="qty_value if qty_value else '-'"/>
                     </td>
-                    <td>
+                    <td class="text-end">
                         <span t-esc="amount_value if amount_value else '-'"/>
                     </td>
                 </t>
 
                 <!-- Total per account -->
-                <td>
+                <td class="text-end">
                     <strong><span t-esc="account_total_qty"/></strong>
                 </td>
-                <td>
+                <td class="text-end">
                     <strong><span t-esc="account_total_amount"/></strong>
                 </td>
             </tr>
@@ -132,14 +132,15 @@
                 <t t-set="qty_key" t-value="month_date.strftime('qty_%Y_%m')"/>
                 <t t-set="amount_key" t-value="month_date.strftime('amount_%Y_%m')"/>
                 
-                <td><strong><span t-esc="month_totals.get(qty_key, 0)"/></strong></td>
-                <td><strong><span t-esc="month_totals.get(amount_key, 0)"/></strong></td>
+                <td class="text-end"><strong><span t-esc="month_totals.get(qty_key, 0)"/></strong></td>
+                <td class="text-end"><strong><span t-esc="month_totals.get(amount_key, 0)"/></strong></td>
             </t>
-            <td>—</td> <!-- Placeholder for total column -->
-            <td>—</td>
+            <td class="text-end">—</td> <!-- Placeholder for total column -->
+            <td class="text-end">—</td>
         </tr>
     </tbody>
 </table>
+
 
 
 
