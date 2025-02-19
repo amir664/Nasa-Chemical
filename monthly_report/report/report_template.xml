@@ -50,7 +50,7 @@
                 <div class="page">
                     <div class="row mt-5 mb-3">
                         <div class="col-12">
-                        <table class="table table-sm o_account_report_table">
+<table class="table table-sm o_account_report_table">
     <thead>
         <tr>
             <th rowspan="2">Account</th>
@@ -70,6 +70,7 @@
         </tr>
     </thead>
     <tbody>
+        <t t-set="month_totals" t-value="{}"/>
         <t t-foreach="data" t-as="line">
             <tr>
                 <td>
@@ -82,12 +83,19 @@
                     <t t-set="month_date" t-value="date_from + relativedelta(months=i)"/>
                     <t t-set="qty_key" t-value="month_date.strftime('qty_%Y_%m')"/>
                     <t t-set="amount_key" t-value="month_date.strftime('amount_%Y_%m')"/>
-                    
+
+                    <t t-set="qty_value" t-value="line.get(qty_key, 0)"/>
+                    <t t-set="amount_value" t-value="line.get(amount_key, 0)"/>
+
+                    <!-- Update Month Totals -->
+                    <t t-set="month_totals[qty_key]" t-value="month_totals.get(qty_key, 0) + qty_value"/>
+                    <t t-set="month_totals[amount_key]" t-value="month_totals.get(amount_key, 0) + amount_value"/>
+
                     <td>
-                        <span t-esc="line.get(qty_key, '-')"/>
+                        <span t-esc="qty_value if qty_value else '-'"/>
                     </td>
                     <td>
-                        <span t-esc="line.get(amount_key, '-')"/>
+                        <span t-esc="amount_value if amount_value else '-'"/>
                     </td>
                 </t>
                 <td>
@@ -95,8 +103,23 @@
                 </td>
             </tr>
         </t>
+
+        <!-- Total Row -->
+        <tr class="table-success">
+            <td><strong>Total</strong></td>
+            <t t-foreach="range(0, (date_to.year - date_from.year) * 12 + date_to.month - date_from.month + 1)" t-as="i">
+                <t t-set="month_date" t-value="date_from + relativedelta(months=i)"/>
+                <t t-set="qty_key" t-value="month_date.strftime('qty_%Y_%m')"/>
+                <t t-set="amount_key" t-value="month_date.strftime('amount_%Y_%m')"/>
+                
+                <td><strong><span t-esc="month_totals.get(qty_key, 0)"/></strong></td>
+                <td><strong><span t-esc="month_totals.get(amount_key, 0)"/></strong></td>
+            </t>
+            <td>—</td> <!-- Placeholder for Total column -->
+        </tr>
     </tbody>
 </table>
+
 
 
                             <!-- <table class="table-bordered">
