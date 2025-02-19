@@ -60,13 +60,15 @@
                     <t t-esc="month_date.strftime('%B %Y')"/>
                 </th>
             </t>
-            <th rowspan="2">hello</th>
+            <th colspan="2">Total</th>
         </tr>
         <tr>
             <t t-foreach="range(0, (date_to.year - date_from.year) * 12 + date_to.month - date_from.month + 1)" t-as="i">
                 <th>Quantity</th>
                 <th>Amount</th>
             </t>
+            <th>Quantity</th>
+            <th>Amount</th>
         </tr>
     </thead>
     <tbody>
@@ -81,6 +83,10 @@
                 <t t-set="date_from" t-value="datetime.strptime(date_from, '%Y-%m-%d').date() if isinstance(date_from, str) else date_from"/>
                 <t t-set="date_to" t-value="datetime.strptime(date_to, '%Y-%m-%d').date() if isinstance(date_to, str) else date_to"/>
 
+                <!-- Initialize total quantity & amount per account -->
+                <t t-set="account_total_qty" t-value="0"/>
+                <t t-set="account_total_amount" t-value="0"/>
+
                 <t t-foreach="range(0, (date_to.year - date_from.year) * 12 + date_to.month - date_from.month + 1)" t-as="i">
                     <t t-set="month_date" t-value="date_from + relativedelta(months=i)"/>
                     <t t-set="qty_key" t-value="month_date.strftime('qty_%Y_%m')"/>
@@ -88,6 +94,10 @@
 
                     <t t-set="qty_value" t-value="line.get(qty_key, 0)"/>
                     <t t-set="amount_value" t-value="line.get(amount_key, 0)"/>
+
+                    <!-- Sum total per account -->
+                    <t t-set="account_total_qty" t-value="account_total_qty + qty_value"/>
+                    <t t-set="account_total_amount" t-value="account_total_amount + amount_value"/>
 
                     <!-- Workaround: Use temporary variables -->
                     <t t-set="prev_qty_total" t-value="month_totals.get(qty_key, 0)"/>
@@ -103,13 +113,18 @@
                         <span t-esc="amount_value if amount_value else '-'"/>
                     </td>
                 </t>
+
+                <!-- Total per account -->
                 <td>
-                    <span t-esc="line.get('Total', '-')"/> 
+                    <strong><span t-esc="account_total_qty"/></strong>
+                </td>
+                <td>
+                    <strong><span t-esc="account_total_amount"/></strong>
                 </td>
             </tr>
         </t>
 
-        <!-- Total Row -->
+        <!-- Grand Total Row -->
         <tr class="table-success">
             <td><strong>Total</strong></td>
             <t t-foreach="range(0, (date_to.year - date_from.year) * 12 + date_to.month - date_from.month + 1)" t-as="i">
@@ -120,7 +135,8 @@
                 <td><strong><span t-esc="month_totals.get(qty_key, 0)"/></strong></td>
                 <td><strong><span t-esc="month_totals.get(amount_key, 0)"/></strong></td>
             </t>
-            <td>—</td> <!-- Placeholder for Total column -->
+            <td>—</td> <!-- Placeholder for total column -->
+            <td>—</td>
         </tr>
     </tbody>
 </table>
