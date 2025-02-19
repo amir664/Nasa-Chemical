@@ -9,40 +9,54 @@ class PurchaseSummaryReportController(Controller):
     def download_excel_report(self, **kwargs):
         date_from = kwargs.get('date_from')
         date_to = kwargs.get('date_to')
-        vendor_id = kwargs.get('vendor_id')
-        item_wise = kwargs.get('item_wise')
-
+        
         domain = []
         if date_from:
             domain.append(('date_order', '>=', date_from))
         if date_to:
             domain.append(('date_order', '<=', date_to))
-        if vendor_id:
-            domain.append(('partner_id', '=', int(vendor_id)))
-        if item_wise:
-            domain.append(('order_line.product_id', '=', int(item_wise)))
-
+        
         orders = request.env['purchase.order'].sudo().search(domain)
+        vendors = {}  # Dictionary to group data by vendor
+        
+        for order in orders:
+            if order.partner_id.name not in vendors:
+                vendors[order.partner_id.name] = []
+            for line in order.order_line:
+                vendors[order.partner_id.name].append([
+                    line.product_id.name, 
+                    line.product_qty, 
+                    line.product_uom.name, 
+                    line.price_total
+                ])
         
         output = io.BytesIO()
         workbook = xlsxwriter.Workbook(output)
         sheet = workbook.add_worksheet('Purchase Summary')
-
-        headers = ['Vendor', 'Purchase Order', 'Item', 'Quantity', 'UOM', 'Amount']
-        for col, header in enumerate(headers):
-            sheet.write(0, col, header)
         
-        row = 1
-        for order in orders:
-            for line in order.order_line:
-                sheet.write(row, 0, order.partner_id.name)
-                sheet.write(row, 1, order.name)
-                sheet.write(row, 2, line.product_id.name)
-                sheet.write(row, 3, line.product_qty)
-                sheet.write(row, 4, line.product_uom.name)
-                sheet.write(row, 5, line.price_total)
+        title_format = workbook.add_format({'bold': True, 'font_size': 14, 'align': 'center'})
+        header_format = workbook.add_format({'bold': True, 'bg_color': '#D3D3D3', 'border': 1})
+        cell_format = workbook.add_format({'border': 1})
+        
+        row = 0
+        sheet.merge_range(row, 0, row, 4, 'FAHAD ASSOCIATES', title_format)
+        row += 1
+        sheet.merge_range(row, 0, row, 4, 'Purchase Summary', title_format)
+        row += 1
+        sheet.write(row, 0, 'From Date: ' + (date_from or '____') + ' To: ' + (date_to or '____'))
+        row += 2
+        
+        for vendor, lines in vendors.items():
+            sheet.merge_range(row, 0, row, 4, vendor, header_format)
+            row += 1
+            sheet.write_row(row, 0, ['S #', 'Item', 'Qty', 'UOM', 'Amount'], header_format)
+            row += 1
+            for idx, line in enumerate(lines, start=1):
+                sheet.write(row, 0, idx, cell_format)
+                sheet.write_row(row, 1, line, cell_format)
                 row += 1
-
+            row += 1  # Space between vendors
+        
         workbook.close()
         output.seek(0)
         
