@@ -30,7 +30,7 @@ class ResPartner(models.Model):
             'name': 'Customer Target',
             'domain': [('customer', '=', self.id)],
             'view_type': 'form',
-            'res_model': 'res.partner',
+            'res_model': 'customer.target',
             'view_id': False,
             'view_mode': 'tree,form',
             'type': 'ir.actions.act_window'
