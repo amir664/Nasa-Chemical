@@ -118,6 +118,8 @@
 
 from odoo.exceptions import UserError, AccessError
 from odoo import _, api, fields, models
+from datetime import datetime
+
 
 class CustomReport(models.AbstractModel):
     _name = "report.monthly_report.monthly_reports"
@@ -202,13 +204,25 @@ class CustomReport(models.AbstractModel):
         
         totals['total_qty'] = sum(item['total_qty'] for item in data)
         totals['total_amount'] = sum(item['total_amount'] for item in data)
-        
+
+        date_from = datetime.strptime(date_from, "%Y-%m-%d").date() if isinstance(date_from, str) else date_from
+        date_to = datetime.strptime(date_to, "%Y-%m-%d").date() if isinstance(date_to, str) else date_to
+
         return {
             'doc_ids': docids,
+            'date_from': date_from,
+            'date_to': date_to,
             'data': data,
             'totals': totals,
             'other': other_details,
         }
+        
+        # return {
+        #     'doc_ids': docids,
+        #     'data': data,
+        #     'totals': totals,
+        #     'other': other_details,
+        # }
 
 
 
