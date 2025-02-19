@@ -36,7 +36,7 @@ class PSReportWizard(models.TransientModel):
                 'date_from': self.date_from,
                 'date_to': self.date_to,
                 'vendor_id': self.vendor_id.id,
-                'item_wise': self.item_wise.id
+                'item_wise': self.item_wise
             }
             return {
                 'type': 'ir.actions.act_url',
