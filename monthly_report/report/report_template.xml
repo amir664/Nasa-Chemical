@@ -9,6 +9,7 @@
                         <div class="col-2">
                             <t t-set="comp" t-value=""/>
                             <t t-foreach="data" t-as="vals">
+                                <t t-if="vals.get('id')"/>
                                 <t t-set="comp" t-value="env['res.company'].search([('id','=',vals['id'])])"/>
                             </t>
                             
