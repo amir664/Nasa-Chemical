@@ -80,13 +80,14 @@
 
                 <t t-foreach="range(0, (date_to.year - date_from.year) * 12 + date_to.month - date_from.month + 1)" t-as="i">
                     <t t-set="month_date" t-value="date_from + relativedelta(months=i)"/>
-                    <t t-set="month_key" t-value="month_date.strftime('%Y-%m')"/>
+                    <t t-set="qty_key" t-value="month_date.strftime('qty_%Y_%m')"/>
+                    <t t-set="amount_key" t-value="month_date.strftime('amount_%Y_%m')"/>
                     
                     <td>
-                        <span t-esc="line.get(month_key, {}).get('quantity', '-')"/>
+                        <span t-esc="line.get(qty_key, '-')"/>
                     </td>
                     <td>
-                        <span t-esc="line.get(month_key, {}).get('amount', '-')"/>
+                        <span t-esc="line.get(amount_key, '-')"/>
                     </td>
                 </t>
                 <td>
