@@ -6,10 +6,26 @@ class CustomerTarget(models.Model):
     _description="Customer Target App"
 
     name = fields.Char(string="Name", required=True)
+    target_count = fields.Integer(string="Target Count", required=True)
     start_date = fields.Date(string="Start Date",)
     end_date = fields.Date(string="End Date",)
     customer = fields.Many2one('res.partner', string="Customer",)
     line_ids = fields.One2many('customer.target.line','customer_target_id', sting="Line Ids", required=True)
+    
+    def open_patient_appointment(self):
+        return {
+            'name': 'Customer Target',
+            'domain': [('customer', '=', self.id)],
+            'view_type': 'form',
+            'res_model': 'res.partner',
+            'view_id': False,
+            'view_mode': 'tree,form',
+            'type': 'ir.actions.act_window'
+        }
+    
+    def get_expense_count(self):
+        count = self.env['res.partner'].search_count([('customer', '=', self.id)])
+        self.target_count = count
 
 
 class CustomerTargetLine(models.Model):

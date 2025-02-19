@@ -50,8 +50,8 @@
             <field name="inherit_id" ref="base.view_partner_form"/>
             <field name="arch" type="xml">
                 <xpath expr="//button[@name='action_open_employees']" position="after">
-                    <button class="oe_stat_button" icon="fa-area-chart" type="action" name="studio_customization.target_7b2bcdf2-3d9d-4bda-be21-8cc8ea38386c">
-                    <field widget="statinfo" name="x_customer_customer_target_count" string="Target"/>
+                    <button class="oe_stat_button" icon="fa-area-chart" type="object" name="open_patient_appointment">
+                        <field widget="statinfo" name="target_count" string="Target"/>
                     </button>
                 </xpath>
                 
