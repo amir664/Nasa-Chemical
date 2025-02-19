@@ -189,7 +189,7 @@ class CustomReport(models.AbstractModel):
         
         cr.execute(query)
         data = cr.dictfetchall()
-        raise UserError(data)
+        raise UserError(str(data))
         
         # Calculate total quantities and amounts dynamically
         totals = {}
