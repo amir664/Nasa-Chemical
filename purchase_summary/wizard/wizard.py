@@ -1,3 +1,4 @@
+
 from odoo import models, fields, api
 from odoo.http import Controller, route, request
 import io
