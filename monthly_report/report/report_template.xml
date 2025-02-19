@@ -60,7 +60,7 @@
                     <t t-esc="month_date.strftime('%B %Y')"/>
                 </th>
             </t>
-            <th rowspan="2">Total</th>
+            <th rowspan="2">hello</th>
         </tr>
         <tr>
             <t t-foreach="range(0, (date_to.year - date_from.year) * 12 + date_to.month - date_from.month + 1)" t-as="i">
