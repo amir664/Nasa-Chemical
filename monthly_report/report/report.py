@@ -1,6 +1,7 @@
 from odoo.exceptions import UserError, AccessError
 from odoo import _, api, fields, models
 from datetime import datetime
+from dateutil.relativedelta import relativedelta
 
 
 class CustomReport(models.AbstractModel):
