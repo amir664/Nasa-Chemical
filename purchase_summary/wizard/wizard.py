@@ -7,7 +7,7 @@ class PSReportWizard(models.TransientModel):
     date_from = fields.Date(string="From Date")
     date_to = fields.Date(string="To Date")
     vendor_id = fields.Many2one('res.partner', string="Vendor", domain=[('supplier_rank', '>', 0)])
-    item_wise = fields.Many2many('product.product', string="Item(s)")
+    item_wise = fields.Many2one('product.product', string="Item(s)")
 
     
     def print_report(self):
