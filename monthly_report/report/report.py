@@ -9,18 +9,24 @@ class CustomReport(models.AbstractModel):
 
     def _get_report_values(self, docids, data=None):
         other_details = {}
-        date_from = data['date_from']
-        date_to = data['date_to']
+        date_from = datetime.strptime(data['date_from'], "%Y-%m-%d").date()
+        date_to = datetime.strptime(data['date_to'], "%Y-%m-%d").date()
+
+        # Restrict date range to 12 months
+        max_date_to = date_from + relativedelta(months=12)
+        if date_to > max_date_to:
+            raise UserError("The selected date range cannot exceed 12 months.")
+
         product_ids = data['product_ids']
         vendor_ids = data['vendor_ids']
-        
+
         other_details.update({
-            'date_from': date_from,
-            'date_to': date_to,
+            'date_from': date_from.strftime("%Y-%m-%d"),
+            'date_to': date_to.strftime("%Y-%m-%d"),
             'product_ids': product_ids,
             'vendor_ids': vendor_ids,
         })
-        
+
         cr = self._cr
         
         # Generate the dynamic month columns
