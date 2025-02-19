@@ -70,7 +70,9 @@
         </tr>
     </thead>
     <tbody>
+        <!-- Initialize an empty dictionary for month totals -->
         <t t-set="month_totals" t-value="{}"/>
+
         <t t-foreach="data" t-as="line">
             <tr>
                 <td>
@@ -87,9 +89,12 @@
                     <t t-set="qty_value" t-value="line.get(qty_key, 0)"/>
                     <t t-set="amount_value" t-value="line.get(amount_key, 0)"/>
 
-                    <!-- Update Month Totals -->
-                    <t t-set="month_totals[qty_key]" t-value="month_totals.get(qty_key, 0) + qty_value"/>
-                    <t t-set="month_totals[amount_key]" t-value="month_totals.get(amount_key, 0) + amount_value"/>
+                    <!-- Workaround: Use temporary variables -->
+                    <t t-set="prev_qty_total" t-value="month_totals.get(qty_key, 0)"/>
+                    <t t-set="prev_amount_total" t-value="month_totals.get(amount_key, 0)"/>
+
+                    <!-- Update dictionary manually -->
+                    <t t-set="month_totals" t-value="month_totals.update({qty_key: prev_qty_total + qty_value, amount_key: prev_amount_total + amount_value}) or month_totals"/>
 
                     <td>
                         <span t-esc="qty_value if qty_value else '-'"/>
@@ -119,6 +124,7 @@
         </tr>
     </tbody>
 </table>
+
 
 
 
