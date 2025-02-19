@@ -28,38 +28,14 @@ class PSReportWizard(models.TransientModel):
         # Fetch purchase order data based on filters
         purchase_orders = self.env['purchase.order'].search(domain)
 
-        # Processing data according to filters
-        report_data = []
+        # Collect unique item names
+        item_names = set()
         for po in purchase_orders:
             for line in po.order_line:
-                # If specific items are selected, filter only those
-                if self.item_wise and line.product_id not in self.item_wise:
-                    continue
+                if not self.item_wise or line.product_id in self.item_wise:
+                    item_names.add(line.product_id.name)
 
-                entry = {
-                    'vendor': po.partner_id.name,
-                    'po': po.name,
-                    'item': line.product_id.name,
-                    'quantity': line.product_qty,
-                    'uom': line.product_uom.name,
-                    'amount': line.price_total
-                }
-
-                # Determine grouping
-                if self.item_wise:
-                    entry['grouping'] = "Item Wise"
-                elif hasattr(self, 'vendor_accounts_wise') and self.vendor_accounts_wise:
-                    entry['grouping'] = "Vendor Accounts Wise"
-                elif hasattr(self, 'vendor_group_wise') and self.vendor_group_wise:
-                    entry['grouping'] = "Vendor Group Wise"
-                elif hasattr(self, 'item_group_wise') and self.item_group_wise:
-                    entry['grouping'] = "Group of Item Wise"
-                else:
-                    entry['grouping'] = "General"
-
-                report_data.append(entry)
-
-        # Return report action with formatted data
+        # Return report action with item names only
         return self.env.ref('summary_report.summary_report_pdf').with_context(landscape=True).report_action(
-            self, data={'report_data': report_data}
+            self, data={'items': list(item_names)}
         )
