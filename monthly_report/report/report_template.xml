@@ -51,46 +51,46 @@
                     <div class="row mt-5 mb-3">
                         <div class="col-12">
                         <table class="table table-sm o_account_report_table">
-            <thead>
-                <tr>
-                    <th>Account</th>
-                    <th>Initial Balance</th>
-                    <t t-foreach="range(0, (date_to.year - date_from.year) * 12 + date_to.month - date_from.month + 1)" t-as="i">
-                        <th>
-                            <t t-set="month_date" t-value="date_from + relativedelta(months=i)"/>
-                            <t t-esc="month_date.strftime('%B %Y')"/>
-                        </th>
-                    </t>
-                    <th>Closing Balance</th>
-                </tr>
-            </thead>
-            <tbody>
-                <t t-foreach="data" t-as="line">
-                    <tr>
-                        <td>
-                            <span t-esc="line['item']['en_US']"/>
-                        </td>
-                        <td>
-                            <span t-esc="line['initial_balance']"/>
-                        </td>
-                        <t t-set="date_from" t-value="datetime.strptime(date_from, '%Y-%m-%d').date() if isinstance(date_from, str) else date_from"/>
-                        <t t-set="date_to" t-value="datetime.strptime(date_to, '%Y-%m-%d').date() if isinstance(date_to, str) else date_to"/>
+    <thead>
+        <tr>
+            <th>Account</th>
+            <th>Initial Balance</th>
+            <t t-foreach="range(0, (date_to.year - date_from.year) * 12 + date_to.month - date_from.month + 1)" t-as="i">
+                <th>
+                    <t t-set="month_date" t-value="date_from + relativedelta(months=i)"/>
+                    <t t-esc="month_date.strftime('%B %Y')"/>
+                </th>
+            </t>
+            <th>Closing Balance</th>
+        </tr>
+    </thead>
+    <tbody>
+        <t t-foreach="data" t-as="line">
+            <tr>
+                <td>
+                    <span t-esc="line['item'].get('en_US', '-')"/>
+                </td>
+                <td>
+                    <span t-esc="line.get('initial_balance', '-')"/>
+                </td>
+                <t t-set="date_from" t-value="datetime.strptime(date_from, '%Y-%m-%d').date() if isinstance(date_from, str) else date_from"/>
+                <t t-set="date_to" t-value="datetime.strptime(date_to, '%Y-%m-%d').date() if isinstance(date_to, str) else date_to"/>
 
-                        <t t-foreach="range(0, (date_to.year - date_from.year) * 12 + date_to.month - date_from.month + 1)" t-as="i">
-                        <!-- <t t-foreach="range(0, (date_to.year - date_from.year) * 12 + date_to.month - date_from.month + 1)" t-as="i"> -->
-                            <td>
-                                <t t-set="month_date" t-value="date_from + relativedelta(months=i)"/>
-                                <t t-set="month_key" t-value="month_date.strftime('%Y-%m')"/>
-                                <span t-esc="line.get(month_key, '-')"/>
-                            </td>
-                        </t>
-                        <td>
-                            <span t-esc="line['closing_balance']"/>
-                        </td>
-                    </tr>
+                <t t-foreach="range(0, (date_to.year - date_from.year) * 12 + date_to.month - date_from.month + 1)" t-as="i">
+                    <td>
+                        <t t-set="month_date" t-value="date_from + relativedelta(months=i)"/>
+                        <t t-set="month_key" t-value="month_date.strftime('%Y-%m')"/>
+                        <span t-esc="line.get(month_key, '-')"/>
+                    </td>
                 </t>
-            </tbody>
-        </table>
+                <td>
+                    <span t-esc="line.get('closing_balance', '-')"/>
+                </td>
+            </tr>
+        </t>
+    </tbody>
+</table>
+
                             <!-- <table class="table-bordered">
                                 <thead>
                                     <tr>
