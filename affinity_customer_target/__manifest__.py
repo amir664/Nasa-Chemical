@@ -4,7 +4,7 @@
     'author': 'Syed Subhan , Muhammad Osama',
     'version': '17.0.1.1',
     'description': """Customer Target App""",
-    'depends': [ 'base'],
+    'depends': [ 'base','contacts'],
     'data': [
         'views/customer_target.xml',
         'security/ir.model.access.csv',
