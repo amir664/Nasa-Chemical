@@ -53,7 +53,7 @@
 <table class="table table-sm o_account_report_table">
     <thead>
         <tr>
-            <th rowspan="2">Account</th>
+            <th rowspan="2">Products</th>
             <t t-foreach="range(0, (date_to.year - date_from.year) * 12 + date_to.month - date_from.month + 1)" t-as="i">
                 <th colspan="2">
                     <t t-set="month_date" t-value="date_from + relativedelta(months=i)"/>
