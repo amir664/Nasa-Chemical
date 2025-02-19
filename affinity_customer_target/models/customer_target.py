@@ -12,7 +12,7 @@ class CustomerTarget(models.Model):
     customer = fields.Many2one('res.partner', string="Customer",)
     line_ids = fields.One2many('customer.target.line','customer_target_id', sting="Line Ids", required=True)
     
-    def open_patient_appointment(self):
+    def open_customer_targets(self):
         return {
             'name': 'Customer Target',
             'domain': [('customer', '=', self.id)],
