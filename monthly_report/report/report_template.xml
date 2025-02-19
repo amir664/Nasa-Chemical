@@ -65,7 +65,7 @@
                 </tr>
             </thead>
             <tbody>
-                <t t-foreach="data['lines']" t-as="line">
+                <t t-foreach="data" t-as="line">
                     <tr>
                         <td>
                             <span t-esc="line['name']"/>
