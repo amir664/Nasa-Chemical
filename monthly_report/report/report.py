@@ -201,7 +201,7 @@ class CustomReport(models.AbstractModel):
         
         return {
             'doc_ids': docids,
-            'data': str(data),
+            'data': data,
             'totals': totals,
             'other': other_details,
         }
