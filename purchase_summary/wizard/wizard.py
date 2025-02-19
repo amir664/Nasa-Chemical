@@ -1,7 +1,6 @@
-from odoo import _, api, fields, models
+from odoo import models, fields, api
 
-
-class POReportWizard(models.TransientModel):
+class PSReportWizard(models.TransientModel):
     _name = 'summary.report'
     _description = 'Purchase Order Summary Report'
     
@@ -13,26 +12,47 @@ class POReportWizard(models.TransientModel):
     vendor_group_wise = fields.Boolean(string="Vendor Group Wise")
     item_group_wise = fields.Boolean(string="Group of Item Wise")
     
-    
-
     def print_report(self):
+        """
+        Generates the purchase order summary report based on the selected filters.
+        """
 
-        # product_ids = []
-        # if self.product_ids:
-        #     for id in self.product_ids:
-        #         product_ids.append(id.id)
-        
-        # vendor_ids = []
-        # if self.vendor_ids:
-        #     for id in self.vendor_ids:
-        #         vendor_ids.append(id.id)
-    
-        data = {
-            'date_from': self.date_from,
-            'date_to': self.date_to,
-            # 'product_ids': product_ids,
-            # 'vendor_ids': vendor_ids
-            
-            }
+        domain = []
+        if self.date_from:
+            domain.append(('date_order', '>=', self.date_from))
+        if self.date_to:
+            domain.append(('date_order', '<=', self.date_to))
+        if self.vendor_id:
+            domain.append(('partner_id', '=', self.vendor_id.id))
 
-        return self.env.ref('summary_report.summary_report_pdf').with_context(landscape=True).report_action(self, data=data)
+        # Fetch purchase order data based on filters
+        purchase_orders = self.env['purchase.order'].search(domain)
+
+        # Processing data according to filters
+        report_data = []
+        for po in purchase_orders:
+            for line in po.order_line:
+                entry = {
+                    'vendor': po.partner_id.name,
+                    'po': po.name,
+                    'item': line.product_id.name,
+                    'quantity': line.product_qty,
+                    'uom': line.product_uom.name,
+                    'amount': line.price_total
+                }
+
+                if self.item_wise:
+                    entry['grouping'] = "Item Wise"
+                elif self.vendor_accounts_wise:
+                    entry['grouping'] = "Vendor Accounts Wise"
+                elif self.vendor_group_wise:
+                    entry['grouping'] = "Vendor Group Wise"
+                elif self.item_group_wise:
+                    entry['grouping'] = "Group of Item Wise"
+                else:
+                    entry['grouping'] = "General"
+
+                report_data.append(entry)
+
+        # Return report action
+        return self.env.ref('summary_report.summary_report_pdf').with_context(landscape=True).report_action(self, data={'report_data': report_data})

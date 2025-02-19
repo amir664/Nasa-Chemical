@@ -6,16 +6,17 @@
         <field name="arch" type="xml">
             <form string="Purchase Order Summary Report">
                 <group>
-                   <group>
+                    <group>
                         <field name="date_from"/>
                         <field name="date_to"/>
-                        
-                        <!-- <field name="warehouse_id" widget="many2one_tags"/> -->
+                        <field name="vendor_id"/>
                     </group>
-                   <!-- <group>
-                        <field name="product_ids" widget="many2many_tags"/>
-                        <field name="vendor_ids" widget="many2many_tags"/>
-                    </group> -->
+                    <group>
+                        <field name="item_wise"/>
+                        <field name="vendor_accounts_wise"/>
+                        <field name="vendor_group_wise"/>
+                        <field name="item_group_wise"/>
+                    </group>
                 </group>
                 <footer>
                     <button name="print_report" type="object" string="Print" class="oe_highlight"/>
@@ -24,7 +25,6 @@
             </form>
         </field>
     </record>
-
 
     <record id="summary_report_action" model="ir.actions.act_window">
         <field name="name">Purchase Order Summary Report</field>
@@ -35,7 +35,7 @@
 
     <menuitem id="summary_report_id"
               name="Purchase Order Summary Report"
-              parent="account.menu_finance_reports"
+              parent="purchase.menu_purchase_root"
               action="summary_report_action"
     />
 </odoo>
