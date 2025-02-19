@@ -84,6 +84,7 @@ class CustomReport(models.AbstractModel):
 # ,category_ids,stock_location_id
         cr.execute(query)
         data = cr.dictfetchall()
+        raise UserError(str(data))
 
         totals = {
             'total_qty_jul': sum(item['qty_jul'] for item in data),
