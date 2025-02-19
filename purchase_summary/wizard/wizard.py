@@ -14,20 +14,20 @@ class PSReportWizard(models.TransientModel):
         """
         Generates the purchase order summary report based on the selected filters.
         """
-        purchase_orders = self.env['purchase.order']
+        # purchase_orders = self.env['purchase.order']
 
-        item_ids = []
-        for po in purchase_orders:
-            for line in po.order_line:
-                if not self.item_wise or line.product_id in self.item_wise:
-                    item_ids.append(line.product_id.id)
+        # item_ids = []
+        # for po in purchase_orders:
+        #     for line in po.order_line:
+        #         if not self.item_wise or line.product_id in self.item_wise:
+        #             item_ids.append(line.product_id.id)
 
     
-        data = {
-        'items': item_ids,  # Sending only item IDs
-        }
+        # data = {
+        # 'items': item_ids,  # Sending only item IDs
+        # }
 
         # Return report action with item names only
         return self.env.ref('summary_report.summary_report_pdf').with_context(landscape=True).report_action(
-            self, data=data
+            self
         )
