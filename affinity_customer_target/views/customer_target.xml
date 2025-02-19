@@ -44,6 +44,22 @@
             </form>
         </field>
     </record>
+    <record id="customer_form_inherited_form" model="ir.ui.view">
+            <field name="name">res.partner.inherited.form</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='action_open_employees']" position="after">
+                    <button class="oe_stat_button" icon="fa-area-chart" type="action" name="studio_customization.target_7b2bcdf2-3d9d-4bda-be21-8cc8ea38386c">
+                    <field widget="statinfo" name="x_customer_customer_target_count" string="Target"/>
+                    </button>
+                </xpath>
+                
+            </field>
+        </record>
+
+
+
 
     <record id="action_customer_target" model = "ir.actions.act_window">
         <field name="name">Customer Target</field>
