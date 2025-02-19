@@ -68,7 +68,7 @@
                 <t t-foreach="data" t-as="line">
                     <tr>
                         <td>
-                            <span t-esc="line['name']"/>
+                            <span t-esc="line['item']['en_US']"/>
                         </td>
                         <td>
                             <span t-esc="line['initial_balance']"/>

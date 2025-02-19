@@ -207,7 +207,7 @@ class CustomReport(models.AbstractModel):
 
         date_from = datetime.strptime(date_from, "%Y-%m-%d").date() if isinstance(date_from, str) else date_from
         date_to = datetime.strptime(date_to, "%Y-%m-%d").date() if isinstance(date_to, str) else date_to
-        raise UserError(str(data))
+        # raise UserError(str(data))
         return {
             'doc_ids': docids,
             'date_from': date_from,
