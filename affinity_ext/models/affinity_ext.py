@@ -134,3 +134,15 @@ class SaleOrderInherit(models.Model):
     def _compute_delivery_address(self):
         for record in self:
             record.delivery_address = record.partner_id.contact_address
+
+
+class SaleOrderLineInherit(models.Model):
+    _inherit = "sale.order.line"
+
+    discount = fields.Float(string="Discount")
+
+    @api.onchange('discount')
+    def _onchange_discount_amount(self):
+        for line in self:
+            if line.discount:
+                line.price_total = line.price_subtotal - line.discount
