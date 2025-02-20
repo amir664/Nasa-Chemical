@@ -91,7 +91,7 @@
             <field name="inherit_id" ref="sale.view_order_form"/>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='payment_term_id']" position="after">
-                    <field name="delivery_address" readonly=True/>
+                    <field name="delivery_address"/>
                 </xpath>
             </field>
         </record>
