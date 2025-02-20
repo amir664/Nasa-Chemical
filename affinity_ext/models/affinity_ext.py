@@ -129,11 +129,8 @@ class SaleOrderInherit(models.Model):
     _inherit = "sale.order"
 
     # delivery_address = fields.Char(string="Delivery Address")
-    delivery_address = fields.Char(string="Delivery Address")
+    delivery_address = fields.Char(string="Delivery Address", compute="_compute_delivery_address")
 
-    @api.model
-    def create(self, vals):
-        if 'partner_id' in vals and 'delivery_address' not in vals:
-            partner = self.env['res.partner'].browse(vals['partner_id'])
-            vals['delivery_address'] = partner.contact_address 
-        return super(SaleOrderInherit, self).create(vals)
+    def _compute_delivery_address(self):
+        for record in self:
+            record.delivery_address = record.partner_id.contact_address
