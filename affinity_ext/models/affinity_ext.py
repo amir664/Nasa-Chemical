@@ -128,9 +128,33 @@ class QualityCheckInherited(models.Model):
 class SaleOrderInherit(models.Model):
     _inherit = "sale.order"
 
-    # delivery_address = fields.Char(string="Delivery Address")
-    delivery_address = fields.Char(string="Delivery Address", compute="_compute_delivery_address", readonly=False, store=True)
+    delivery_address = fields.Char(string="Delivery Address", compute="_compute_delivery_address", readonly=False)
 
     def _compute_delivery_address(self):
         for record in self:
             record.delivery_address = record.partner_id.contact_address
+
+
+class SaleOrderLineInherit(models.Model):
+    _inherit = "sale.order.line"
+
+    discount = fields.Float(string="Discount")
+    discount_in_amount = fields.Float(string="Discount in Amount", compute="_compute_discount_amount", store=True)
+   
+    # @api.onchange('discount')
+    # def _onchange_discount_amount(self):
+    #     for line in self:
+    #         if line.discount:
+    #             line.price_total = line.price_subtotal - line.discount
+
+    @api.depends('price_unit', 'product_uom_qty', 'discount')
+    def _compute_discount_amount(self):
+        for line in self:
+            line.discount_in_amount = (line.price_unit * line.product_uom_qty) * (line.discount / 100.0)
+
+    @api.depends('price_unit', 'product_uom_qty', 'discount_in_amount', 'tax_id')
+    def _compute_amount(self):
+        for line in self:
+            super(SaleOrderLineInherit, line)._compute_amount() 
+            if line.discount_in_amount:
+                line.price_subtotal = max(0, line.price_subtotal - line.discount_in_amount)  
