@@ -129,8 +129,20 @@ class SaleOrderInherit(models.Model):
     _inherit = "sale.order"
 
     # delivery_address = fields.Char(string="Delivery Address")
-    delivery_address = fields.Char(string="Delivery Address", compute="_compute_delivery_address")
+    delivery_address = fields.Char(string="Delivery Address")
 
-    def _compute_delivery_address(self):
-        for record in self:
-            record.delivery_address = record.partner_id.contact_address
+    # def _compute_delivery_address(self):
+    #     for record in self:
+    #         record.delivery_address = record.partner_id.contact_address
+    @api.onchange('partner_id')
+    def _onchange_partner_id(self):
+        """ Jab customer (partner_id) change ho, to delivery_address auto-fill ho jaye """
+        if self.partner_id:
+            address_parts = [
+                self.partner_id.street or '',
+                self.partner_id.street2 or '',
+                self.partner_id.city or '',
+                self.partner_id.state_id.name if self.partner_id.state_id else '',
+                self.partner_id.country_id.name if self.partner_id.country_id else '',
+            ]
+            self.delivery_address = ', '.join(filter(None, address_parts))
