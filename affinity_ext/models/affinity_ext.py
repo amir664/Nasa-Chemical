@@ -133,4 +133,4 @@ class SaleOrderInherit(models.Model):
 
     def _compute_delivery_address(self):
         for record in self:
-            record.delivery_address = record.partner_id.contact_address
+            record.delivery_address = record.partner_id.street
