@@ -129,18 +129,11 @@ class SaleOrderInherit(models.Model):
     _inherit = "sale.order"
 
     # delivery_address = fields.Char(string="Delivery Address")
-    custom_street = fields.Char()
-    custom_street1 = fields.Char()
-    city = fields.Char()
-    country = fields.Many2one("res.country")
+    delivery_address = fields.Char(string="Delivery Address")
 
     @api.model
     def create(self, vals):
-        if 'partner_id' in vals:
-            partner = self.env['res.partner'].browse(vals['partner_id'])  
-            vals['custom_street'] = partner.street or ''  
-            vals['custom_street1'] = partner.street2 or '' 
-            vals['city'] = partner.city or ''  
-            vals['country'] = partner.country_id.name if partner.country_id else ''  
-
+        if 'partner_id' in vals and 'delivery_address' not in vals:
+            partner = self.env['res.partner'].browse(vals['partner_id'])
+            vals['delivery_address'] = partner.contact_address 
         return super(SaleOrderInherit, self).create(vals)

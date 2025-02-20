@@ -91,20 +91,7 @@
             <field name="inherit_id" ref="sale.view_order_form"/>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='payment_term_id']" position="after">
-                    <group>
-                        <!-- <field name="custom_street"/> -->
-                        <span class="o_form_label o_td_label" name="address_name">
-                            <!-- <field name="type" invisible="is_company" readonly="user_ids" required="not is_company" class="fw-bold"/> -->
-                            <b>Delivery Address</b>
-                        </span>
-                        <field name="custom_street" placeholder="Street..." class="o_address_street" />
-                        <field name="custom_street1" placeholder="Street ..." class="o_address_street1" />
-                        <field name="city" placeholder="city ..." class="o_address_city" />
-                        <field name="country" placeholder="country .." class="o_address_country" />
-                        <!-- <field name="custom_street1"/> -->
-                        <!-- <field name="city"/>
-                        <field name="country"/> -->
-                    </group>
+                    <field name="delivery_address"/>
                 </xpath>
             </field>
         </record>
