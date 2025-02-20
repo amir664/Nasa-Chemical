@@ -92,10 +92,12 @@
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='payment_term_id']" position="after">
                     <group string="Delivery Address">
-                        <field name="custom_street"/>
-                        <field name="custom_street1"/>
-                        <field name="city"/>
-                        <field name="country"/>
+                        <!-- <field name="custom_street"/> -->
+                        <field name="custom_street" placeholder="Street..." class="o_address_street" />
+                        <field name="custom_street1" placeholder="Street 2..." class="o_address_street" />
+                        <!-- <field name="custom_street1"/> -->
+                        <!-- <field name="city"/>
+                        <field name="country"/> -->
                     </group>
                 </xpath>
             </field>
