@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="sales_target_reports">
+        <t t-call="web.html_container">
+            <t t-call="web.basic_layout">
+                <div class="page" style="font-family:Segoe UI; border: 1px solid black; border-collapse: collapse; width: 100%;">
+                    <div class="header-row" style="text-align:center; margin-top: 3px;">
+                        <h1>
+                            Sales Target Report
+                        </h1>
+                    </div>
+                    <div class="row">
+                        <div class="col-6" style="margin-top: 10px;">
+                            <t t-if="other['date_from']">
+                                <div style="margin-bottom: 3px; margin-left: 8px;"> 
+                                    <b>Date From:</b>
+                                    <t t-esc="other['date_from']"/>
+                                </div>
+                            </t>
+                            
+                            <t t-if="other['date_to']">
+                                <div style="margin-top: 3px; margin-left: 8px;"> 
+                                    <b>Date To:</b>
+                                    <t t-esc="other['date_to']"/>
+                                </div>
+                            </t>
+                        </div>
+                    </div>
+                    <div class="row mt-5 mb-3">
+                            <table style="border-collapse:collapse; width: 100%; font-family: Arial, sans-serif;" class="table-borderless">
+                                <thead>
+                                    <tr>
+                                        <th style="text-align:center;border-bottom:1px solid black;padding:4px;width:200px;font-weight:bold;">
+                                            <b>Invoice No</b>
+                                        </th>
+                                        <th style="text-align:center;border-bottom:1px solid black;padding:4px;width:150px;font-weight:bold;">
+                                            <b>Invoice Date</b>
+                                        </th>
+                                        <th style="text-align:center;border-bottom:1px solid black;padding:4px;width:150px;font-weight:bold;">
+                                            <b>Due Date</b>
+                                        </th>
+                                        <th style="text-align:center;border-bottom:1px solid black;padding:4px;width:120px;font-weight:bold;">
+                                            <b>Receivable</b>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="data" t-as="value">
+                                        <tr t-if="value['amount'] != 0.0">
+                                            <td style="text-align:center; padding:4px; font-weight: normal;">
+                                                <span>
+                                                    <t t-esc="value['invoice_no']"/>
+                                                </span>
+                                            </td>
+                                            
+                                            <td style="text-align:center; padding:4px; font-weight: normal;">
+                                                <t t-set="date_obj" t-value="str(value['invoice_date']).split(' ')[0]"/>
+                                                <t t-set="day" t-value="date_obj.split('-')[-1]"/>
+                                                <t t-set="month" t-value="date_obj.split('-')[1]"/>
+                                                <t t-set="year" t-value="date_obj.split('-')[0]"/>
+                                                <span t-esc="str(year)+'-'+str(month)+'-'+str(day)"/>
+                                            </td>
+                                            <td style="text-align:center; padding:4px; font-weight: normal;">
+                                                <span t-esc="value['date_due']"/>
+                                            </td>
+                                            <td style="text-align:center; padding:4px; font-weight: normal;">
+                                                <span t-esc="value['amount']"/>
+                                            </td>
+                                            
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
+                        </div>
+                </div>
+            </t>
+        </t>
+
+    </template>
+</odoo>
