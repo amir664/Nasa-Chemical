@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+  <record id="view_account_asset_form_inherited" model="ir.ui.view">
+    <field name="name">Account Asset Form Inherited</field>
+    <field name="model">account.asset</field>
+    <field name="inherit_id" ref="account_asset.view_account_asset_form" />
+    <field name="arch" type="xml">
+      <field name='model_id' position="after">
+        <field name="quantity" />
+        <field name="serial_no" />
+        <field name="model_part_no" />
+        <field name="owner_company" />
+        <field name="purchase_lease_details" />
+        <field name="location_id" />
+        <field name="location_name" />
+        <field name="department_id" />
+        <field name="brand_id" />
+        <field name="category_id" />
+        <field name="responsible_person" />
+        <field name="vendor_id" />
+        <field name="warranty_id" />
+      </field>
+      <xpath
+        expr="//form[1]/sheet[1]/notebook[1]/page[@name='main_page']/group[1]/group[@name='current_values']/span[1]"
+        position="after">
+        <field name="qrcode" widget="image" />
+      </xpath>
+      <xpath expr="//field[@name='salvage_value']" position="attributes">
+        <attribute name="string">Depreciated Value</attribute>
+      </xpath>
+    </field>
+  </record>
+
+  <record id="action_asset_location" model="ir.actions.act_window">
+    <field name="name">Asset Locations Form</field>
+    <field name="type">ir.actions.act_window</field>
+    <field name="res_model">account.asset.location</field>
+    <field name="view_mode">list,form</field>
+    <field name="help" type="html">
+      <p class="o_view_nocontent_smiling_face"> Create a record! </p>
+    </field>
+  </record>
+
+  <record id="action_asset_brand" model="ir.actions.act_window">
+    <field name="name">Asset Brands Form</field>
+    <field name="type">ir.actions.act_window</field>
+    <field name="res_model">account.asset.brand</field>
+    <field name="view_mode">list,form</field>
+    <field name="help" type="html">
+      <p class="o_view_nocontent_smiling_face"> Create a record! </p>
+    </field>
+  </record>
+
+  <record id="action_asset_category" model="ir.actions.act_window">
+    <field name="name">Asset Categories Form</field>
+    <field name="type">ir.actions.act_window</field>
+    <field name="res_model">account.asset.category</field>
+    <field name="view_mode">list,form</field>
+    <field name="help" type="html">
+      <p class="o_view_nocontent_smiling_face"> Create a record! </p>
+    </field>
+  </record>
+
+  <record id="action_asset_warranty" model="ir.actions.act_window">
+    <field name="name">Asset Warranty Form</field>
+    <field name="type">ir.actions.act_window</field>
+    <field name="res_model">account.asset.warranty</field>
+    <field name="view_mode">list,form</field>
+    <field name="help" type="html">
+      <p class="o_view_nocontent_smiling_face"> Create a record! </p>
+    </field>
+  </record>
+
+  <menuitem id="menu_asset_models" name="Asset Models" parent="account_accountant.menu_accounting" sequence="99"/>
+  <menuitem id="menu_asset_location" name="Asset Locations" parent="menu_asset_models"
+    action="action_asset_location" />
+  <menuitem id="menu_asset_brand" name="Asset Brands" parent="menu_asset_models"
+    action="action_asset_brand" />
+  <menuitem id="menu_asset_category" name="Asset Categories" parent="menu_asset_models"
+    action="action_asset_category" />
+  <menuitem id="menu_asset_warranty" name="Asset Warranty" parent="menu_asset_models"
+    action="action_asset_warranty" />
+
+
+</odoo>
