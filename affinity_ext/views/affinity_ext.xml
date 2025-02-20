@@ -93,6 +93,10 @@
                 <xpath expr="//field[@name='payment_term_id']" position="after">
                     <group string="Delivery Address">
                         <!-- <field name="custom_street"/> -->
+                        <span class="o_form_label o_td_label" name="address_name">
+                            <field name="type" invisible="is_company" readonly="user_ids" required="not is_company" class="fw-bold"/>
+                            <b invisible="not is_company">Address</b>
+                        </span>
                         <field name="custom_street" placeholder="Street..." class="o_address_street" />
                         <field name="custom_street1" placeholder="Street 2..." class="o_address_street" />
                         <!-- <field name="custom_street1"/> -->
