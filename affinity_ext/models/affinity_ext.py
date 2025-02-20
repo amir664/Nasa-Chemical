@@ -128,7 +128,6 @@ class QualityCheckInherited(models.Model):
 class SaleOrderInherit(models.Model):
     _inherit = "sale.order"
 
-    # delivery_address = fields.Char(string="Delivery Address")
     delivery_address = fields.Char(string="Delivery Address", compute="_compute_delivery_address", readonly=False)
 
     def _compute_delivery_address(self):
