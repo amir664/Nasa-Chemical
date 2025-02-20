@@ -129,10 +129,10 @@ class SaleOrderInherit(models.Model):
     _inherit = "sale.order"
 
     # delivery_address = fields.Char(string="Delivery Address")
-    custom_street = fields.Char(string = "Custom Street")
-    custom_street1 = fields.Char(string = "Custom Street1")
-    city = fields.Char(string="City")
-    country = fields.Many2one("res.country",string="Country")
+    custom_street = fields.Char()
+    custom_street1 = fields.Char()
+    city = fields.Char()
+    country = fields.Many2one("res.country")
 
     @api.model
     def create(self, vals):
