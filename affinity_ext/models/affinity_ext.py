@@ -123,3 +123,24 @@ class QualityCheckInherited(models.Model):
     _inherit = "quality.check"
 
     methods = fields.Char(string="Method")
+
+
+class SaleOrderInherit(models.Model):
+    _inherit = "sale.order"
+
+    # delivery_address = fields.Char(string="Delivery Address")
+    custom_street = fields.Char(string = "Custom Street")
+    custom_street1 = fields.Char(string = "Custom Street1")
+    city = fields.Char(string="City")
+    country = fields.Char(string="Country")
+
+    @api.model
+    def create(self, vals):
+        if 'partner_id' in vals:
+            partner = self.env['res.partner'].browse(vals['partner_id'])  
+            vals['custom_street'] = partner.street or ''  
+            vals['custom_street1'] = partner.street2 or '' 
+            vals['city'] = partner.city or ''  
+            vals['country'] = partner.country_id.name if partner.country_id else ''  
+
+        return super(SaleOrderInherit, self).create(vals)
