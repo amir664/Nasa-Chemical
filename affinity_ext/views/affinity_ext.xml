@@ -102,8 +102,8 @@
             <field name="inherit_id" ref="sale.view_order_form"/>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='order_line']/tree//field[@name='price_unit']" position="after">
-                    <field name="discount"/>
                     <field name="discount_in_amount"/>
+                    <field name="discount" readonly="1"/>
                 </xpath>
             </field>
         </record>
