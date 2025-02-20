@@ -132,7 +132,7 @@ class SaleOrderInherit(models.Model):
     custom_street = fields.Char(string = "Custom Street")
     custom_street1 = fields.Char(string = "Custom Street1")
     city = fields.Char(string="City")
-    country = fields.Char(string="Country")
+    country = fields.Many2one("res.country",string="Country")
 
     @api.model
     def create(self, vals):
