@@ -72,7 +72,7 @@
     </field>
   </record>
 
-  <menuitem id="menu_asset_models" name="Asset Models" parent="accountant.menu_accounting" sequence="99"/>
+  <menuitem id="menu_asset_models" name="Asset Models" parent="account_accountant.menu_accounting" sequence="99"/>
   <menuitem id="menu_asset_location" name="Asset Locations" parent="menu_asset_models"
     action="action_asset_location" />
   <menuitem id="menu_asset_brand" name="Asset Brands" parent="menu_asset_models"
