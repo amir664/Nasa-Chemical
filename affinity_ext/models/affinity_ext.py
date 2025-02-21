@@ -139,20 +139,26 @@ class SaleOrderLineInherit(models.Model):
     _inherit = "sale.order.line"
 
    
-    discount = fields.Float(string="Discount (%)", compute="compute_amount", store=True)
+    discount = fields.Float(string="Discount (%)", compute="_compute_discount_percentage", store=True)
     discount_in_amount = fields.Float(string="Discount in Amount")
 
-    @api.depends('price_unit', 'product_uom_qty', 'discount_in_amount')
+    @api.depends('discount_in_amount', 'price_unit', 'product_uom_qty', 'tax_id')
     def _compute_discount_percentage(self):
         for line in self:
-            total_price = line.price_unit * line.product_uom_qty
-            if total_price > 0:
-                line.discount = (line.discount_in_amount / total_price) * 100
-            else:
-                line.discount = 0.0
+            subtotal = line.price_subtotal + line.discount_in_amount
+            line.discount = (line.discount_in_amount / subtotal * 100) if subtotal else 0.0
 
-    @api.depends('price_unit', 'product_uom_qty', 'discount_in_amount', 'tax_id')
-    def compute_amount(self):
-        for line in self:
-            super(SaleOrderLineInherit, line).compute_amount()  
-            line['discount'] = (line.discount_in_amount/line.price_subtotal)*100
+    # @api.depends('price_unit', 'product_uom_qty', 'discount_in_amount')
+    # def _compute_discount_percentage(self):
+    #     for line in self:
+    #         total_price = line.price_unit * line.product_uom_qty
+    #         if total_price > 0:
+    #             line.discount = (line.discount_in_amount / total_price) * 100
+    #         else:
+    #             line.discount = 0.0
+
+    # @api.depends('price_unit', 'product_uom_qty', 'discount_in_amount', 'tax_id')
+    # def compute_amount(self):
+    #     for line in self:
+    #         super(SaleOrderLineInherit, line).compute_amount()  
+    #         line['discount'] = (line.discount_in_amount/line.price_subtotal)*100
