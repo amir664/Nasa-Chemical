@@ -21,7 +21,6 @@
                 <field name="region"/>
                 <field name="status"/>
                 <field name="vendor_status"/>
-                <field name="sales_person"/>
                 
                 
 
