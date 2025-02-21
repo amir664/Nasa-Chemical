@@ -5,6 +5,9 @@ from datetime import datetime
 import qrcode
 import base64
 from io import BytesIO
+from datetime import datetime
+import calendar
+
 
 
 class AccountMove(models.Model):
@@ -29,14 +32,18 @@ class AccountMove(models.Model):
                     for move in asset.depreciation_move_ids.sorted(
                         lambda mv: (mv.date, mv._origin.id)
                     ):
-                        depri += deprication * (method / 12)
+                        depri += deprication * (method / 365)
+                        
+                        date = datetime.strptime(str(move.date), "%m-%d-%Y")
+                        days = calendar.monthrange(date.year, date.month)[1]
+                        depri = depri / days
                         if (
                             asset.depreciation_move_ids.sorted(
                                 lambda mv: (mv.date, mv._origin.id)
                             )[-1]
                             == move
                         ):
-                            # move.depreciation_value = ((deprication / 12) / method)
+
                             move.asset_depreciated_value = depri
                             move.asset_remaining_value = 0
                         else:
