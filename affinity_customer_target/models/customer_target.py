@@ -8,7 +8,7 @@ class CustomerTarget(models.Model):
     name = fields.Char(string="Name", required=True)
     start_date = fields.Date(string="Start Date",)
     end_date = fields.Date(string="End Date",)
-    customer = fields.Many2one('res.partner', string="Customer",)
+    customer = fields.Many2one('res.partner', string="Customer", default=lambda self: self.env.context.get('default_customer'))
     line_ids = fields.One2many('customer.target.line','customer_target_id', string="Line Ids", required=True)
     
 
@@ -34,7 +34,7 @@ class ResPartner(models.Model):
             'view_id': False,
             'view_mode': 'tree,form',
             'type': 'ir.actions.act_window',
-            'context': {'default_partner_id': self.id}
+            'context': {'default_customer': self.id}
         }
     
     def get_expense_count(self):
