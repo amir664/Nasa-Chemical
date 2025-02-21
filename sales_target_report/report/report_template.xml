@@ -48,30 +48,36 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <!-- <t t-foreach="data" t-as="value">
-                                        <tr t-if="value['amount'] != 0.0">
+                                    <t t-foreach="data" t-as="value">
+                                        <tr>
                                             <td style="text-align:center; padding:4px; font-weight: normal;">
                                                 <span>
-                                                    <t t-esc="value['invoice_no']"/>
+                                                    <t t-esc="value['customer_name']"/>
+                                                </span>
+                                            </td>
+                                            <td style="text-align:center; padding:4px; font-weight: normal;">
+                                                <span>
+                                                    <t t-esc="value['region']"/>
+                                                </span>
+                                            </td>
+                                            <td style="text-align:center; padding:4px; font-weight: normal;">
+                                                <span>
+                                                    <t t-esc="value['town']"/>
+                                                </span>
+                                            </td>
+                                            <td style="text-align:center; padding:4px; font-weight: normal;">
+                                                <span>
+                                                    <t t-esc="value['total_target']"/>
+                                                </span>
+                                            </td>
+                                            <td style="text-align:center; padding:4px; font-weight: normal;">
+                                                <span>
+                                                    <t t-esc="value['total_sales_todate']"/>
                                                 </span>
                                             </td>
                                             
-                                            <td style="text-align:center; padding:4px; font-weight: normal;">
-                                                <t t-set="date_obj" t-value="str(value['invoice_date']).split(' ')[0]"/>
-                                                <t t-set="day" t-value="date_obj.split('-')[-1]"/>
-                                                <t t-set="month" t-value="date_obj.split('-')[1]"/>
-                                                <t t-set="year" t-value="date_obj.split('-')[0]"/>
-                                                <span t-esc="str(year)+'-'+str(month)+'-'+str(day)"/>
-                                            </td>
-                                            <td style="text-align:center; padding:4px; font-weight: normal;">
-                                                <span t-esc="value['date_due']"/>
-                                            </td>
-                                            <td style="text-align:center; padding:4px; font-weight: normal;">
-                                                <span t-esc="value['amount']"/>
-                                            </td>
-                                            
                                         </tr>
-                                    </t> -->
+                                    </t>
                                 </tbody>
                             </table>
                         </div>

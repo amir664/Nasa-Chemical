@@ -36,7 +36,6 @@ class CustomReport(models.AbstractModel):
                         inner join customer_target target on res.id = target.customer
                         where 
                         target.start_date >= '%s' and target.end_date <= '%s'
-                        
                 """
 
                 % (date_from, date_to)) 
