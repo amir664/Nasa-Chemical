@@ -15,7 +15,7 @@ class CustomerTarget(models.Model):
     line_ids = fields.One2many('customer.target.line','customer_target_id', string="Line Ids", required=True)
     
     
-    @api.depends('line_ids.sales_todate','line_ids')
+    @api.onchange('line_ids.sales_todate','line_ids.target','line_ids')
     def getTotalSalesAndTargets(self):
         for i in self:
             target = 0
