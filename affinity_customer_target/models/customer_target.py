@@ -9,7 +9,7 @@ class CustomerTarget(models.Model):
     start_date = fields.Date(string="Start Date",)
     end_date = fields.Date(string="End Date",)
     customer = fields.Many2one('res.partner', string="Customer",)
-    line_ids = fields.One2many('customer.target.line','customer_target_id', sting="Line Ids", required=True)
+    line_ids = fields.One2many('customer.target.line','customer_target_id', string="Line Ids", required=True)
     
 
 class CustomerTargetLine(models.Model):
