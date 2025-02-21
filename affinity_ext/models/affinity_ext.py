@@ -152,7 +152,7 @@ class SaleOrderLineInherit(models.Model):
             subtotal = (line.price_unit * line.product_uom_qty)  
             if subtotal > 0:
                 line.discount = (line.discount_in_amount / subtotal) * 100
-            else:
+            else: 
                 line.discount = 0.0
     # @api.depends('price_unit', 'product_uom_qty', 'discount_in_amount', 'tax_id')
     # def _compute_amount(self):
