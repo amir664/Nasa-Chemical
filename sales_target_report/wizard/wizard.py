@@ -11,8 +11,8 @@ class SalesTargetWizard(models.TransientModel):
 
     def print_report(self):
         customer_ids = []
-        if self.partner_ids:
-            for id in self.partner_ids:
+        if self.customer_ids:
+            for id in self.customer_ids:
                 customer_ids.append(id.id)
                 
         data = {
