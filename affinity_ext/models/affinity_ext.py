@@ -155,4 +155,4 @@ class SaleOrderLineInherit(models.Model):
     def _compute_amount(self):
         for line in self:
             super(SaleOrderLineInherit, line)._compute_amount()  
-            line['discount'] = (line.discount_in_amount/line.total_price)*100
+            line['discount'] = (line.discount_in_amount/line.price_subtotal)*100
