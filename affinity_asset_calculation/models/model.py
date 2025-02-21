@@ -34,7 +34,7 @@ class AccountMove(models.Model):
                     ):
                         depri += deprication * (method / 365)
                         
-                        date = datetime.strptime(str(move.date), "%m-%d-%Y")
+                        date = datetime.strptime(str(move.date), "%Y-%m-%d")
                         days = calendar.monthrange(date.year, date.month)[1]
                         depri = depri / days
                         if (
