@@ -154,5 +154,5 @@ class SaleOrderLineInherit(models.Model):
     @api.depends('price_unit', 'product_uom_qty', 'discount_in_amount', 'tax_id')
     def compute_amount(self):
         for line in self:
-            super(SaleOrderLineInherit, line)._compute_amount()  
+            super(SaleOrderLineInherit, line).compute_amount()  
             line['discount'] = (line.discount_in_amount/line.price_subtotal)*100
