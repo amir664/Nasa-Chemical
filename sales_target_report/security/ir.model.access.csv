@@ -1,2 +1,2 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_sales_target,access_sales_target,model_sales_target,,1,1,1,1
+access_sales_target_report,access_sales_target_report,model_sales_target_report,,1,1,1,1

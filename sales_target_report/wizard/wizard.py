@@ -2,8 +2,8 @@ from odoo import _, api, fields, models
 from odoo.exceptions import UserError, AccessError
 
 
-class ReceivableWizard(models.TransientModel):
-    _name = 'receivable.report'
+class SalesTargetWizard(models.TransientModel):
+    _name = 'sales.target.report'
 
     date_from = fields.Date('Date From', required=True)
     date_to = fields.Date('Date To', required=True)

@@ -5,24 +5,24 @@ from odoo import _, api, fields, models
 
 class CustomReport(models.AbstractModel):
     _name = "report.sales_target_report.sales_target_reports"
-    _description = "Custom Receivable Report"
+    _description = "Sales Target Report"
 
     def _get_report_values(self, docids, data=None):
 
         other_details = {}
         date_from = data['date_from']
         date_to = data['date_to']
-        partner_ids = data['partner_ids']
+        customer_ids = data['partner_ids']
         
         other_details.update({
                 'date_from': date_from,
                 'date_to': date_to,
-                'partner_ids': partner_ids,
+                'customer_ids': customer_ids,
 
             })
         
-        if partner_ids != []:
-            partner_ids_str = ','.join(map(str,partner_ids))
+        if customer_ids != []:
+            customer_ids_str = ','.join(map(str,customer_ids))
             
         query = (""" 
                     select 
@@ -46,12 +46,9 @@ class CustomReport(models.AbstractModel):
                 % (date_from, date_to)) 
 
 
-
-
-        if partner_ids:
-            query += "AND rp.id in (%s)" % partner_ids_str
+        if customer_ids:
+            query += "AND rp.id in (%s)" % customer_ids_str
         
-
         query += 'order by rp.name'
         
         cr = self._cr

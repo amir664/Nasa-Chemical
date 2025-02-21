@@ -1,5 +1,5 @@
 {
-    'name': 'Custom Receivable Report',
+    'name': 'Sales Target Report',
     'version': '1.0.0',
 
     'depends': ['base','account'],
