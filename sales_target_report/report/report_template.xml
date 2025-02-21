@@ -13,14 +13,14 @@
                         <div class="col-6" style="margin-top: 10px;">
                             <t t-if="other['date_from']">
                                 <div style="margin-bottom: 3px; margin-left: 8px;"> 
-                                    <b>Date From:</b>
+                                    <b>From:</b>
                                     <t t-esc="other['date_from']"/>
                                 </div>
                             </t>
                             
                             <t t-if="other['date_to']">
                                 <div style="margin-top: 3px; margin-left: 8px;"> 
-                                    <b>Date To:</b>
+                                    <b>To:</b>
                                     <t t-esc="other['date_to']"/>
                                 </div>
                             </t>
@@ -31,21 +31,24 @@
                                 <thead>
                                     <tr>
                                         <th style="text-align:center;border-bottom:1px solid black;padding:4px;width:200px;font-weight:bold;">
-                                            <b>Invoice No</b>
+                                            <b>CLIENTS</b>
                                         </th>
                                         <th style="text-align:center;border-bottom:1px solid black;padding:4px;width:150px;font-weight:bold;">
-                                            <b>Invoice Date</b>
+                                            <b>STATUS</b>
                                         </th>
                                         <th style="text-align:center;border-bottom:1px solid black;padding:4px;width:150px;font-weight:bold;">
-                                            <b>Due Date</b>
+                                            <b>TOWN</b>
                                         </th>
                                         <th style="text-align:center;border-bottom:1px solid black;padding:4px;width:120px;font-weight:bold;">
-                                            <b>Receivable</b>
+                                            <b>MONTH TARGET</b>
+                                        </th>
+                                        <th style="text-align:center;border-bottom:1px solid black;padding:4px;width:120px;font-weight:bold;">
+                                            <b>MONTH TODATE SALES</b>
                                         </th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <t t-foreach="data" t-as="value">
+                                    <!-- <t t-foreach="data" t-as="value">
                                         <tr t-if="value['amount'] != 0.0">
                                             <td style="text-align:center; padding:4px; font-weight: normal;">
                                                 <span>
@@ -68,7 +71,7 @@
                                             </td>
                                             
                                         </tr>
-                                    </t>
+                                    </t> -->
                                 </tbody>
                             </table>
                         </div>

@@ -13,6 +13,9 @@ class ResPartnerInherited(models.Model):
     cnic_no = fields.Char("CNIC Number", required = True)
     vendor_status = fields.Selection([('active', 'Active'), ('non_active', 'Non Active')], string = "Status")
     major_client = fields.Selection([('a','A Category'), ('b', 'B Category'), ('c', 'C Category')]) 
+    region = fields.Char(string="Region")
+    status = fields.Char(string="Status")
+    town = fields.Char(string="Town")
 
 class ResPartnerBankInherited(models.Model):
     

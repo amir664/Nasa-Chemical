@@ -26,19 +26,16 @@ class CustomReport(models.AbstractModel):
             
         query = (""" 
                     select 
-                        rp.name as customer_name,
-                        am.invoice_date as invoice_date,
-                        am.name as invoice_no,
-                        am.invoice_date_due as date_due,
-                        am.amount_residual as amount
-
-                    from account_move am
-                        inner join res_partner rp on rp.id = am.partner_id
-                        left join sale_order so on so.name = am.invoice_origin
-                        left join account_analytic_account aca on aca.id = so.analytic_account_id
-
+                        res.name as customer_name,
+                        res.region,
+                        res.status,
+                        res.town,
+                        target.total_target,
+                        target.total_sales_todate
+                    from res_partner res
+                        inner join customer_target target on res.id = target.customer
                         where 
-                        am.create_date between '%s' and '%s'
+                        target.start_date >= '%s' and target.end_date <= '%s'
                         and am.move_type = 'out_invoice'
                         
                 """
@@ -49,7 +46,7 @@ class CustomReport(models.AbstractModel):
         if customer_ids:
             query += "AND rp.id in (%s)" % customer_ids_str
         
-        query += 'order by rp.name'
+        query += 'order by res.region'
         
         cr = self._cr
         cr.execute(query)
