@@ -77,8 +77,8 @@ class AccountAsset(models.Model):
         method = self.method_progress_factor #declining factor
         self['qrcode'] = self.generateCode()
         for i in new_depreciation_moves_data:
+            depri = deprication * (method / 365)
             if i == new_depreciation_moves_data[-1]:
-                depri = deprication * (method / 365)
                 date = datetime.strptime(str(i.date), "%Y-%m-%d")
                 days = calendar.monthrange(date.year, date.month)[1]
                 depri = depri / days
