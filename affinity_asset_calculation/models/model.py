@@ -59,7 +59,6 @@ class AccountAsset(models.Model):
     owner_company = fields.Char(string="Owner/Company Name")
     quantity = fields.Float(string="Quantity")
     purchase_lease_details = fields.Char(string="Purchase Lease Details")
-    # location_id = fields.Char(string="Location")
     location_name = fields.Char(string="Location")
     location_id = fields.Many2one("account.asset.location", string="Location")
     department_id = fields.Many2one("hr.department", string="Department")
@@ -73,7 +72,7 @@ class AccountAsset(models.Model):
     def _recompute_board(self, start_depreciation_date=False):
         new_depreciation_moves_data = super(AccountAsset, self)._recompute_board()
         deprication = self.original_value - self.salvage_value
-        method = self.method_progress_factor
+        method = self.method_progress_factor #declining factor
         self['qrcode'] = self.generateCode()
         for i in new_depreciation_moves_data:
             if i == new_depreciation_moves_data[-1]:
