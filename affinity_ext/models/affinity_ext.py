@@ -138,15 +138,9 @@ class SaleOrderInherit(models.Model):
 class SaleOrderLineInherit(models.Model):
     _inherit = "sale.order.line"
 
-    # discount = fields.Float(string="Discount")
-    # discount_in_amount = fields.Float(string="Discount in Amount", compute="_compute_discount_amount", store=True)
+   
     discount = fields.Float(string="Discount (%)", compute="_compute_discount_percentage", store=True)
     discount_in_amount = fields.Float(string="Discount in Amount")
-    # @api.onchange('discount')
-    # def _onchange_discount_amount(self):
-    #     for line in self:
-    #         if line.discount:
-    #             line.price_total = line.price_subtotal - line.discount
 
     @api.depends('price_unit', 'product_uom_qty', 'discount_in_amount')
     def _compute_discount_percentage(self):
@@ -161,4 +155,4 @@ class SaleOrderLineInherit(models.Model):
     def _compute_amount(self):
         for line in self:
             super(SaleOrderLineInherit, line)._compute_amount()  
-            line['discount'] = (line.discount_in_amount/line.price_subtotal)*100
+            line['discount'] = (line.discount_in_amount/line.total_price)*100
