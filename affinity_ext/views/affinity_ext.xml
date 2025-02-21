@@ -12,12 +12,14 @@
                 <field name="legal_status"/>
                 <field name="company_reg"/>
                 <field name="artical"/>
+                <field name="town"/>
                 
             </field>
             
             <field name="vat" position="after">
                 <field name="strn_no"/>
-                <!-- <field name="cnic_no"/> -->
+                <field name="region"/>
+                <field name="status"/>
                 <field name="vendor_status"/>
                 
                 
