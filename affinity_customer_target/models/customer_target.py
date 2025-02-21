@@ -33,7 +33,8 @@ class ResPartner(models.Model):
             'res_model': 'customer.target',
             'view_id': False,
             'view_mode': 'tree,form',
-            'type': 'ir.actions.act_window'
+            'type': 'ir.actions.act_window',
+            'context': {'default_partner_id': self.id}
         }
     
     def get_expense_count(self):

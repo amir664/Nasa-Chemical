@@ -12,7 +12,7 @@ class CustomReport(models.AbstractModel):
         other_details = {}
         date_from = data['date_from']
         date_to = data['date_to']
-        customer_ids = data['partner_ids']
+        customer_ids = data['customer_ids']
         
         other_details.update({
                 'date_from': date_from,
