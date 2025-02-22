@@ -20,9 +20,7 @@
                 <field name="strn_no"/>
                 <field name="region"/>
                 <field name="status"/>
-                <field name="vendor_status"/>
-                
-                
+                <field name="vendor_status"/>                                
 
             </field>
             
@@ -53,6 +51,19 @@
                     <field name="purchase_tolerance"/>
                 </field>
             </field>
+        </record>
+
+        <record id="view_purchase_order_form_inherit" model="ir.ui.view">
+        <field name="name">purchase.order.form.inherit</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='group_invoice']" position="before">
+                <group>
+                    <field name="custom_date"/>
+                </group>
+            </xpath>
+        </field>
         </record>
 
 
