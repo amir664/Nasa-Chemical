@@ -9,9 +9,9 @@ class PurchaseReportWizard(models.TransientModel):
     date_to = fields.Date(string='To Date', required=True)
     product_ids = fields.Many2many('product.template', string='Product', required=True)
     vendor_ids = fields.Many2many('res.partner', string = "Vendor", required=True)
-    po_no = fields.Char(string = "po_no", required=True)
-    grn = fields.Char(string = "grn", required=True)
-    invoice_no = fields.Char(string = "invoice_no", required=True)
+    po_no = fields.Char("purchase.order", required=True)
+    grn = fields.Char("stock.picking", required=True)
+    invoice_no = fields.Char("account.move", required=True)
     
 
     def print_report(self):
