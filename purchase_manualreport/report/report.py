@@ -61,8 +61,8 @@ class CustomReport(models.AbstractModel):
                 inner join stock_warehouse sw on sw.id = spt.warehouse_id
                 inner join uom_uom mm on mm.id = pol.product_uom
 
-                WHERE 
-                    po.date_order BETWEEN '%s' AND '%s'
+                --WHERE 
+                    --po.date_order BETWEEN '%s' AND '%s'
                     --AND pt.id in (%s)
                     --AND rs.id in (%s)
                     --AND po.name = '%s'
@@ -74,7 +74,7 @@ class CustomReport(models.AbstractModel):
                 
                 """
         
-        % (date_from, date_to,product_ids_str, vendor_ids_str, po_no, grn, invoice_no) )
+         )
 
         cr.execute(query)
         data = cr.dictfetchall()
