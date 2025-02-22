@@ -14,9 +14,9 @@
                         <field name="vendor_ids" widget="many2many_tags"/>
                     </group>
                    <group>
-                        <field name="po_no"/>
-                        <field name="grn"/>
-                        <field name="invoice_no"/>
+                        <field name="po_no" widget="many2many_tags"/>
+                        <field name="grn" widget="many2many_tags"/>
+                        <field name="invoice_no" widget="many2many_tags"/>
                         
                     </group>
                 </group>
