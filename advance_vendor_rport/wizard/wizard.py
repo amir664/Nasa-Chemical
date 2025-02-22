@@ -1,7 +1,7 @@
 from odoo import models, fields, api
 
 class PSReportWizard(models.TransientModel):
-    _name = 'advanceVendor.report'
+    _name = 'advancevendor.report'
     _description = 'Advance to Vendor Report'
     
     date_from = fields.Date(string="From Date")
