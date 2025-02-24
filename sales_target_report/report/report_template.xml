@@ -31,6 +31,9 @@
                                 <thead>
                                     <tr>
                                         <th style="text-align:center;border-bottom:1px solid black;padding:4px;width:200px;font-weight:bold;">
+                                            <b>REGION</b>
+                                        </th>
+                                        <th style="text-align:center;border-bottom:1px solid black;padding:4px;width:200px;font-weight:bold;">
                                             <b>CLIENTS</b>
                                         </th>
                                         <th style="text-align:center;border-bottom:1px solid black;padding:4px;width:150px;font-weight:bold;">
@@ -50,6 +53,11 @@
                                 <tbody>
                                     <t t-foreach="data" t-as="value">
                                         <tr>
+                                            <td style="text-align:center; padding:4px; font-weight: normal;">
+                                                <span>
+                                                    <t t-esc="value['region']"/>
+                                                </span>
+                                            </td>
                                             <td style="text-align:center; padding:4px; font-weight: normal;">
                                                 <span>
                                                     <t t-esc="value['customer_name']"/>
