@@ -68,7 +68,7 @@ class CustomReport(models.AbstractModel):
         # Combine WHERE clauses
         where_clause = " WHERE " + " AND ".join(where_clauses) if where_clauses else ""
         
-        query = ("""
+        query = (f"""
                 SELECT 
                     po.date_order AS Date,
                     rs.name as vendor,                    
@@ -91,7 +91,7 @@ class CustomReport(models.AbstractModel):
                 inner join stock_picking_type spt on spt.id = po.picking_type_id
                 inner join stock_warehouse sw on sw.id = spt.warehouse_id
                 inner join uom_uom mm on mm.id = pol.product_uom
-
+                {where_clause}
                 
                   
 
