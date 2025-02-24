@@ -62,7 +62,7 @@
                 <field name="date_approve" position="after">
                     <field name="custom_date"/>
                 </field>
-                </xpath>
+                <!-- </xpath> -->
             </field>
         </record>
 
