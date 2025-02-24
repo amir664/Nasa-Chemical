@@ -6,7 +6,7 @@ from datetime import datetime
 
 class AgingReportController(http.Controller):
     @http.route('/aging/excel_report', type='http', auth='user', methods=['GET'], csrf=False)
-    def generate_excel_report(self, date_from='', date_to='', vendor_id='', invoice=''):
+    def generate_excel_report(self, date_from='', date_to='', vendor_ids='', invoice=''):
         # Prepare filename
         filename = "Aging_Report_{}.xlsx".format(datetime.now().strftime("%Y%m%d_%H%M%S"))
         
@@ -20,7 +20,7 @@ class AgingReportController(http.Controller):
         date_format = workbook.add_format({'num_format': 'yyyy-mm-dd'})
         
         # Write headers
-        headers = ['Vendor', 'PO', 'GRN', 'Invoice', 'Invoice Date', 'Total Amount', 'Due Date', 'Approval Date', 'Days']
+        headers = ['Vendor', 'PO', 'GRN', 'Invoice', 'Invoice Date', 'Total Amount', 'Due Date', 'Approval Date', 'Days', 'Payment Reference', 'Payment Amount', 'Payment Date']
         for col, header in enumerate(headers):
             worksheet.write(0, col, header, bold)
         
@@ -30,8 +30,8 @@ class AgingReportController(http.Controller):
             domain.append(('po.date_approve', '>=', date_from))
         if date_to:
             domain.append(('po.due_date', '<=', date_to))
-        if vendor_id:
-            domain.append(('rp.id', '=', int(vendor_id)))
+        if vendor_ids:
+            domain.append(('rp.id', 'in', [int(v) for v in vendor_ids.split(',')]))
         if invoice:
             domain.append(('am.id', '=', int(invoice)))
         
@@ -40,7 +40,8 @@ class AgingReportController(http.Controller):
             SELECT rp.name AS Vendor, po.name AS PO, sp.name AS GRN, am.name AS Invoice,
                    am.invoice_date AS inv_date, am.amount_residual AS total_amount,
                    po.due_date, po.date_approve,
-                   EXTRACT(DAY FROM po.due_date - po.date_approve)::INT+1 AS days
+                   EXTRACT(DAY FROM po.due_date - po.date_approve)::INT+1 AS days,
+                   ap.ref AS payment_reference, ap.amount AS payment_amount, ap.payment_date AS payment_date
             FROM purchase_order po
             LEFT JOIN res_partner rp ON po.partner_id = rp.id
             LEFT JOIN purchase_order_line pol ON po.id = pol.order_id
@@ -48,6 +49,7 @@ class AgingReportController(http.Controller):
             LEFT JOIN stock_picking sp ON sm.picking_id = sp.id
             LEFT JOIN account_move_line aml ON pol.id = aml.purchase_line_id
             LEFT JOIN account_move am ON aml.move_id = am.id
+            LEFT JOIN account_payment ap ON am.id = ap.move_id
             WHERE 1=1
         """
         
@@ -56,7 +58,7 @@ class AgingReportController(http.Controller):
             for condition in domain:
                 query += f" AND {condition[0]} {condition[1]} '{condition[2]}' "
         
-        query += " GROUP BY rp.name, po.name, sp.name, am.name, am.invoice_date, am.amount_residual, po.due_date, po.date_approve "
+        query += " GROUP BY rp.name, po.name, sp.name, am.name, am.invoice_date, am.amount_residual, po.due_date, po.date_approve, ap.ref, ap.amount, ap.payment_date "
         request.cr.execute(query)
         records = request.cr.fetchall()
         
