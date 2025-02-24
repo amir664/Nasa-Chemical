@@ -69,7 +69,7 @@ class CustomReport(models.AbstractModel):
                 mm.name ->> 'en_US' AS Unit,
                 pol.price_unit AS price, 
                 pol.price_total AS amount,
-                pr.name AS PurchaseRequest
+                COALESCE(pr.name, '') AS PurchaseRequest
             FROM purchase_order_line pol 
             INNER JOIN purchase_order po ON po.id = pol.order_id
             INNER JOIN product_product pp ON pp.id = pol.product_id
@@ -84,6 +84,7 @@ class CustomReport(models.AbstractModel):
             LEFT JOIN purchase_request pr ON pr.id = prl.request_id
             {where_clause}
             ORDER BY po.name
+
         """
 
         cr.execute(query, tuple(params))  # Execute with parameters
