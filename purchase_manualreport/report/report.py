@@ -43,7 +43,7 @@ class CustomReport(models.AbstractModel):
 
         if date_from and date_to:
             where_clauses.append("po.date_order BETWEEN %s AND %s")
-            params.extend([date_from, date_to])
+            params.extend([tuple(date_from), tuple(date_to)])
 
         if product_ids:
             where_clauses.append("pt.id IN %s")
@@ -52,7 +52,7 @@ class CustomReport(models.AbstractModel):
         if vendor_ids:
             where_clauses.append("rs.id IN %s")
             params.append(tuple(vendor_ids))
-
+        raise UserError(po_no)
         if po_no:
             where_clauses.append("po.name = %s")
             params.append(tuple(po_no))
