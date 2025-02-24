@@ -52,18 +52,18 @@ class CustomReport(models.AbstractModel):
         if vendor_ids:
             where_clauses.append("rs.id IN %s")
             params.append(tuple(vendor_ids))
-        raise UserError(po_no)
-        if po_no:
-            where_clauses.append("po.name = %s")
-            params.append(tuple(po_no))
+        # raise UserError(po_no)
+        # if po_no:
+        #     where_clauses.append("po.name = %s")
+        #     params.append(tuple(po_no))
 
-        if grn:
-            where_clauses.append("sp.name = %s")
-            params.append(tuple(grn))
+        # if grn:
+        #     where_clauses.append("sp.name = %s")
+        #     params.append(tuple(grn))
 
-        if invoice_no:
-            where_clauses.append("am.name = %s")
-            params.append(tuple(invoice_no))
+        # if invoice_no:
+        #     where_clauses.append("am.name = %s")
+        #     params.append(tuple(invoice_no))
 
         # Combine WHERE clauses
         where_clause = " WHERE " + " AND ".join(where_clauses) if where_clauses else ""
