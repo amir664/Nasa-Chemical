@@ -17,15 +17,32 @@ class AgingReportController(http.Controller):
         worksheet = workbook.add_worksheet('Aging Report')
 
         # Define formats
-        bold = workbook.add_format({'bold': True})
+        bold = workbook.add_format({'bold': True, 'align': 'center'})
+        title_format = workbook.add_format({'bold': True, 'align': 'center', 'font_size': 14})
+        subheader_format = workbook.add_format({'bold': True, 'align': 'center', 'font_size': 12})
         date_format = workbook.add_format({'num_format': 'yyyy-mm-dd'})
+        left_align_format = workbook.add_format({'align': 'left', 'bold': True})
+        right_align_format = workbook.add_format({'align': 'right', 'bold': True})
+        
+        # Set column width
+        worksheet.set_column(0, 13, 20)
 
+        # Add report title
+        worksheet.merge_range('A1:N1', 'NASA CHEMICALS', title_format)
+        worksheet.merge_range('A2:N2', '', bold)
+        worksheet.merge_range('A3:N3', 'Bills Payable', subheader_format)
+        worksheet.merge_range('A4:N4', 'Account Group: Sundry Creditors', subheader_format)
+
+        # Add date range and status
+        worksheet.write('A6', f'From {date_from} to {date_to}', left_align_format)
+        worksheet.write('N6', f'Bills Status as on: {date_to}', right_align_format)
+        
         # Write headers
         headers = ['From Date', 'To Date', 'Vendor', 'PO', 'GRN', 'Invoice No', 'Invoice Date', 'Total Amount',
                    'Due Date', 'Approval Date', 'Days', 'Payment Reference', 'Payment Date', 'Pending Amount']
         for col, header in enumerate(headers):
-            worksheet.write(0, col, header, bold)
-
+            worksheet.write(7, col, header, bold)
+        
         # Prepare domain filters
         domain = []
         if date_from:
@@ -37,11 +54,10 @@ class AgingReportController(http.Controller):
             domain.append(('partner_id', 'in', vendor_ids_list))
         if invoice:
             domain.append(('invoice_ids', 'in', int(invoice)))
-
+        
         # Fetch purchase orders
         purchase_orders = request.env['purchase.order'].search(domain)
-
-        row_idx = 1
+        row_idx = 8
         for po in purchase_orders:
             vendor = po.partner_id.name
             po_name = po.name
@@ -70,7 +86,7 @@ class AgingReportController(http.Controller):
             # Write data to Excel
             data = [date_from, date_to, vendor, po_name, grn, invoice, inv_date, total_amount, due_date,
                     approval_date, days, payment_ref, payment_date, pending_amount]
-
+            
             for col_idx, value in enumerate(data):
                 if isinstance(value, datetime):
                     worksheet.write_datetime(row_idx, col_idx, value, date_format)
