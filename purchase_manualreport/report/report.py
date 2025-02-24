@@ -53,17 +53,24 @@ class CustomReport(models.AbstractModel):
             where_clauses.append("rs.id IN %s")
             params.append(tuple(vendor_ids))
         # raise UserError(po_no)
-        if po_no and hasattr(po_no, 'name'):
-            where_clauses.append("po.name = %s")
-            params.append(po_no.name)  # Extract name from the recordset
+        if po_no:
+            po_no_names = [po.name for po in po_no]
+            if po_no_names:
+                where_clauses.append("po.name IN %s")
+                params.append(tuple(po_no_names))  # Use tuple for SQL IN clause
 
-        if grn and hasattr(grn, 'name'):
-            where_clauses.append("sp.name = %s")
-            params.append(grn.name)
+        if grn:
+            grn_names = [grn.name for grn in grn]
+            if grn_names:
+                where_clauses.append("sp.name IN %s")
+                params.append(tuple(grn_names))
 
-        if invoice_no and hasattr(invoice_no, 'name'):
-            where_clauses.append("am.name = %s")
-            params.append(invoice_no.name)
+        if invoice_no:
+            invoice_no_names = [invoice.name for invoice in invoice_no]
+            if invoice_no_names:
+                where_clauses.append("am.name IN %s")
+                params.append(tuple(invoice_no_names))
+
 
 
         # Combine WHERE clauses
