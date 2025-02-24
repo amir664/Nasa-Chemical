@@ -13,17 +13,13 @@ class PurchaseReportWizard(models.TransientModel):
 
     def print_report(self):
 
-        vendor_ids = []
-        if self.vendor_ids:
-            for id in self.vendor_ids:
-                vendor_ids.append(id.id)
-        
-        data = {
-            'date_from': self.date_from,
-            'date_to': self.date_to,
-            'vendor_ids': vendor_ids,
-
-            }
-
-        return self.env.ref('aging_report.aging_report_pdf').with_context(landscape=True).report_action(self, data=data)
-    
+        return {
+            'type': 'ir.actions.act_url',
+            'url': '/aging/excel_report?date_from={}&date_to={}&vendor_id={}&invoice={}'.format(
+                self.date_from or '',
+                self.date_to or '',
+                self.vendor_id.id or '',
+                self.item_wise.id or ''  
+            ),
+            'target': 'new'
+        }
