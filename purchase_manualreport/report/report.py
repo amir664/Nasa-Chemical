@@ -54,7 +54,7 @@ class CustomReport(models.AbstractModel):
             params.append(tuple(vendor_ids))
         # raise UserError(po_no)
         if po_no != 'purchase.order()':
-            where_clauses.append(f"po.name = {}")
+            where_clauses.append(f"po.name = {po_no}")
             # params.append(tuple(po_no))
 
         # if grn:
