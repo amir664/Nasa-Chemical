@@ -58,11 +58,9 @@
             <field name="model">purchase.order</field>
             <field name="inherit_id" ref="purchase.purchase_order_form"/>
             <field name="arch" type="xml">
-                <!-- <xpath expr="//field[@name='date_approve']" position="after"> -->
-                <field name="date_approve" position="after">
+                <field name="date_planned" position="after">
                     <field name="custom_date"/>
                 </field>
-                <!-- </xpath> -->
             </field>
         </record>
 
@@ -75,7 +73,7 @@
                 <xpath expr="//form[1]/sheet[1]/fbook[1]/page[1]/field[@name='line_ids']/tree[1]/field[@name='name']" position="after">
                     
                     <field name="minimum_stock_level" optional="show"/>
-                    
+                    <!--  -->
                     <field name="forecasting_stock" optional="show"/>
                     <field name="on_hand_qty" optional="show"/>
                 </xpath>
