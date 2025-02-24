@@ -20,7 +20,9 @@
                 <field name="strn_no"/>
                 <field name="region"/>
                 <field name="status"/>
-                <field name="vendor_status"/>                                
+                <field name="vendor_status"/>
+                
+                
 
             </field>
             
@@ -53,24 +55,13 @@
             </field>
         </record>
 
-        <record id="view_purchase_order_form_inherit" model="ir.ui.view">
-            <field name="name">purchase.order.form.inherit</field>
-            <field name="model">purchase.order</field>
-            <field name="inherit_id" ref="purchase.purchase_order_form"/>
-            <field name="arch" type="xml">
-                <field name="date_planned" position="after">
-                    <field name="custom_date"/>
-                </field>
-            </field>
-        </record>
-
 
         <record id="purchase_request_inherited_form" model="ir.ui.view">
             <field name="name">purchase.request.inherited.form</field>
             <field name="model">purchase.request</field>
             <field name="inherit_id" ref="purchase_request.view_purchase_request_form"/>
             <field name="arch" type="xml">
-                <xpath expr="//form[1]/sheet[1]/fbook[1]/page[1]/field[@name='line_ids']/tree[1]/field[@name='name']" position="after">
+                <xpath expr="//form[1]/sheet[1]/notebook[1]/page[1]/field[@name='line_ids']/tree[1]/field[@name='name']" position="after">
                     
                     <field name="minimum_stock_level" optional="show"/>
                     <!--  -->
