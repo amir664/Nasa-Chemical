@@ -75,7 +75,7 @@ class AgingReportController(http.Controller):
             # payment_ref = ', '.join(payments.mapped('ref'))  # Fix: Use 'name' instead of 'communication'
             payment_ref = ', '.join(filter(None, payments.mapped('name')))  # 'name' instead of 'ref'
             payment_amount = sum(payments.mapped('amount'))
-            payment_date = ', '.join([p.payment_date.strftime('%Y-%m-%d') for p in payments if p.payment_date])
+            payment_date = ', '.join([p.date.strftime('%Y-%m-%d') for p in payments if p.date])
 
             # Write data to Excel
             data = [vendor, po_name, grn, invoice, inv_date, total_amount, due_date,
