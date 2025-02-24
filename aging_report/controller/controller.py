@@ -37,7 +37,7 @@ class AgingReportController(http.Controller):
         if date_from:
             domain.append(('date_approve', '>=', date_from))
         if date_to:
-            domain.append(('due_date', '<=', date_to))
+            domain.append(('date_approve', '<=', date_to))
         if vendor_ids:
             vendor_ids_list = [int(v) for v in vendor_ids.split(',')]
             domain.append(('partner_id', 'in', vendor_ids_list))
