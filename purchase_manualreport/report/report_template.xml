@@ -3,17 +3,17 @@
     <template id="purchase_manualreports">
         <t t-call="web.html_container">
             <t t-call="web.basic_layout">
-                <div class="header">
-                    <div class="row">
-                        <div class="col-12 text-center">
+                <div class="container">
+                    <div class="row text-center" style="display: flex; justify-content: center; align-items: center; text-align: center;">
+
+                        <div class="col-12">
                             <h1>NASA CHEMICALS</h1>
-                            <h2>Purchase - Report</h2>
-                            <t t-if="other['from_date']">
-                                <b>From :</b> <t t-esc="other['from_date']" />
-                            </t>
-                            <br />
-                            <t t-if="other['to_date']">
-                                <b>To :</b> <t t-esc="other['to_date']" />
+                            <br/>
+                            <h1>Purchase - Report</h1>
+                            <b>From:</b> <t t-esc="other['from_date']"/>
+                            <br/>
+                            <t t-if="other.get('to_date')">
+                                <b>To:</b> <t t-esc="other.get('to_date')"/>
                             </t>
                         </div>
                     </div>
