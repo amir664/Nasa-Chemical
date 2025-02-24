@@ -53,9 +53,9 @@
                 <group>
                     <field name="custom_date"/>
                 </group>
-            </xpath>
+                </xpath>
             
-        <!-- </field> -->
+        </field>
         </record>
 
 
