@@ -3,9 +3,7 @@ from odoo.http import request
 import io
 import xlsxwriter
 from datetime import datetime
-from odoo.exceptions import UserError, AccessError
-
-
+from odoo.exceptions import UserError
 
 class AgingReportController(http.Controller):
     @http.route('/aging/excel_report', type='http', auth='user', methods=['GET'], csrf=False)
@@ -23,8 +21,8 @@ class AgingReportController(http.Controller):
         date_format = workbook.add_format({'num_format': 'yyyy-mm-dd'})
 
         # Write headers
-        headers = ['Vendor', 'PO', 'GRN', 'Invoice', 'Invoice Date', 'Total Amount',
-                   'Due Date', 'Approval Date', 'Days', 'Payment Reference', 'Payment Amount', 'Payment Date']
+        headers = ['From Date', 'To Date', 'Vendor', 'PO', 'GRN', 'Invoice No', 'Invoice Date', 'Total Amount',
+                   'Due Date', 'Approval Date', 'Days', 'Payment Reference', 'Payment Date', 'Pending Amount']
         for col, header in enumerate(headers):
             worksheet.write(0, col, header, bold)
 
@@ -50,36 +48,28 @@ class AgingReportController(http.Controller):
             grn = ', '.join(po.picking_ids.mapped('name'))
             invoice = ', '.join(po.invoice_ids.mapped('name'))
             inv_date = ', '.join([inv.invoice_date.strftime('%Y-%m-%d') for inv in po.invoice_ids if inv.invoice_date])
-            total_amount = sum(po.invoice_ids.mapped('amount_residual'))
+            total_amount = sum(po.invoice_ids.mapped('amount_total'))
             due_date = po.due_date.strftime('%Y-%m-%d') if po.due_date else ''
             approval_date = po.date_approve.strftime('%Y-%m-%d') if po.date_approve else ''
-            # days = (po.due_date - po.date_approve).days + 1 if po.due_date and po.date_approve else ''
-            days = (po.due_date - po.date_approve.date()).days  if po.due_date and po.date_approve else ''
+            days = (po.due_date - po.date_approve.date()).days if po.due_date and po.date_approve else ''
 
-
-            # Fetch payments (Fixing KeyError issue)
-            # payments = request.env['account.payment'].search([
-            #     ('move_id.line_ids.move_id', 'in', po.invoice_ids.ids)
-            # ])
-            # raise UserError(f"Invoice Payments: {po.invoice_ids.mapped('payment_id')}")
+            # Fetch payments
             bills = request.env['account.move'].search([
-                ('invoice_origin', '=', po.name)  # Alternative to `purchase_id`
+                ('invoice_origin', '=', po.name)
             ])
-            
             bill_names = ', '.join(bills.mapped('name'))
             payments = request.env['account.payment'].search([
-                ('ref', 'in', bills.mapped('name'))  # Fix: Handle multiple bills
+                ('ref', 'in', bills.mapped('name'))
             ])
 
-
-            # payment_ref = ', '.join(payments.mapped('ref'))  # Fix: Use 'name' instead of 'communication'
-            payment_ref = ', '.join(filter(None, payments.mapped('name')))  # 'name' instead of 'ref'
+            payment_ref = ', '.join(filter(None, payments.mapped('name')))
             payment_amount = sum(payments.mapped('amount'))
             payment_date = ', '.join([p.date.strftime('%Y-%m-%d') for p in payments if p.date])
+            pending_amount = total_amount - payment_amount  # Calculate Pending Amount
 
             # Write data to Excel
-            data = [vendor, po_name, grn, invoice, inv_date, total_amount, due_date,
-                    approval_date, days, payment_ref, payment_amount, payment_date]
+            data = [date_from, date_to, vendor, po_name, grn, invoice, inv_date, total_amount, due_date,
+                    approval_date, days, payment_ref, payment_date, pending_amount]
 
             for col_idx, value in enumerate(data):
                 if isinstance(value, datetime):
