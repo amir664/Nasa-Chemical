@@ -19,12 +19,15 @@ class AgingReportController(http.Controller):
         date_format = workbook.add_format({'num_format': 'dd-mm-yyyy'})
 
         # Merge and format title section
-        worksheet.merge_range(0, 0, 0, 8, 'NASA CHEMICALS', bold_center)
-        worksheet.merge_range(0, 0, 0, 8, '', bold_center)
-        worksheet.merge_range(0, 0, 0, 8, 'Bills Payable', bold_center)
-        worksheet.merge_range(0, 0, 0, 8, 'Account Group : Sundry Creditors', bold_center)
-        worksheet.merge_range(0, 0, 0, 8, f'From {date_from} to {date_to}', bold_left)
-        worksheet.merge_range(0, 0, 0, 8, f'Bills Status as on : {date_to}', bold_right)
+        worksheet.merge_range(0, 0, 0, 8, 'NASA CHEMICALS', bold_center)  # 9 columns (A to I)
+
+        worksheet.merge_range(1, 0, 1, 8, '', bold_center)  # Empty spacer row, 9 columns (A to I)
+        worksheet.merge_range(2, 0, 2, 8, 'Bills Payable', bold_center)  # 9 columns (A to I)
+        worksheet.merge_range(3, 0, 3, 8, 'Account Group : Sundry Creditors', bold_center)  # 9 columns (A to I)
+
+        worksheet.merge_range(4, 0, 4, 4, f'From {date_from} to {date_to}', bold_left)  # 5 columns (A to E)
+        worksheet.merge_range(4, 5, 4, 8, f'Bills Status as on : {date_to}', bold_right)  # 4 columns (F to I)
+
 
         # Column headers
         headers = ['Vendor', 'PO', 'GRN', 'Invoice No', 'Invoice Date', 'Total Amount','Pending Amount',
