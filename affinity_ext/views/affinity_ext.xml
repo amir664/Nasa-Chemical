@@ -72,13 +72,13 @@
             <field name="model">purchase.request</field>
             <field name="inherit_id" ref="purchase_request.view_purchase_request_form"/>
             <field name="arch" type="xml">
-                <xpath expr="//form[1]/sheet[1]/fbook[1]/page[1]/field[@name='line_ids']/tree[1]/field[@name='name']" position="after">
+                <!-- <xpath expr="//form[1]/sheet[1]/fbook[1]/page[1]/field[@name='line_ids']/tree[1]/field[@name='name']" position="after">
                     
                     <field name="minimum_stock_level" optional="show"/>
-                    <!--  -->
+                    
                     <field name="forecasting_stock" optional="show"/>
                     <field name="on_hand_qty" optional="show"/>
-                </xpath>
+                </xpath> -->
                 <!-- <field name="description" position="after">
                     <field name="department"/>
                     <field name="date_due"/>
