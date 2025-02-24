@@ -12,14 +12,15 @@ class PurchaseReportWizard(models.TransientModel):
     
 
     def print_report(self):
-
+        vendor_ids = ",".join(map(str, self.vendor_ids.ids)) if self.vendor_ids else ''
+        
         return {
             'type': 'ir.actions.act_url',
-            'url': '/aging/excel_report?date_from={}&date_to={}&vendor_id={}&invoice={}'.format(
+            'url': '/aging/excel_report?date_from={}&date_to={}&vendor_ids={}&invoice={}'.format(
                 self.date_from or '',
                 self.date_to or '',
-                self.vendor_id.id or '',
-                self.item_wise.id or ''  
+                vendor_ids,
+                self.invoice.id or ''
             ),
             'target': 'new'
         }
