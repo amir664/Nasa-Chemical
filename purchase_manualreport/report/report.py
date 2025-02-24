@@ -41,36 +41,53 @@ class CustomReport(models.AbstractModel):
         where_clauses = []
         params = []
 
+        # Debugging: Print input types before processing
+
         if date_from and date_to:
             where_clauses.append("po.date_order BETWEEN %s AND %s")
-            params.extend([tuple(date_from), tuple(date_to)])
+            params.extend([date_from, date_to])  # No tuple needed for dates
 
         if product_ids:
             where_clauses.append("pt.id IN %s")
-            params.append(tuple(product_ids))  # Tuple for SQL IN clause
+            params.append(tuple(product_ids))
 
         if vendor_ids:
             where_clauses.append("rs.id IN %s")
             params.append(tuple(vendor_ids))
-        # raise UserError(po_no)
-        raise UserError([po_no,grn,invoice_no,vendor_ids,product_ids,date_from,date_to])
-        if po_no and isinstance(po_no, models.BaseModel):  # Ensure it's a recordset
-            po_no_names = [po.name for po in po_no if po.name]  # Extract valid names
+
+        # 🛠️ Fixing po_no filtering
+        if po_no:
+            if isinstance(po_no, models.BaseModel):  # Check if it's a recordset
+                po_no_names = [po.name for po in po_no if po.name]
+            else:
+                po_no_names = [str(po_no)] if isinstance(po_no, (str, int)) else []  # Handle strings & integers
+
             if po_no_names:
                 where_clauses.append("po.name IN %s")
                 params.append(tuple(po_no_names))
 
-        if grn and isinstance(grn, models.BaseModel):
-            grn_names = [grn.name for grn in grn if grn.name]
+        # 🛠️ Fixing grn filtering
+        if grn:
+            if isinstance(grn, models.BaseModel):
+                grn_names = [grn.name for grn in grn if grn.name]
+            else:
+                grn_names = [str(grn)] if isinstance(grn, (str, int)) else []
+
             if grn_names:
                 where_clauses.append("sp.name IN %s")
                 params.append(tuple(grn_names))
 
-        if invoice_no and isinstance(invoice_no, models.BaseModel):
-            invoice_no_names = [invoice.name for invoice in invoice_no if invoice.name]
+        # 🛠️ Fixing invoice_no filtering
+        if invoice_no:
+            if isinstance(invoice_no, models.BaseModel):
+                invoice_no_names = [invoice.name for invoice in invoice_no if invoice.name]
+            else:
+                invoice_no_names = [str(invoice_no)] if isinstance(invoice_no, (str, int)) else []
+
             if invoice_no_names:
                 where_clauses.append("am.name IN %s")
                 params.append(tuple(invoice_no_names))
+
 
 
 
