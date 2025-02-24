@@ -45,26 +45,30 @@ class CustomReport(models.AbstractModel):
 
         if date_from and date_to:
             where_clauses.append("po.date_order BETWEEN %s AND %s")
-            params.extend([date_from, date_to])  # No tuple needed for dates
+            params.extend([date_from, date_to])  # Correctly formatted dates
 
         if product_ids:
-            where_clauses.append("pt.id IN %s")
-            params.append(tuple(product_ids))
+            product_ids = [int(pid) for pid in product_ids if pid]  # Ensure proper format
+            if product_ids:
+                where_clauses.append("pt.id IN %s")
+                params.append(tuple(product_ids))
 
         if vendor_ids:
-            where_clauses.append("rs.id IN %s")
-            params.append(tuple(vendor_ids))
+            vendor_ids = [int(vid) for vid in vendor_ids if vid]  # Ensure proper format
+            if vendor_ids:
+                where_clauses.append("rs.id IN %s")
+                params.append(tuple(vendor_ids))
 
         # 🛠️ Fixing po_no filtering
         if po_no:
-            if isinstance(po_no, models.BaseModel):  # Check if it's a recordset
+            if isinstance(po_no, models.BaseModel):  
                 po_no_names = [po.name for po in po_no if po.name]
             else:
-                po_no_names = [str(po_no)] if isinstance(po_no, (str, int)) else []  # Handle strings & integers
+                po_no_names = [str(po_no)] if isinstance(po_no, (str, int)) else [] 
 
             if po_no_names:
                 where_clauses.append("po.name IN %s")
-                params.append(tuple(po_no_names))
+                params.append(tuple(po_no_names))  # Convert to tuple
 
         # 🛠️ Fixing grn filtering
         if grn:
@@ -87,7 +91,6 @@ class CustomReport(models.AbstractModel):
             if invoice_no_names:
                 where_clauses.append("am.name IN %s")
                 params.append(tuple(invoice_no_names))
-
 
 
 
