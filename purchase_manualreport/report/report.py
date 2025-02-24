@@ -67,7 +67,7 @@ class CustomReport(models.AbstractModel):
 
         # Combine WHERE clauses
         where_clause = " WHERE " + " AND ".join(where_clauses) if where_clauses else ""
-        raise UserError(where_clause)
+        
         query = ("""
                 SELECT 
                     po.date_order AS Date,
@@ -100,6 +100,7 @@ class CustomReport(models.AbstractModel):
                 """
         
          )
+        raise UserError(query)
 
         cr.execute(query)
         data = cr.dictfetchall()
