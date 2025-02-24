@@ -61,7 +61,7 @@ class AgingReportController(http.Controller):
             payments = request.env['account.payment'].search([('ref', 'in', po.invoice_ids.name)])
             # payment_ref = ', '.join(payments.mapped('ref'))  # Fix: Use 'name' instead of 'communication'
             # payment_ref = ', '.join([ref for ref in payments.mapped('ref') if ref])
-            raise UserError(grn)
+            raise UserError(invoice,"hel")
 
 
             payment_amount = sum(payments.mapped('amount'))
