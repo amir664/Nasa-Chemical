@@ -5,8 +5,8 @@
     'depends': ['base', 'purchase'],
     
     'data': ['wizard/wizard.xml',
-             'report/report.xml',
-             'report/report_template.xml',
+            #  'report/report.xml',
+            #  'report/report_template.xml',
              'security/ir.model.access.csv'
              ],
     
