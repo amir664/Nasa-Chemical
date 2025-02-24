@@ -8,7 +8,7 @@ class PurchaseReportWizard(models.TransientModel):
     date_from = fields.Date(string='From Date')
     date_to = fields.Date(string='To Date')
     vendor_ids = fields.Many2many('res.partner', string = "Vendor")
-
+    invoice = fields.Many2one('account.move', string = "Invoice No.")
     
 
     def print_report(self):
@@ -26,3 +26,4 @@ class PurchaseReportWizard(models.TransientModel):
             }
 
         return self.env.ref('aging_report.aging_report_pdf').with_context(landscape=True).report_action(self, data=data)
+    
