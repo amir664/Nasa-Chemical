@@ -42,7 +42,7 @@ class CustomReport(models.AbstractModel):
 
 
         if customer_ids:
-            query += "AND rp.id in (%s)" % customer_ids_str
+            query += "AND res.id in (%s)" % customer_ids_str
         
         query += 'order by res.region'
         

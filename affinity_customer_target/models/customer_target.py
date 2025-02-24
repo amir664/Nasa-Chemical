@@ -25,6 +25,7 @@ class CustomerTarget(models.Model):
                 sales += line.sales_todate
             i['total_target'] = target
             i['total_sales_todate'] = sales
+
     
 
 class CustomerTargetLine(models.Model):
