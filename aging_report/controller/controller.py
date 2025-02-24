@@ -19,7 +19,7 @@ class AgingReportController(http.Controller):
         date_format = workbook.add_format({'num_format': 'dd-mm-yyyy'})
 
         # Merge and format title section
-        worksheet.merge_range('A1:N1', 'NASA CHEMICALS', bold_center)
+        worksheet.merge_range(0, 0, 0, 5, 'NASA CHEMICALS', bold_center)
         worksheet.merge_range('A2:N2', '', bold_center)
         worksheet.merge_range('A3:N3', 'Bills Payable', bold_center)
         worksheet.merge_range('A4:N4', 'Account Group : Sundry Creditors', bold_center)
