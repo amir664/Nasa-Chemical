@@ -53,9 +53,9 @@ class CustomReport(models.AbstractModel):
             where_clauses.append("rs.id IN %s")
             params.append(tuple(vendor_ids))
         # raise UserError(po_no)
-        # if po_no:
-        #     where_clauses.append("po.name = %s")
-        #     params.append(tuple(po_no))
+        if po_no != 'purchase.order()':
+            where_clauses.append("po.name = %s")
+            params.append(tuple(po_no))
 
         # if grn:
         #     where_clauses.append("sp.name = %s")
