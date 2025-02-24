@@ -11,7 +11,7 @@ class ResPartnerInherited(models.Model):
     artical = fields.Char("Article of Association and Memorandom", required = True)
     strn_no = fields.Char("STRN", required = True)
     cnic_no = fields.Char("CNIC Number", required = True)
-    vendor_status = fields.Selection([('active', 'Active'), ('non_active', 'Non Active')], string = "Status")
+    vendor_status = fields.Selection([('active', 'Active'), ('non_active', 'Non Active')], string = "Active Status")
     major_client = fields.Selection([('a','A Category'), ('b', 'B Category'), ('c', 'C Category')]) 
     region = fields.Char(string="Region")
     status = fields.Selection([('DISTRIBUTOR','DISTRIBUTOR'), ('DEALER', 'DEALER'), ('W.SELLER', 'W.SELLER'), ('WHOLESELLER', 'WHOLESELLER')]) 
