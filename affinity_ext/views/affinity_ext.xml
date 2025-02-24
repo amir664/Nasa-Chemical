@@ -49,7 +49,7 @@
         <field name="inherit_id" ref="purchase.purchase_order_form"/>
         <field name="arch" type="xml">
             <!-- <field name="date_" position="after"> -->
-            <xpath expr="//field[@name='currency_id']" position="after">
+            <xpath expr="//field[@name='date_approve']" position="after">
                 <group>
                     <field name="custom_date"/>
                 </group>
