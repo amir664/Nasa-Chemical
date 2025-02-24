@@ -52,12 +52,12 @@ class AgingReportController(http.Controller):
             due_date = po.due_date.strftime('%Y-%m-%d') if po.due_date else ''
             approval_date = po.date_approve.strftime('%Y-%m-%d') if po.date_approve else ''
             # days = (po.due_date - po.date_approve).days + 1 if po.due_date and po.date_approve else ''
-            days = (po.due_date - po.date_approve.date()).days + 1 if po.due_date and po.date_approve else ''
+            days = (po.due_date - po.date_approve.date()).days  if po.due_date and po.date_approve else ''
 
 
             # Fetch payments (Fixing KeyError issue)
             payments = request.env['account.payment'].search([('move_id', 'in', po.invoice_ids.ids)])
-            payment_ref = ', '.join(payments.mapped('name'))  # Fix: Use 'name' instead of 'communication'
+            payment_ref = ', '.join(payments.mapped('ref'))  # Fix: Use 'name' instead of 'communication'
             payment_amount = sum(payments.mapped('amount'))
             payment_date = ', '.join([p.payment_date.strftime('%Y-%m-%d') for p in payments if p.payment_date])
 
