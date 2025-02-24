@@ -61,7 +61,8 @@ class AgingReportController(http.Controller):
             payments = request.env['account.payment'].search([
                 ('move_id.line_ids.move_id', 'in', po.invoice_ids.ids)
             ])
-            raise UserError(f"Invoices linked: {po.invoice_ids}")
+            raise UserError(f"Invoice Payments: {po.invoice_ids.mapped('payment_id')}")
+
 
             # payment_ref = ', '.join(payments.mapped('ref'))  # Fix: Use 'name' instead of 'communication'
             payment_ref = ', '.join(filter(None, payments.mapped('ref')))
