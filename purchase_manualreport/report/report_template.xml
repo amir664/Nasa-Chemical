@@ -22,7 +22,7 @@
                 <div class="page">
                     <div class="row mt-5 mb-3">
                         <div class="col-12">
-                            <table class="table table-bordered">
+                            <table class="table border">
                                 <thead>
                                     <tr>
                                         <th class="text-center">Date</th>
