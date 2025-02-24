@@ -3,6 +3,8 @@ from odoo.http import request
 import io
 import xlsxwriter
 from datetime import datetime
+from odoo.exceptions import UserError, AccessError
+
 
 
 class AgingReportController(http.Controller):
@@ -59,6 +61,7 @@ class AgingReportController(http.Controller):
             payments = request.env['account.payment'].search([('move_id', 'in', po.invoice_ids.ids)])
             # payment_ref = ', '.join(payments.mapped('ref'))  # Fix: Use 'name' instead of 'communication'
             payment_ref = ', '.join([ref for ref in payments.mapped('ref') if ref])
+            raise UserError(payment_ref)
 
 
             payment_amount = sum(payments.mapped('amount'))
