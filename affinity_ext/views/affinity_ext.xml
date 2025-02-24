@@ -51,7 +51,7 @@
             <!-- <field name="date_" position="after"> -->
             <xpath expr="//field[@name='date_approve']" position="after">
                 <group>
-                    <field name="custom_date"/>
+                    <field name="due_date"/>
                 </group>
                 </xpath>
             

@@ -57,7 +57,7 @@ class StockPickingInherited(models.Model):
 class PurchaseOrderInherited(models.Model):
     _inherit = "purchase.order"
 
-    custom_date = fields.Date(string="Custom Date")
+    due_date = fields.Date(string="Due Date")
     
     notes = fields.Html(
         string="Terms and Condition" 
