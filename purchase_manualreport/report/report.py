@@ -55,15 +55,15 @@ class CustomReport(models.AbstractModel):
 
         if po_no:
             where_clauses.append("po.name = %s")
-            params.append(po_no)
+            params.append(tuple(po_no))
 
         if grn:
             where_clauses.append("sp.name = %s")
-            params.append(grn)
+            params.append(tuple(grn))
 
         if invoice_no:
             where_clauses.append("am.name = %s")
-            params.append(invoice_no)
+            params.append(tuple(invoice_no))
 
         # Combine WHERE clauses
         where_clause = " WHERE " + " AND ".join(where_clauses) if where_clauses else ""
