@@ -1,2 +1,2 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_vendors_report,access_vendors_report,model_vendors_report,,1,1,1,1
+access_aging_report,access_aging_report,model_aging_report,,1,1,1,1
