@@ -62,11 +62,13 @@ class AgingReportController(http.Controller):
             #     ('move_id.line_ids.move_id', 'in', po.invoice_ids.ids)
             # ])
             # raise UserError(f"Invoice Payments: {po.invoice_ids.mapped('payment_id')}")
-            bill = request.env['account.move'].search([
-                ('purchase_id', '=', po.id)
+            bills = request.env['account.move'].search([
+                ('invoice_origin', '=', po.name)  # Alternative to `purchase_id`
             ])
+            
+            bill_names = ', '.join(bills.mapped('name'))
             payments = request.env['account.payment'].search([
-                ('ref', '=', bill.name)
+                ('ref', 'in', bills.mapped('name'))  # Fix: Handle multiple bills
             ])
 
 
