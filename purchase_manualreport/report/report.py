@@ -57,35 +57,37 @@ class CustomReport(models.AbstractModel):
         where_clause = " WHERE " + " AND ".join(where_clauses) if where_clauses else ""
 
         query = f"""
-            SELECT 
-                po.date_order AS Date,
-                rs.name AS vendor,                    
-                pt.name ->> 'en_US' AS item,
-                po.name AS PONo,
-                sp.name AS GRN,
-                am.name AS InvoiceNo,
-                sw.name AS Location,
-                pol.product_qty AS qty,
-                mm.name ->> 'en_US' AS Unit,
-                pol.price_unit AS price, 
-                pol.price_total AS amount,
-                COALESCE(pr.name, '') AS PurchaseRequest
-            FROM purchase_order_line pol 
-            INNER JOIN purchase_order po ON po.id = pol.order_id
-            INNER JOIN product_product pp ON pp.id = pol.product_id
-            INNER JOIN product_template pt ON pt.id = pp.product_tmpl_id
-            INNER JOIN res_partner rs ON rs.id = po.partner_id
-            LEFT JOIN stock_picking sp ON sp.origin = po.name   
-            LEFT JOIN account_move am ON am.invoice_origin = po.name
-            INNER JOIN stock_picking_type spt ON spt.id = po.picking_type_id
-            INNER JOIN stock_warehouse sw ON sw.id = spt.warehouse_id
-            INNER JOIN uom_uom mm ON mm.id = pol.product_uom
-            LEFT JOIN purchase_request_line prl ON prl.product_id = pol.product_id
-            LEFT JOIN purchase_request pr ON pr.id = prl.request_id
-            {where_clause}
-            ORDER BY po.name
+                SELECT 
+                    po.date_order AS Date,
+                    rs.name AS Vendor,                    
+                    pt.name ->> 'en_US' AS Item,
+                    po.name AS PONo,
+                    sp.name AS GRN,
+                    am.name AS InvoiceNo,
+                    sw.name AS Location,
+                    pol.product_qty AS Qty,
+                    mm.name ->> 'en_US' AS Unit,
+                    pol.price_unit AS Price, 
+                    pol.price_total AS Amount,
+                    STRING_AGG(pr.name, ', ') AS PurchaseRequest
+                FROM purchase_order_line pol 
+                INNER JOIN purchase_order po ON po.id = pol.order_id
+                INNER JOIN product_product pp ON pp.id = pol.product_id
+                INNER JOIN product_template pt ON pt.id = pp.product_tmpl_id
+                INNER JOIN res_partner rs ON rs.id = po.partner_id
+                LEFT JOIN stock_picking sp ON sp.origin = po.name   
+                LEFT JOIN account_move am ON am.invoice_origin = po.name
+                INNER JOIN stock_picking_type spt ON spt.id = po.picking_type_id
+                INNER JOIN stock_warehouse sw ON sw.id = spt.warehouse_id
+                INNER JOIN uom_uom mm ON mm.id = pol.product_uom
+                LEFT JOIN purchase_request_line prl ON prl.product_id = pol.product_id
+                LEFT JOIN purchase_request pr ON pr.id = prl.request_id
+                {where_clause}
+                GROUP BY po.date_order, rs.name, pt.name, po.name, sp.name, am.name, sw.name, pol.product_qty, mm.name, pol.price_unit, pol.price_total
+                ORDER BY po.name
+            """
 
-        """
+
 
         cr.execute(query, tuple(params))  # Execute with parameters
         data = cr.dictfetchall()
