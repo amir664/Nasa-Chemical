@@ -41,53 +41,37 @@ class CustomReport(models.AbstractModel):
         where_clauses = []
         params = []
 
-        # Debugging: Print input types before processing
-
         if date_from and date_to:
             where_clauses.append("po.date_order BETWEEN %s AND %s")
-            params.extend([date_from, date_to])  # Correctly formatted dates
+            params.extend([tuple(date_from), tuple(date_to)])
 
         if product_ids:
-            product_ids = [int(pid) for pid in product_ids if pid]  # Ensure proper format
-            if product_ids:
-                where_clauses.append("pt.id IN %s")
-                params.append(tuple(product_ids))
+            where_clauses.append("pt.id IN %s")
+            params.append(tuple(product_ids))  # Tuple for SQL IN clause
 
         if vendor_ids:
-            vendor_ids = [int(vid) for vid in vendor_ids if vid]  # Ensure proper format
-            if vendor_ids:
-                where_clauses.append("rs.id IN %s")
-                params.append(tuple(vendor_ids))
+            where_clauses.append("rs.id IN %s")
+            params.append(tuple(vendor_ids))
+        # raise UserError(po_no)
+        # raise UserError([po_no,grn,invoice_no,vendor_ids,product_ids,date_from])
+        # if po_no and isinstance(po_no, models.BaseModel):  # Ensure it's a recordset
+        #     po_no_names = [po.name for po in po_no if po.name]  # Extract valid names
+        #     if po_no_names:
+        #         where_clauses.append("po.name IN %s")
+        #         params.append(tuple(po_no_names))
+        raise UserError(po_no.id)
+        if po_no.id:
+            where_clauses.append("po.name IN %s")
+            params.append((po_no.id))
 
-        # 🛠️ Fixing po_no filtering
-        if po_no:
-            if isinstance(po_no, models.BaseModel):  
-                po_no_names = [po.name for po in po_no if po.name]
-            else:
-                po_no_names = [str(po_no)] if isinstance(po_no, (str, int)) else [] 
-
-            if po_no_names:
-                where_clauses.append("po.name IN %s")
-                params.append(tuple(po_no_names))  # Convert to tuple
-
-        # 🛠️ Fixing grn filtering
-        if grn:
-            if isinstance(grn, models.BaseModel):
-                grn_names = [grn.name for grn in grn if grn.name]
-            else:
-                grn_names = [str(grn)] if isinstance(grn, (str, int)) else []
-
+        if grn and isinstance(grn, models.BaseModel):
+            grn_names = [grn.name for grn in grn if grn.name]
             if grn_names:
                 where_clauses.append("sp.name IN %s")
                 params.append(tuple(grn_names))
 
-        # 🛠️ Fixing invoice_no filtering
-        if invoice_no:
-            if isinstance(invoice_no, models.BaseModel):
-                invoice_no_names = [invoice.name for invoice in invoice_no if invoice.name]
-            else:
-                invoice_no_names = [str(invoice_no)] if isinstance(invoice_no, (str, int)) else []
-
+        if invoice_no and isinstance(invoice_no, models.BaseModel):
+            invoice_no_names = [invoice.name for invoice in invoice_no if invoice.name]
             if invoice_no_names:
                 where_clauses.append("am.name IN %s")
                 params.append(tuple(invoice_no_names))
