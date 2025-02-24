@@ -3,6 +3,8 @@ from odoo.http import request
 import io
 import xlsxwriter
 from datetime import datetime
+from odoo.exceptions import UserError, AccessError
+
 
 
 class AgingReportController(http.Controller):
@@ -56,9 +58,10 @@ class AgingReportController(http.Controller):
 
 
             # Fetch payments (Fixing KeyError issue)
-            payments = request.env['account.payment'].search([('move_id', 'in', po.invoice_ids.ids)])
+            payments = request.env['account.payment'].search([('ref', 'in', po.invoice_ids.name)])
             # payment_ref = ', '.join(payments.mapped('ref'))  # Fix: Use 'name' instead of 'communication'
-            payment_ref = ', '.join([p.amount for p in payments if p.amount])
+            # payment_ref = ', '.join([ref for ref in payments.mapped('ref') if ref])
+            raise UserError(payments)
 
 
             payment_amount = sum(payments.mapped('amount'))
