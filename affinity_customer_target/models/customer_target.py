@@ -58,7 +58,7 @@ class ResPartner(models.Model):
         }
     
     def get_expense_count(self):
-        count = self.env['res.partner'].search_count([('customer', '=', self.id)])
+        count = self.env['customer.target'].search_count([('customer', '=', self.id)])
         self.target_count = count
 
     
