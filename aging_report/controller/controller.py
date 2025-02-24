@@ -27,8 +27,8 @@ class AgingReportController(http.Controller):
         worksheet.merge_range('H5:N5', f'Bills Status as on : {date_to}', bold_right)
 
         # Column headers
-        headers = ['From Date', 'To Date', 'Vendor', 'PO', 'GRN', 'Invoice No', 'Invoice Date', 'Total Amount',
-                   'Due Date', 'Approval Date', 'Days', 'Payment Reference', 'Payment Date', 'Pending Amount']
+        headers = ['Vendor', 'PO', 'GRN', 'Invoice No', 'Invoice Date', 'Total Amount','Pending Amount',
+                   'Due Date','Days']
         for col, header in enumerate(headers):
             worksheet.write(6, col, header, bold_center)
 
@@ -68,8 +68,8 @@ class AgingReportController(http.Controller):
             pending_amount = total_amount - payment_amount
 
             # Write data to Excel
-            data = [date_from, date_to, vendor, po_name, grn, invoice, inv_date, total_amount, due_date,
-                    approval_date, days, payment_ref, payment_date, pending_amount]
+            data = [vendor, po_name, grn, invoice, inv_date, total_amount,pending_amount, due_date,
+                    days,]
             
             for col_idx, value in enumerate(data):
                 if isinstance(value, datetime):
