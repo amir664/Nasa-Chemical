@@ -25,6 +25,7 @@ class CustomerTarget(models.Model):
                 sales += line.sales_todate
             i['total_target'] = target
             i['total_sales_todate'] = sales
+
     
 
 class CustomerTargetLine(models.Model):
@@ -44,6 +45,7 @@ class ResPartner(models.Model):
     
     target_count = fields.Integer(string="Target Count", required=True)
     def open_customer_targets(self):
+        self.get_expense_count()
         return {
             'name': 'Customer Target',
             'domain': [('customer', '=', self.id)],
