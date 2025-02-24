@@ -49,11 +49,11 @@
             <field name="inherit_id" ref="purchase.purchase_order_form"/>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='date_approve']" position="after">
-                    <group>
-                        <group>
+                    <!-- <group> -->
+                        <!-- <group> -->
                             <field name="due_date"/>
-                        </group>
-                    </group>
+                        <!-- </group> -->
+                    <!-- </group> -->
                 </xpath>
             </field>
         </record>
