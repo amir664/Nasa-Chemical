@@ -58,7 +58,7 @@ class AgingReportController(http.Controller):
             # Fetch payments (Fixing KeyError issue)
             payments = request.env['account.payment'].search([('move_id', 'in', po.invoice_ids.ids)])
             # payment_ref = ', '.join(payments.mapped('ref'))  # Fix: Use 'name' instead of 'communication'
-            payment_ref = ', '.join([p.ref for p in payments if p.ref])
+            payment_ref = ', '.join([p.amount for p in payments if p.amount])
 
 
             payment_amount = sum(payments.mapped('amount'))
