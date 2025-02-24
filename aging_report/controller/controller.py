@@ -17,6 +17,7 @@ class AgingReportController(http.Controller):
         bold_left = workbook.add_format({'bold': True, 'align': 'left'})
         bold_right = workbook.add_format({'bold': True, 'align': 'right'})
         date_format = workbook.add_format({'num_format': 'dd-mm-yyyy'})
+        bold_total = workbook.add_format({'bold': True, 'num_format': '#,##0.00', 'align': 'right'})
 
         # Merge and format title section
         worksheet.merge_range(0, 0, 0, 8, 'NASA CHEMICALS', bold_center)  # 9 columns (A to I)
@@ -28,10 +29,9 @@ class AgingReportController(http.Controller):
         worksheet.merge_range(4, 0, 4, 4, f'From {date_from} to {date_to}', bold_left)  # 5 columns (A to E)
         worksheet.merge_range(4, 5, 4, 8, f'Bills Status as on : {date_to}', bold_right)  # 4 columns (F to I)
 
-
         # Column headers
-        headers = ['Vendor', 'PO', 'GRN', 'Invoice No', 'Invoice Date', 'Total Amount','Pending Amount',
-                   'Due Date','Days']
+        headers = ['Vendor', 'PO', 'GRN', 'Invoice No', 'Invoice Date', 'Total Amount', 'Pending Amount',
+                   'Due Date', 'Days']
         for col, header in enumerate(headers):
             worksheet.write(6, col, header, bold_center)
 
@@ -51,6 +51,9 @@ class AgingReportController(http.Controller):
         purchase_orders = request.env['purchase.order'].search(domain)
         row_idx = 7  # Start data after header row
 
+        total_sum = 0
+        pending_sum = 0
+
         for po in purchase_orders:
             vendor = po.partner_id.name
             po_name = po.name
@@ -67,19 +70,26 @@ class AgingReportController(http.Controller):
             payments = request.env['account.payment'].search([('ref', 'in', bills.mapped('name'))])
             payment_ref = ', '.join(filter(None, payments.mapped('name')))
             payment_amount = sum(payments.mapped('amount'))
-            payment_date = ', '.join([p.date.strftime('%d-%m-%Y') for p in payments if p.date])
             pending_amount = total_amount - payment_amount
 
+            # Update total sums
+            total_sum += total_amount
+            pending_sum += pending_amount
+
             # Write data to Excel
-            data = [vendor, po_name, grn, invoice, inv_date, total_amount,pending_amount, due_date,
-                    days,]
-            
+            data = [vendor, po_name, grn, invoice, inv_date, total_amount, pending_amount, due_date, days]
+
             for col_idx, value in enumerate(data):
                 if isinstance(value, datetime):
                     worksheet.write_datetime(row_idx, col_idx, value, date_format)
                 else:
                     worksheet.write(row_idx, col_idx, value)
             row_idx += 1
+
+        # Add total row
+        worksheet.write(row_idx, 4, 'Total', bold_center)
+        worksheet.write(row_idx, 5, total_sum, bold_total)  # Total Amount Sum
+        worksheet.write(row_idx, 6, pending_sum, bold_total)  # Pending Amount Sum
 
         workbook.close()
         output.seek(0)
