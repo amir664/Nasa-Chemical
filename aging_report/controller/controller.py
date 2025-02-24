@@ -13,25 +13,24 @@ class AgingReportController(http.Controller):
         worksheet = workbook.add_worksheet('Aging Report')
 
         # Define formats
-        bold_center = workbook.add_format({'bold': True, 'align': 'center', 'valign': 'vcenter'})
-        bold_left = workbook.add_format({'bold': True, 'align': 'left'})
-        bold_right = workbook.add_format({'bold': True, 'align': 'right'})
-        date_format = workbook.add_format({'num_format': 'dd-mm-yyyy'})
-        bold_total = workbook.add_format({'bold': True, 'num_format': '#,##0.00', 'align': 'right'})
+        bold_center = workbook.add_format({'bold': True, 'align': 'center', 'valign': 'vcenter', 'border': 1})
+        bold_left = workbook.add_format({'bold': True, 'align': 'left', 'border': 1})
+        bold_right = workbook.add_format({'bold': True, 'align': 'right', 'border': 1})
+        date_format = workbook.add_format({'num_format': 'dd-mm-yyyy', 'border': 1})
+        bordered_format = workbook.add_format({'border': 1})  # Border for normal cells
+        bold_bordered_format = workbook.add_format({'bold': True, 'border': 1})  # Bold with border
 
         # Merge and format title section
-        worksheet.merge_range(0, 0, 0, 8, 'NASA CHEMICALS', bold_center)  # 9 columns (A to I)
+        worksheet.merge_range(0, 0, 0, 8, 'NASA CHEMICALS', bold_center)
+        worksheet.merge_range(1, 0, 1, 8, '', bold_center)  # Empty spacer row
+        worksheet.merge_range(2, 0, 2, 8, 'Bills Payable', bold_center)
+        worksheet.merge_range(3, 0, 3, 8, 'Account Group : Sundry Creditors', bold_center)
 
-        worksheet.merge_range(1, 0, 1, 8, '', bold_center)  # Empty spacer row, 9 columns (A to I)
-        worksheet.merge_range(2, 0, 2, 8, 'Bills Payable', bold_center)  # 9 columns (A to I)
-        worksheet.merge_range(3, 0, 3, 8, 'Account Group : Sundry Creditors', bold_center)  # 9 columns (A to I)
+        worksheet.merge_range(4, 0, 4, 4, f'From {date_from} to {date_to}', bold_left)
+        worksheet.merge_range(4, 5, 4, 8, f'Bills Status as on : {date_to}', bold_right)
 
-        worksheet.merge_range(4, 0, 4, 4, f'From {date_from} to {date_to}', bold_left)  # 5 columns (A to E)
-        worksheet.merge_range(4, 5, 4, 8, f'Bills Status as on : {date_to}', bold_right)  # 4 columns (F to I)
-
-        # Column headers
-        headers = ['Vendor', 'PO', 'GRN', 'Invoice No', 'Invoice Date', 'Total Amount', 'Pending Amount',
-                   'Due Date', 'Days']
+        # Column headers with borders
+        headers = ['Vendor', 'PO', 'GRN', 'Invoice No', 'Invoice Date', 'Total Amount', 'Pending Amount', 'Due Date', 'Days']
         for col, header in enumerate(headers):
             worksheet.write(6, col, header, bold_center)
 
@@ -50,7 +49,6 @@ class AgingReportController(http.Controller):
         # Fetch purchase orders
         purchase_orders = request.env['purchase.order'].search(domain)
         row_idx = 7  # Start data after header row
-
         total_sum = 0
         pending_sum = 0
 
@@ -68,28 +66,27 @@ class AgingReportController(http.Controller):
             # Fetch payments
             bills = request.env['account.move'].search([('invoice_origin', '=', po.name)])
             payments = request.env['account.payment'].search([('ref', 'in', bills.mapped('name'))])
-            payment_ref = ', '.join(filter(None, payments.mapped('name')))
             payment_amount = sum(payments.mapped('amount'))
             pending_amount = total_amount - payment_amount
 
-            # Update total sums
+            # Accumulate sums
             total_sum += total_amount
             pending_sum += pending_amount
 
-            # Write data to Excel
+            # Write data to Excel with borders
             data = [vendor, po_name, grn, invoice, inv_date, total_amount, pending_amount, due_date, days]
-
+            
             for col_idx, value in enumerate(data):
                 if isinstance(value, datetime):
                     worksheet.write_datetime(row_idx, col_idx, value, date_format)
                 else:
-                    worksheet.write(row_idx, col_idx, value)
+                    worksheet.write(row_idx, col_idx, value, bordered_format)
             row_idx += 1
 
-        # Add total row
-        worksheet.write(row_idx, 4, 'Total', bold_center)
-        worksheet.write(row_idx, 5, total_sum, bold_total)  # Total Amount Sum
-        worksheet.write(row_idx, 6, pending_sum, bold_total)  # Pending Amount Sum
+        # Write totals row
+        worksheet.write(row_idx, 4, "Total", bold_bordered_format)
+        worksheet.write(row_idx, 5, total_sum, bold_bordered_format)
+        worksheet.write(row_idx, 6, pending_sum, bold_bordered_format)
 
         workbook.close()
         output.seek(0)
