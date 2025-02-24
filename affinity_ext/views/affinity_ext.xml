@@ -48,15 +48,13 @@
             <field name="model">purchase.order</field>
             <field name="inherit_id" ref="purchase.purchase_order_form"/>
             <field name="arch" type="xml">
-                <xpath expr="//field[@name='date_approve']/" position="after">
-                    <group>
-                        <group>
-                            <field name="due_date"/>
-                        </group>
-                    </group>
+                <xpath expr="//field[@name='date_approve']" position="after">
+                    <newline/>
+                    <field name="due_date"/>
                 </xpath>
             </field>
         </record>
+
 
 
 
