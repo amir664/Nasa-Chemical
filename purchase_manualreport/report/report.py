@@ -53,6 +53,7 @@ class CustomReport(models.AbstractModel):
             where_clauses.append("rs.id IN %s")
             params.append(tuple(vendor_ids))
         # raise UserError(po_no)
+        raise UserError([po_no,grn,invoice_no,vendor_ids,product_ids,date_from,date_to])
         if po_no and isinstance(po_no, models.BaseModel):  # Ensure it's a recordset
             po_no_names = [po.name for po in po_no if po.name]  # Extract valid names
             if po_no_names:
