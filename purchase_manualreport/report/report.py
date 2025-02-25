@@ -70,6 +70,7 @@ class CustomReport(models.AbstractModel):
                 
         
         if grn:
+            raise UserError(grn.id)
     # Extract names from selected grn records
             grn_names = tuple(rec.name for rec in grn if hasattr(rec, 'name') and rec.name)
 
