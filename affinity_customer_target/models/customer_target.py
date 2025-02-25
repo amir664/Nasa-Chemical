@@ -22,8 +22,6 @@ class CustomerTarget(models.Model):
     sales_todate = fields.Monetary(string="Sales Achieved",readonly=True)
     line_ids = fields.One2many('customer.target.line','customer_target_id', string="Line Ids", required=True)
 
-    
-
 class CustomerTargetLine(models.Model):
     _name="customer.target.line"
     _description = "Customer Target Line"
