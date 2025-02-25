@@ -27,27 +27,29 @@ class CustomReport(models.AbstractModel):
         query = ("""
                    
                     select 
-                        res.name as Customer,
+                        res.name as Customer  ,
                         ctl.product_id as Code,
-                        pt.name as Product,
+                        pt.name as Product en_US ->>,
                         pt.list_price as Cost,
                         ctl.target as Target,
-                        (ctl.target * pt.list_price) AS total_cost,
+                        (ctl.target * pt.list_price) as total_cost,
                         ctl.sales_todate as Sales_date
                     from customer_target as ct
-                        join res_partner as res on ct.id= res.id
-                        join customer_target_line as ctl on ct.id = ctl.customer_target_id
-                        join product_product pp on ctl.product_id = pp.id
-                        join product_template pt on pp.product_tmpl_id = pt.id
+                        left join res_partner as res on ct.id= res.id
+                        left join customer_target_line as ctl on ct.id = ctl.customer_target_id
+                        left join product_product pp on ctl.product_id = pp.id
+                        left join product_template pt on pp.product_tmpl_id = pt.id
                     
                 """
                  
                 )
+        
 
 
 
         cr.execute(query)
         data = cr.dictfetchall()
+        raise UserError(str(data))
 
         return {
             'others' : others,

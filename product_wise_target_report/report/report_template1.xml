@@ -56,9 +56,10 @@
                                     </td>
 
                                     <td>
-                                        <t t-set="target_value" t-value="test.get('Target', 0)"/>
-                                        <t t-set="cost_value" t-value="test.get('Cost', 0)"/>
-                                        <t t-esc="target_value * cost_value"/>
+                                        <t t-if="test.get('total_cost')">
+                                            <t t-esc="test['total_cost']"/>
+                                        </t>
+                                        <t t-else="">0</t>
                                     </td>
                                     <td>
                                         <t t-if="test.get('sales_date')">
