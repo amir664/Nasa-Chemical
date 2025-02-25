@@ -7,6 +7,7 @@ class POReportWizard(models.TransientModel):
     
     date_from = fields.Date(string='From Date', required=True)
     date_to = fields.Date(string='To Date',required=True)
+    
     product_ids = fields.Many2many('product.template', string='Product')
     # warehouse_id = fields.Many2one('stock.warehouse', string = "Ware House")
     vendor_ids = fields.Many2many('res.partner', string='Vendor')
