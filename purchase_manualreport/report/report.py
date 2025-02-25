@@ -47,6 +47,7 @@ class CustomReport(models.AbstractModel):
 
         if product_ids:
             where_clauses.append("pt.id IN %s")
+            raise UserError([product_ids,vendor_ids])
             params.append(tuple(product_ids))  # Tuple for SQL IN clause
 
         if vendor_ids:
