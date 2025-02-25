@@ -19,8 +19,19 @@ class CustomerTarget(models.Model):
     sales_person = fields.Many2one('res.users', string="Salesperson",related="customer.user_id")
     
     total_target = fields.Monetary(string="Target")
-    sales_todate = fields.Monetary(string="Sales Achieved",readonly=True)
+    sales_todate = fields.Monetary(string="Sales Achieved",readonly=True,compute="getTotalSales")
     line_ids = fields.One2many('customer.target.line','customer_target_id', string="Line Ids", required=True)
+    
+    
+    @api.depends('customer.sale_order_count')
+    def getTotalSales(self):
+        for i in self:
+            amount = 0
+            sale_orders = i.env['sale.order'].search([('partner_id.id','=',i.customer.id),('state','not in',['draft','cancel'])])
+            for so in sale_orders:
+                amount += so.amount_total
+            i['sales_todate'] = amount
+
 
 class CustomerTargetLine(models.Model):
     _name="customer.target.line"
@@ -29,7 +40,16 @@ class CustomerTargetLine(models.Model):
     customer_target_id = fields.Many2one('customer.target', required=True)
     product_id = fields.Many2one('product.product', required=True)
     target = fields.Float(string="Target (CTN)", required=True)
-    sales_todate = fields.Float(string="Sales Achieved", required=True)
+    sales_todate = fields.Float(string="Sales Achieved", required=True,compute="getTotalSales")
+    
+    @api.depends('customer.sale_order_count')
+    def getTotalSales(self):
+        for i in self:
+            qty = 0
+            sale_order_line = i.env['sale.order.line'].search([('order_id.partner_id.id','=',i.customer.id),('order_id.state','not in',['draft','cancel']),('product_id.id','=',i.product_id.id)])
+            for sol in sale_order_line:
+                qty += sol.product_uom_qty
+            i['sales_todate'] = qty
     
     
 class ResPartner(models.Model):

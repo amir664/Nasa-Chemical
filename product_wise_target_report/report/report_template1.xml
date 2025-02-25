@@ -23,7 +23,9 @@
                                 <tr>
                                     <td>
                                         <t t-if="test.get('product_cat')">
-                                            <t t-esc="test['product_cat']"/>
+                                            <t t-set="product" t-value="env['product'].search([('id','=',test.get('product_id'))])"/>
+                                            <t t-esc="product.product_tag_ids"/>
+                                        
                                         </t>
                                         <t t-else="">N/A</t>
                                     </td>
@@ -44,7 +46,9 @@
 
                                     <td>
                                         <t t-if="test.get('Cost')">
-                                            <t t-esc="test['Cost']"/>
+                                            <t t-set="partner" t-value="env['res.partner'].search([('id','=',test.get('product_cat'))])"/>
+                                            <t t-set="segments" t-value="partner.property_product_pricelist.pricelist_rules.filtered(lambda r: r.product_id.id == test.get('product_id'))"/>
+                                            <t t-esc="segments.fixed_price"/>
                                         </t>
                                         <t t-else="">0.00</t>
                                     </td>
@@ -57,10 +61,10 @@
                                     </td>
 
                                     <td>
-                                        <t t-if="test.get('total_cost')">
-                                            <t t-esc="test['total_cost']"/>
-                                        </t>
-                                        <t t-else="">0.00</t>
+                                            <t t-set="partner" t-value="env['res.partner'].search([('id','=',test.get('product_cat'))])"/>
+                                            <t t-set="segments" t-value="partner.property_product_pricelist.pricelist_rules.filtered(lambda r: r.product_id.id == test.get('product_id'))"/>
+                                            <t t-esc="segments.fixed_price * test['target']"/>
+
                                     </td>
                                     <td>
                                         <t t-if="test.get('sales_date')">
@@ -70,7 +74,9 @@
                                     </td>
                                     <td>
                                         <t t-if="test.get('sales_archive')">
-                                            <t t-esc="test['sales_archive']"/>
+                                            <t t-set="partner" t-value="env['res.partner'].search([('id','=',test.get('product_cat'))])"/>
+                                            <t t-set="segments" t-value="partner.property_product_pricelist.pricelist_rules.filtered(lambda r: r.product_id.id == test.get('product_id'))"/>
+                                            <t t-esc="segments.fixed_price * test['sales_archive']"/>
                                         </t>
                                         <t t-else="">0.00</t>
                                     </td>

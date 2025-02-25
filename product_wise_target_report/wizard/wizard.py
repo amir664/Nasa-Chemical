@@ -5,7 +5,6 @@ class CustomerTargetReport(models.TransientModel):
     _description = "Product Wise Target Report"
 
 
-    customer = fields.Many2one('res.partner', string = "Customer")
     product = fields.Many2one('product.product', string="Product")
     start_date = fields.Date(string = 'Start Date')
     end_date = fields.Date(string = 'End Date')
@@ -13,7 +12,6 @@ class CustomerTargetReport(models.TransientModel):
     def print_report(self):
 
         data = {
-            'customer': self.customer.id if self.customer else False,
             'product': self.product.id if self.product else False,
             'start_date': self.start_date,
             'end_date': self.end_date,
