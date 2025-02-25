@@ -1,0 +1,54 @@
+from odoo.exceptions import UserError, AccessError
+from odoo import _, api, fields, models
+from datetime import datetime
+
+class CustomReport(models.AbstractModel):
+    _name = "report.product_wise_target_report.product_wise_target_reports"
+    _description = "Product Wise Target Report"
+
+    def _get_report_values(self, docids, data=None):
+        customer = data['customer']
+        product = data['product']
+        start_date = data['start_date']
+        end_date = data['end_date']
+
+        others = {}
+
+        cr = self._cr
+
+        others= {
+            'customer':customer,
+            'product':product,
+            'start_date':start_date,
+            'end_date':end_date,
+        }
+
+
+        query = ("""
+                   
+                    select 
+                        res.name as Customer,
+                        ctl.product_id as Code,
+                        pt.name as Product,
+                        pt.list_price as Cost,
+                        ctl.target as Target,
+                        (ctl.target * pt.list_price) AS total_cost
+                    from customer_target as ct
+                        join res_partner as res on ct.id= res.id
+                        join customer_target_line as ctl on ct.id = ctl.customer_target_id
+                        join product_product pp on ctl.product_id = pp.id
+                        join product_template pt on pp.product_tmpl_id = pt.id
+                    
+                """
+                 
+                )
+
+
+
+        cr.execute(query)
+        data = cr.dictfetchall()
+
+        return {
+            'others' : others,
+            'data' : data,
+        }
