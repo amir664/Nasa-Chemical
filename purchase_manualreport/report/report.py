@@ -55,6 +55,7 @@ class CustomReport(models.AbstractModel):
             where_clauses.append(f"rs.id IN ({', '.join(map(str, vendor_ids))})")
         
         if po_no != "purchase.order()":  
+            raise UserError(po_no)
             po_numbers = po_no.replace("purchase.order(", "").replace(")", "").strip()
             
             if po_numbers:  
