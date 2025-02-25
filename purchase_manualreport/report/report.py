@@ -73,11 +73,11 @@ class CustomReport(models.AbstractModel):
             # raise UserError([grn])
             where_clauses.append(f"sp.name IN {grn}")
         
-            po_numbers = grn.replace("stock.picking(", "").replace(")", "").strip()
-            raise UserError(po_numbers)
-            if po_numbers:  
-                formatted_po_no = ", ".join(f"'{po.strip()}'" for po in po_numbers.split(','))  
-                where_clauses.append(f"sp.name IN ({formatted_po_no})")
+            # po_numbers = grn.replace("stock.picking(", "").replace(")", "").strip()
+            # raise UserError(po_numbers)
+            # if po_numbers:  
+            #     formatted_po_no = ", ".join(f"'{po.strip()}'" for po in po_numbers.split(','))  
+            #     where_clauses.append(f"sp.name IN ({formatted_po_no})")
 
         if invoice_no != "account.move()":  
             po_numbers = invoice_no.replace("account.move(", "").replace(")", "").strip()
