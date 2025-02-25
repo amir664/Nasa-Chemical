@@ -29,7 +29,7 @@ class CustomReport(models.AbstractModel):
                     select 
                         res.name as Customer  ,
                         ctl.product_id as Code,
-                        pt.name as Product en_US ->>,
+                        pt.name as Product ,
                         pt.list_price as Cost,
                         ctl.target as Target,
                         (ctl.target * pt.list_price) as total_cost,
@@ -49,7 +49,7 @@ class CustomReport(models.AbstractModel):
 
         cr.execute(query)
         data = cr.dictfetchall()
-        raise UserError(str(data))
+        # raise UserError(str(data))
 
         return {
             'others' : others,
