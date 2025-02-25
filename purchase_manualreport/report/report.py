@@ -58,8 +58,8 @@ class CustomReport(models.AbstractModel):
             po_numbers = po_no.replace("purchase.order(", "").replace(")", "").strip()
             
             if po_numbers:  
-                formatted_po_no = ", ".join(f"'{po.strip()}'" for po in po_numbers.split(','))  
-                where_clauses.append(f"po.name IN ({formatted_po_no})")
+                # formatted_po_no = ", ".join(f"'{po.strip()}'" for po in po_numbers.split(','))  
+                where_clauses.append(f"po.name IN ({', '.join(f"'{name}'" for name in po_numbers)}, '')")
         
         if grn != "stock.picking()":  
             po_numbers = grn.replace("stock.picking(", "").replace(")", "").strip()
@@ -137,7 +137,7 @@ class CustomReport(models.AbstractModel):
                 """
         
          )
-        raise UserError(query)
+        # raise UserError(query)
 
         cr.execute(query)
         data = cr.dictfetchall()
