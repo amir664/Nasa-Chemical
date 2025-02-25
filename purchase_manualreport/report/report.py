@@ -70,9 +70,18 @@ class CustomReport(models.AbstractModel):
                 
         
         if grn:
-            # raise UserError([grn])
-            where_clauses.append(f"sp.name IN {grn}")
-        
+    # Extract names from selected grn records
+            grn_names = tuple(rec.name for rec in grn if hasattr(rec, 'name') and rec.name)
+
+            if grn_names:  # Only append if grn_names is not empty
+                if len(grn_names) == 1:
+                    grn_names = f"('{grn_names[0]}')"  # Ensure proper SQL formatting for a single value
+                else:
+                    grn_names = str(grn_names)  # Convert tuple to a string format for SQL
+
+                where_clauses.append(f"sp.name IN {grn_names}")
+
+                
             # po_numbers = grn.replace("stock.picking(", "").replace(")", "").strip()
             # raise UserError(po_numbers)
             # if po_numbers:  
