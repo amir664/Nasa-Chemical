@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="product_wise_target_report_pdf" model="ir.actions.report">
+        <field name="name">Product Wise Target Report</field>
+        <field name="model">product.wise.target.report</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">product_wise_target_report.product_wise_target_reports</field>
+        <field name="report_file">product_wise_target_report.product_wise_target_reports</field>
+    </record>
+</odoo>
