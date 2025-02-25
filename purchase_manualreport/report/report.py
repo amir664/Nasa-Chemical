@@ -59,22 +59,22 @@ class CustomReport(models.AbstractModel):
         #     if po_no_names:
         #         where_clauses.append("po.name IN %s")
         #         params.append(tuple(po_no_names))
-        raise UserError(po_no.id)
-        if po_no.id:
-            where_clauses.append("po.name IN %s")
-            params.append((po_no.id))
+        # raise UserError(po_no.id)
+        # if po_no.id:
+        #     where_clauses.append("po.name IN %s")
+        #     params.append((po_no.id))
 
-        if grn and isinstance(grn, models.BaseModel):
-            grn_names = [grn.name for grn in grn if grn.name]
-            if grn_names:
-                where_clauses.append("sp.name IN %s")
-                params.append(tuple(grn_names))
+        # if grn and isinstance(grn, models.BaseModel):
+        #     grn_names = [grn.name for grn in grn if grn.name]
+        #     if grn_names:
+        #         where_clauses.append("sp.name IN %s")
+        #         params.append(tuple(grn_names))
 
-        if invoice_no and isinstance(invoice_no, models.BaseModel):
-            invoice_no_names = [invoice.name for invoice in invoice_no if invoice.name]
-            if invoice_no_names:
-                where_clauses.append("am.name IN %s")
-                params.append(tuple(invoice_no_names))
+        # if invoice_no and isinstance(invoice_no, models.BaseModel):
+        #     invoice_no_names = [invoice.name for invoice in invoice_no if invoice.name]
+        #     if invoice_no_names:
+        #         where_clauses.append("am.name IN %s")
+        #         params.append(tuple(invoice_no_names))
 
 
 
