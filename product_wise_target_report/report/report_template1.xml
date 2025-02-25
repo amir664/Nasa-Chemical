@@ -8,7 +8,7 @@
                     <table class="table table-bordered" style="width: 100%; margin-top: 20px;">
                         <thead>
                             <tr>
-                                <th style="text-align: center;">Customer</th>
+                                <th style="text-align: center;">Segments</th>
                                 <th style="text-align: center;">Code</th>
                                 <th style="text-align: center;">Product</th>
                                 <th style="text-align: center;">Cost</th>
@@ -21,8 +21,8 @@
                             <t t-foreach="data" t-as="test">
                                 <tr>
                                     <td>
-                                        <t t-if="test.get('customer')">
-                                            <t t-esc="test['customer']"/>
+                                        <t t-if="test.get('product_cat')">
+                                            <t t-esc="test['product_cat']"/>
                                         </t>
                                         <t t-else="">No Name</t>
                                     </td>
