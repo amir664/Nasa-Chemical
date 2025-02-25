@@ -72,7 +72,12 @@ class CustomReport(models.AbstractModel):
         if grn:
             a = tuple(grn)  # Convert list to tuple
             formatted_values = ', '.join(f"'{x}'" for x in a)  # Format for SQL
-            where_clauses.append(f"sp.name IN ({formatted_values})")  
+            where_clauses.append(f"sp.name IN ({formatted_values})") 
+
+        if invoice_no:
+            a = tuple(invoice_no)  # Convert list to tuple
+            formatted_values = ', '.join(f"'{x}'" for x in a)  # Format for SQL
+            where_clauses.append(f"sm.name IN ({formatted_values})")  
             # Extract names from selected grn records
         # grn_names = tuple(rec.name for rec in grn if hasattr(rec, 'name') and rec.name)
 
@@ -91,12 +96,12 @@ class CustomReport(models.AbstractModel):
             #     formatted_po_no = ", ".join(f"'{po.strip()}'" for po in po_numbers.split(','))  
             #     where_clauses.append(f"sp.name IN ({formatted_po_no})")
 
-        if invoice_no != "account.move()":  
-            po_numbers = invoice_no.replace("account.move(", "").replace(")", "").strip()
+        # if invoice_no != "account.move()":  
+        #     po_numbers = invoice_no.replace("account.move(", "").replace(")", "").strip()
             
-            if po_numbers:  
-                formatted_po_no = ", ".join(f"'{po.strip()}'" for po in po_numbers.split(','))  
-                where_clauses.append(f"sp.name IN ({formatted_po_no})")
+        #     if po_numbers:  
+        #         formatted_po_no = ", ".join(f"'{po.strip()}'" for po in po_numbers.split(','))  
+        #         where_clauses.append(f"sp.name IN ({formatted_po_no})")
             # params.append(vendor_ids)
         # raise UserError(po_no)
         # raise UserError([po_no,grn,invoice_no,vendor_ids,product_ids,date_from])

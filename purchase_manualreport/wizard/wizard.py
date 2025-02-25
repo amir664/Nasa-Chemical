@@ -27,6 +27,7 @@ class PurchaseReportWizard(models.TransientModel):
                 vendor_ids.append(id.id)
         # grn_ids = self.grn.name if self.grn else []
         grnn=[gr.name    for gr in self.grn] 
+        invn=[inv.name    for inv in self.invoice_no] 
         data = {
             'date_from': self.date_from,
             'date_to': self.date_to,
@@ -34,7 +35,7 @@ class PurchaseReportWizard(models.TransientModel):
             'vendor_ids': vendor_ids,
             'po_no': self.po_no,
             'grn': grnn,
-            'invoice_no': self.invoice_no
+            'invoice_no': invn
             }
 
         return self.env.ref('purchase_manualreport.purchase_manualreport_pdf').with_context(landscape=True).report_action(self, data=data)
