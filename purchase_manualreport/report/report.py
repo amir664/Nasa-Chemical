@@ -70,7 +70,8 @@ class CustomReport(models.AbstractModel):
                 
         
         if grn:
-            where_clauses.append(f"sp.name IN {grn}")
+            a = tuple(grn)  # Convert list 'grn' to a tuple
+            where_clauses.append(f"sp.name IN {a}")  
     # Extract names from selected grn records
         # grn_names = tuple(rec.name for rec in grn if hasattr(rec, 'name') and rec.name)
 
