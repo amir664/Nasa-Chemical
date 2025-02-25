@@ -77,7 +77,7 @@ class CustomReport(models.AbstractModel):
         if invoice_no:
             a = tuple(invoice_no)  # Convert list to tuple
             formatted_values = ', '.join(f"'{x}'" for x in a)  # Format for SQL
-            where_clauses.append(f"sm.name IN ({formatted_values})")  
+            where_clauses.append(f"am.name IN ({formatted_values})")  
             # Extract names from selected grn records
         # grn_names = tuple(rec.name for rec in grn if hasattr(rec, 'name') and rec.name)
 
