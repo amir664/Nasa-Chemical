@@ -32,6 +32,7 @@ class CustomReport(models.AbstractModel):
                 'grn': grn,
                 'invoice_no':invoice_no,
             })
+        raise UserError([date_from,date_to])
         
         if product_ids != []:
             product_ids_str = ','.join(map(str,product_ids))
