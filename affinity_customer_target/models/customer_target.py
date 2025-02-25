@@ -23,7 +23,7 @@ class CustomerTarget(models.Model):
     line_ids = fields.One2many('customer.target.line','customer_target_id', string="Line Ids", required=True)
     
     
-    @api.depends('customer.sale_order_count')
+    @api.depends('customer')
     def getTotalSales(self):
         for i in self:
             amount = 0
@@ -42,7 +42,7 @@ class CustomerTargetLine(models.Model):
     target = fields.Float(string="Target (CTN)", required=True)
     sales_todate = fields.Float(string="Sales Achieved", required=True,compute="getTotalSales")
     
-    @api.depends('customer_target_id.customer.sale_order_count')
+    @api.depends('customer_target_id.customer')
     def getTotalSales(self):
         for i in self:
             qty = 0
