@@ -70,9 +70,10 @@ class CustomReport(models.AbstractModel):
                 
         
         if grn:
-            a = tuple(grn)  # Convert list 'grn' to a tuple
-            where_clauses.append(f"sp.name IN {a}")  
-    # Extract names from selected grn records
+            a = tuple(grn)  # Convert list to tuple
+            formatted_values = ', '.join(f"'{x}'" for x in a)  # Format for SQL
+            where_clauses.append(f"sp.name IN ({formatted_values})")  
+            # Extract names from selected grn records
         # grn_names = tuple(rec.name for rec in grn if hasattr(rec, 'name') and rec.name)
 
         # if grn_names:  # Only append if grn_names is not empty
