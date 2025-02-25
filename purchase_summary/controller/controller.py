@@ -39,7 +39,8 @@ class PurchaseSummaryReportController(Controller):
         cell_format = workbook.add_format({'border': 1})
         
         row = 0
-        sheet.merge_range(row, 0, row, 4, 'FAHAD ASSOCIATES', title_format)
+        company_name = request.env.company.name  # Get current company name
+        sheet.merge_range(row, 0, row, 4, company_name, title_format)  # Use dynamic company name
         row += 1
         sheet.merge_range(row, 0, row, 4, 'Purchase Summary', title_format)
         row += 1

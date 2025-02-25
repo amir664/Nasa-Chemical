@@ -13,6 +13,7 @@
                     <group>
                         <field name="item_wise"/>
                         <field name="vendor_id"/>
+                        <field name="company_id"/>
                     </group>
                 </group>
                 <footer>
