@@ -37,7 +37,7 @@
     </record>
 
     <menuitem id="purchase_manualreport_id"
-              name="Purchase Report Vendor"
+              name="Purchase Report"
               parent="account.menu_finance_reports"
               action="purchase_manualreport_action"
     />
