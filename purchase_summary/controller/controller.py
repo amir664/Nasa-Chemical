@@ -8,7 +8,8 @@ class PurchaseSummaryReportController(Controller):
     @route('/purchase_summary/excel_report', type='http', auth='user', methods=['GET'], csrf=False)
     def download_excel_report(self, **kwargs):
         date_from = kwargs.get('date_from')
-        date_to = kwargs.get('date_to')        
+        date_to = kwargs.get('date_to') 
+
         
         domain = []
         if date_from:
@@ -39,8 +40,10 @@ class PurchaseSummaryReportController(Controller):
         cell_format = workbook.add_format({'border': 1})
         
         row = 0
-        company_name = request.env.company.name  # Get current company name
+        company_id = kwargs.get('company_id')
+        company_name = request.env['res.company'].sudo().browse(int(company_id)).name if company_id else "Company Name Not Found"
         sheet.merge_range(row, 0, row, 4, company_name, title_format)  # Use dynamic company name
+  # Use dynamic company name
         row += 1
         sheet.merge_range(row, 0, row, 4, 'Purchase Summary', title_format)
         row += 1
