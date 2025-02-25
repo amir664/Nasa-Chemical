@@ -15,6 +15,7 @@
                                 <th style="text-align: center;">Target (Ctn)</th>
                                 <th style="text-align: center;">Target (In Value)</th>
                                 <th style="text-align: center;">Sales Date</th>
+                                <th style="text-align: center;">Target to date</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -64,6 +65,12 @@
                                     <td>
                                         <t t-if="test.get('sales_date')">
                                             <t t-esc="test['sales_date']"/>
+                                        </t>
+                                        <t t-else="">0</t>
+                                    </td>
+                                    <td>
+                                        <t t-if="test.get('sales_archive')">
+                                            <t t-esc="test['sales_archive']"/>
                                         </t>
                                         <t t-else="">0</t>
                                     </td>

@@ -32,7 +32,8 @@ class CustomReport(models.AbstractModel):
                         pt.list_price as Cost,
                         ctl.target as Target,
                         (ctl.target * pt.list_price) as total_cost,
-                        ctl.sales_todate as Sales_date
+                        ctl.sales_todate as Sales_date,
+                        (ctl.sales_todate * pt.list_price) as sales_archive,
                     from customer_target as ct
                         left join res_partner as res on ct.id= res.id
                         left join customer_target_line as ctl on ct.id = ctl.customer_target_id
