@@ -28,7 +28,7 @@
                                         <th class="text-center">Date</th>
                                         <th class="text-center">Vendor</th>
                                         <th class="text-center">PO No</th>
-                                        <!-- <th class="text-center">PE No</th> -->
+                                        <th class="text-center">PE No</th>
                                         <th class="text-center">GRN</th>
                                         <th class="text-center">Invoice No</th>
                                         <th class="text-center">Received Location</th>
@@ -43,7 +43,7 @@
                                         <td class="text-left"><span t-esc="value['date']"/></td>
                                         <td class="text-left"><span t-esc="value['vendor']"/></td>
                                         <td class="text-left"><span t-esc="value['pono']"/></td>
-                                        <!-- <td class="text-left"><span t-esc="value['purchaserequest']"/></td> -->
+                                        <td class="text-left"><span t-esc="value['purchaserequest']"/></td>
                                         <td class="text-left"><span t-esc="value['grn']"/></td>
                                         <td class="text-left"><span t-esc="value['invoiceno']"/></td>
                                         <td class="text-left"><span t-esc="value['location']"/></td>
