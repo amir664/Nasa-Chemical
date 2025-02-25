@@ -7,7 +7,7 @@ class CustomReport(models.AbstractModel):
     _description = "Product Wise Target Report"
 
     def _get_report_values(self, docids, data=None):
-        customer = data['customer']
+        # customer = data['customer']
         product = data['product']
         start_date = data['start_date']
         end_date = data['end_date']
@@ -17,7 +17,7 @@ class CustomReport(models.AbstractModel):
         cr = self._cr
 
         others= {
-            'customer':customer,
+            # 'customer':customer,
             'product':product,
             'start_date':start_date,
             'end_date':end_date,
