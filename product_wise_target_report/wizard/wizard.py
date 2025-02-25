@@ -13,8 +13,8 @@ class CustomerTargetReport(models.TransientModel):
     def print_report(self):
 
         data = {
-            'customer_id': self.customer.id if self.customer else False,
-            'product_id': self.product.id if self.product else False,
+            'customer': self.customer.id if self.customer else False,
+            'product': self.product.id if self.product else False,
             'start_date': self.start_date,
             'end_date': self.end_date,
         }

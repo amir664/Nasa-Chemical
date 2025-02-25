@@ -22,14 +22,14 @@
                         <tbody>
                             <t t-foreach="data" t-as="test">
                                 <tr>
-                                    <td><t t-esc="test['start_date']"/></td>
-                                    <td><t t-esc="test['end_date']"/></td>
-                                    <td><t t-esc="test['name']"/></td>
+                                    <!-- <td><t t-esc="test['start_date']"/></td>
+                                    <td><t t-esc="test['end_date']"/></td> -->
+                                    <!-- <td><t t-esc="test['name']"/></td>
                                     <td><t t-esc="test['product_id']"/></td>
                                     <td><t t-esc="test['name']"/></td>
                                     <td><t t-esc="test['list_price']"/></td>
                                     <td><t t-esc="test['target']"/></td>
-                                    <td><t t-esc="test['target * list_price']"/></td>
+                                    <td><t t-esc="test['target * list_price']"/></td> -->
                                 </tr>
                             </t>
                         </tbody>
