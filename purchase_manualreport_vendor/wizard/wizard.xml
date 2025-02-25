@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <record id="purchase_manualreport_wizard" model="ir.ui.view">
-        <field name="name">Purchase Report</field>
+        <field name="name">Purchase Report Vendor</field>
         <field name="model">purchase.manualreport</field>
         <field name="arch" type="xml">
             <form string="Purchase Report">
