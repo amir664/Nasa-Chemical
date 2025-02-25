@@ -20,6 +20,9 @@ class CustomReport(models.AbstractModel):
         grn = data['grn']
         invoice_no = data['invoice_no']
 
+        po_no1 = data.get('po_no', '')
+
+
 
         other_details.update({
                 'from_date': date_from,
@@ -52,7 +55,7 @@ class CustomReport(models.AbstractModel):
 
         if vendor_ids:
             where_clauses.append(f"rs.id IN ({', '.join(map(str, vendor_ids))})")
-        raise UserError([po_no,grn,invoice_no])
+        raise UserError([po_no1,grn,invoice_no])
             # params.append(vendor_ids)
         # raise UserError(po_no)
         # raise UserError([po_no,grn,invoice_no,vendor_ids,product_ids,date_from])
