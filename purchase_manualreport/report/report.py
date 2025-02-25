@@ -69,7 +69,8 @@ class CustomReport(models.AbstractModel):
                 where_clauses.append(f"WHERE po.name IN ({', '.join(map(repr, formatted_numbers))})")
                 
         
-        if grn != "stock.picking()":  
+        if grn != "stock.picking()":
+            raise UserError(grn)  
             po_numbers = grn.replace("stock.picking(", "").replace(")", "").strip()
             raise UserError(po_numbers)
             if po_numbers:  
