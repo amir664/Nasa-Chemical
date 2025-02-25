@@ -8,21 +8,22 @@
                     <table class="table table-bordered" style="width: 100%; margin-top: 20px;">
                         <thead>
                             <tr>
-                                <th style="text-align: center;">Customer</th>
+                                <th style="text-align: center;">Segments</th>
                                 <th style="text-align: center;">Code</th>
                                 <th style="text-align: center;">Product</th>
                                 <th style="text-align: center;">Cost</th>
                                 <th style="text-align: center;">Target (Ctn)</th>
                                 <th style="text-align: center;">Target (In Value)</th>
                                 <th style="text-align: center;">Sales Date</th>
+                                <th style="text-align: center;">Target to date</th>
                             </tr>
                         </thead>
                         <tbody>
                             <t t-foreach="data" t-as="test">
                                 <tr>
                                     <td>
-                                        <t t-if="test.get('customer')">
-                                            <t t-esc="test['customer']"/>
+                                        <t t-if="test.get('product_cat')">
+                                            <t t-esc="test['product_cat']"/>
                                         </t>
                                         <t t-else="">No Name</t>
                                     </td>
@@ -64,6 +65,12 @@
                                     <td>
                                         <t t-if="test.get('sales_date')">
                                             <t t-esc="test['sales_date']"/>
+                                        </t>
+                                        <t t-else="">0</t>
+                                    </td>
+                                    <td>
+                                        <t t-if="test.get('sales_archive')">
+                                            <t t-esc="test['sales_archive']"/>
                                         </t>
                                         <t t-else="">0</t>
                                     </td>
