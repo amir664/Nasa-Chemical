@@ -8,8 +8,8 @@
                     <table class="table table-bordered" style="width: 100%; margin-top: 20px;">
                         <thead>
                             <tr>
-                                <th style="text-align: center;">Start Date</th>
-                                <th style="text-align: center;">End Date</th>
+                                <!-- <th style="text-align: center;">Start Date</th>
+                                <th style="text-align: center;">End Date</th> -->
                                 <th style="text-align: center;">Customer</th>
                                 <th style="text-align: center;">Code</th>
                                 <th style="text-align: center;">Product</th>
@@ -23,13 +23,13 @@
                             <t t-foreach="data" t-as="test">
                                 <tr>
                                     <!-- <td><t t-esc="test['start_date']"/></td>
-                                    <td><t t-esc="test['end_date']"/></td> -->
-                                    <!-- <td><t t-esc="test['name']"/></td>
+                                    <td><t t-esc="test['end_date']"/></td>  -->
+                                    <td><t t-esc="test['name']"/></td>
                                     <td><t t-esc="test['product_id']"/></td>
                                     <td><t t-esc="test['name']"/></td>
                                     <td><t t-esc="test['list_price']"/></td>
                                     <td><t t-esc="test['target']"/></td>
-                                    <td><t t-esc="test['target * list_price']"/></td> -->
+                                    <td><t t-esc="test['target * list_price']"/></td>
                                 </tr>
                             </t>
                         </tbody>
