@@ -52,6 +52,7 @@ class CustomReport(models.AbstractModel):
 
         if vendor_ids:
             where_clauses.append(f"rs.id IN ({', '.join(map(str, vendor_ids))})")
+        raise UserError([po_no,grn,invoice_no])
             # params.append(vendor_ids)
         # raise UserError(po_no)
         # raise UserError([po_no,grn,invoice_no,vendor_ids,product_ids,date_from])
