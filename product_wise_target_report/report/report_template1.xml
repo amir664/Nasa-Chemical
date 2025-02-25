@@ -12,57 +12,57 @@
                                 <th style="text-align: center;">Code</th>
                                 <th style="text-align: center;">Product</th>
                                 <th style="text-align: center;">Cost</th>
-                                <th style="text-align: center;">Target</th>
-                                <th style="text-align: center;">In Value</th>
+                                <th style="text-align: center;">Target (Ctn)</th>
+                                <th style="text-align: center;">Target (Unit)</th>
+                                <th style="text-align: center;">Target (In Value)</th>
                             </tr>
                         </thead>
                         <tbody>
                             <t t-foreach="data" t-as="test">
                                 <tr>
-                                    <!-- Customer Name (Handle KeyError) -->
                                     <td>
-                                        <t t-if="test.get('customer_name')">
-                                            <t t-esc="test['customer_name']"/>
+                                        <t t-if="test.get('Customer')">
+                                            <t t-esc="test['Customer']"/>
                                         </t>
                                         <t t-else="">No Name</t>
                                     </td>
 
-                                    <!-- Product Code -->
                                     <td>
-                                        <t t-if="test.get('product_id')">
-                                            <t t-esc="test['product_id']"/>
+                                        <t t-if="test.get('Code')">
+                                            <t t-esc="test['Code']"/>
                                         </t>
                                         <t t-else="">N/A</t>
                                     </td>
 
-                                    <!-- Product Name -->
                                     <td>
-                                        <t t-if="test.get('product_name')">
-                                            <t t-esc="test['product_name']"/>
+                                        <t t-if="test.get('Product')">
+                                            <t t-esc="test['Product']"/>
                                         </t>
                                         <t t-else="">N/A</t>
                                     </td>
 
-                                    <!-- Product Cost -->
                                     <td>
-                                        <t t-if="test.get('list_price')">
-                                            <t t-esc="test['list_price']"/>
+                                        <t t-if="test.get('Cost')">
+                                            <t t-esc="test['Cost']"/>
                                         </t>
                                         <t t-else="">0.00</t>
                                     </td>
 
-                                    <!-- Target -->
                                     <td>
-                                        <t t-if="test.get('target')">
-                                            <t t-esc="test['target']"/>
+                                        <t t-if="test.get('Target')">
+                                            <t t-esc="test['Target']"/>
                                         </t>
                                         <t t-else="">0</t>
                                     </td>
 
-                                    <!-- In Value (Target * Cost Calculation) -->
                                     <td>
-                                        <t t-set="target_value" t-value="test.get('target', 0)"/>
-                                        <t t-set="cost_value" t-value="test.get('list_price', 0)"/>
+                                        <t t-set="target_value" t-value="test.get('Target', 0)"/>
+                                        <t t-set="cost_value" t-value="test.get('Cost', 0)"/>
+                                        <t t-esc="target_value * cost_value"/>
+                                    </td>
+                                    <td>
+                                        <t t-set="target_value" t-value="test.get('Target', 0)"/>
+                                        <t t-set="cost_value" t-value="test.get('Cost', 0)"/>
                                         <t t-esc="target_value * cost_value"/>
                                     </td>
                                 </tr>
