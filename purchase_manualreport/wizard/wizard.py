@@ -7,7 +7,7 @@ class PurchaseReportWizard(models.TransientModel):
     
     date_from = fields.Date(string='From Date')
     date_to = fields.Date(string='To Date')
-    product_ids = fields.Many2manu('product.template', string='Product')
+    product_ids = fields.Many2many('product.template', string='Product')
     vendor_ids = fields.Many2many('res.partner', string = "Vendor")
     po_no = fields.Many2many("purchase.order")
     grn = fields.Many2many("stock.picking")
