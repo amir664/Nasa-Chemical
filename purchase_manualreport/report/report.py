@@ -32,6 +32,7 @@ class CustomReport(models.AbstractModel):
                 'grn': grn,
                 'invoice_no':invoice_no,
             })
+
         
         if product_ids != []:
             product_ids_str = ','.join(map(str,product_ids))
@@ -44,8 +45,7 @@ class CustomReport(models.AbstractModel):
         params = []
 
         if date_from and date_to:
-            where_clauses.append("po.date_order BETWEEN %s AND %s")
-            params.extend([tuple(date_from), tuple(date_to)])
+            where_clauses.append(f"po.date_order BETWEEN {date_from} AND {date_to}")
 
         if product_ids:
             where_clauses.append(f"pt.id IN ({', '.join(map(str, product_ids))})")
@@ -70,8 +70,15 @@ class CustomReport(models.AbstractModel):
                 
         
         if grn:
-            where_clauses.append(f"sp.name IN {grn}")
-    # Extract names from selected grn records
+            a = tuple(grn)  # Convert list to tuple
+            formatted_values = ', '.join(f"'{x}'" for x in a)  # Format for SQL
+            where_clauses.append(f"sp.name IN ({formatted_values})") 
+
+        if invoice_no:
+            a = tuple(invoice_no)  # Convert list to tuple
+            formatted_values = ', '.join(f"'{x}'" for x in a)  # Format for SQL
+            where_clauses.append(f"am.name IN ({formatted_values})")  
+            # Extract names from selected grn records
         # grn_names = tuple(rec.name for rec in grn if hasattr(rec, 'name') and rec.name)
 
         # if grn_names:  # Only append if grn_names is not empty
@@ -89,12 +96,12 @@ class CustomReport(models.AbstractModel):
             #     formatted_po_no = ", ".join(f"'{po.strip()}'" for po in po_numbers.split(','))  
             #     where_clauses.append(f"sp.name IN ({formatted_po_no})")
 
-        if invoice_no != "account.move()":  
-            po_numbers = invoice_no.replace("account.move(", "").replace(")", "").strip()
+        # if invoice_no != "account.move()":  
+        #     po_numbers = invoice_no.replace("account.move(", "").replace(")", "").strip()
             
-            if po_numbers:  
-                formatted_po_no = ", ".join(f"'{po.strip()}'" for po in po_numbers.split(','))  
-                where_clauses.append(f"sp.name IN ({formatted_po_no})")
+        #     if po_numbers:  
+        #         formatted_po_no = ", ".join(f"'{po.strip()}'" for po in po_numbers.split(','))  
+        #         where_clauses.append(f"sp.name IN ({formatted_po_no})")
             # params.append(vendor_ids)
         # raise UserError(po_no)
         # raise UserError([po_no,grn,invoice_no,vendor_ids,product_ids,date_from])
@@ -158,7 +165,6 @@ class CustomReport(models.AbstractModel):
                 """
         
          )
-        raise UserError(query)
 
         cr.execute(query)
         data = cr.dictfetchall()
