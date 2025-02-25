@@ -55,19 +55,24 @@ class CustomReport(models.AbstractModel):
             where_clauses.append(f"rs.id IN ({', '.join(map(str, vendor_ids))})")
         
         if po_no != "purchase.order()":  
-            raise UserError(po_no)
+            # raise UserError(po_no)
             po_numbers = po_no.replace("purchase.order(", "").replace(")", "").strip()
             
             if po_numbers:  
                 # formatted_po_no = ", ".join(f"'{po.strip()}'" for po in po_numbers.split(','))  
-                po_values = ', '.join(f"'{name}'" for name in po_numbers)
-                raise UserError([po_numbers,po_values])
-                where_clauses.append(f"po.name IN (({', '.join(map(str, po_numbers))})")
+                numbers = [num.strip() for num in po_numbers.split(',') if num.strip()]
+
+# Format each number as 'P00XXX'
+                formatted_numbers = [f"P00{num.zfill(3)}" for num in numbers]
+
+# Generate the SQL IN clause
+                where_clauses.append(f"WHERE po.name IN ({', '.join(map(repr, formatted_numbers))})")
                 
         
-        if grn != "stock.picking()":  
+        if grn != "stock.picking()":
+            raise UserError(grn)  
             po_numbers = grn.replace("stock.picking(", "").replace(")", "").strip()
-            
+            raise UserError(po_numbers)
             if po_numbers:  
                 formatted_po_no = ", ".join(f"'{po.strip()}'" for po in po_numbers.split(','))  
                 where_clauses.append(f"sp.name IN ({formatted_po_no})")
