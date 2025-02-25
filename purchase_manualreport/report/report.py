@@ -55,10 +55,15 @@ class CustomReport(models.AbstractModel):
 
         if vendor_ids:
             where_clauses.append(f"rs.id IN ({', '.join(map(str, vendor_ids))})")
-        if po_no != "purchase.order()":  # Check if po_no is not empty
-            formatted_po_no = ", ".join(f"'{po}'" for po in po_no)  # Convert to SQL-compatible format
-            where_clauses.append(f"po.name IN ( {formatted_po_no} )")
-            raise UserError(f"po.name IN ( {formatted_po_no} )")
+        
+        if po_no != "purchase.order()":  # Ensure it's not empty
+    # Extract the numbers from the string "purchase.order(132, 130, 127)"
+            po_numbers = po_no.replace("purchase.order(", "").replace(")", "").strip()
+            
+            if po_numbers:  # Check if there are values inside
+                formatted_po_no = ", ".join(f"'{po.strip()}'" for po in po_numbers.split(','))  # Convert to SQL format
+                where_clauses.append(f"po.name IN ({formatted_po_no})")
+                raise UserError(f"po.name IN ( {formatted_po_no} )")
             # params.append(vendor_ids)
         # raise UserError(po_no)
         # raise UserError([po_no,grn,invoice_no,vendor_ids,product_ids,date_from])
