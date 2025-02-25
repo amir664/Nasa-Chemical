@@ -25,7 +25,7 @@ class PurchaseReportWizard(models.TransientModel):
         if self.vendor_ids:
             for id in self.vendor_ids:
                 vendor_ids.append(id.id)
-        grn_ids = self.grn.name if self.grn else []
+        # grn_ids = self.grn.name if self.grn else []
         grnn=[gr.name    for gr in self.grn] 
         data = {
             'date_from': self.date_from,
