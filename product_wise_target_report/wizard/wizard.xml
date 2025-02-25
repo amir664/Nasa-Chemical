@@ -28,6 +28,7 @@
 
     <menuitem id="product_wise_target_report_id"
               name="Product Wise Target Report"
+              parent = "contacts.menu_contacts"
               action="product_wise_target_report_action"
     />
 </odoo>
