@@ -13,8 +13,8 @@
                                 <th style="text-align: center;">Product</th>
                                 <th style="text-align: center;">Cost</th>
                                 <th style="text-align: center;">Target (Ctn)</th>
-                                <th style="text-align: center;">Target (Unit)</th>
                                 <th style="text-align: center;">Target (In Value)</th>
+                                <th style="text-align: center;">Sales Date</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -59,6 +59,12 @@
                                         <t t-set="target_value" t-value="test.get('Target', 0)"/>
                                         <t t-set="cost_value" t-value="test.get('Cost', 0)"/>
                                         <t t-esc="target_value * cost_value"/>
+                                    </td>
+                                    <td>
+                                        <t t-if="test.get('sales_date')">
+                                            <t t-esc="test['sales_date']"/>
+                                        </t>
+                                        <t t-else="">0</t>
                                     </td>
                                 </tr>
                             </t>
