@@ -25,7 +25,6 @@ class CustomReport(models.AbstractModel):
 
 
         query = ("""
-                   
                     select 
                         res.name as Customer,
                         ctl.product_id as Code,
