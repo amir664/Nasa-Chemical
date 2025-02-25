@@ -43,7 +43,7 @@
                                         <td class="text-left"><span t-esc="value['date']"/></td>
                                         <td class="text-left"><span t-esc="value['vendor']"/></td>
                                         <td class="text-left"><span t-esc="value['pono']"/></td>
-                                        <td class="text-left"><span t-esc="value['PurchaseRequest']"/></td>
+                                        <td class="text-left"><span t-esc="value['purchaserequest']"/></td>
                                         <td class="text-left"><span t-esc="value['grn']"/></td>
                                         <td class="text-left"><span t-esc="value['invoiceno']"/></td>
                                         <td class="text-left"><span t-esc="value['location']"/></td>
