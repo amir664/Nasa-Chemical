@@ -30,7 +30,7 @@
 
 
     <record id="purchase_manualreport_action" model="ir.actions.act_window">
-        <field name="name">Purchase Report</field>
+        <field name="name">Purchase Report Vendor</field>
         <field name="res_model">purchase.manualreport</field>
         <field name="view_mode">form</field>
         <field name="target">new</field>
