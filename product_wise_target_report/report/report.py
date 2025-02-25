@@ -26,7 +26,7 @@ class CustomReport(models.AbstractModel):
 
         query = ("""
                     select 
-                        pt.categ_id as product_cat,
+                        pc.name as product_cat,
                         ctl.product_id as Code,
                         pt.name as Product ,
                         pt.list_price as Cost,
@@ -38,6 +38,7 @@ class CustomReport(models.AbstractModel):
                         left join customer_target_line as ctl on ct.id = ctl.customer_target_id
                         left join product_product pp on ctl.product_id = pp.id
                         left join product_template pt on pp.product_tmpl_id = pt.id
+                        left join product_category pc on pc.id = pt.categ_id 
                     
                 """
                  
