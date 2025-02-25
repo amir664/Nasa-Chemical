@@ -66,7 +66,7 @@ class CustomReport(models.AbstractModel):
                 formatted_numbers = [f"P00{num.zfill(3)}" for num in numbers]
 
 # Generate the SQL IN clause
-                where_clauses.append(f"WHERE po.name IN ({', '.join(map(repr, formatted_numbers))})")
+                where_clauses.append(f"po.name IN ({', '.join(map(repr, formatted_numbers))})")
                 
         
         if grn:
