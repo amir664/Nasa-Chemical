@@ -60,11 +60,6 @@
                                         <t t-set="cost_value" t-value="test.get('Cost', 0)"/>
                                         <t t-esc="target_value * cost_value"/>
                                     </td>
-                                    <td>
-                                        <t t-set="target_value" t-value="test.get('Target', 0)"/>
-                                        <t t-set="cost_value" t-value="test.get('Cost', 0)"/>
-                                        <t t-esc="target_value * cost_value"/>
-                                    </td>
                                 </tr>
                             </t>
                         </tbody>
