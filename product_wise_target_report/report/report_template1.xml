@@ -1,0 +1,76 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <template id="product_wise_target_reports">
+        <t t-call="web.html_container">
+            <t t-call="web.basic_layout">
+                <div class="page">
+                    <h2 style="text-align: center;">Product Wise Target Report</h2>
+                    <table class="table table-bordered" style="width: 100%; margin-top: 20px;">
+                        <thead>
+                            <tr>
+                                <th style="text-align: center;">Customer</th>
+                                <th style="text-align: center;">Code</th>
+                                <th style="text-align: center;">Product</th>
+                                <th style="text-align: center;">Cost</th>
+                                <th style="text-align: center;">Target</th>
+                                <th style="text-align: center;">In Value</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="data" t-as="test">
+                                <tr>
+                                    <!-- Customer Name (Handle KeyError) -->
+                                    <td>
+                                        <t t-if="test.get('customer_name')">
+                                            <t t-esc="test['customer_name']"/>
+                                        </t>
+                                        <t t-else="">No Name</t>
+                                    </td>
+
+                                    <!-- Product Code -->
+                                    <td>
+                                        <t t-if="test.get('product_id')">
+                                            <t t-esc="test['product_id']"/>
+                                        </t>
+                                        <t t-else="">N/A</t>
+                                    </td>
+
+                                    <!-- Product Name -->
+                                    <td>
+                                        <t t-if="test.get('product_name')">
+                                            <t t-esc="test['product_name']"/>
+                                        </t>
+                                        <t t-else="">N/A</t>
+                                    </td>
+
+                                    <!-- Product Cost -->
+                                    <td>
+                                        <t t-if="test.get('list_price')">
+                                            <t t-esc="test['list_price']"/>
+                                        </t>
+                                        <t t-else="">0.00</t>
+                                    </td>
+
+                                    <!-- Target -->
+                                    <td>
+                                        <t t-if="test.get('target')">
+                                            <t t-esc="test['target']"/>
+                                        </t>
+                                        <t t-else="">0</t>
+                                    </td>
+
+                                    <!-- In Value (Target * Cost Calculation) -->
+                                    <td>
+                                        <t t-set="target_value" t-value="test.get('target', 0)"/>
+                                        <t t-set="cost_value" t-value="test.get('list_price', 0)"/>
+                                        <t t-esc="target_value * cost_value"/>
+                                    </td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>
