@@ -19,7 +19,6 @@ class CustomReport(models.AbstractModel):
         po_no = data['po_no']
         grn = data['grn']
         invoice_no = data['invoice_no']
-
         po_no1 = data.get('po_no', '')
 
 
@@ -50,20 +49,31 @@ class CustomReport(models.AbstractModel):
 
         if product_ids:
             where_clauses.append(f"pt.id IN ({', '.join(map(str, product_ids))})")
-            # raise UserError([product_ids,vendor_ids])
-            # params.append(product_ids)  # Tuple for SQL IN clause
+
 
         if vendor_ids:
             where_clauses.append(f"rs.id IN ({', '.join(map(str, vendor_ids))})")
         
-        if po_no != "purchase.order()":  # Ensure it's not empty
-    # Extract the numbers from the string "purchase.order(132, 130, 127)"
+        if po_no != "purchase.order()":  
             po_numbers = po_no.replace("purchase.order(", "").replace(")", "").strip()
             
-            if po_numbers:  # Check if there are values inside
-                formatted_po_no = ", ".join(f"'{po.strip()}'" for po in po_numbers.split(','))  # Convert to SQL format
+            if po_numbers:  
+                formatted_po_no = ", ".join(f"'{po.strip()}'" for po in po_numbers.split(','))  
                 where_clauses.append(f"po.name IN ({formatted_po_no})")
-                raise UserError(f"po.name IN ( {formatted_po_no} )")
+        
+        if grn != "stock.picking()":  
+            po_numbers = grn.replace("stock.picking(", "").replace(")", "").strip()
+            
+            if po_numbers:  
+                formatted_po_no = ", ".join(f"'{po.strip()}'" for po in po_numbers.split(','))  
+                where_clauses.append(f"sp.name IN ({formatted_po_no})")
+
+        if invoice_no != "account.move()":  
+            po_numbers = invoice_no.replace("account.move(", "").replace(")", "").strip()
+            
+            if po_numbers:  
+                formatted_po_no = ", ".join(f"'{po.strip()}'" for po in po_numbers.split(','))  
+                where_clauses.append(f"sp.name IN ({formatted_po_no})")
             # params.append(vendor_ids)
         # raise UserError(po_no)
         # raise UserError([po_no,grn,invoice_no,vendor_ids,product_ids,date_from])
