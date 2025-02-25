@@ -70,7 +70,8 @@ class CustomReport(models.AbstractModel):
                 
         
         if grn:
-            raise UserError([grn])
+            # raise UserError([grn])
+            where_clauses.append(f"sp.name IN {grn}")
         
             po_numbers = grn.replace("stock.picking(", "").replace(")", "").strip()
             raise UserError(po_numbers)
