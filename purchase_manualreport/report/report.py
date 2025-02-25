@@ -60,7 +60,8 @@ class CustomReport(models.AbstractModel):
             if po_numbers:  
                 # formatted_po_no = ", ".join(f"'{po.strip()}'" for po in po_numbers.split(','))  
                 po_values = ', '.join(f"'{name}'" for name in po_numbers)
-                where_clauses.append(f"po.name IN ({po_values}, '')")
+                where_clauses.append(f"po.name IN (({', '.join(map(str, po_numbers))})")
+                
         
         if grn != "stock.picking()":  
             po_numbers = grn.replace("stock.picking(", "").replace(")", "").strip()
