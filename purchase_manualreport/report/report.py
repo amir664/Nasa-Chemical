@@ -70,7 +70,8 @@ class CustomReport(models.AbstractModel):
                 
         
         if grn:
-            raise UserError(grn)
+            raise UserError(", ".join(map(str, grn)) if isinstance(grn, (list, tuple)) else str(grn))
+
     # Extract names from selected grn records
             grn_names = tuple(rec.name for rec in grn if hasattr(rec, 'name') and rec.name)
 
