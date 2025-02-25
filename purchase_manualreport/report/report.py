@@ -70,7 +70,7 @@ class CustomReport(models.AbstractModel):
                 
         
         if grn != "stock.picking()":
-            raise UserError(grn)  
+            raise UserError(grn.name)  
             po_numbers = grn.replace("stock.picking(", "").replace(")", "").strip()
             raise UserError(po_numbers)
             if po_numbers:  
