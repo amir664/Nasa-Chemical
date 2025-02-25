@@ -46,13 +46,13 @@ class CustomReport(models.AbstractModel):
             params.extend([tuple(date_from), tuple(date_to)])
 
         if product_ids:
-            where_clauses.append(f"pt.id IN {product_ids}")
+            where_clauses.append(f"pt.id IN ({', '.join(map(str, product_ids))})")
             # raise UserError([product_ids,vendor_ids])
             # params.append(product_ids)  # Tuple for SQL IN clause
 
         if vendor_ids:
-            where_clauses.append(f"rs.id IN {vendor_ids}")
-            params.append(vendor_ids)
+            where_clauses.append(f"rs.id IN ({', '.join(map(str, vendor_ids))})")
+            # params.append(vendor_ids)
         # raise UserError(po_no)
         # raise UserError([po_no,grn,invoice_no,vendor_ids,product_ids,date_from])
         # if po_no and isinstance(po_no, models.BaseModel):  # Ensure it's a recordset
@@ -115,7 +115,7 @@ class CustomReport(models.AbstractModel):
                 """
         
          )
-        raise UserError(query)
+        # raise UserError(query)
 
         cr.execute(query)
         data = cr.dictfetchall()
