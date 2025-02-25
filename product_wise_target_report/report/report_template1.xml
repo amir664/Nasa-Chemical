@@ -21,22 +21,22 @@
                             <t t-foreach="data" t-as="test">
                                 <tr>
                                     <td>
-                                        <t t-if="test.get('Customer')">
-                                            <t t-esc="test['Customer']"/>
+                                        <t t-if="test.get('customer')">
+                                            <t t-esc="test['customer']"/>
                                         </t>
                                         <t t-else="">No Name</t>
                                     </td>
 
                                     <td>
-                                        <t t-if="test.get('Code')">
-                                            <t t-esc="test['Code']"/>
+                                        <t t-if="test.get('code')">
+                                            <t t-esc="test['code']"/>
                                         </t>
                                         <t t-else="">N/A</t>
                                     </td>
 
                                     <td>
-                                        <t t-if="test.get('Product')">
-                                            <t t-esc="test['Product']"/>
+                                        <t t-if="test.get('product')">
+                                            <t t-esc="test['product']['en_US']"/>
                                         </t>
                                         <t t-else="">N/A</t>
                                     </td>
@@ -49,8 +49,8 @@
                                     </td>
 
                                     <td>
-                                        <t t-if="test.get('Target')">
-                                            <t t-esc="test['Target']"/>
+                                        <t t-if="test.get('target')">
+                                            <t t-esc="test['target']"/>
                                         </t>
                                         <t t-else="">0</t>
                                     </td>
