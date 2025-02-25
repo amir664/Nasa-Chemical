@@ -70,7 +70,14 @@ class CustomReport(models.AbstractModel):
                 
         
         if grn:
-            grn_names = tuple(grn.mapped('name'))  # Extract names from records and convert to tuple
+    # Ensure grn is a list of recordsets, then extract names
+            grn_names = tuple(rec.name for rec in grn if hasattr(rec, 'name'))
+
+            if len(grn_names) == 1:
+                grn_names = f"('{grn_names[0]}')"  # Ensure correct SQL format for a single value
+            else:
+                grn_names = str(grn_names)  # Convert tuple to string format
+
             where_clauses.append(f"sp.name IN {grn_names}")
                 
             # po_numbers = grn.replace("stock.picking(", "").replace(")", "").strip()
