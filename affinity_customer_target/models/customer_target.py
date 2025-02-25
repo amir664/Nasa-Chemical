@@ -42,7 +42,7 @@ class CustomerTargetLine(models.Model):
     target = fields.Float(string="Target (CTN)", required=True)
     sales_todate = fields.Float(string="Sales Achieved", required=True,compute="getTotalSales")
     
-    @api.depends('customer.sale_order_count')
+    @api.depends('customer_target_id.customer.sale_order_count')
     def getTotalSales(self):
         for i in self:
             qty = 0
