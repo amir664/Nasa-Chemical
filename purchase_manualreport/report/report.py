@@ -45,7 +45,7 @@ class CustomReport(models.AbstractModel):
         params = []
 
         if date_from and date_to:
-            where_clauses.append("po.date_order BETWEEN {date_from} AND {date_to}")
+            where_clauses.append(f"po.date_order BETWEEN {date_from} AND {date_to}")
 
         if product_ids:
             where_clauses.append(f"pt.id IN ({', '.join(map(str, product_ids))})")
