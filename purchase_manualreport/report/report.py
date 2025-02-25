@@ -85,32 +85,32 @@ class CustomReport(models.AbstractModel):
         
         query = (f"""
                 SELECT 
+                    pr.name AS PurchaseRequest,
                     po.date_order AS Date,
-                    rs.name as vendor,                    
-                    pt.name ->> 'en_US' as item,
+                    rs.name AS Vendor,                    
+                    pt.name ->> 'en_US' AS Item,
                     po.name AS PONo,
                     sp.name AS GRN,
                     am.name AS InvoiceNo,
-                    sw.name as Location,
-                    pol.product_qty AS qty,
-                    mm.name ->> 'en_US'  AS Unit,
-                    pol.price_unit AS price, 
-                    pol.price_total AS amount
+                    sw.name AS Location,
+                    pol.product_qty AS Qty,
+                    mm.name ->> 'en_US' AS Unit,
+                    pol.price_unit AS Price, 
+                    pol.price_total AS Amount
                 FROM purchase_order_line pol 
                 INNER JOIN purchase_order po ON po.id = pol.order_id
-                inner JOIN product_product pp ON pp.id = pol.product_id
-                inner JOIN product_template pt ON pt.id = pp.product_tmpl_id
-                inner join res_partner rs on rs.id = po.partner_id
-                Left JOIN stock_picking sp ON sp.origin = po.name   
-                Left JOIN account_move am ON am.invoice_origin = po.name
-                inner join stock_picking_type spt on spt.id = po.picking_type_id
-                inner join stock_warehouse sw on sw.id = spt.warehouse_id
-                inner join uom_uom mm on mm.id = pol.product_uom
+                INNER JOIN product_product pp ON pp.id = pol.product_id
+                INNER JOIN product_template pt ON pt.id = pp.product_tmpl_id
+                INNER JOIN res_partner rs ON rs.id = po.partner_id
+                LEFT JOIN stock_picking sp ON sp.origin = po.name   
+                LEFT JOIN account_move am ON am.invoice_origin = po.name
+                INNER JOIN stock_picking_type spt ON spt.id = po.picking_type_id
+                INNER JOIN stock_warehouse sw ON sw.id = spt.warehouse_id
+                INNER JOIN uom_uom mm ON mm.id = pol.product_uom
+                LEFT JOIN purchase_request pr ON pr.id = po.purchase_request_id -- Assuming this is the correct relationship
                 {where_clause}
-                
-                  
+                ORDER BY po.name;
 
-                order by po.name
                 
                 """
         
