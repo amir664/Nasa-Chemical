@@ -9,7 +9,7 @@
                         <div class="col-12">
                             <h1>NASA CHEMICALS</h1>
                             <br/>
-                            <h1>Purchase - Report - Vendor</h1>
+                            <h1>Purchase - Report</h1>
                             <b>From:</b> <t t-esc="other['from_date']"/>
                             <br/>
                             <t t-if="other.get('to_date')">
