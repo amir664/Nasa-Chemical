@@ -137,7 +137,7 @@ class CustomReport(models.AbstractModel):
                 """
         
          )
-        # raise UserError(query)
+        raise UserError(query)
 
         cr.execute(query)
         data = cr.dictfetchall()
