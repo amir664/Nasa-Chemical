@@ -47,12 +47,12 @@ class CustomReport(models.AbstractModel):
 
         if product_ids:
             where_clauses.append("pt.id IN %s")
-            raise UserError([product_ids,vendor_ids])
-            params.append(tuple(product_ids))  # Tuple for SQL IN clause
+            # raise UserError([product_ids,vendor_ids])
+            params.append(product_ids)  # Tuple for SQL IN clause
 
         if vendor_ids:
             where_clauses.append("rs.id IN %s")
-            params.append(tuple(vendor_ids))
+            params.append(vendor_ids)
         # raise UserError(po_no)
         # raise UserError([po_no,grn,invoice_no,vendor_ids,product_ids,date_from])
         # if po_no and isinstance(po_no, models.BaseModel):  # Ensure it's a recordset
