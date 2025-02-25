@@ -70,9 +70,9 @@ class CustomReport(models.AbstractModel):
                 
         
         if grn:
-            # raise UserError([grn])
-            where_clauses.append(f"sp.name IN {grn}")
-        
+            grn_names = tuple(grn.mapped('name'))  # Extract names from records and convert to tuple
+            where_clauses.append(f"sp.name IN {grn_names}")
+                
             # po_numbers = grn.replace("stock.picking(", "").replace(")", "").strip()
             # raise UserError(po_numbers)
             # if po_numbers:  
