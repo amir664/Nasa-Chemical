@@ -19,4 +19,4 @@ class CustomerTargetReport(models.TransientModel):
             'end_date': self.end_date,
         }
     
-        return self.env.ref('product_wise_target_report.product_wise_target_report_pdf').with_context(landscape=False).report_action(self, data = data)
+        return self.env.ref('product_wise_target_report.product_wise_target_report_pdf').with_context(landscape=True).report_action(self, data = data)
