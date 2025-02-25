@@ -27,9 +27,9 @@ class CustomReport(models.AbstractModel):
         query = ("""
                    
                     select 
-                        res.name as Customer,
+                        res.name as Customer  ,
                         ctl.product_id as Code,
-                        pt.name as Product,
+                        pt.name as Product en_US ->>,
                         pt.list_price as Cost,
                         ctl.target as Target,
                         (ctl.target * pt.list_price) as total_cost,
