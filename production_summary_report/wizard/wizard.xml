@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_mrp_production_report_wizard" model="ir.ui.view">
+        <field name="name">mrp.production.report.wizard.form</field>
+        <field name="model">mrp.production.report.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Generate MRP Production Report">
+                <group>
+                    <field name="date_from"/>
+                    <field name="date_to"/>
+                    <field name="product_id"/>
+                </group>
+                <footer>
+                    <button name="action_generate_report" type="object" class="btn-primary" string="Generate Report"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_mrp_production_report_wizard" model="ir.actions.act_window">
+        <field name="name">MRP Production Report</field>
+        <field name="res_model">mrp.production.report.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="menu_mrp_production_report_wizard" name="MRP Production Report"
+        parent="mrp.menu_mrp_root" action="action_mrp_production_report_wizard"/>
+</odoo>
