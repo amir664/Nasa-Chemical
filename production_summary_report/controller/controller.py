@@ -1,5 +1,6 @@
 import io
 import xlsxwriter
+from datetime import datetime
 from odoo import http
 from odoo.http import request, content_disposition
 
@@ -7,11 +8,14 @@ class MrpProductionReportController(http.Controller):
 
     @http.route('/mrp_production_report', type='http', auth='user', website=True)
     def generate_report(self, date_from=None, date_to=None, product_id=None, **kwargs):
-        """Generate an Excel report for MRP Production."""
+        """Generate an Excel report for MRP Production with headers."""
 
         domain = [('date_start', '>=', date_from), ('date_finished', '<=', date_to)]
+        product_name = "All"
         if product_id:
             domain.append(('product_id', '=', int(product_id)))
+            product = request.env['product.product'].browse(int(product_id))
+            product_name = product.display_name
 
         productions = request.env['mrp.production'].search(domain)
 
@@ -20,16 +24,31 @@ class MrpProductionReportController(http.Controller):
         workbook = xlsxwriter.Workbook(output, {'in_memory': True})
         sheet = workbook.add_worksheet('MRP Production Report')
 
-        # Define header format
+        # Define formats
         bold = workbook.add_format({'bold': True, 'bg_color': '#D3D3D3'})
+        title_format = workbook.add_format({'bold': True, 'font_size': 14})
+        normal_format = workbook.add_format({'font_size': 12})
+        date_format = workbook.add_format({'num_format': 'yyyy-mm-dd hh:mm:ss'})
+
+        # Add report headings
+        sheet.merge_range('A1:G1', "Production Summary Report", title_format)
+        sheet.write('A2', "Print Out Date:", bold)
+        sheet.write('B2', datetime.now().strftime('%d/%m/%Y %H:%M'), date_format)
+        sheet.write('E2', "Nasa Chemicals (Pvt) Ltd", bold)
+
+        sheet.write('A3', "Period:", bold)
+        sheet.write('B3', f"{date_from} - {date_to}", normal_format)
+
+        sheet.write('A4', "Item Group:", bold)
+        sheet.write('B4', product_name, normal_format)
 
         # Define column headers
-        headers = ["Name", "Date Start", "Product", "Quantity", "Lot Producing", "Date Finished", "Valuation"]
+        headers = [ "Date","Batch #", "Item Name", "Qty", "W.O #", "Compl Date", "Mtr Cost"]
         for col, header in enumerate(headers):
-            sheet.write(0, col, header, bold)
+            sheet.write(6, col, header, bold)
 
         # Populate data rows
-        row = 1
+        row = 7
         for record in productions:
             valuation = request.env['stock.valuation.layer'].search([
                 ('product_id', '=', record.product_id.id)
