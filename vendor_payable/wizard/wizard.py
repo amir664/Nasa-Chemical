@@ -11,7 +11,6 @@ class PurchaseReportWizard(models.TransientModel):
         
 
     def print_report(self):
-        vendor_ids = ",".join(map(str, self.vendor_ids.ids)) if self.vendor_ids else ''
         
         return {
             'type': 'ir.actions.act_url',
