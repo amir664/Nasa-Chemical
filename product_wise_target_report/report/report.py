@@ -31,7 +31,7 @@ class CustomReport(models.AbstractModel):
                         ctl.product_id as Code,
                         pt.name as Product ,
                         pt.list_price as Cost,
-                        ctl.target as Target,
+                        coalesce(ctl.target,0.00) as Target,
                         (ctl.target * pt.list_price) as total_cost,
                         ctl.sales_todate as Sales_date,
                         (ctl.sales_todate * pt.list_price) as sales_archive
