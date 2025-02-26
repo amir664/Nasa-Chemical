@@ -2,7 +2,7 @@ from odoo import _, api, fields, models
 
 
 class PurchaseReportWizard(models.TransientModel):
-    _name = 'aging.report'
+    _name = 'payable.report'
     _description = 'Aging Report'
     
     date_from = fields.Date(string='From Date')
