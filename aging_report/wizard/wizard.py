@@ -11,12 +11,12 @@ class PurchaseReportWizard(models.TransientModel):
     invoice = fields.Many2one('account.move', string = "Invoice No.")
     
 
-    def print_report(self):
+    def print_report1(self):
         vendor_ids = ",".join(map(str, self.vendor_ids.ids)) if self.vendor_ids else ''
         
         return {
             'type': 'ir.actions.act_url',
-            'url': '/aging/excel_report?date_from={}&date_to={}&vendor_ids={}&invoice={}'.format(
+            'url': '/abc/excel_report?date_from={}&date_to={}&vendor_ids={}&invoice={}'.format(
                 self.date_from or '',
                 self.date_to or '',
                 vendor_ids,

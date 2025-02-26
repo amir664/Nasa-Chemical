@@ -48,10 +48,10 @@ class CustomReport(models.AbstractModel):
         if vendor_ids:
             query += " AND rs.id IN (%s)" % (vendor_ids_str)
 
-        query += """
-            GROUP BY rs.name, po.company_id, po.date_order, po.name, am.date, am.invoice_date_due, apt.name
-            ORDER BY po.name
-        """
+        # query += """
+        #     GROUP BY rs.name, po.company_id, po.date_order, po.name, am.date, am.invoice_date_due, apt.name
+        #     ORDER BY po.name
+        # """
 
         cr.execute(query)
         data = cr.dictfetchall()
