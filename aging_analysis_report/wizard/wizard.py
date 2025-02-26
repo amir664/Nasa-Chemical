@@ -9,7 +9,7 @@ class PurchaseReportWizard(models.TransientModel):
     date_to = fields.Date(string='To Date')
     vendor_ids = fields.Many2many('res.partner', string = "Vendor")
     invoice = fields.Many2one('account.move', string = "Invoice No.")
-    
+        
 
     def print_report(self):
         vendor_ids = ",".join(map(str, self.vendor_ids.ids)) if self.vendor_ids else ''
