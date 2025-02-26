@@ -131,7 +131,7 @@ class CustomReport(models.AbstractModel):
 
 
         # Combine WHERE clauses
-        where_clause = " WHERE " + " AND ".join(where_clauses) if where_clauses else ""
+        where_clause = " AND ".join(where_clauses) if where_clauses else ""
         
         query = (f"""
                 SELECT 
@@ -158,6 +158,7 @@ class CustomReport(models.AbstractModel):
                 INNER JOIN stock_warehouse sw ON sw.id = spt.warehouse_id
                 INNER JOIN uom_uom mm ON mm.id = pol.product_uom
                 LEFT JOIN purchase_request pr ON pr.id = po.purchase_request_id -- Assuming this is the correct relationship
+                WHERE sp.state = 'done'
                 {where_clause}
                 ORDER BY po.name;
 
