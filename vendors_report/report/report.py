@@ -32,7 +32,7 @@ class CustomReport(models.AbstractModel):
                 SUM(pol.price_total) AS poamount,  -- Summing poamount
                 am.date AS advdate,
                 am.invoice_date_due AS duedate,
-                apt.name ->> 'en_US' AS duedays
+                apt.name ->> 'en_US' AS duedays,
                 DATEDIFF(am.invoice_date_due, po.date_order) AS duedays2
             FROM purchase_order po 
             INNER JOIN purchase_order_line pol ON pol.order_id = po.id 
