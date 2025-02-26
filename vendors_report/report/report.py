@@ -41,6 +41,7 @@ class CustomReport(models.AbstractModel):
             INNER JOIN stock_warehouse sw ON sw.id = spt.warehouse_id
             INNER JOIN uom_uom mm ON mm.id = pol.product_uom
             WHERE po.id IS NOT NULL
+            and sp.state = 'done'
         """)
 
         if date_from and date_to:
