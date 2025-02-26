@@ -1,4 +1,3 @@
-from odoo.exceptions import UserError, AccessError
 from odoo import _, api, fields, models
 
 
@@ -28,7 +27,7 @@ class CustomReport(models.AbstractModel):
                 po.company_id AS id,
                 po.date_order AS podate,
                 po.name AS pono,
-                pol.price_total AS poamount,
+                SUM(pol.price_total) AS poamount,  -- Summing poamount
                 am.date AS advdate,
                 am.invoice_date_due AS duedate,
                 apt.name ->> 'en_US' AS duedays
@@ -49,7 +48,10 @@ class CustomReport(models.AbstractModel):
         if vendor_ids:
             query += " AND rs.id IN (%s)" % (vendor_ids_str)
 
-        query += " ORDER BY po.name"
+        query += """
+            GROUP BY rs.name, po.company_id, po.date_order, po.name, am.date, am.invoice_date_due, apt.name
+            ORDER BY po.name
+        """
 
         cr.execute(query)
         data = cr.dictfetchall()
