@@ -75,16 +75,22 @@ class CustomReport(models.AbstractModel):
             formatted_values = ', '.join(f"'{x}'" for x in a)  # Format for SQL
             where_clauses.append(f"am.name IN ({formatted_values})")  
             
-        where_clause = " WHERE " + " AND ".join(where_clauses) if where_clauses else ""
+        where_clause = " AND ".join(where_clauses) if where_clauses else ""
         
         query = (f"""
                 SELECT 
+                    pr.name AS PurchaseRequest,
+                    po.date_order AS Date,
                     rs.name AS Vendor,                    
                     pt.name ->> 'en_US' AS Item,
-                    SUM(pol.product_qty) AS TotalQty,
+                    po.name AS PONo,
+                    sp.name AS GRN,
+                    am.name AS InvoiceNo,
+                    sw.name AS Location,
+                    pol.product_qty AS Qty,
                     mm.name ->> 'en_US' AS Unit,
-                    AVG(pol.price_unit) AS AvgPrice, 
-                    SUM(pol.price_total) AS TotalAmount
+                    pol.price_unit AS Price, 
+                    pol.price_total AS Amount
                 FROM purchase_order_line pol 
                 INNER JOIN purchase_order po ON po.id = pol.order_id
                 INNER JOIN product_product pp ON pp.id = pol.product_id
@@ -96,10 +102,9 @@ class CustomReport(models.AbstractModel):
                 INNER JOIN stock_warehouse sw ON sw.id = spt.warehouse_id
                 INNER JOIN uom_uom mm ON mm.id = pol.product_uom
                 LEFT JOIN purchase_request pr ON pr.id = po.purchase_request_id -- Assuming this is the correct relationship
+                WHERE sp.id IS NOT NULL 
                 {where_clause}
-                GROUP BY rs.name, pt.name, mm.name
-                ORDER BY rs.name, pt.name;
-
+                ORDER BY po.name;
 
                 
                 """
