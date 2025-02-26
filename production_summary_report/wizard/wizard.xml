@@ -9,9 +9,11 @@
                     <field name="date_from"/>
                     <field name="date_to"/>
                     <field name="product_id"/>
+                    <field name="category_id"/>
+                    <field name="item_type"/>
                 </group>
                 <footer>
-                    <button name="action_generate_report" type="object" class="btn-primary" string="Generate Report"/>
+                    <button name="generate_report" type="object" string="Generate Report" class="btn-primary"/>
                     <button string="Cancel" class="btn-secondary" special="cancel"/>
                 </footer>
             </form>
@@ -25,6 +27,6 @@
         <field name="target">new</field>
     </record>
 
-    <menuitem id="menu_mrp_production_report_wizard" name="MRP Production Report"
-        parent="mrp.menu_mrp_root" action="action_mrp_production_report_wizard"/>
+    <menuitem id="menu_mrp_production_report" name="MRP Production Report"
+              action="action_mrp_production_report_wizard" parent="mrp.menu_mrp_root"/>
 </odoo>
