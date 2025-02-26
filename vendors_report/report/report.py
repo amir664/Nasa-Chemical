@@ -1,5 +1,6 @@
 from odoo import _, api, fields, models
 from odoo.exceptions import UserError
+from datetime import datetime, timedelta
 
 
 class CustomReport(models.AbstractModel):
@@ -46,6 +47,15 @@ class CustomReport(models.AbstractModel):
         """)
 
         if date_from and date_to:
+    # Convert string dates to datetime objects
+            date_from = datetime.strptime(date_from, "%Y-%m-%d") - timedelta(days=1)
+            date_to = datetime.strptime(date_to, "%Y-%m-%d") + timedelta(days=1)
+            
+            # Format back to string
+            date_from = date_from.strftime("%Y-%m-%d")
+            date_to = date_to.strftime("%Y-%m-%d")
+
+            # Append the query condition
             query += " AND po.date_order BETWEEN '%s' AND '%s'" % (date_from, date_to)
         if vendor_ids:
             query += " AND rs.id IN (%s)" % (vendor_ids_str)
@@ -54,7 +64,6 @@ class CustomReport(models.AbstractModel):
             GROUP BY rs.name, po.company_id, po.date_order, po.name, am.date, am.invoice_date_due, apt.name
             ORDER BY po.name
         """
-        raise UserError(query)
 
         cr.execute(query)
         data = cr.dictfetchall()
