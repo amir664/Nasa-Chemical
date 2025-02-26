@@ -31,7 +31,9 @@ class CustomReport(models.AbstractModel):
                         res.status,
                         res.town,
                         target.total_target,
-                        target.total_sales_todate
+                        target.total_sales_todate,
+                        target.id
+                        
                     from res_partner res
                         inner join customer_target target on res.id = target.customer
                         where 
