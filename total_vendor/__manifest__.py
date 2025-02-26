@@ -1,5 +1,5 @@
 {
-    'name': 'Total Vendor Payable Report',
+    'name': 'Aging Analysis Report',
     'version': '17.0.1.0.0',
 
     'depends': ['base', 'purchase'],
