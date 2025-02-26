@@ -5,7 +5,7 @@ import xlsxwriter
 from datetime import datetime
 
 class AgingReportController(http.Controller):
-    @http.route('/aging/excel_report', type='http', auth='user', methods=['GET'], csrf=False)
+    @http.route('/aging1/excel_report', type='http', auth='user', methods=['GET'], csrf=False)
     def generate_excel_report(self, date_from='', date_to='', vendor_ids='', invoice=''):
         filename = "Aging_Report_{}.xlsx".format(datetime.now().strftime("%Y%m%d_%H%M%S"))
         output = io.BytesIO()

@@ -16,7 +16,7 @@ class PurchaseReportWizard(models.TransientModel):
         
         return {
             'type': 'ir.actions.act_url',
-            'url': '/aging/excel_report?date_from={}&date_to={}&vendor_ids={}&invoice={}'.format(
+            'url': '/aging1/excel_report?date_from={}&date_to={}&vendor_ids={}&invoice={}'.format(
                 self.date_from or '',
                 self.date_to or '',
                 vendor_ids,
