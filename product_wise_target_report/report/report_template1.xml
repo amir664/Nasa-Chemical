@@ -2,7 +2,7 @@
 <odoo>
     <template id="product_wise_target_reports">
         <t t-call="web.html_container">
-              <t t-call="web.external_layout">
+                           <t t-call="web.external_layout">
                 <div class="page">
                     <h2 style="text-align: center;">Product Wise Target Report</h2>
                     <table class="table table-bordered" style="width: 100%; margin-top: 20px;">
@@ -23,8 +23,8 @@
                                 <tr>
                                     <td>
                                         <t t-if="test.get('product_cat')">
-                                            <t t-set="product" t-value="env['product'].search([('id','=',test.get('product_id'))])"/>
-                                            <t t-esc="product.product_tag_ids"/>
+                                            <t t-set="product" t-value="env['product.product'].search([('id','=',test.get('product_id'))])"/>
+                                            <t t-esc="product.product_tag_ids.name"/>
                                         
                                         </t>
                                         <t t-else="">-</t>
@@ -63,7 +63,7 @@
                                     <td class="text-end">
                                             <t t-set="partner" t-value="env['res.partner'].search([('id','=',test.get('product_cat'))])"/>
                                             <t t-set="segments" t-value="partner.property_product_pricelist.item_ids.filtered(lambda r: r.product_id.id == test.get('product_id'))"/>
-                                            <t t-esc="'%.2f'%  segments.fixed_price * test['target']"/>
+                                            <t t-esc="'%.2f'%  segments.fixed_price if segments.fixed_price else 1 * test['target'] if test['target'] else 1"/>
                                     </td>
                                     <td class="text-end">
                                         <t t-if="test.get('sales_date')">
@@ -75,7 +75,8 @@
                                         <t t-if="test.get('sales_archive')">
                                             <t t-set="partner" t-value="env['res.partner'].search([('id','=',test.get('product_cat'))])"/>
                                             <t t-set="segments" t-value="partner.property_product_pricelist.item_ids.filtered(lambda r: r.product_id.id == test.get('product_id'))"/>
-                                            <t t-esc="'%.2f'%  segments.fixed_price * test['sales_archive']"/>
+                                            <t t-esc="'%.2f'%  segments.fixed_price if segments.fixed_price else 1 * test['sales_archive'] if test['sales_archive'] else 1"/>
+                                            <!--<t t-esc="'%.2f'%  "/>-->
                                         </t>
                                         <t t-else="">-</t>
                                     </td>
@@ -85,6 +86,7 @@
                     </table>
                 </div>
             </t>
+
 
         </t>
     </template>
