@@ -6,7 +6,6 @@
         <field name="arch" type="xml">
             <form string = "Product Wise Target Report">
                 <group>
-                    <field name = 'customer'/>
                     <field name = 'product'/>
                     <field name = 'start_date' widget="date"/>
                     <field name = 'end_date' widget="date"/>

@@ -7,7 +7,7 @@ class CustomReport(models.AbstractModel):
     _description = "Product Wise Target Report"
 
     def _get_report_values(self, docids, data=None):
-        customer = data['customer']
+        # customer = data['customer']
         product = data['product']
         start_date = data['start_date']
         end_date = data['end_date']
@@ -17,7 +17,7 @@ class CustomReport(models.AbstractModel):
         cr = self._cr
 
         others= {
-            'customer':customer,
+            # 'customer':customer,
             'product':product,
             'start_date':start_date,
             'end_date':end_date,
@@ -26,7 +26,8 @@ class CustomReport(models.AbstractModel):
 
         query = ("""
                     select 
-                        res.region as product_cat,
+                        res.id as product_cat,
+                        pp.id as product_id,
                         ctl.product_id as Code,
                         pt.name as Product ,
                         pt.list_price as Cost,
@@ -35,14 +36,15 @@ class CustomReport(models.AbstractModel):
                         ctl.sales_todate as Sales_date,
                         (ctl.sales_todate * pt.list_price) as sales_archive
                     from customer_target as ct
-                        left join res_partner as res on ct.id= res.id
+                        left join res_partner as res on ct.customer = res.id
                         left join customer_target_line as ctl on ct.id = ctl.customer_target_id
                         left join product_product pp on ctl.product_id = pp.id
                         left join product_template pt on pp.product_tmpl_id = pt.id
-                        left join product_category pc on pc.id = pt.categ_id 
+                        left join product_category pc on pc.id = pt.categ_id
+
                     
                 """
-                 
+
                 )
         
 
