@@ -50,7 +50,7 @@ class AgingReportController(http.Controller):
         grouped_data = {}
         for po in purchase_orders:
             vendor = po.partner_id.name
-            due_date = po.due_date.date() if po.due_date else None
+            due_date = po.due_date if po.due_date else None
             days = (due_date - po.date_approve.date()).days if due_date and po.date_approve else 0
             total_amount = sum(po.invoice_ids.mapped('amount_total'))
             
