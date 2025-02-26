@@ -92,7 +92,7 @@
                                         <td style="text-align:center; padding:2px;"><span t-esc="value['podate']"/></td>
                                         <td style="text-align:center; padding:2px;"><span t-esc="value['advdate']"/></td>
                                         <td style="text-align:center; padding:2px;"><span t-esc="value['duedate']"/></td>
-                                        <td style="text-align:center; padding:2px;"><span t-esc="value['duedays']"/></td>
+                                        <td style="text-align:center; padding:2px;"><span t-esc="value['duedays2']"/></td>
                                         <td style="text-align:right; padding:2px;"><span t-esc="value['poamount']"/></td>
                                         <td style="text-align:right; padding:2px;"><span t-esc="value['advamount']"/></td>
                                         <td style="text-align:right; padding:2px;"><span t-esc="value['pendamount']"/></td>
