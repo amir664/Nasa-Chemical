@@ -31,7 +31,7 @@ class CustomReport(models.AbstractModel):
                         res.status,
                         res.town,
                         target.total_target,
-                        target.total_sales_todate,
+                        target.sales_todate,
                         target.id
                         
                     from res_partner res
