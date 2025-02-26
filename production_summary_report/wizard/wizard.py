@@ -5,8 +5,8 @@ class MrpProductionReportWizard(models.TransientModel):
     _name = 'mrp.production.report'
     _description = 'MRP Production Report Wizard'
 
-    date_from = fields.Date(string="Date From", required=True)
-    date_to = fields.Date(string="Date To", required=True)
+    date_from = fields.Date(string="Date From")
+    date_to = fields.Date(string="Date To")
     product_id = fields.Many2one('product.product', string="Product")
 
     def action_generate_report(self):
