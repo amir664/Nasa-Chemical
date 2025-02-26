@@ -1,4 +1,5 @@
 from odoo import _, api, fields, models
+from odoo.exceptions import UserError
 
 
 class CustomReport(models.AbstractModel):
@@ -53,6 +54,7 @@ class CustomReport(models.AbstractModel):
             GROUP BY rs.name, po.company_id, po.date_order, po.name, am.date, am.invoice_date_due, apt.name
             ORDER BY po.name
         """
+        raise UserError(query)
 
         cr.execute(query)
         data = cr.dictfetchall()

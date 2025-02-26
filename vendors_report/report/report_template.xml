@@ -11,12 +11,11 @@
                                 <t t-set="comp" t-value="env['res.company'].search([('id','=',vals['id'])])"/>
                             </t>
                             
-                            <div class="row">
+                            <!-- <div class="row">
                                 <div class="col-12" style="text-align: center;">
                                     <img t-if="comp.logo" t-att-src="image_data_uri(comp.logo)" style="max-height: 100px; width: 100; margin-top: 5px;" alt="header"/>
-                                    <!--margin-left: -10px;-->
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                         <div class="col-10">
                             <div class="row text-center">
