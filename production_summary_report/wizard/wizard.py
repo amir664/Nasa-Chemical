@@ -2,7 +2,7 @@ from odoo import models, fields, api
 from odoo.exceptions import ValidationError
 
 class MrpProductionReportWizard(models.TransientModel):
-    _name = 'mrp.production.report.wizard'
+    _name = 'mrp.production.report'
     _description = 'MRP Production Report Wizard'
 
     date_from = fields.Date(string="Date From", required=True)
