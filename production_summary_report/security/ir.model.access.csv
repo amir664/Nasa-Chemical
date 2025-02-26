@@ -1,2 +1,2 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_mrp.production.report.wizard,access_mrp.production.report.wizard,model_mrp.production.report.wizard,,1,1,1,1
+access_mrp_production_report,access_mrp_production_report,model_mrp_production_report,,1,1,1,1
