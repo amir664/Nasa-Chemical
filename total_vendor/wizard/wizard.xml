@@ -7,9 +7,10 @@
             <form string="Total Vendor Payable Report">
                 <group>
                    <group>
-                        <field name="date_from"/>                                                                        
+                        <field name="date_from"/>  
+                        <field name="date_to"/>                                                                      
                     </group>
-                        <field name="date_to"/>
+                        <!-- <field name="date_to"/> -->
                    <group>
                     </group>
                 </group>
