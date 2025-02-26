@@ -59,10 +59,11 @@ class PayableSummaryController(http.Controller):
         total_pending = 0
         
         for vendor, pending_amount in vendor_data.items():
-            worksheet.write(row_idx, 0, vendor, bordered_format)
-            worksheet.write(row_idx, 1, pending_amount, currency_format)
-            total_pending += pending_amount
-            row_idx += 1
+            if pending_amount > 0:  # Only write vendors with pending amount greater than 0
+                    worksheet.write(row_idx, 0, vendor, bordered_format)
+                    worksheet.write(row_idx, 1, pending_amount, currency_format)
+                    total_pending += pending_amount
+                    row_idx += 1
 
         # Write totals row
         worksheet.write(row_idx, 0, "Totals", bold_bordered_format)
