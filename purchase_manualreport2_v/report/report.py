@@ -55,98 +55,36 @@ class CustomReport(models.AbstractModel):
             where_clauses.append(f"rs.id IN ({', '.join(map(str, vendor_ids))})")
         
         if po_no != "purchase.order()":  
-            # raise UserError(po_no)
             po_numbers = po_no.replace("purchase.order(", "").replace(")", "").strip()
             
             if po_numbers:  
-                # formatted_po_no = ", ".join(f"'{po.strip()}'" for po in po_numbers.split(','))  
                 numbers = [num.strip() for num in po_numbers.split(',') if num.strip()]
 
-# Format each number as 'P00XXX'
                 formatted_numbers = [f"P00{num.zfill(3)}" for num in numbers]
 
-# Generate the SQL IN clause
                 where_clauses.append(f"po.name IN ({', '.join(map(repr, formatted_numbers))})")
                 
         
         if grn:
-            a = tuple(grn)  # Convert list to tuple
-            formatted_values = ', '.join(f"'{x}'" for x in a)  # Format for SQL
+            a = tuple(grn)  
+            formatted_values = ', '.join(f"'{x}'" for x in a)  
             where_clauses.append(f"sp.name IN ({formatted_values})") 
 
         if invoice_no:
             a = tuple(invoice_no)  # Convert list to tuple
             formatted_values = ', '.join(f"'{x}'" for x in a)  # Format for SQL
             where_clauses.append(f"am.name IN ({formatted_values})")  
-            # Extract names from selected grn records
-        # grn_names = tuple(rec.name for rec in grn if hasattr(rec, 'name') and rec.name)
-
-        # if grn_names:  # Only append if grn_names is not empty
-        #     if len(grn_names) == 1:
-        #         grn_names = f"('{grn_names[0]}')"  # Ensure proper SQL formatting for a single value
-        #     else:
-        #         grn_names = str(grn_names)  # Convert tuple to a string format for SQL
-
-        #     where_clauses.append(f"sp.name IN {grn_names}")
-
-                
-            # po_numbers = grn.replace("stock.picking(", "").replace(")", "").strip()
-            # raise UserError(po_numbers)
-            # if po_numbers:  
-            #     formatted_po_no = ", ".join(f"'{po.strip()}'" for po in po_numbers.split(','))  
-            #     where_clauses.append(f"sp.name IN ({formatted_po_no})")
-
-        # if invoice_no != "account.move()":  
-        #     po_numbers = invoice_no.replace("account.move(", "").replace(")", "").strip()
             
-        #     if po_numbers:  
-        #         formatted_po_no = ", ".join(f"'{po.strip()}'" for po in po_numbers.split(','))  
-        #         where_clauses.append(f"sp.name IN ({formatted_po_no})")
-            # params.append(vendor_ids)
-        # raise UserError(po_no)
-        # raise UserError([po_no,grn,invoice_no,vendor_ids,product_ids,date_from])
-        # if po_no and isinstance(po_no, models.BaseModel):  # Ensure it's a recordset
-        #     po_no_names = [po.name for po in po_no if po.name]  # Extract valid names
-        #     if po_no_names:
-        #         where_clauses.append("po.name IN %s")
-        #         params.append(tuple(po_no_names))
-        # raise UserError(po_no.id)
-        # if po_no.id:
-        #     where_clauses.append("po.name IN %s")
-        #     params.append((po_no.id))
-
-        # if grn and isinstance(grn, models.BaseModel):
-        #     grn_names = [grn.name for grn in grn if grn.name]
-        #     if grn_names:
-        #         where_clauses.append("sp.name IN %s")
-        #         params.append(tuple(grn_names))
-
-        # if invoice_no and isinstance(invoice_no, models.BaseModel):
-        #     invoice_no_names = [invoice.name for invoice in invoice_no if invoice.name]
-        #     if invoice_no_names:
-        #         where_clauses.append("am.name IN %s")
-        #         params.append(tuple(invoice_no_names))
-
-
-
-
-        # Combine WHERE clauses
         where_clause = " WHERE " + " AND ".join(where_clauses) if where_clauses else ""
         
         query = (f"""
                 SELECT 
-                    pr.name AS PurchaseRequest,
-                    po.date_order AS Date,
                     rs.name AS Vendor,                    
                     pt.name ->> 'en_US' AS Item,
-                    po.name AS PONo,
-                    sp.name AS GRN,
-                    am.name AS InvoiceNo,
-                    sw.name AS Location,
-                    pol.product_qty AS Qty,
+                    SUM(pol.product_qty) AS TotalQty,
                     mm.name ->> 'en_US' AS Unit,
-                    pol.price_unit AS Price, 
-                    pol.price_total AS Amount
+                    AVG(pol.price_unit) AS AvgPrice, 
+                    SUM(pol.price_total) AS TotalAmount
                 FROM purchase_order_line pol 
                 INNER JOIN purchase_order po ON po.id = pol.order_id
                 INNER JOIN product_product pp ON pp.id = pol.product_id
@@ -159,7 +97,9 @@ class CustomReport(models.AbstractModel):
                 INNER JOIN uom_uom mm ON mm.id = pol.product_uom
                 LEFT JOIN purchase_request pr ON pr.id = po.purchase_request_id -- Assuming this is the correct relationship
                 {where_clause}
-                ORDER BY po.name;
+                GROUP BY rs.name, pt.name, mm.name
+                ORDER BY rs.name, pt.name;
+
 
                 
                 """
