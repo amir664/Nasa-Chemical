@@ -11,7 +11,7 @@ class PurchaseReportWizard(models.TransientModel):
     invoice = fields.Many2one('account.move', string = "Invoice No.")
     
 
-    def print_report1(self):
+    def print_report(self):
         vendor_ids = ",".join(map(str, self.vendor_ids.ids)) if self.vendor_ids else ''
         
         return {
