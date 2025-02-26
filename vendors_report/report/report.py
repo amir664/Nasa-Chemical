@@ -33,7 +33,7 @@ class CustomReport(models.AbstractModel):
                 am.date AS advdate,
                 am.invoice_date_due AS duedate,
                 apt.name ->> 'en_US' AS duedays,
-                EXTRACT(DAY FROM (am.invoice_date_due - po.date_order)) AS duedays2
+                EXTRACT(DAY FROM (po.date_order - am.invoice_date_due)) AS duedays2
             FROM purchase_order po 
             INNER JOIN purchase_order_line pol ON pol.order_id = po.id 
             INNER JOIN res_partner rs ON rs.id = po.partner_id
@@ -65,7 +65,7 @@ class CustomReport(models.AbstractModel):
             GROUP BY rs.name, po.company_id, po.date_order, po.name, am.date, am.invoice_date_due, apt.name
             ORDER BY po.name
         """
-
+        raise UserError(query)
         cr.execute(query)
         data = cr.dictfetchall()
 
