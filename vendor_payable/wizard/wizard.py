@@ -2,7 +2,7 @@ from odoo import _, api, fields, models
 
 
 class PurchaseReportWizard(models.TransientModel):
-    _name = 'aging.report'
+    _name = 'totalvendor.report'
     _description = 'Aging Report'
     
     date_from = fields.Date(string='From Date')
@@ -14,7 +14,7 @@ class PurchaseReportWizard(models.TransientModel):
         
         return {
             'type': 'ir.actions.act_url',
-            'url': '/aging/excel_report?date_from={}&date_to={}'.format(
+            'url': '/totalvendor/excel_report?date_from={}&date_to={}'.format(
                 self.date_from or '',
                 self.date_to or ''
             ),
