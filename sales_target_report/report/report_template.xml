@@ -80,7 +80,7 @@
                                             </td>
                                             <td style="text-align:center; padding:4px; font-weight: normal;">
                                                 <span>
-                                                    <t t-esc="value['total_sales_todate']"/>
+                                                    <t t-esc="value['sales_todate']"/>
                                                 </span>
                                             </td>
                                             
