@@ -18,8 +18,12 @@ class MrpProductionReportController(http.Controller):
         if category_id:
             domain.append(('product_id.categ_id', '=', int(category_id)))
 
-        if item_type in ['fg', 'sfg']:
-            domain.append(('product_id.default_code', 'ilike', f'{item_type.upper()}-'))
+        # if item_type in ['fg', 'sfg']:
+        #     domain.append(('product_id.default_code', 'ilike', f'{item_type.upper()}-'))
+        if item_type == 'fg':
+            domain.append(('product_id.default_code', '=like', 'FG-%'))
+        elif item_type == 'sfg':
+            domain.append(('product_id.default_code', '=like', 'SFG-%'))
 
         productions = request.env['mrp.production'].search(domain)
 
@@ -48,7 +52,7 @@ class MrpProductionReportController(http.Controller):
         sheet.write('B4', "Finished Goods" if item_type == 'fg' else "Semi-Finished Goods" if item_type == 'sfg' else "Both", normal_format)
 
         # Define column headers
-        headers = ["MO", "MO Start Date", "MO Completion Date", "Item Name", "Batch / Lot", "Lot Creation Date", "Qty", "W.O #", "Mtr Cost"]
+        headers = ["MO", "MO Start Date", "MO Completion Date", "Item Name", "Batch / Lot", "Lot Creation Date", "Qty", "Mtr Cost"]
         for col, header in enumerate(headers):
             sheet.write(6, col, header, bold)
 
@@ -66,8 +70,8 @@ class MrpProductionReportController(http.Controller):
             sheet.write(row, 4, record.lot_producing_id.name if record.lot_producing_id else '-')  # Batch/Lot
             sheet.write(row, 5, record.lot_producing_id.create_date if record.lot_producing_id else '-', date_format)  # Lot Creation Date
             sheet.write(row, 6, record.product_qty)  # Qty
-            sheet.write(row, 7, record.origin if record.origin else '-')  # W.O #
-            sheet.write(row, 8, valuation.value if valuation else 0.0, currency_format)  # Mtr Cost
+            # sheet.write(row, 7, record.origin if record.origin else '-')  # W.O #
+            sheet.write(row, 7, valuation.value if valuation else 0.0, currency_format)  # Mtr Cost
             row += 1
 
         # Auto-fit columns
