@@ -7,6 +7,7 @@ class PurchaseReportWizard(models.TransientModel):
     
     date_from = fields.Date(string='From Date')
     date_to = fields.Date(string='To Date')
+
         
 
     def print_report(self):
@@ -14,7 +15,7 @@ class PurchaseReportWizard(models.TransientModel):
         
         return {
             'type': 'ir.actions.act_url',
-            'url': '/vendor_payable/excel_report?date_from={}&date_to={}'.format(
+            'url': '/aging/excel_report?date_from={}&date_to={}'.format(
                 self.date_from or '',
                 self.date_to or ''
             ),

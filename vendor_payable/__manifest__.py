@@ -1,5 +1,5 @@
 {
-    'name': 'total_vendor_payable_report',
+    'name': 'Total Vendor Payable Report',
     'version': '17.0.1.0.0',
 
     'depends': ['base', 'purchase'],
