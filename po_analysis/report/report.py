@@ -21,8 +21,8 @@ class CustomReport(models.AbstractModel):
         product_ids = data['product_ids']
         warehouse_id = data['warehouse_id']
         vendor_ids = data['vendor_ids']
-        po_no = data['po_no']
-        grn = data['grn']
+        # po_no = data['po_no']
+        # grn = data['grn']
 
 
         other_details.update({
@@ -31,8 +31,8 @@ class CustomReport(models.AbstractModel):
                 'product_ids': product_ids,
                 'warehouse_id': warehouse_id,
                 'vendor_ids': vendor_ids,
-                'po_no': po_no,
-                'grn': grn,
+                'po_ids': po_ids,
+                'grn_ids': grn_ids,
                 
             })
         
@@ -87,11 +87,11 @@ class CustomReport(models.AbstractModel):
         if warehouse_id:
             query += "AND spt.warehouse_id = %s" % (warehouse_id)
 
-        if po_no:
-            query += "AND po.name = '%s'" % (po_no)
+        # if po_no:
+        #     query += "AND po.name = '%s'" % (po_no)
 
-        if grn:
-            query += "AND sp.name = '%s'" % (grn)
+        # if grn:
+        #     query += "AND sp.name = '%s'" % (grn)
 
         query += "order by po.name"
 
