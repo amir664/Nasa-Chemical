@@ -36,9 +36,9 @@ class CustomReport(models.AbstractModel):
                         res.sub_region_id,
                         res.status,
                         res.town,
-                        target.total_target,
+                        coalesce(target.total_target,0.00) as total_target,
                         target.id,
-                        (select amount_total from sale_order where partner_id = res.id and state not in ('cancel','draft')) as sales_achieved
+                        coalesce((select sum(amount_total) from sale_order where partner_id = res.id and state not in ('cancel','draft')),0.00) as sales_achieved
                         
                     from res_partner res
                         left join customer_target target on res.id = target.customer
