@@ -24,7 +24,7 @@ class InventoryAgingController(http.Controller):
                     location,
                     style,
                     current_stock,
-                    SUM(sq.value) AS total_value,
+                    SUM(sq.x_studio_value) AS total_value,
                     SUM(sq.quantity) AS total_quantity,
                     -- Quantity breakdown by days
                     SUM(CASE 
@@ -70,43 +70,43 @@ class InventoryAgingController(http.Controller):
 
                     -- Value breakdown by days
                     SUM(CASE 
-                        WHEN DATE_PART('day', CURRENT_DATE - sq.create_date) = 0 THEN sq.value
+                        WHEN DATE_PART('day', CURRENT_DATE - sq.create_date) = 0 THEN sq.x_studio_value
                         ELSE 0
                     END) AS "0_days_value",
                     SUM(CASE 
-                        WHEN DATE_PART('day', CURRENT_DATE - sq.create_date) BETWEEN 1 AND 30 THEN sq.value
+                        WHEN DATE_PART('day', CURRENT_DATE - sq.create_date) BETWEEN 1 AND 30 THEN sq.x_studio_value
                         ELSE 0
                     END) AS "1-30_days_value",
                     SUM(CASE 
-                        WHEN DATE_PART('day', CURRENT_DATE - sq.create_date) BETWEEN 31 AND 60 THEN sq.value
+                        WHEN DATE_PART('day', CURRENT_DATE - sq.create_date) BETWEEN 31 AND 60 THEN sq.x_studio_value
                         ELSE 0
                     END) AS "31-60_days_value",
                     SUM(CASE 
-                        WHEN DATE_PART('day', CURRENT_DATE - sq.create_date) BETWEEN 61 AND 90 THEN sq.value
+                        WHEN DATE_PART('day', CURRENT_DATE - sq.create_date) BETWEEN 61 AND 90 THEN sq.x_studio_value
                         ELSE 0
                     END) AS "61-90_days_value",
                     SUM(CASE 
-                        WHEN DATE_PART('day', CURRENT_DATE - sq.create_date) BETWEEN 91 AND 120 THEN sq.value
+                        WHEN DATE_PART('day', CURRENT_DATE - sq.create_date) BETWEEN 91 AND 120 THEN sq.x_studio_value
                         ELSE 0
                     END) AS "91-120_days_value",
                     SUM(CASE 
-                        WHEN DATE_PART('day', CURRENT_DATE - sq.create_date) BETWEEN 121 AND 150 THEN sq.value
+                        WHEN DATE_PART('day', CURRENT_DATE - sq.create_date) BETWEEN 121 AND 150 THEN sq.x_studio_value
                         ELSE 0
                     END) AS "121-150_days_value",
                     SUM(CASE 
-                        WHEN DATE_PART('day', CURRENT_DATE - sq.create_date) BETWEEN 151 AND 180 THEN sq.value
+                        WHEN DATE_PART('day', CURRENT_DATE - sq.create_date) BETWEEN 151 AND 180 THEN sq.x_studio_value
                         ELSE 0
                     END) AS "151-180_days_value",
                     SUM(CASE 
-                        WHEN DATE_PART('day', CURRENT_DATE - sq.create_date) BETWEEN 181 AND 270 THEN sq.value
+                        WHEN DATE_PART('day', CURRENT_DATE - sq.create_date) BETWEEN 181 AND 270 THEN sq.x_studio_value
                         ELSE 0
                     END) AS "181-270_days_value",
                     SUM(CASE 
-                        WHEN DATE_PART('day', CURRENT_DATE - sq.create_date) BETWEEN 271 AND 365 THEN sq.value
+                        WHEN DATE_PART('day', CURRENT_DATE - sq.create_date) BETWEEN 271 AND 365 THEN sq.x_studio_value
                         ELSE 0
                     END) AS "271-365_days_value",
                     SUM(CASE 
-                        WHEN DATE_PART('day', CURRENT_DATE - sq.create_date) > 365 THEN sq.value
+                        WHEN DATE_PART('day', CURRENT_DATE - sq.create_date) > 365 THEN sq.x_studio_value
                         ELSE 0
                     END) AS "more_than_365_days_value"
 
@@ -125,7 +125,7 @@ class InventoryAgingController(http.Controller):
                         sq.create_date,
                         sl.name as style,
                         sq.quantity,
-                        sq.value  -- Make sure sq.value exists here
+                        sq.x_studio_value  -- Make sure sq.x_studio_value exists here
                     FROM 
                         stock_quant sq
                     INNER JOIN 
@@ -325,7 +325,7 @@ class InventoryAgingController(http.Controller):
                 worksheet.write(f'A{row}', record['product'])                # Column A
                 worksheet.write(f'B{row}', record['category'])               # Column B
                 worksheet.write(f'C{row}', record['style'])              # Column C
-                worksheet.write(f'D{row}', record['value'])                  # Column D (New)
+                worksheet.write(f'D{row}', record['x_studio_value'])                  # Column D (New)
                 worksheet.write(f'E{row}', record['location'])               # Column E
                 worksheet.write(f'F{row}', record['uom'])                    # Column F
                 worksheet.write(f'G{row}', record['total_quantity'])         # Column G
