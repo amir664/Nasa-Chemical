@@ -14,7 +14,7 @@
                     <group>
                         <field name="customer_ids" widget="many2many_tags"/>
                         <field name="region_ids" widget="many2many_tags"/>
-                        <field name="sub_region_ids" widget="many2many_tags" />
+                        <!-- <field name="sub_region_ids" widget="many2many_tags" /> -->
                     </group>
                 </group>
                 <footer>
