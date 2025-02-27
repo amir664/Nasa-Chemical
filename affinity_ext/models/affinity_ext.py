@@ -164,3 +164,6 @@ class CustomerRegion(models.Model):
     
     name = fields.Char(string="Name",required=True)
     type = fields.Selection([('region','Region'),('sub-region','Sub-Region')],required=True)
+    company_id = fields.Many2one('res.company', store=True, copy=False,
+                                    string="Company",
+                                    default=lambda self: self.env.user.company_id.id)
