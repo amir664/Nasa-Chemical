@@ -325,7 +325,7 @@ class InventoryAgingController(http.Controller):
                 worksheet.write(f'A{row}', record['product'])                # Column A
                 worksheet.write(f'B{row}', record['category'])               # Column B
                 worksheet.write(f'C{row}', record['style'])              # Column C
-                worksheet.write(f'D{row}', record['x_studio_value'])                  # Column D (New)
+                worksheet.write(f'D{row}', record['total_value'])                  # Column D (New)
                 worksheet.write(f'E{row}', record['location'])               # Column E
                 worksheet.write(f'F{row}', record['uom'])                    # Column F
                 worksheet.write(f'G{row}', record['total_quantity'])         # Column G
