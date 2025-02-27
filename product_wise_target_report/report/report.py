@@ -41,11 +41,10 @@ class CustomReport(models.AbstractModel):
                         left join product_product pp on ctl.product_id = pp.id
                         left join product_template pt on pp.product_tmpl_id = pt.id
                         left join product_category pc on pc.id = pt.categ_id
-
-                    
+                        target.start_date >= '%s' and target.end_date <= '%s'
                 """
 
-                )
+                % (start_date, end_date)) 
         
 
 
