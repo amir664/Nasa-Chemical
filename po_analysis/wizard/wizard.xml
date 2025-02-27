@@ -14,8 +14,8 @@
                     </group>
                    <group>
                         <field name="vendor_ids" widget="many2many_tags"/>
-                        <field name="po_no"/>
-                        <field name="grn"/>
+                        <field name="po_no" widget="many2many_tags"/>
+                        <field name="grn" widget="many2many_tags"/>
                     </group>
                 </group>
                 <footer>
