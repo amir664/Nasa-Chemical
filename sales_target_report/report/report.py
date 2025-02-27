@@ -56,7 +56,7 @@ class CustomReport(models.AbstractModel):
         if sub_region_ids:
             query += "AND res.sub_region_id in (%s)" % sub_region_ids_str
         if status:
-            query += "AND res.status = (%s)" % status
+            query += "AND res.status = '%s'" % status
                 
         query += "order by region_id,sub_region_id"
         cr = self._cr
