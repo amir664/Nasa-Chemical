@@ -13,9 +13,11 @@ class ResPartnerInherited(models.Model):
     cnic_no = fields.Char("CNIC Number", required = True)
     vendor_status = fields.Selection([('active', 'Active'), ('non_active', 'Non Active')], string = "Active Status")
     major_client = fields.Selection([('a','A Category'), ('b', 'B Category'), ('c', 'C Category')]) 
-    region = fields.Char(string="Region")
+    region = fields.Many2one('res.customer.region',string="Region",domain=[('type','=','region')])
+    sub_region = fields.Many2one('res.customer.region',string="Sub-Region",domain=[('type','=','sub-region')])
     status = fields.Selection([('DISTRIBUTOR','DISTRIBUTOR'), ('DEALER', 'DEALER'), ('W.SELLER', 'W.SELLER'), ('WHOLESELLER', 'WHOLESELLER')]) 
     town = fields.Char(string="Town")
+    
 
 class ResPartnerBankInherited(models.Model):
     
