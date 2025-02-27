@@ -11,7 +11,7 @@ class InventoryAgingController(http.Controller):
     
     @http.route('/inventoryaging_lot/excel', type='http', auth='user')
     def generate_excel_report(self,product_ids,category_ids,location_ids,lot_ids, date_from, date_to):
-        try:
+        # try:
             
             query = (f"""
                      
@@ -386,8 +386,8 @@ class InventoryAgingController(http.Controller):
             output.close()
 
             return response
-        except Exception as e:
+        # except Exception as e:
             
-            raise UserError(str(e))
+            # raise UserError(str(e))
         
 
