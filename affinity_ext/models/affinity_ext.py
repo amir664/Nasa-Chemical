@@ -157,3 +157,8 @@ class SaleOrderLineInherit(models.Model):
 
 
 
+class CustomerRegion(models.Model):
+    _name = "res.customer.region"
+    
+    name = fields.Char(string="Name",required=True)
+    type = fields.Selection([('region','Region'),('sub-region','Sub-Region')],required=True)
