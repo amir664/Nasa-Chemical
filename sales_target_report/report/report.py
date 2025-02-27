@@ -13,26 +13,32 @@ class CustomReport(models.AbstractModel):
         date_from = data['date_from']
         date_to = data['date_to']
         customer_ids = data['customer_ids']
+        region_ids = data['region_id']
+        sub_region_ids = data['sub_region_id']
+        status = data['status']
         
         other_details.update({
                 'date_from': date_from,
                 'date_to': date_to,
-                'customer_ids': customer_ids,
-
             })
         
         if customer_ids != []:
             customer_ids_str = ','.join(map(str,customer_ids))
+        if region_ids != []:
+            region_ids_str = ','.join(map(str,region_ids))
+        if sub_region_ids != []:
+            sub_region_ids_str = ','.join(map(str,sub_region_ids))
             
         query = (""" 
                     select 
                         res.name as customer_name,
-                        res.region,
+                        res.region_id,
+                        res.sub_region_id,
                         res.status,
                         res.town,
                         target.total_target,
-                        target.sales_todate,
-                        target.id
+                        target.id,
+                        (select amount_total from sale_order where partner_id = res.id and state not in ('cancel','draft')) as sales_achieved
                         
                     from res_partner res
                         inner join customer_target target on res.id = target.customer
@@ -45,9 +51,14 @@ class CustomReport(models.AbstractModel):
 
         if customer_ids:
             query += "AND res.id in (%s)" % customer_ids_str
-        
-        query += 'order by res.region'
-        
+        if region_ids:
+            query += "AND res.region_id in (%s)" % region_ids_str
+        if sub_region_ids:
+            query += "AND res.sub_region_id in (%s)" % sub_region_ids_str
+        if status:
+            query += "AND res.status = (%s)" % status
+                
+        query += "order by region_id,sub_region_id"
         cr = self._cr
         cr.execute(query)
         result = cr.dictfetchall()

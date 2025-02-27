@@ -34,6 +34,9 @@
                                             <b>REGION</b>
                                         </th>
                                         <th style="text-align:center;border-bottom:1px solid black;padding:4px;width:200px;font-weight:bold;">
+                                            <b>SUB-Region</b>
+                                        </th>
+                                        <th style="text-align:center;border-bottom:1px solid black;padding:4px;width:200px;font-weight:bold;">
                                             <b>CLIENTS</b>
                                         </th>
                                         <th style="text-align:center;border-bottom:1px solid black;padding:4px;width:150px;font-weight:bold;">
@@ -55,7 +58,14 @@
                                         <tr>
                                             <td style="text-align:center; padding:4px; font-weight: normal;">
                                                 <span>
-                                                    <t t-esc="value['region']"/>
+                                                    <t t-set="region" t-value="env['res.customer.region'].search([('id','=',value['region_id'])])"/>
+                                                    <t t-esc="region.name"/>
+                                                </span>
+                                            </td>
+                                            <td style="text-align:center; padding:4px; font-weight: normal;">
+                                                <span>
+                                                    <t t-set="sub_region" t-value="env['res.customer.region'].search([('id','=',value['sub_region_id'])])"/>
+                                                    <t t-esc="sub_region.name"/>
                                                 </span>
                                             </td>
                                             <td style="text-align:center; padding:4px; font-weight: normal;">
@@ -65,7 +75,7 @@
                                             </td>
                                             <td style="text-align:center; padding:4px; font-weight: normal;">
                                                 <span>
-                                                    <t t-esc="value['region']"/>
+                                                    <t t-esc="value['status']"/>
                                                 </span>
                                             </td>
                                             <td style="text-align:center; padding:4px; font-weight: normal;">
@@ -75,12 +85,12 @@
                                             </td>
                                             <td style="text-align:center; padding:4px; font-weight: normal;">
                                                 <span>
-                                                    <t t-esc="value['total_target']"/>
+                                                    <t t-esc="'%.2f'% value['total_target']"/>
                                                 </span>
                                             </td>
                                             <td style="text-align:center; padding:4px; font-weight: normal;">
                                                 <span>
-                                                    <t t-esc="value['sales_todate']"/>
+                                                    <t t-esc="'%.2f'% value['sales_achieved']"/>
                                                 </span>
                                             </td>
                                             

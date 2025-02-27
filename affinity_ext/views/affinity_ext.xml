@@ -18,7 +18,8 @@
             
             <field name="vat" position="after">
                 <field name="strn_no"/>
-                <field name="region"/>
+                <field name="region_id"/>
+                <field name="sub_region_id"/>
                 <field name="status"/>
                 <field name="vendor_status"/>
                 
