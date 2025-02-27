@@ -7,8 +7,8 @@ class SalesTargetWizard(models.TransientModel):
 
     date_from = fields.Date('Date From', required=True)
     date_to = fields.Date('Date To', required=True)
-    region_ids = fields.Many2many('res.customer.region','company_id',string="Region")
-    sub_region_ids = fields.Many2many('res.customer.region','company_id',string="Sub-Region")
+    region_ids = fields.Many2many('res.customer.region','company_id',string="Region",domain=[('type','=','region')])
+    sub_region_ids = fields.Many2many('res.customer.region','company_id',string="Sub-Region",domain=[('type','=','sub-region')])
     customer_ids = fields.Many2many('res.partner', string = "Customers")
     status = fields.Selection([('DISTRIBUTOR','DISTRIBUTOR'), ('DEALER', 'DEALER'), ('W.SELLER', 'W.SELLER'), ('WHOLESELLER', 'WHOLESELLER')]) 
 
