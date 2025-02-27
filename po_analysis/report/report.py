@@ -14,6 +14,8 @@ class CustomReport(models.AbstractModel):
 
         
         other_details = {}
+        po_ids = data.get('po_ids', [])
+        grn_ids = data.get('grn_ids', [])
         date_from = data['date_from']
         date_to = data['date_to']
         product_ids = data['product_ids']
@@ -31,6 +33,7 @@ class CustomReport(models.AbstractModel):
                 'vendor_ids': vendor_ids,
                 'po_no': po_no,
                 'grn': grn,
+                
             })
         
         if product_ids != []:
@@ -61,6 +64,15 @@ class CustomReport(models.AbstractModel):
                 WHERE po.id is not null
                 
                 """)
+        
+        if po_ids:
+            po_ids_str = ','.join(map(str, po_ids))
+            query += " AND po.id IN (%s)" % (po_ids_str)
+
+        if grn_ids:
+            grn_ids_str = ','.join(map(str, grn_ids))
+            query += " AND sp.id IN (%s)" % (grn_ids_str)
+
                  
 
         if date_from and date_to:
