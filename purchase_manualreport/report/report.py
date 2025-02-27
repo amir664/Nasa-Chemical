@@ -45,14 +45,14 @@ class CustomReport(models.AbstractModel):
         params = []
 
         if date_from and date_to:
-            where_clauses.append(f"po.date_order BETWEEN '{date_from}' AND '{date_to}'")
+            where_clauses.append(f"AND po.date_order BETWEEN '{date_from}' AND '{date_to}'")
 
         if product_ids:
-            where_clauses.append(f"pt.id IN ({', '.join(map(str, product_ids))})")
+            where_clauses.append(f"AND pt.id IN ({', '.join(map(str, product_ids))})")
 
 
         if vendor_ids:
-            where_clauses.append(f"rs.id IN ({', '.join(map(str, vendor_ids))})")
+            where_clauses.append(f"AND rs.id IN ({', '.join(map(str, vendor_ids))})")
         
         if po_no != "purchase.order()":  
             # raise UserError(po_no)
@@ -66,18 +66,18 @@ class CustomReport(models.AbstractModel):
                 formatted_numbers = [f"P00{num.zfill(3)}" for num in numbers]
 
 # Generate the SQL IN clause
-                where_clauses.append(f"po.name IN ({', '.join(map(repr, formatted_numbers))})")
+                where_clauses.append(f"AND po.name IN ({', '.join(map(repr, formatted_numbers))})")
                 
         
         if grn:
             a = tuple(grn)  # Convert list to tuple
             formatted_values = ', '.join(f"'{x}'" for x in a)  # Format for SQL
-            where_clauses.append(f"sp.name IN ({formatted_values})") 
+            where_clauses.append(f"AND sp.name IN ({formatted_values})") 
 
         if invoice_no:
             a = tuple(invoice_no)  # Convert list to tuple
             formatted_values = ', '.join(f"'{x}'" for x in a)  # Format for SQL
-            where_clauses.append(f"am.name IN ({formatted_values})")  
+            where_clauses.append(f"AND am.name IN ({formatted_values})")  
             # Extract names from selected grn records
         # grn_names = tuple(rec.name for rec in grn if hasattr(rec, 'name') and rec.name)
 
@@ -131,7 +131,7 @@ class CustomReport(models.AbstractModel):
 
 
         # Combine WHERE clauses
-        where_clause = " AND ".join(where_clauses) if where_clauses else ""
+        # where_clause = " AND ".join(where_clauses) if where_clauses else ""
         
         query = (f"""
                 SELECT 
