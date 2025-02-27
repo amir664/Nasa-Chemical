@@ -75,7 +75,7 @@ class CustomReport(models.AbstractModel):
             formatted_values = ', '.join(f"'{x}'" for x in a)  # Format for SQL
             where_clauses.append(f"AND am.name IN ({formatted_values})")  
             
-        # where_clause = " AND ".join(where_clauses) if where_clauses else ""
+        where_clause = " ".join(where_clauses) if where_clauses else ""
         
         query = (f"""
                 SELECT 

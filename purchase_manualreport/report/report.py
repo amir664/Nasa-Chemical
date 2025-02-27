@@ -131,7 +131,7 @@ class CustomReport(models.AbstractModel):
 
 
         # Combine WHERE clauses
-        # where_clause = " AND ".join(where_clauses) if where_clauses else ""
+        where_clause = " ".join(where_clauses) if where_clauses else ""
         
         query = (f"""
                 SELECT 
