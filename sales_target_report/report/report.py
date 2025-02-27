@@ -13,8 +13,8 @@ class CustomReport(models.AbstractModel):
         date_from = data['date_from']
         date_to = data['date_to']
         customer_ids = data['customer_ids']
-        region_ids = data['region_id']
-        sub_region_ids = data['sub_region_id']
+        region_ids = data['region_ids']
+        sub_region_ids = data['sub_region_ids']
         status = data['status']
         
         other_details.update({
