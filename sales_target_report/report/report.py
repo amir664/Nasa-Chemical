@@ -41,7 +41,7 @@ class CustomReport(models.AbstractModel):
                         (select amount_total from sale_order where partner_id = res.id and state not in ('cancel','draft')) as sales_achieved
                         
                     from res_partner res
-                        inner join customer_target target on res.id = target.customer
+                        left join customer_target target on res.id = target.customer
                         where 
                         target.start_date >= '%s' and target.end_date <= '%s'
                 """
