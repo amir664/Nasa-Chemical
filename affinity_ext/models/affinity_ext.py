@@ -200,7 +200,7 @@ class SaleOrder(models.Model):
         current_user = self.env.user.partner_id
 
         if current_user.name not in approved_users:
-            raise UserError(_("Only Amanullah and Fahad can approve this order."))
+            raise UserError(_(f"{current_user.name} Only Amanullah and Fahad can approve this order."))
 
         # Check if the user has already approved
         if current_user not in self.approved_by:
