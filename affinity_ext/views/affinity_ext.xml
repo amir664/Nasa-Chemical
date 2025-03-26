@@ -127,7 +127,7 @@
                 <xpath expr="//button[@name='action_confirm']" position="before">
     <button name="action_approve_order" type="object"
         string="Approve" class="oe_highlight"
-        attrs="{'invisible': [('user_id.partner_id.name', 'not in', ['Amanullah', 'FAHAD'])]}"
+        invisible="not in ['Amanullah', 'FAHAD'] user_id.partner_id.name"
     />
 </xpath>
             </field>
