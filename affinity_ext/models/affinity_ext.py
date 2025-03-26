@@ -195,7 +195,7 @@ class SaleOrder(models.Model):
     @api.depends_context('uid')
     def _compute_can_approve(self):
         """Compute if the current user can approve."""
-        approved_users = ['Administrator']#['Amanullah Khan', 'Fahad Humayoun']
+        approved_users = ['Amanullah Khan', 'Fahad Humayoun']
         current_user = self.env.user.partner_id.name
         for order in self:
             order.can_approve = current_user in approved_users
@@ -203,14 +203,14 @@ class SaleOrder(models.Model):
     @api.depends('approved_by')
     def _compute_fully_approved(self):
         """Check if both Amanullah and Fahad have approved."""
-        required_approvals = {'Administrator'}#{'Amanullah Khan', 'Fahad Humayoun'}
+        required_approvals = {'Amanullah Khan', 'Fahad Humayoun'}
         for order in self:
             approved_names = set(order.approved_by.mapped('name'))
             order.is_fully_approved = required_approvals.issubset(approved_names)
 
     def action_approve_order(self):
         """Approve the order by Amanullah and Fahad only."""
-        approved_users = ['Administrator']#['Amanullah Khan', 'Fahad Humayoun']
+        approved_users = ['Amanullah Khan', 'Fahad Humayoun']
         current_user = self.env.user.partner_id
 
         if current_user.name not in approved_users:
