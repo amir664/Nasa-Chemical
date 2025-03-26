@@ -200,11 +200,11 @@ class SaleOrder(models.Model):
         current_user = self.env.user.partner_id
 
         if current_user.name not in approved_users:
-            raise UserError(_(f"{current_user.name}: Only Amanullah, Fahad, or Admin can approve this order."))
+            raise UserError(_(f"You are {current_user.name}: Only Amanullah, Fahad, or Admin can approve this order."))
 
         # Add the user to approved_by if not already added
         if current_user not in self.approved_by:
-            self.approved_by = [(4, current_user.id)]
+            self.write({'approved_by': [(4, current_user.id)]})
 
         # Get all approved names from the field
         approved_names = ", ".join(self.approved_by.mapped('name'))
