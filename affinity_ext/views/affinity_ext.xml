@@ -133,6 +133,7 @@
         modifiers="{'invisible': [('can_approve', '=', False)]}"
     />
 </xpath>
+</xpath>
 
             </field>
         </record>

@@ -168,7 +168,8 @@ class CustomerRegion(models.Model):
                                     string="Company",
                                     default=lambda self: self.env.user.company_id.id)
 
-
+from odoo import models, fields, api, _
+from odoo.exceptions import UserError
 
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
@@ -188,29 +189,34 @@ class SaleOrder(models.Model):
     @api.depends_context('uid')
     def _compute_can_approve(self):
         """Compute if the current user can approve."""
-        approved_users = ['Amanullah Khan', ' Fahad Humayoun']
+        approved_users = ['Amanullah', 'FAHAD']
         current_user = self.env.user.partner_id.name
         for order in self:
             order.can_approve = current_user in approved_users
 
     def action_approve_order(self):
-        """Approve the order by the allowed users."""
-        approved_users = ['Amanullah Khan', ' Fahad Humayoun']
+        """Approve the order by Amanullah and Fahad only."""
+        approved_users = ['Amanullah', 'FAHAD']
         current_user = self.env.user.partner_id
 
         if current_user.name not in approved_users:
-            return
+            raise UserError(_("Only Amanullah and Fahad can approve this order."))
 
+        # Check if the user has already approved
         if current_user not in self.approved_by:
-            self.approved_by = [(4, current_user.id)]
+            self.approved_by = [(4, current_user.id)]  # Store the user in Many2many field
 
+        # Get all approved names from the field
         approved_names = ", ".join(self.approved_by.mapped('name'))
+
+        # Return a success notification
         return {
             'type': 'ir.actions.client',
             'tag': 'display_notification',
             'params': {
-                'title': "Approval",
-                'message': f"{approved_names} has approved the order.",
+                'title': _("Approval"),
+                'message': _("%s has approved the order." % approved_names),
                 'sticky': False,
+                'type': 'success',
             }
         }
