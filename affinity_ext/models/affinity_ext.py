@@ -178,12 +178,23 @@ class SaleOrder(models.Model):
     )
 
     def action_approve_order(self):
-        """Approve the order by the current user."""
+        """Approve the order by Amanullah and Fahad only."""
         approved_users = ['Amanullah', 'FAHAD']
-        current_user = self.env.user.partner_id.name
+        current_user = self.env.user.partner_id
 
-        if current_user not in approved_users:
-            return
+        if current_user.name not in approved_users:
+            raise UserError(_("Only Amanullah and Fahad can approve this order."))
 
-        if self.env.user.partner_id not in self.approved_by:
-            self.approved_by = [(4, self.env.user.partner_id.id)]
+        if current_user not in self.approved_by:
+            self.approved_by = [(4, current_user.id)]
+
+        approved_names = ", ".join(self.approved_by.mapped('name'))
+        return {
+            'type': 'ir.actions.client',
+            'tag': 'display_notification',
+            'params': {
+                'title': _("Approval"),
+                'message': _("%s has approved the order." % approved_names),
+                'sticky': False,
+            }
+        }

@@ -125,10 +125,11 @@
                     <field name="discount" readonly="1"/>
                 </xpath>
                 <xpath expr="//button[@name='action_confirm']" position="before">
-                        <button name="action_approve_order" type="object"
-                            string="Approve" class="oe_highlight"
-                            />
-                        </xpath>
+    <button name="action_approve_order" type="object"
+        string="Approve" class="oe_highlight"
+        attrs="{'invisible': [('user_id.partner_id.name', 'not in', ['Amanullah', 'FAHAD'])]}"
+    />
+</xpath>
             </field>
         </record>
 
