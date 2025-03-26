@@ -167,3 +167,12 @@ class CustomerRegion(models.Model):
     company_id = fields.Many2one('res.company', store=True, copy=False,
                                     string="Company",
                                     default=lambda self: self.env.user.company_id.id)
+
+class SaleOrder(models.Model):
+    _inherit = 'sale.order'
+
+    approved_by = fields.Many2many(
+        'res.partner',
+        string='Approved By',
+        help="Users who have approved this order."
+    )

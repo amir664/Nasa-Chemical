@@ -127,6 +127,19 @@
             </field>
         </record>
 
+        <record id="sale_order_form_inherit" model="ir.ui.view">
+            <field name="name">sale.order.form.inherit.approve</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='action_confirm']" position="before">
+            <button name="action_approve_order" type="object"
+                string="Approve" class="oe_highlight"
+                attrs="{'invisible': [('user_id', 'not in', [ref('base.user_amanullah'), ref('base.user_fahad')])]}"/>
+        </xpath>
+            </field>
+        </record>
+
 
 
         <record id="view_customer_region_tree" model="ir.ui.view">
