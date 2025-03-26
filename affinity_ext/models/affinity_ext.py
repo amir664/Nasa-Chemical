@@ -168,6 +168,8 @@ class CustomerRegion(models.Model):
                                     string="Company",
                                     default=lambda self: self.env.user.company_id.id)
 
+
+
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
 
@@ -177,13 +179,27 @@ class SaleOrder(models.Model):
         help="Users who have approved this order."
     )
 
+    can_approve = fields.Boolean(
+        string="Can Approve",
+        compute="_compute_can_approve",
+        store=False
+    )
+
+    @api.depends_context('uid')
+    def _compute_can_approve(self):
+        """Compute if the current user can approve."""
+        approved_users = ['Amanullah', 'FAHAD']
+        current_user = self.env.user.partner_id.name
+        for order in self:
+            order.can_approve = current_user in approved_users
+
     def action_approve_order(self):
-        """Approve the order by Amanullah and Fahad only."""
+        """Approve the order by the allowed users."""
         approved_users = ['Amanullah', 'FAHAD']
         current_user = self.env.user.partner_id
 
         if current_user.name not in approved_users:
-            raise UserError(_("Only Amanullah and Fahad can approve this order."))
+            return
 
         if current_user not in self.approved_by:
             self.approved_by = [(4, current_user.id)]
@@ -193,8 +209,8 @@ class SaleOrder(models.Model):
             'type': 'ir.actions.client',
             'tag': 'display_notification',
             'params': {
-                'title': _("Approval"),
-                'message': _("%s has approved the order." % approved_names),
+                'title': "Approval",
+                'message': f"{approved_names} has approved the order.",
                 'sticky': False,
             }
         }
