@@ -127,7 +127,7 @@
                 <xpath expr="//button[@name='action_confirm']" position="before">
                         <button name="action_approve_order" type="object"
                             string="Approve" class="oe_highlight"
-                            t-if="user.partner_id.name in ['Amanullah', 'FAHAD']"/>
+                            />
                         </xpath>
             </field>
         </record>
