@@ -124,6 +124,9 @@
                     <field name="discount_in_amount"/>
                     <field name="discount" readonly="1"/>
                 </xpath>
+                <xpath expr="//field[@name='partner_invoice_id']" position="after">
+                    <field name="approved_by"/>
+                </xpath>
                 <xpath expr="//button[@name='action_confirm']" position="before">
     <button name="action_approve_order" type="object"
         string="Approve" class="oe_highlight"

@@ -188,14 +188,14 @@ class SaleOrder(models.Model):
     @api.depends_context('uid')
     def _compute_can_approve(self):
         """Compute if the current user can approve."""
-        approved_users = ['Amanullah', 'FAHAD']
+        approved_users = ['Amanullah Khan', ' Fahad Humayoun']
         current_user = self.env.user.partner_id.name
         for order in self:
             order.can_approve = current_user in approved_users
 
     def action_approve_order(self):
         """Approve the order by the allowed users."""
-        approved_users = ['Amanullah', 'FAHAD']
+        approved_users = ['Amanullah Khan', ' Fahad Humayoun']
         current_user = self.env.user.partner_id
 
         if current_user.name not in approved_users:
