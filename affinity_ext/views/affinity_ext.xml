@@ -115,6 +115,17 @@
             </field>
         </record>
 
+        <record id="view_sale_order_tree_custom2" model="ir.ui.view">
+            <field name="name">sale.order.tree.approval.2</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.sale_order_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='partner_id']" position="after">
+                    <field name="approved_by" widget="many2many_tags" string="Approved By"/>
+                </xpath>
+            </field>
+        </record>
+
         <record id="sale_order_line_form_inherit" model="ir.ui.view">
             <field name="name">sale.order.line.form.inherit</field>
             <field name="model">sale.order</field>
