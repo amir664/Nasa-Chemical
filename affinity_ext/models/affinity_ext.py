@@ -186,30 +186,41 @@ class SaleOrder(models.Model):
         store=False
     )
 
+    is_fully_approved = fields.Boolean(
+        string="Fully Approved",
+        compute="_compute_fully_approved",
+        store=True
+    )
+
     @api.depends_context('uid')
     def _compute_can_approve(self):
         """Compute if the current user can approve."""
-        approved_users = ['Amanullah Khan', 'Fahad Humayoun', 'Administrator']
-        current_user = self.env.user.partner_id.name  # Ensure it's the correct partner name
+        approved_users = ['Amanullah Khan', 'Fahad Humayoun']
+        current_user = self.env.user.partner_id.name
         for order in self:
             order.can_approve = current_user in approved_users
 
+    @api.depends('approved_by')
+    def _compute_fully_approved(self):
+        """Check if both Amanullah and Fahad have approved."""
+        required_approvals = {'Amanullah Khan', 'Fahad Humayoun'}
+        for order in self:
+            approved_names = set(order.approved_by.mapped('name'))
+            order.is_fully_approved = required_approvals.issubset(approved_names)
+
     def action_approve_order(self):
-        """Approve the order by Amanullah, Fahad, or Admin only."""
-        approved_users = ['Amanullah Khan', 'Fahad Humayoun', 'Administrator']  # FIXED: Correct list format
+        """Approve the order by Amanullah and Fahad only."""
+        approved_users = ['Amanullah Khan', 'Fahad Humayoun']
         current_user = self.env.user.partner_id
 
         if current_user.name not in approved_users:
-            raise UserError(_(f"You are {current_user.name}: Only Amanullah, Fahad, or Admin can approve this order."))
+            raise UserError(_(f"{current_user.name}: Only Amanullah and Fahad can approve this order."))
 
-        # Add the user to approved_by if not already added
         if current_user not in self.approved_by:
             self.write({'approved_by': [(4, current_user.id)]})
 
-        # Get all approved names from the field
         approved_names = ", ".join(self.approved_by.mapped('name'))
 
-        # Return a success notification
         return {
             'type': 'ir.actions.client',
             'tag': 'display_notification',
@@ -220,3 +231,10 @@ class SaleOrder(models.Model):
                 'type': 'success',
             }
         }
+
+    def action_confirm(self):
+        """Confirm order only if both Amanullah and Fahad have approved."""
+        if not self.is_fully_approved:
+            raise UserError(_("The order cannot be confirmed until both Amanullah and Fahad have approved it."))
+
+        return super(SaleOrder, self).action_confirm()

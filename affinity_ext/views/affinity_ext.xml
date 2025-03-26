@@ -133,6 +133,10 @@
         modifiers="{'invisible': [('can_approve', '=', False)]}"
     />
 </xpath>
+<xpath expr="//button[@name='action_confirm']" position="attributes">
+    <attribute name="modifiers">{"invisible": [["is_fully_approved", "=", False]]}</attribute>
+</xpath>
+
 
             </field>
         </record>
