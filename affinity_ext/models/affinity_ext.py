@@ -176,3 +176,14 @@ class SaleOrder(models.Model):
         string='Approved By',
         help="Users who have approved this order."
     )
+
+    def action_approve_order(self):
+        """Approve the order by the current user."""
+        approved_users = ['Amanullah', 'FAHAD']
+        current_user = self.env.user.partner_id.name
+
+        if current_user not in approved_users:
+            return
+
+        if self.env.user.partner_id not in self.approved_by:
+            self.approved_by = [(4, self.env.user.partner_id.id)]
