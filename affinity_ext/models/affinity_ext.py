@@ -209,13 +209,22 @@ class SaleOrder(models.Model):
             order.is_fully_approved = required_approvals.issubset(approved_names)
 
     def action_approve_order(self):
-        """Approve the order by Amanullah and Fahad only."""
-        approved_users = ['Amanullah Khan', 'Fahad Humayoun']
+        """Ensure Amanullah approves first, then Fahad."""
+        approval_sequence = ['Amanullah Khan', 'Fahad Humayoun']
         current_user = self.env.user.partner_id
 
-        if current_user.name not in approved_users:
+        # Check if the user is allowed to approve
+        if current_user.name not in approval_sequence:
             raise UserError(_(f"{current_user.name}: Only Amanullah and Fahad can approve this order."))
 
+        # Get the names of already approved users
+        approved_names = self.approved_by.mapped('name')
+
+        # Enforce approval sequence: Amanullah first, then Fahad
+        if current_user.name == 'Fahad Humayoun' and 'Amanullah Khan' not in approved_names:
+            raise UserError(_("Fahad cannot approve before Amanullah."))
+
+        # If not already approved, add the user to `approved_by`
         if current_user not in self.approved_by:
             self.write({'approved_by': [(4, current_user.id)]})
 
@@ -231,7 +240,7 @@ class SaleOrder(models.Model):
                 'type': 'success',
             }
         }
-
+    
     def action_confirm(self):
         """Confirm order only if both Amanullah and Fahad have approved."""
         if not self.is_fully_approved:
