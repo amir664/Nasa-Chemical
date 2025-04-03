@@ -31,12 +31,14 @@ class MrpProduction(models.Model):
 
     @api.onchange('product_id')
     def _onchange_product_category(self):
-        # Get the current user's product category
-        user_category = self.env.user.x_studio_product_category
+        user_category = dict(self.env.user._fields['x_studio_product_category'].selection).get(self.env.user.x_studio_product_category)
+        
         
         # Ensure the selected product matches the user's category
         if self.product_id:
-            if self.product_id.product_tmpl_id.product_categ_mo != user_category:
+            product_category = dict(self.product_id.product_tmpl_id._fields['product_categ_mo'].selection).get(self.product_id.product_tmpl_id.product_categ_mo)
+
+            if product_category != user_category:
                 # If the product does not match the category, reset the field
                 self.product_id = False
                 return {
