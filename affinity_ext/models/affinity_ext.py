@@ -37,7 +37,7 @@ class MrpProduction(models.Model):
             if self.product_id.product_tmpl_id.x_studio_category.id == user_category:
                 pass
             else:
-                raise UserError(str(user_category) + " " + str(self.product_id.product_tmpl_id.x_studio_category.id))
+                raise UserError("The product category does not match your assigned category. Please review.")
         
 
 
