@@ -33,25 +33,12 @@ class MrpProduction(models.Model):
     def _onchange_product_category(self):
         user_category = self.env.user.x_studio_category.id
         
+        if user_category:
+            if self.product_id.product_tmpl_id.x_studio_category.id == user_category:
+                pass
+            else:
+                raise UserError("TEST")
         
-        # Ensure the selected product matches the user's category
-        if self.product_id:
-            if self.product_id.product_tmpl_id.x_studio_category.id != user_category:
-                # If the product does not match the category, reset the field
-                self.product_id = False
-                return {
-                    'warning': {
-                        'title': 'Invalid Product Selection',
-                        'message': "You cannot select a product from a different category."
-                    }
-                }
-        
-        # Dynamically set the domain on product_id based on the user's category
-        return {
-            'domain': {
-                'product_id': [('product_tmpl_id.x_studio_category', '=', user_category)]
-            }
-        }
 
 
 
