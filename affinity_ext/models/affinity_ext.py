@@ -32,15 +32,15 @@ class MrpProduction(models.Model):
     product_id = fields.Many2one(
         'product.product', 
         string="Product",
-        domain=lambda self: [('product_tmpl_id.product_categ_mo', '=', self.env.user.product_category)] + (fields.Many2one('product.product').domain or [])
+        domain=lambda self: [('product_tmpl_id.product_categ_mo', '=', self.env.user.x_studio_product_category)] + (fields.Many2one('product.product').domain or [])
     )
 
-    @api.model
-    def _get_product_domain(self):
-        user_category = self.env.user.x_studio_product_category
+    # @api.model
+    # def _get_product_domain(self):
+    #     user_category = self.env.user.x_studio_product_category
 
-        domain = [('product_tmpl_id.product_categ_mo', '=', user_category)]
-        return domain
+    #     domain = [('product_tmpl_id.product_categ_mo', '=', user_category)]
+    #     return domain
 
 
 
