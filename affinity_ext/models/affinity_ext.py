@@ -49,7 +49,7 @@ class MrpProduction(models.Model):
         # Dynamically set the domain on product_id based on the user's category
         return {
             'domain': {
-                'product_id': [('product_tmpl_id.product_categ_mo', '=', user_category)]
+                'product_id': [('product_tmpl_id.x_studio_category', '=', user_category)]
             }
         }
 
