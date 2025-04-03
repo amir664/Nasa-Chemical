@@ -29,24 +29,29 @@ class ResPartnerBankInherited(models.Model):
 class MrpProduction(models.Model):
     _inherit = 'mrp.production'
 
-    @api.model
-    def fields_view_get(self, view_id=None, view_type='form', toolbar=False, submenu=False):
-        # Get the domain for the product_id field from the current user category
-        res = super(MrpProduction, self).fields_view_get(
-            view_id=view_id, view_type=view_type, toolbar=toolbar, submenu=submenu
-        )
+    @api.onchange('product_id')
+    def _onchange_product_category(self):
+        # Get the current user's product category
+        user_category = self.env.user.x_studio_product_category
         
-        if view_type == 'form':
-            # Look for the product_id field and add the domain based on the user's category
-            doc = etree.XML(res['arch'])
-            for node in doc.xpath("//field[@name='product_id']"):
-                # Add the domain condition to filter by the user's product category
-                user_category = self.env.user.x_studio_product_category
-                existing_domain = node.attrib.get('domain', '[]')
-                new_domain = f"{existing_domain[:len(existing_domain)-1]} and [('product_tmpl_id.product_categ_mo', '=', '{user_category}')]" if existing_domain != '[]' else "[('product_tmpl_id.product_categ_mo', '=', '%s')]" % user_category
-                node.attrib['domain'] = new_domain
-            res['arch'] = etree.tostring(doc)
-        return res
+        # Ensure the selected product matches the user's category
+        if self.product_id:
+            if self.product_id.product_tmpl_id.product_categ_mo != user_category:
+                # If the product does not match the category, reset the field
+                self.product_id = False
+                return {
+                    'warning': {
+                        'title': 'Invalid Product Selection',
+                        'message': "You cannot select a product from a different category."
+                    }
+                }
+        
+        # Dynamically set the domain on product_id based on the user's category
+        return {
+            'domain': {
+                'product_id': [('product_tmpl_id.product_categ_mo', '=', user_category)]
+            }
+        }
 
 
 
