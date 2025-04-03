@@ -26,6 +26,17 @@ class ResPartnerBankInherited(models.Model):
     bank_iban_num = fields.Char('IBAN Number')
 
 
+class MrpProduction(models.Model):
+    _inherit = 'mrp.production'
+
+    @api.model
+    def _get_product_domain(self):
+        user_category = self.env.user.x_studio_product_category
+
+        domain = [('product_tmpl_id.product_categ_mo', '=', user_category)]
+        return domain
+
+
 
 class ProductTemplateInherited(models.Model):
     _inherit = 'product.template'
