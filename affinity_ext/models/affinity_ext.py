@@ -29,6 +29,12 @@ class ResPartnerBankInherited(models.Model):
 class MrpProduction(models.Model):
     _inherit = 'mrp.production'
 
+    product_id = fields.Many2one(
+        'product.product', 
+        string="Product",
+        domain=lambda self: [('product_tmpl_id.product_categ_mo', '=', self.env.user.product_category)] + (fields.Many2one('product.product').domain or [])
+    )
+
     @api.model
     def _get_product_domain(self):
         user_category = self.env.user.x_studio_product_category
