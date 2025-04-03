@@ -31,6 +31,7 @@ class ProductTemplateInherited(models.Model):
     _inherit = 'product.template'
 
     purchase_tolerance = fields.Float('Purchase Tolerance(%)', default=10.00)
+    product_categ_mo = fields.Selection([('finished good','Finished Good'),('semi finished good','Semi Finished Good')],string="Product Categ")
 
 
 class StockPickingInherited(models.Model):

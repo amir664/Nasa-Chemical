@@ -68,6 +68,7 @@
             <field name="arch" type="xml">            
                 <field name="uom_id" position="after">
                     <field name="purchase_tolerance"/>
+                    <field name="product_categ_mo"/>
                 </field>
             </field>
         </record>
