@@ -29,7 +29,7 @@ class ResPartnerBankInherited(models.Model):
 class MrpProduction(models.Model):
     _inherit = 'mrp.production'
 
-    @api.onchange('product_id')
+    @api.constrains('product_id')
     def _onchange_product_category(self):
         user_category = self.env.user.x_studio_category.id
         
