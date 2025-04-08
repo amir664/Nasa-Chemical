@@ -170,7 +170,7 @@
             </field>
         </record>
 
-        <!-- <record id="inherit_quality_check_wizard_form" model="ir.ui.view">
+        <record id="inherit_quality_check_wizard_form" model="ir.ui.view">
             <field name="name">quality.check.wizard.inherit.form</field>
             <field name="model">quality.check.wizard</field>
             <field name="inherit_id" ref="quality_control.quality_check_wizard_view_form"/> 
@@ -179,7 +179,7 @@
                     <field name="tolerance_min"/>
                 </xpath>
             </field>
-        </record> -->
+        </record>
 
 
         <menuitem id="customer_region_menu_id" name="Customer Region" parent="contacts.res_partner_menu_config" action="customer_region_action" sequence="10"/>
