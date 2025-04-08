@@ -175,8 +175,10 @@
             <field name="model">quality.check.wizard</field>
             <field name="inherit_id" ref="quality_control.action_quality_check_wizard"/> 
             <field name="arch" type="xml">
-                <xpath expr="//group" position="inside">
+                <xpath expr="//group[2]/group" position="after">
+                <group>
                     <field name="tolerance_min"/>
+                </group>
                 </xpath>
             </field>
         </record>
