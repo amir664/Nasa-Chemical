@@ -184,11 +184,11 @@ class CustomerRegion(models.Model):
                                     string="Company",
                                     default=lambda self: self.env.user.company_id.id)
     
-class InheritQualityCheckWizard(models.TransientModel):
-    _inherit = 'quality.check.wizard'
+# class InheritQualityCheckWizard(models.TransientModel):
+#     _inherit = 'quality.check.wizard'
 
-    tolerance_min = fields.Float(
-        related='point_id.tolerance_min', 
-        string='Minimum Tolerance',
-        readonly=True
+#     tolerance_min = fields.Float(
+#         related='point_id.tolerance_min', 
+#         string='Minimum Tolerance',
+#         readonly=True
     )    
