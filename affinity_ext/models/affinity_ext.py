@@ -188,8 +188,11 @@ class InheritQualityCheckWizard(models.TransientModel):
     _inherit = 'quality.check.wizard'
 
     tolerance_min = fields.Float(
-        related='current_check_id.point_id.tolerance_min',
-        string='Minimum Tolerance',
+        related='current_check_id.point_id.tolerance_min',        
         readonly=True
     )
-    #  
+    tolerance_max = fields.Float(
+        related='current_check_id.point_id.tolerance_max',        
+        readonly=True
+    )
+    
