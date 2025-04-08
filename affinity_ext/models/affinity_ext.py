@@ -191,4 +191,4 @@ class CustomerRegion(models.Model):
 #         related='point_id.tolerance_min', 
 #         string='Minimum Tolerance',
 #         readonly=True
-    )    
+    # )    
