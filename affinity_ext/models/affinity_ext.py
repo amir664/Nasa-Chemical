@@ -183,3 +183,12 @@ class CustomerRegion(models.Model):
     company_id = fields.Many2one('res.company', store=True, copy=False,
                                     string="Company",
                                     default=lambda self: self.env.user.company_id.id)
+    
+class InheritQualityCheckWizard(models.TransientModel):
+    _inherit = 'quality.check.wizard'
+
+    tolerance_min = fields.Float(
+        related='point_id.tolerance_min', 
+        string='Minimum Tolerance',
+        readonly=True
+    )    
