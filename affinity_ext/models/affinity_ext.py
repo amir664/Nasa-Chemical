@@ -84,13 +84,13 @@ class PurchaseOrderInherited(models.Model):
     @api.model
     def create(self, vals):
         record = super().create(vals)
-        self.env['notification.rule.line'].check_and_notify('purchase.order', record)
+        self.env['my.model.line'].check_and_notify('purchase.order', record)
         return record
 
     def write(self, vals):
         res = super().write(vals)
         for rec in self:
-            self.env['notification.rule.line'].check_and_notify('purchase.order', rec)
+            self.env['my.model.line'].check_and_notify('purchase.order', rec)
         return res
 
     @api.model
