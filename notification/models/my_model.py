@@ -8,6 +8,7 @@ class MyModelMain(models.Model):
     user_id = fields.Many2one('res.users', string='User')
     line_ids = fields.One2many('my.model.line', 'main_id', string='Model Lines')
     custom_model_id = fields.Many2one('ir.model', string='Model')
+    condition = fields.Char(string='Condition')
 
 class MyModelLine(models.Model):
     _name = 'my.model.line'
@@ -19,5 +20,5 @@ class MyModelLine(models.Model):
     string='Field')
 
     msg = fields.Text(string='Message')
-    condition = fields.Char(string='Condition')
+    
     # ondelete='set null',
