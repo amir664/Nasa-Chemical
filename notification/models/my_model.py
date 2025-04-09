@@ -19,5 +19,5 @@ class MyModelLine(models.Model):
     string='Field')
 
     msg = fields.Text(string='Message')
-    condition = fields.Many2one(res.condition,string='Condition')
+    condition = fields.Many2one('res.condition',string='Condition')
     # ondelete='set null',
