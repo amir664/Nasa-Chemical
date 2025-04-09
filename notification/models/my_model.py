@@ -16,9 +16,8 @@ class MyModelLine(models.Model):
     main_id = fields.Many2one('my.model.main', string='Main Record')    
     field_id = fields.Many2one(
     'ir.model.fields',
-    string='Field'
+    string='Field')
 
     msg = fields.Text(string='Message')
     condition = fields.Char(string='Condition')
     # ondelete='set null',
-)
