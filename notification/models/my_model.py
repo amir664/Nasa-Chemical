@@ -14,6 +14,7 @@ class MyModelLine(models.Model):
     _description = 'Lines for Models and Fields'
 
     main_id = fields.Many2one('my.model.main', string='Main Record')
-    custom_model_id = fields.Many2one('ir.model', string='Model', required=True)
+    # custom_model_id = fields.Many2one('ir.model', string='Model', required=True)
     field_id = fields.Many2one('ir.model.fields', string='Field', required=True,
-                                domain="[('model_id', '=', model_id)]")
+                                # domain="[('model_id', '=', model_id)]"
+                                )
