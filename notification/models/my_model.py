@@ -7,16 +7,18 @@ class MyModelMain(models.Model):
     name = fields.Char(string='Name')
     user_id = fields.Many2one('res.users', string='User')
     line_ids = fields.One2many('my.model.line', 'main_id', string='Model Lines')
-
+    custom_model_id = fields.Many2one('ir.model', string='Model')
 
 class MyModelLine(models.Model):
     _name = 'my.model.line'
     _description = 'Lines for Models and Fields'
 
-    main_id = fields.Many2one('my.model.main', string='Main Record')
-    custom_model_id = fields.Many2one('ir.model', string='Model')
+    main_id = fields.Many2one('my.model.main', string='Main Record')    
     field_id = fields.Many2one(
     'ir.model.fields',
     string='Field',domain="[('model_id', '=', model_id)]"
+
+    msg = fields.Text(string='Message')
+    condition = fields.Char(string='Condition')
     # ondelete='set null',
 )
