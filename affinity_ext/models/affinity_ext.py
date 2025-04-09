@@ -82,6 +82,18 @@ class PurchaseOrderInherited(models.Model):
     )
 
     @api.model
+    def create(self, vals):
+        record = super().create(vals)
+        self.env['notification.rule.line'].check_and_notify('purchase.order', record)
+        return record
+
+    def write(self, vals):
+        res = super().write(vals)
+        for rec in self:
+            self.env['notification.rule.line'].check_and_notify('purchase.order', rec)
+        return res
+
+    @api.model
     def default_get(self, fields_list):
         res = super(PurchaseOrderInherited, self).default_get(fields_list)
         res['notes'] = """<strong>Purchase Order Terms and Conditions:</strong>
