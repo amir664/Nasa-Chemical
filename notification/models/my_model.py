@@ -13,7 +13,7 @@ class MyModelLine(models.Model):
     _name = 'my.model.line'
     _description = 'Lines for Models and Fields'
 
-    main_id = fields.Many2one('my.model.main', string='Main Record', ondelete='cascade')
-    model_id = fields.Many2one('ir.model', string='Model', required=True, ondelete='set null')
+    main_id = fields.Many2one('my.model.main', string='Main Record')
+    model_id = fields.Many2one('ir.model', string='Model', required=True)
     field_id = fields.Many2one('ir.model.fields', string='Field', required=True,
-                                domain="[('model_id', '=', model_id)]", ondelete='set null')
+                                domain="[('model_id', '=', model_id)]")
