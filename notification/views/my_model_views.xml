@@ -13,7 +13,7 @@
             <page string="Model Lines">
               <field name="line_ids">
                 <tree editable="bottom">
-                  <field name="custom_model_id"/>
+                  <!-- <field name="custom_model_id"/> -->
                   <field name="field_id"/>
                 </tree>
               </field>
