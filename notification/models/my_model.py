@@ -7,6 +7,7 @@ class MyModelMain(models.Model):
     name = fields.Char(string='Name')
     user_id = fields.Many2one('res.users', string='User')
     line_ids = fields.One2many('my.model.line', 'main_id', string='Model Lines')
+    model_id = fields.Many2one('ir.model', string='Model', required=True)
 
 
 class MyModelLine(models.Model):
@@ -14,6 +15,6 @@ class MyModelLine(models.Model):
     _description = 'Lines for Models and Fields'
 
     main_id = fields.Many2one('my.model.main', string='Main Record', ondelete='cascade')
-    model_id = fields.Many2one('ir.model', string='Model', required=True)
+    # model_id = fields.Many2one('ir.model', string='Model', required=True)
     field_id = fields.Many2one('ir.model.fields', string='Field', required=True,
                                 domain="[('model_id', '=', model_id)]")
