@@ -19,7 +19,7 @@
                   <!-- <field name="field_id"/> -->
                   
                   <field name="condition"/>
-                  <field name="msg"/>
+                  <field name="message_template"/>
                 </tree>
               </field>
             </page>
