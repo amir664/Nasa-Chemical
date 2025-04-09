@@ -17,6 +17,6 @@ class MyModelLine(models.Model):
     custom_model_id = fields.Many2one('ir.model', string='Model')
     field_id = fields.Many2one(
     'ir.model.fields',
-    string='Field',
+    string='Field',domain="[('model_id', '=', model_id)]"
     # ondelete='set null',
 )
