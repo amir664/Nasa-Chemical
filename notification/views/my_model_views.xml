@@ -3,12 +3,12 @@
     <field name="name">my.model.main.form</field>
     <field name="model">my.model.main</field>
     <field name="arch" type="xml">
-      <form string="My Form">
+      <form string="Notification">
         <sheet>
           <group>
             <field name="name"/>
             <field name="user_id"/>
-            <field name="condition" widget="domain" options="{'model': 'sale.order'}"/>
+            <field name="condition" widget="domain" options="{'model': custom_model_id.name}"/>
           </group>
           <group>
           <field name="custom_model_id"/>
@@ -41,12 +41,12 @@
   </record>
 
   <record id="action_my_model_main" model="ir.actions.act_window">
-    <field name="name">My Model Forms</field>
+    <field name="name">Notification</field>
     <field name="res_model">my.model.main</field>
     <field name="view_mode">tree,form</field>
   </record>
 
-  <menuitem id="menu_my_model_root" name="My App"/>
-  <menuitem id="menu_my_model_main" name="Forms" parent="menu_my_model_root"/>
-  <menuitem id="menu_my_model_action" name="Manage Forms" parent="menu_my_model_main" action="action_my_model_main"/>
+  <menuitem id="menu_my_model_root" name="Notification"/>
+  <menuitem id="menu_my_model_main" name="Notification" parent="menu_my_model_root"/>
+  <menuitem id="menu_my_model_action" name="Notification" parent="menu_my_model_main" action="action_my_model_main"/>
 </odoo>
