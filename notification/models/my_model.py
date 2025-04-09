@@ -8,7 +8,8 @@ class MyModelMain(models.Model):
     user_id = fields.Many2one('res.users', string='User')
     line_ids = fields.One2many('my.model.line', 'main_id', string='Model Lines')
     custom_model_id = fields.Many2one('ir.model', string='Model')
-    condition = fields.Char(string='Condition')
+    model_name = fields.Char(related="custom_model_id.name",string="Model Name")
+    condition = fields.Char(string='Condition' ,model="model_name")
 
 class MyModelLine(models.Model):
     _name = 'my.model.line'
