@@ -8,7 +8,7 @@
           <group>
             <field name="name"/>
             <field name="user_id"/>
-            <field name="condition" widget="domain" options="{'model': custom_model_id.name}"/>
+            <field name="condition" widget="domain" options="{'model': model_name}"/>
           </group>
           <group>
           <field name="custom_model_id"/>
@@ -17,7 +17,7 @@
             <page string="Model Lines">
               <field name="line_ids">
                 <tree editable="bottom">                  
-                  <field name="field_id"/>
+                  <!-- <field name="field_id"/> -->
                   
                   <field name="msg"/>
                 </tree>
