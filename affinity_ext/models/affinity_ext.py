@@ -255,3 +255,18 @@ class SaleOrder(models.Model):
             raise UserError(_("The order cannot be confirmed until both Amanullah and Fahad have approved it."))
 
         return super(SaleOrder, self).action_confirm()
+    
+
+    
+class InheritQualityCheckWizard(models.TransientModel):
+    _inherit = 'quality.check.wizard'
+
+    tolerance_min = fields.Float(
+        related='current_check_id.point_id.tolerance_min',        
+        readonly=True
+    )
+    tolerance_max = fields.Float(
+        related='current_check_id.point_id.tolerance_max',        
+        readonly=True
+    )
+        
