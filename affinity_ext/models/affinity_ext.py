@@ -83,13 +83,13 @@ class PurchaseOrderInherited(models.Model):
 
     @api.model
     def create(self, vals):
-        rec = super().create(vals)
+        rec = super(PurchaseOrderInherited, self).create(vals)
         rules = self.env['my.model.main'].search([('model_name', '=', 'purchase.order')])
         rules.check_notification(rec)
         return rec
 
     def write(self, vals):
-        res = super().write(vals)
+        res = super(PurchaseOrderInherited, self).write(vals)
         for rec in self:
             rules = self.env['my.model.main'].search([('model_name', '=', 'purchase.order')])
             rules.check_notification(rec)
