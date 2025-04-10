@@ -101,7 +101,7 @@ class PurchaseOrderInherited(models.Model):
                     local_dict = {'record': rec}
                     # raise UserError(str(local_dict))
                     if safe_eval(line.condition, local_dict):
-                        message = line.message.format(record=rec)
+                        message = line.message_template.format(record=rec)
                         rec.message_post(
                             body=message,
                             partner_ids=rule.user_ids.mapped('partner_id').ids,
