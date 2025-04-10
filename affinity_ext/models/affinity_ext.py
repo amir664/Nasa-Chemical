@@ -93,8 +93,20 @@ class PurchaseOrderInherited(models.Model):
         res = super(PurchaseOrderInherited, self).write(vals)
         for rec in self:
             rules = self.env['my.model.main'].search([('model_name', '=', 'purchase.order')])
-            raise UserError(str(rules.name))
-            rules.check_notification(rec)
+            for rule in rules:
+                for line in rule.line_ids:
+            # raise UserError(str(rules.name))
+                # try:
+                    local_dict = {'record': rec}
+                    raise UserError(str(local_dict))
+                    if safe_eval(line.condition, local_dict):
+                        message = line.message.format(record=record)
+                        record.message_post(
+                            body=message,
+                            partner_ids=rule.user_ids.mapped('partner_id').ids,
+                            subtype_xmlid="mail.mt_comment"
+                        )
+            # rules.check_notification(rec)
         return res
 
     @api.model
