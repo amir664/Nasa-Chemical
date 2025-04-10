@@ -93,6 +93,7 @@ class PurchaseOrderInherited(models.Model):
         res = super(PurchaseOrderInherited, self).write(vals)
         for rec in self:
             rules = self.env['my.model.main'].search([('model_name', '=', 'purchase.order')])
+            raise UserError(str(rules.name))
             rules.check_notification(rec)
         return res
 
