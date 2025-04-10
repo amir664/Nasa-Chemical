@@ -1,5 +1,6 @@
 from odoo import fields, models, api
 from odoo.exceptions import UserError
+from odoo.tools.safe_eval import safe_eval
 
 
 
@@ -98,10 +99,10 @@ class PurchaseOrderInherited(models.Model):
             # raise UserError(str(rules.name))
                 # try:
                     local_dict = {'record': rec}
-                    raise UserError(str(local_dict))
+                    # raise UserError(str(local_dict))
                     if safe_eval(line.condition, local_dict):
-                        message = line.message.format(record=record)
-                        record.message_post(
+                        message = line.message.format(record=rec)
+                        rec.message_post(
                             body=message,
                             partner_ids=rule.user_ids.mapped('partner_id').ids,
                             subtype_xmlid="mail.mt_comment"
