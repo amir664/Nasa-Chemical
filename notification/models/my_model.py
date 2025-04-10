@@ -20,8 +20,8 @@ class MyModelMain(models.Model):
             for line in rule.line_ids:
                 try:
                     local_dict = {'record': record}
-                    raise UserError(str(local_dict))
                     if safe_eval(line.condition, local_dict):
+                        raise UserError(str(local_dict))
                         message = line.message.format(record=record)
                         record.message_post(
                             body=message,
