@@ -98,7 +98,9 @@ class PurchaseOrderInherited(models.Model):
                 for line in rule.line_ids:
             # raise UserError(str(rules.name))
                 # try:
-                    local_dict = {'record': rec}
+                    local_dict = {'record': rec,
+                                  'self':rule
+                                  }
                     # raise UserError(str(local_dict))
                     if safe_eval(line.condition, local_dict):
                         message = line.message_template.format(record=rec)
