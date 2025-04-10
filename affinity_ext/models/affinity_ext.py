@@ -85,7 +85,7 @@ class PurchaseOrderInherited(models.Model):
     def create(self, vals):
         rec = super(PurchaseOrderInherited, self).create(vals)
         rules = self.env['my.model.main'].search([('model_name', '=', 'purchase.order')])
-        raise UserError(str(rules.name))
+        # raise UserError(str(rules.name))
         rules.check_notification(rec)
         return rec
 
