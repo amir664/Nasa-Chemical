@@ -243,7 +243,7 @@ class SaleOrder(models.Model):
     
     def action_confirm(self):
         """Confirm order only if both Amanullah and Fahad have approved."""
-        exempt_users = ['Administrator', 'Muskan', 'Sana Humayoun','Ali','Azfar Hussain','Bakhtawar','Naveed Ansari']
+        exempt_users = ['Administrator', 'Muskan', 'Sana Humayoun','Ali','Azfar Hussain','Bakhtawar','Naveed Ansari','Qaiser Mehmood']
         current_user = self.env.user.partner_id.name
 
         # If the current user is Admin, Muskan, or Asfar, bypass the approval check
