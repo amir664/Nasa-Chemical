@@ -176,6 +176,54 @@ class QualityCheckInherited(models.Model):
 
     methods = fields.Char(string="Method")
 
+    @api.model
+    def create(self, vals):
+        res = super(QualityCheckInherited, self).create(vals)
+        for rec in self:
+            rules = self.env['my.model.main'].search([('model_name', '=', 'quality.check')])
+            for rule in rules:
+                for line in rule.line_ids:
+            # raise UserError(str(rules.name))
+                # try:
+                    local_dict = {'record': rec,
+                                  'self':rule
+                                  }
+                    # raise UserError(str(local_dict))
+                    if safe_eval(line.condition, local_dict):
+                        message = line.message_template.format(record=rec)
+                        rec.message_post(
+                            body=message,
+                            partner_ids=rule.user_ids.mapped('partner_id').ids,
+                            subtype_xmlid="mail.mt_comment"
+                        )
+            # rules.check_notification(rec)
+
+        return res
+
+    # def write(self, vals):
+    #     res = super(QualityCheckInherited, self).write(vals)
+    #     for rec in self:
+    #         rules = self.env['my.model.main'].search([('model_name', '=', 'quality.check')])
+    #         for rule in rules:
+    #             for line in rule.line_ids:
+    #         # raise UserError(str(rules.name))
+    #             # try:
+    #                 local_dict = {'record': rec,
+    #                               'self':rule
+    #                               }
+    #                 # raise UserError(str(local_dict))
+    #                 if safe_eval(line.condition, local_dict):
+    #                     message = line.message_template.format(record=rec)
+    #                     rec.message_post(
+    #                         body=message,
+    #                         partner_ids=rule.user_ids.mapped('partner_id').ids,
+    #                         subtype_xmlid="mail.mt_comment"
+    #                     )
+    #         # rules.check_notification(rec)
+    #     return res
+
+
+
 
 class SaleOrderInherit(models.Model):
     _inherit = "sale.order"
