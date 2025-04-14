@@ -224,6 +224,18 @@ class SaleOrderInherit(models.Model):
     _inherit = "sale.order"
 
     delivery_address = fields.Char(string="Delivery Address", compute="_compute_delivery_address", readonly=False)
+    source_location = fields.Many2one('stock.location',string="Source Location")
+
+    def action_confirm(self):
+        res = super(SaleOrderInherit, self).action_confirm()
+        
+        for order in self:
+            if order.source_location:
+                for picking in order.picking_ids:
+                    picking.location_id = order.source_location.id
+                    for line in picking.move_ids_without_package:
+                        line.location_id = order.source_location.id
+        return res 
 
     def _compute_delivery_address(self):
         for record in self:
