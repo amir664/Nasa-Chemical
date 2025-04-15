@@ -26,6 +26,21 @@ class ResPartnerBankInherited(models.Model):
     bank_iban_num = fields.Char('IBAN Number')
 
 
+class MrpProduction(models.Model):
+    _inherit = 'mrp.production'
+
+    @api.constrains('product_id')
+    def _onchange_product_category(self):
+        user_category = self.env.user.x_studio_category.id
+        
+        if user_category:
+            if self.product_id.product_tmpl_id.x_studio_category.id == user_category:
+                pass
+            else:
+                raise UserError("The product category does not match your assigned category. Please review.")
+
+
+
 
 class ProductTemplateInherited(models.Model):
     _inherit = 'product.template'
@@ -135,10 +150,22 @@ class SaleOrderInherit(models.Model):
 
     delivery_address = fields.Char(string="Delivery Address", compute="_compute_delivery_address", readonly=False)
     salesperson = fields.Char(string="Salesperson")
+    source_location = fields.Many2one('stock.location',string="Source Location")
 
     def _compute_delivery_address(self):
         for record in self:
             record.delivery_address = record.partner_id.contact_address
+
+    def action_confirm(self):
+        res = super(SaleOrderInherit, self).action_confirm()
+        
+        for order in self:
+            if order.source_location:
+                for picking in order.picking_ids:
+                    picking.location_id = order.source_location.id
+                    for line in picking.move_ids_without_package:
+                        line.location_id = order.source_location.id
+        return res
 
 
 class SaleOrderLineInherit(models.Model):
