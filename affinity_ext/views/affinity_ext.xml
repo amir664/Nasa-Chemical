@@ -112,6 +112,7 @@
                 <xpath expr="//field[@name='payment_term_id']" position="after">
                     <field name="delivery_address"/>
                     <field name="salesperson"/>
+                    <field name="source_location"/>
                 </xpath>
             </field>
         </record>
