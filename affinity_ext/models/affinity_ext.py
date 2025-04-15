@@ -261,9 +261,6 @@ class SaleOrderLineInherit(models.Model):
 
 
 
-class ResUser(models.Model):
-    _name = "res.users"
-    location = fields.Many2one('stock.location',string="Location")
 
 class CustomerRegion(models.Model):
     _name = "res.customer.region"
