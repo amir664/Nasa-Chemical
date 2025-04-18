@@ -1,4 +1,6 @@
-from odoo import models, fields
+from odoo import models, fields, api, _
+from odoo.exceptions import UserErro
+
 
 class ShopControlSheet(models.Model):
     _name = 'control.shop_control_sheet'
