@@ -8,5 +8,6 @@
               parent="menu_control" action="action_shop_control_sheet"/>
 
     <menuitem id="menu_shop_control_sheet" name="WareHouse Control Sheet"
-              parent="menu_warehouse" action="action_Warehouse_control_sheet"/>              
+              parent="menu_warehouse" />              
+              <!-- action="action_Warehouse_control_sheet" -->
 </odoo>
