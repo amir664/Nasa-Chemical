@@ -10,7 +10,7 @@ class ShopControlSheet(models.Model):
     toilet_cleaning_ids = fields.One2many('control.toilet_cleaning', 'sheet_id', string='Toilet Cleaning')
     sale_area_ids = fields.One2many('control.sale_area', 'sheet_id')
     freezer_ids = fields.One2many('control.freezer', 'sheet_id')
-    Staffing_ids = fields.One2many('control.staffing', 'sheet_id')
+    staffing_ids = fields.One2many('control.staffing', 'sheet_id')
     translation_on_products_ids = fields.One2many('control.translation_on_products', 'sheet_id')
     goods_market_ids = fields.One2many('control.goods_market', 'sheet_id')
 
