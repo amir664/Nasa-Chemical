@@ -34,8 +34,18 @@
                         </page>
                     <!-- </notebook> -->
                     <!-- <notebook> -->
-                        <page string=" Toilet Cleaning  - Men">
+                        <page string="Toilet Cleaning  - Men">
                             <field name="toilet_cleaning_men_ids" context="{'show_create': False}" options="{'no_create_edit': True, 'no_create': True}">
+                                <tree>
+                                    <field name="item"/>
+                                    <field name="yes_no"/>
+                                    <field name="condition"/>
+                                    <field name="remarks"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="First Floor Offices -  Area">
+                            <field name="first_floor_offices_area_ids" context="{'show_create': False}" options="{'no_create_edit': True, 'no_create': True}">
                                 <tree>
                                     <field name="item"/>
                                     <field name="yes_no"/>

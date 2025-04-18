@@ -12,8 +12,9 @@ class ShopControlSheet(models.Model):
     toilet_cleaning_men_ids = fields.One2many('control.toilet_cleaning_men', 'sheet_id')
     groud_floor_office_adminitration_ids = fields.One2many('control.groud_floor_office_adminitration', 'sheet_id')
     groud_floor_offices_logistics_office_ids = fields.One2many('control.groud_floor_offices_logistics_office', 'sheet_id')
-    goods_market_ids = fields.One2many('control.goods_market', 'sheet_id')
+    groud_floor_office_cash_and_sales_department_ids = fields.One2many('control.groud_floor_office_cash_and_sales_department', 'sheet_id')
     temperature_of_freezers_ids = fields.One2many('control.temperature_of_freezers', 'sheet_id')
+    first_floor_offices_area_ids = fields.One2many('control.first_floor_offices_area', 'sheet_id')
 
 
     @api.model
@@ -33,33 +34,63 @@ class ShopControlSheet(models.Model):
         ]
         
         toilet_cleaning_women_items = [
-            'Invoices and Sales File',
- 'Cleaning of Floor',
- 'Counter Area',
- 'First Aid Box',
- 'Shop Registration Form',
- 'Missing Stock of Master Business Products',
- 'Cleaning of Racks',
- 'Aldi, Colyrupt and Mns Stocks',
+            'Tissue Paper In Toilet',
+            'Spray In toilet',
+            'Hand Soap Lotion',
+            'Cleanness of Flush',
+            'Cleanness of Floor',
+            'Dusbin',
+            'Cleaning Sheet',
+            'Repairng If Any',
         ]
         
         toilet_cleaning_men_items = [
-             'Frozen Goods -  Temperature Devise',
- 'toilet_cleaning_men - Temperature Monitoring Devise',
- 'Temperature of toilet_cleaning_men',
+            'Tissue Paper In Toilet',
+            'Spray In toilet',
+            'Hand Soap Lotion',
+            'Cleanness of Flush',
+            'Cleanness of Floor',
+            'Dusbin',
+            'Cleaning Sheet',
+            'Repairng If Any',
         ]
         
         groud_floor_office_adminitration_items = [
-             'Late Staff / Absent Staff',
- 'Staff Work Contracts',
- 'Staff Medical Report',
- 'Presentation',
+             'Cleaning of Floor and Desk',
+                'Dusbins',
+                'Toilets',
+                'Cleaning Sheet',
         ]
         
-        groud_floor_offices_logistics_office_items = []
+        groud_floor_offices_logistics_office_items = ['Cleaning of Floor and Desk',
+            'Dusbins',
+            'Toilets',
+            'Cleaning Sheet',]
 
-        temperature_of_freezers_items = []
-        
+        temperature_of_freezers_items = [
+            'Frozen - Temperature Devise',
+            'Warehouse Control Sheet',
+            'Control Sheet Dated ',
+            'Freezer - Temperature ',
+            'Repairng If Any',
+            'Temperature Monoring Sheet',
+        ]
+        first_floor_offices_area_items = [
+            'Frozen - Temperature Devise',
+            'Warehouse Control Sheet',
+            'Control Sheet Dated ',
+            'Freezer - Temperature ',
+            'Repairng If Any',
+            'Temperature Monoring Sheet',
+        ]
+        groud_floor_office_cash_and_sales_department_items = [
+            'Frozen - Temperature Devise',
+            'Warehouse Control Sheet',
+            'Control Sheet Dated ',
+            'Freezer - Temperature ',
+            'Repairng If Any',
+            'Temperature Monoring Sheet',
+        ]
         # Create data for each One2many field
         packing_room_data = [(0, 0, {'item': item}) for item in packing_room_items]
         toilet_cleaning_women_data = [(0, 0, {'item': item}) for item in toilet_cleaning_women_items]
@@ -67,6 +98,8 @@ class ShopControlSheet(models.Model):
         groud_floor_office_adminitration_data = [(0, 0, {'item': item}) for item in groud_floor_office_adminitration_items]
         groud_floor_offices_logistics_office_data = [(0, 0, {'item': item}) for item in groud_floor_offices_logistics_office_items]
         temperature_of_freezers_data = [(0, 0, {'item': item}) for item in temperature_of_freezers_items]
+        first_floor_offices_area_data = [(0, 0, {'item': item}) for item in first_floor_offices_area_items]
+        groud_floor_office_cash_and_sales_department_data = [(0, 0, {'item': item}) for item in groud_floor_office_cash_and_sales_department_items]
         # Update the result dictionary with prepopulated data
         res.update({
             'packing_room_ids': packing_room_data,
@@ -75,6 +108,8 @@ class ShopControlSheet(models.Model):
             'groud_floor_office_adminitration_ids': groud_floor_office_adminitration_data,
             'groud_floor_offices_logistics_office_ids': groud_floor_offices_logistics_office_data,
             'temperature_of_freezers_ids': temperature_of_freezers_data,
+            'first_floor_offices_area_ids': first_floor_offices_area_data,
+            'groud_floor_office_cash_and_sales_department_ids': groud_floor_office_cash_and_sales_department_data,
         })
         
         return res
@@ -136,7 +171,7 @@ class  TranslationOnProducts(models.Model):
 
 
 class  GoodsMarket(models.Model):
-    _name = 'control.goods_market'
+    _name = 'control.groud_floor_office_cash_and_sales_department'
     _description = 'GoodsMarket'
 
     sheet_id = fields.Many2one('control.warehouse_control_sheet', string='Control Sheet')
@@ -154,3 +189,13 @@ class  GoodsMarket(models.Model):
     yes_no = fields.Selection([('yes', 'Yes'), ('no', 'No')], string='Yes/No', required=True)
     condition = fields.Selection([('good', 'Good'), ('bad', 'Bad')], string='Condition', required=True)
     remarks = fields.Text(string='Remarks', required=False)         
+
+class  GoodsMarket(models.Model):
+    _name = 'control.first_floor_offices_area'
+    _description = 'GoodsMarket'
+
+    sheet_id = fields.Many2one('control.warehouse_control_sheet', string='Control Sheet')
+    item = fields.Char(string='Item', readonly=True)  # 'readonly=True' ensures this field cannot be edited
+    yes_no = fields.Selection([('yes', 'Yes'), ('no', 'No')], string='Yes/No', required=True)
+    condition = fields.Selection([('good', 'Good'), ('bad', 'Bad')], string='Condition', required=True)
+    remarks = fields.Text(string='Remarks', required=False)            
