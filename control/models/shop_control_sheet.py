@@ -1,14 +1,31 @@
 from odoo import models, fields, api, _
 from odoo.exceptions import UserError
 
-
 class ShopControlSheet(models.Model):
     _name = 'control.shop_control_sheet'
     _description = 'Shop Control Sheet'
 
-    name = fields.Date(string='Shop Control Dated')
-    control_officer = fields.Char(string='Control Officer')
+    name = fields.Date(string='Shop Control Dated', required=True)
+    control_officer = fields.Char(string='Control Officer', required=True)
     toilet_cleaning_ids = fields.One2many('control.toilet_cleaning', 'sheet_id', string='Toilet Cleaning')
+
+    @api.model
+    def create(self, vals):
+        sheet = super().create(vals)
+        default_items = [
+            'Tissue Paper In Toilet',
+            'Spray In Toilet',
+            'Hand Soap Lotion',
+            'Cleanness of Flush',
+            'Cleanness of Floor',
+            'Dusbin',
+        ]
+        for item in default_items:
+            self.env['control.toilet_cleaning'].create({
+                'sheet_id': sheet.id,
+                'item': item,
+            })
+        return sheet
 
 
 
