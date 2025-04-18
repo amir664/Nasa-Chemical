@@ -85,7 +85,7 @@
             </form>
         </field>
     </record>
-
+<!-- 
     <record id="view_shop_control_sheet_tree" model="ir.ui.view">
         <field name="name">shop.control.sheet.tree</field>
         <field name="model">control.shop_control_sheet</field>
@@ -95,7 +95,7 @@
                 <field name="control_officer"/>
             </tree>
         </field>
-    </record>
+    </record> -->
 
     <record id="action_shop_control_sheet" model="ir.actions.act_window">
         <field name="name">Shop Control Sheet</field>
