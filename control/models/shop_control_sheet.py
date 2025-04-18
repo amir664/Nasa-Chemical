@@ -6,7 +6,7 @@ class ShopControlSheet(models.Model):
     _description = 'Shop Control Sheet'
 
     name = fields.Date(string='Shop Control Dated', required=True)
-    control_officer = fields.Char(string='Control Officer', required=True)
+    control_officer = fields.Char('res.users', required=True)
     toilet_cleaning_ids = fields.One2many('control.toilet_cleaning', 'sheet_id', string='Toilet Cleaning')
     sale_area_ids = fields.One2many('control.sale_area', 'sheet_id')
     freezer_ids = fields.One2many('control.freezer', 'sheet_id')
