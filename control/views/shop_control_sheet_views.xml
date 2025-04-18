@@ -11,7 +11,7 @@
                     </group>
                     <notebook>
                         <page string="Toilet Cleaning">
-                            <field name="toilet_cleaning_ids">
+                            <field name="toilet_cleaning_ids" context="{'show_create': False}" options="{'no_create_edit': True, 'no_create': True}">
                                 <tree editable="bottom">
                                     <field name="item"/>
                                     <field name="yes_no"/>
@@ -41,13 +41,5 @@
         <field name="name">Shop Control Sheet</field>
         <field name="res_model">control.shop_control_sheet</field>
         <field name="view_mode">tree,form</field>
-    </record>
-
-    <!-- Hardcoded Items in XML -->
-    <record id="default_toilet_cleaning_items" model="ir.model.data">
-        <field name="name">default_toilet_cleaning_items</field>
-        <field name="model">control.toilet_cleaning</field>
-        <field name="res_id">Tissue Paper In Toilet</field>
-        <field name="noupdate">True</field>
     </record>
 </odoo>

@@ -10,8 +10,11 @@ class ShopControlSheet(models.Model):
     toilet_cleaning_ids = fields.One2many('control.toilet_cleaning', 'sheet_id', string='Toilet Cleaning')
 
     @api.model
-    def create(self, vals):
-        sheet = super().create(vals)
+    def default_get(self, fields_list):
+        """ Override default_get to prepopulate the toilet cleaning items """
+        res = super(ShopControlSheet, self).default_get(fields_list)
+        
+        # Predefined items to add
         default_items = [
             'Tissue Paper In Toilet',
             'Spray In Toilet',
@@ -20,13 +23,17 @@ class ShopControlSheet(models.Model):
             'Cleanness of Floor',
             'Dusbin',
         ]
+        
+        # Create default toilet cleaning entries and set them in the res dict
+        toilet_cleaning_data = []
         for item in default_items:
-            self.env['control.toilet_cleaning'].create({
-                'sheet_id': sheet.id,
-                'item': item,
-            })
-        return sheet
-
+            toilet_cleaning_data.append((0, 0, {'item': item}))
+        
+        # Set the default values for the One2many field (toilet_cleaning_ids)
+        res.update({
+            'toilet_cleaning_ids': toilet_cleaning_data,
+        })
+        return res
 
 
 class ToiletCleaning(models.Model):
@@ -34,8 +41,7 @@ class ToiletCleaning(models.Model):
     _description = 'Toilet Cleaning Checklist'
 
     sheet_id = fields.Many2one('control.shop_control_sheet', string='Control Sheet')
-    item = fields.Char(default='Tissue Paper In Toilet', readonly=True)
-    yes_no = fields.Selection([('yes', 'Yes'), ('no', 'No')], string='Yes/No')  # <- no required=True
-    condition = fields.Selection([('good', 'Good'), ('bad', 'Bad')], string='Condition')  # <- no required=True
-    remarks = fields.Text(string='Remarks')  # <- optional
-
+    item = fields.Char(string='Item', readonly=True)  # 'readonly=True' ensures this field cannot be edited
+    yes_no = fields.Selection([('yes', 'Yes'), ('no', 'No')], string='Yes/No', required=True)
+    condition = fields.Selection([('good', 'Good'), ('bad', 'Bad')], string='Condition', required=True)
+    remarks = fields.Text(string='Remarks', required=False)
