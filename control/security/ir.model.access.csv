@@ -1,3 +1,8 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_shop_control_sheet,access_shop_control_sheet,model_control_shop_control_sheet,,1,1,1,1
 access_toilet_cleaning,access_toilet_cleaning,model_control_toilet_cleaning,,1,1,1,1
+access_sale_area,access_sale_area,model_control_sale_area,,1,1,1,1
+access_freezer,access_freezer,model_control_freezer,,1,1,1,1
+access_staffing,access_staffing,model_control_staffing,,1,1,1,1
+access_translation_on_products,access_translation_on_products,model_control_translation_on_products,,1,1,1,1
+access_goods_market,access_goods_market,model_control_goods_market,,1,1,1,1

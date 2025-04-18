@@ -1,4 +1,4 @@
-<odoo>
+
     <record id="view_shop_control_sheet_form" model="ir.ui.view">
         <field name="name">shop.control.sheet.form</field>
         <field name="model">control.shop_control_sheet</field>
@@ -10,8 +10,8 @@
                         <field name="control_officer3"/>
                     </group>
                     <notebook>
-                        <page string="Toilet Cleaning">
-                            <field name="toilet_cleaning_ids">
+                        <page string="Toilet Cleaning" >
+                            <field name="toilet_cleaning_ids" context="{'show_create': False}" options="{'no_create_edit': True, 'no_create': True}">
                                 <tree>
                                     <field name="item"/>
                                     <field name="yes_no"/>
@@ -23,7 +23,7 @@
                     <!-- </notebook> -->
                     <!-- <notebook> -->
                         <page string="Shop - Sale Area">
-                            <field name="sale_area_ids">
+                            <field name="sale_area_ids" context="{'show_create': False}" options="{'no_create_edit': True, 'no_create': True}">
                                 <tree>
                                     <field name="item"/>
                                     <field name="yes_no"/>
@@ -35,7 +35,7 @@
                     <!-- </notebook> -->
                     <!-- <notebook> -->
                         <page string="Freezer">
-                            <field name="freezer_ids">
+                            <field name="freezer_ids" context="{'show_create': False}" options="{'no_create_edit': True, 'no_create': True}">
                                 <tree>
                                     <field name="item"/>
                                     <field name="yes_no"/>
@@ -47,7 +47,7 @@
                     <!-- </notebook> -->
                     <!-- <notebook> -->
                         <page string="Staffing">
-                            <field name="staffing_ids" >
+                            <field name="staffing_ids" context="{'show_create': False}" options="{'no_create_edit': True, 'no_create': True}">
                                 <tree>
                                     <field name="item"/>
                                     <field name="yes_no"/>
@@ -59,7 +59,7 @@
                     <!-- </notebook> -->
                     <!-- <notebook> -->
                         <page string="Translation on Products">
-                            <field name="translation_on_products_ids">
+                            <field name="translation_on_products_ids" context="{'show_create': False}" options="{'no_create_edit': True, 'no_create': True}">
                                 <tree>
                                     <field name="item"/>
                                     <field name="yes_no"/>
@@ -71,7 +71,7 @@
                     <!-- </notebook> -->
                     <!-- <notebook> -->
                         <page string="Goods as per Market Not Available">
-                            <field name="goods_market_ids">
+                            <field name="goods_market_ids" context="{'show_create': False}" options="{'no_create_edit': True, 'no_create': True}">
                                 <tree>
                                     <field name="item"/>
                                     <field name="yes_no"/>
@@ -103,3 +103,4 @@
         <field name="view_mode">tree,form</field>
     </record>
 </odoo>
+
