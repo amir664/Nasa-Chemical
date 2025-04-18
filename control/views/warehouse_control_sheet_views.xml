@@ -22,8 +22,8 @@
                         </page>
                     <!-- </notebook> -->
                     <!-- <notebook> -->
-                        <page string="Shop - Sale Area">
-                            <field name="sale_area_ids" context="{'show_create': False}" options="{'no_create_edit': True, 'no_create': True}">
+                        <page string=" Toilet Cleaning  - Women">
+                            <field name="toilet_cleaning_women_ids" context="{'show_create': False}" options="{'no_create_edit': True, 'no_create': True}">
                                 <tree>
                                     <field name="item"/>
                                     <field name="yes_no"/>
@@ -34,8 +34,8 @@
                         </page>
                     <!-- </notebook> -->
                     <!-- <notebook> -->
-                        <page string="Freezer">
-                            <field name="freezer_ids" context="{'show_create': False}" options="{'no_create_edit': True, 'no_create': True}">
+                        <page string=" Toilet Cleaning  - Men">
+                            <field name="toilet_cleaning_men_ids" context="{'show_create': False}" options="{'no_create_edit': True, 'no_create': True}">
                                 <tree>
                                     <field name="item"/>
                                     <field name="yes_no"/>
@@ -46,8 +46,8 @@
                         </page>
                     <!-- </notebook> -->
                     <!-- <notebook> -->
-                        <page string="Staffing">
-                            <field name="staffing_ids" context="{'show_create': False}" options="{'no_create_edit': True, 'no_create': True}">
+                        <page string="Groud Floor Office - Adminitration ">
+                            <field name="groud_floor_office_adminitration_ids" context="{'show_create': False}" options="{'no_create_edit': True, 'no_create': True}">
                                 <tree>
                                     <field name="item"/>
                                     <field name="yes_no"/>
@@ -58,8 +58,8 @@
                         </page>
                     <!-- </notebook> -->
                     <!-- <notebook> -->
-                        <page string="Translation on Products">
-                            <field name="translation_on_products_ids" context="{'show_create': False}" options="{'no_create_edit': True, 'no_create': True}">
+                        <page string="Groud Floor Offices - Logistics Office">
+                            <field name="groud_floor_offices_logistics_office_ids" context="{'show_create': False}" options="{'no_create_edit': True, 'no_create': True}">
                                 <tree>
                                     <field name="item"/>
                                     <field name="yes_no"/>
@@ -70,8 +70,18 @@
                         </page>
                     <!-- </notebook> -->
                     <!-- <notebook> -->
-                        <page string="Goods as per Market Not Available">
-                            <field name="goods_market_ids" context="{'show_create': False}" options="{'no_create_edit': True, 'no_create': True}">
+                        <page string="Groud Floor Office - Cash and Sales Department">
+                            <field name="groud_floor_office_cash_and_sales_department_ids" context="{'show_create': False}" options="{'no_create_edit': True, 'no_create': True}">
+                                <tree>
+                                    <field name="item"/>
+                                    <field name="yes_no"/>
+                                    <field name="condition"/>
+                                    <field name="remarks"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Temperature of Freezers">
+                            <field name="temperature_of_freezers_ids" context="{'show_create': False}" options="{'no_create_edit': True, 'no_create': True}">
                                 <tree>
                                     <field name="item"/>
                                     <field name="yes_no"/>

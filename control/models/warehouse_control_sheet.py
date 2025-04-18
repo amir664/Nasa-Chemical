@@ -8,11 +8,12 @@ class ShopControlSheet(models.Model):
     name = fields.Date(string='Shop Control Dated')
     control_officer3 = fields.Many2one('res.users',string='Control Officer Dated')
     packing_room_ids = fields.One2many('control.packing_room', 'sheet_id', string='Packing Room')
-    sale_area_ids = fields.One2many('control.sale_area', 'sheet_id')
-    freezer_ids = fields.One2many('control.freezer', 'sheet_id')
-    staffing_ids = fields.One2many('control.staffing', 'sheet_id')
-    translation_on_products_ids = fields.One2many('control.translation_on_products', 'sheet_id')
+    toilet_cleaning_women_ids = fields.One2many('control.toilet_cleaning_women', 'sheet_id')
+    toilet_cleaning_men_ids = fields.One2many('control.toilet_cleaning_men', 'sheet_id')
+    groud_floor_office_adminitration_ids = fields.One2many('control.groud_floor_office_adminitration', 'sheet_id')
+    groud_floor_offices_logistics_office_ids = fields.One2many('control.groud_floor_offices_logistics_office', 'sheet_id')
     goods_market_ids = fields.One2many('control.goods_market', 'sheet_id')
+    temperature_of_freezers_ids = fields.One2many('control.temperature_of_freezers', 'sheet_id')
 
 
     @api.model
@@ -31,7 +32,7 @@ class ShopControlSheet(models.Model):
             'Presentation of Staff'
         ]
         
-        sale_area_items = [
+        toilet_cleaning_women_items = [
             'Invoices and Sales File',
  'Cleaning of Floor',
  'Counter Area',
@@ -42,35 +43,38 @@ class ShopControlSheet(models.Model):
  'Aldi, Colyrupt and Mns Stocks',
         ]
         
-        freezer_items = [
+        toilet_cleaning_men_items = [
              'Frozen Goods -  Temperature Devise',
- 'Freezer - Temperature Monitoring Devise',
- 'Temperature of Freezer',
+ 'toilet_cleaning_men - Temperature Monitoring Devise',
+ 'Temperature of toilet_cleaning_men',
         ]
         
-        staffing_items = [
+        groud_floor_office_adminitration_items = [
              'Late Staff / Absent Staff',
  'Staff Work Contracts',
  'Staff Medical Report',
  'Presentation',
         ]
         
-        translation_on_products_items = []
+        groud_floor_offices_logistics_office_items = []
+
+        temperature_of_freezers_items = []
         
         # Create data for each One2many field
         packing_room_data = [(0, 0, {'item': item}) for item in packing_room_items]
-        sale_area_data = [(0, 0, {'item': item}) for item in sale_area_items]
-        freezer_data = [(0, 0, {'item': item}) for item in freezer_items]
-        staffing_data = [(0, 0, {'item': item}) for item in staffing_items]
-        translation_on_products_data = [(0, 0, {'item': item}) for item in translation_on_products_items]
-        
+        toilet_cleaning_women_data = [(0, 0, {'item': item}) for item in toilet_cleaning_women_items]
+        toilet_cleaning_men_data = [(0, 0, {'item': item}) for item in toilet_cleaning_men_items]
+        groud_floor_office_adminitration_data = [(0, 0, {'item': item}) for item in groud_floor_office_adminitration_items]
+        groud_floor_offices_logistics_office_data = [(0, 0, {'item': item}) for item in groud_floor_offices_logistics_office_items]
+        temperature_of_freezers_data = [(0, 0, {'item': item}) for item in temperature_of_freezers_items]
         # Update the result dictionary with prepopulated data
         res.update({
             'packing_room_ids': packing_room_data,
-            'sale_area_ids': sale_area_data,
-            'freezer_ids': freezer_data,
-            'staffing_ids': staffing_data,
-            'translation_on_products_ids': translation_on_products_data,
+            'toilet_cleaning_women_ids': toilet_cleaning_women_data,
+            'toilet_cleaning_men_ids': toilet_cleaning_men_data,
+            'groud_floor_office_adminitration_ids': groud_floor_office_adminitration_data,
+            'groud_floor_offices_logistics_office_ids': groud_floor_offices_logistics_office_data,
+            'temperature_of_freezers_ids': temperature_of_freezers_data,
         })
         
         return res
@@ -88,7 +92,7 @@ class ToiletCleaning(models.Model):
 
 
 class SaleArea(models.Model):
-    _name = 'control.sale_area'
+    _name = 'control.toilet_cleaning_women'
     _description = 'Sale Area'
 
     sheet_id = fields.Many2one('control.warehouse_control_sheet', string='Control Sheet')
@@ -98,9 +102,9 @@ class SaleArea(models.Model):
     remarks = fields.Text(string='Remarks', required=False)
 
 
-class Freezer(models.Model):
-    _name = 'control.freezer'
-    _description = 'Freezer'
+class toilet_cleaning_men(models.Model):
+    _name = 'control.toilet_cleaning_men'
+    _description = 'toilet_cleaning_men'
 
     sheet_id = fields.Many2one('control.warehouse_control_sheet', string='Control Sheet')
     item = fields.Char(string='Item', readonly=True)  # 'readonly=True' ensures this field cannot be edited
@@ -109,9 +113,9 @@ class Freezer(models.Model):
     remarks = fields.Text(string='Remarks', required=False)
 
 
-class Staffing(models.Model):
-    _name = 'control.staffing'
-    _description = 'Staffing'
+class groud_floor_office_adminitration(models.Model):
+    _name = 'control.groud_floor_office_adminitration'
+    _description = 'groud_floor_office_adminitration'
 
     sheet_id = fields.Many2one('control.warehouse_control_sheet', string='Control Sheet')
     item = fields.Char(string='Item', readonly=True)  # 'readonly=True' ensures this field cannot be edited
@@ -121,7 +125,7 @@ class Staffing(models.Model):
 
 
 class  TranslationOnProducts(models.Model):
-    _name = 'control.translation_on_products'
+    _name = 'control.groud_floor_offices_logistics_office'
     _description = 'Translation On Products'
 
     sheet_id = fields.Many2one('control.warehouse_control_sheet', string='Control Sheet')
@@ -140,3 +144,13 @@ class  GoodsMarket(models.Model):
     yes_no = fields.Selection([('yes', 'Yes'), ('no', 'No')], string='Yes/No', required=True)
     condition = fields.Selection([('good', 'Good'), ('bad', 'Bad')], string='Condition', required=True)
     remarks = fields.Text(string='Remarks', required=False)                
+
+class  GoodsMarket(models.Model):
+    _name = 'control.temperature_of_freezers'
+    _description = 'GoodsMarket'
+
+    sheet_id = fields.Many2one('control.warehouse_control_sheet', string='Control Sheet')
+    item = fields.Char(string='Item', readonly=True)  # 'readonly=True' ensures this field cannot be edited
+    yes_no = fields.Selection([('yes', 'Yes'), ('no', 'No')], string='Yes/No', required=True)
+    condition = fields.Selection([('good', 'Good'), ('bad', 'Bad')], string='Condition', required=True)
+    remarks = fields.Text(string='Remarks', required=False)         
