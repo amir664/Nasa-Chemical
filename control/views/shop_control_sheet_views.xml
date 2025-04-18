@@ -92,7 +92,7 @@
         <field name="arch" type="xml">
             <tree>
                 <field name="name"/>
-                <field name="control_officer"/>
+                <!-- <field name="control_officer"/> -->
             </tree>
         </field>
     </record>
