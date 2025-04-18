@@ -11,7 +11,7 @@
                     </group>
                     <notebook>
                         <page string="Toilet Cleaning">
-                            <field name="toilet_cleaning_ids" context="{'show_create': False}" options="{'no_create_edit': True, 'no_create': True}">
+                            <field name="toilet_cleaning_ids">
                                 <tree>
                                     <field name="item"/>
                                     <field name="yes_no"/>
@@ -23,7 +23,7 @@
                     <!-- </notebook> -->
                     <!-- <notebook> -->
                         <page string="Shop - Sale Area">
-                            <field name="sale_area_ids" context="{'show_create': False}" options="{'no_create_edit': True, 'no_create': True}">
+                            <field name="sale_area_ids">
                                 <tree>
                                     <field name="item"/>
                                     <field name="yes_no"/>
@@ -35,7 +35,7 @@
                     <!-- </notebook> -->
                     <!-- <notebook> -->
                         <page string="Freezer">
-                            <field name="freezer_ids" context="{'show_create': False}" options="{'no_create_edit': True, 'no_create': True}">
+                            <field name="freezer_ids">
                                 <tree>
                                     <field name="item"/>
                                     <field name="yes_no"/>
@@ -47,7 +47,7 @@
                     <!-- </notebook> -->
                     <!-- <notebook> -->
                         <page string="Staffing">
-                            <field name="staffing_ids" context="{'show_create': False}" options="{'no_create_edit': True, 'no_create': True}">
+                            <field name="staffing_ids" >
                                 <tree>
                                     <field name="item"/>
                                     <field name="yes_no"/>
@@ -59,7 +59,7 @@
                     <!-- </notebook> -->
                     <!-- <notebook> -->
                         <page string="Translation on Products">
-                            <field name="translation_on_products_ids" context="{'show_create': False}" options="{'no_create_edit': True, 'no_create': True}">
+                            <field name="translation_on_products_ids">
                                 <tree>
                                     <field name="item"/>
                                     <field name="yes_no"/>
@@ -71,7 +71,7 @@
                     <!-- </notebook> -->
                     <!-- <notebook> -->
                         <page string="Goods as per Market Not Available">
-                            <field name="goods_market_ids" context="{'show_create': False}" options="{'no_create_edit': True, 'no_create': True}">
+                            <field name="goods_market_ids">
                                 <tree>
                                     <field name="item"/>
                                     <field name="yes_no"/>
