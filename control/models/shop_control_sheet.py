@@ -1,5 +1,5 @@
 from odoo import models, fields, api, _
-from odoo.exceptions import UserErro
+from odoo.exceptions import UserError
 
 
 class ShopControlSheet(models.Model):
