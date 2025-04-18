@@ -47,7 +47,7 @@
                     </notebook>
                     <notebook>
                         <page string="Staffing">
-                            <field name="Staffing_ids" context="{'show_create': False}" options="{'no_create_edit': True, 'no_create': True}">
+                            <field name="staffing_ids" context="{'show_create': False}" options="{'no_create_edit': True, 'no_create': True}">
                                 <tree>
                                     <field name="item"/>
                                     <field name="yes_no"/>
