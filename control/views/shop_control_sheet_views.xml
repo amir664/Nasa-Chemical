@@ -20,7 +20,7 @@
                                 </tree>
                             </field>
                         </page>
-                    </notebook>
+                    <!-- </notebook> -->
                     <!-- <notebook> -->
                         <page string="Shop - Sale Area">
                             <field name="sale_area_ids" context="{'show_create': False}" options="{'no_create_edit': True, 'no_create': True}">
