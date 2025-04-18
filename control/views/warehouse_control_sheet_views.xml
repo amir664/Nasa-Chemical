@@ -1,0 +1,106 @@
+<odoo>
+    <record id="view_warehouse_control_sheet_form" model="ir.ui.view">
+        <field name="name">warehouse_control_sheet.form</field>
+        <field name="model">control.warehouse_control_sheet</field>
+        <field name="arch" type="xml">
+            <form string="Warehouse Control Sheet">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="control_officer3"/>
+                    </group>
+                    <notebook>
+                        <page string="Packing Room" >
+                            <field name="packing_room_ids" context="{'show_create': False}" options="{'no_create_edit': True, 'no_create': True}">
+                                <tree>
+                                    <field name="item"/>
+                                    <field name="yes_no"/>
+                                    <field name="condition"/>
+                                    <field name="remarks"/>
+                                </tree>
+                            </field>
+                        </page>
+                    <!-- </notebook> -->
+                    <!-- <notebook> -->
+                        <page string="Shop - Sale Area">
+                            <field name="sale_area_ids" context="{'show_create': False}" options="{'no_create_edit': True, 'no_create': True}">
+                                <tree>
+                                    <field name="item"/>
+                                    <field name="yes_no"/>
+                                    <field name="condition"/>
+                                    <field name="remarks"/>
+                                </tree>
+                            </field>
+                        </page>
+                    <!-- </notebook> -->
+                    <!-- <notebook> -->
+                        <page string="Freezer">
+                            <field name="freezer_ids" context="{'show_create': False}" options="{'no_create_edit': True, 'no_create': True}">
+                                <tree>
+                                    <field name="item"/>
+                                    <field name="yes_no"/>
+                                    <field name="condition"/>
+                                    <field name="remarks"/>
+                                </tree>
+                            </field>
+                        </page>
+                    <!-- </notebook> -->
+                    <!-- <notebook> -->
+                        <page string="Staffing">
+                            <field name="staffing_ids" context="{'show_create': False}" options="{'no_create_edit': True, 'no_create': True}">
+                                <tree>
+                                    <field name="item"/>
+                                    <field name="yes_no"/>
+                                    <field name="condition"/>
+                                    <field name="remarks"/>
+                                </tree>
+                            </field>
+                        </page>
+                    <!-- </notebook> -->
+                    <!-- <notebook> -->
+                        <page string="Translation on Products">
+                            <field name="translation_on_products_ids" context="{'show_create': False}" options="{'no_create_edit': True, 'no_create': True}">
+                                <tree>
+                                    <field name="item"/>
+                                    <field name="yes_no"/>
+                                    <field name="condition"/>
+                                    <field name="remarks"/>
+                                </tree>
+                            </field>
+                        </page>
+                    <!-- </notebook> -->
+                    <!-- <notebook> -->
+                        <page string="Goods as per Market Not Available">
+                            <field name="goods_market_ids" context="{'show_create': False}" options="{'no_create_edit': True, 'no_create': True}">
+                                <tree>
+                                    <field name="item"/>
+                                    <field name="yes_no"/>
+                                    <field name="condition"/>
+                                    <field name="remarks"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>                    
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_warehouse_control_sheet_tree" model="ir.ui.view">
+        <field name="name">warehouse_control_sheet.tree</field>
+        <field name="model">control.warehouse_control_sheet</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="control_officer"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_warehouse_control_sheet" model="ir.actions.act_window">
+        <field name="name">Warehouse Control Sheet</field>
+        <field name="res_model">control.warehouse_control_sheet</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>
+

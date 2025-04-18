@@ -14,6 +14,6 @@
 
     <!-- Warehouse Control Sheet under Warehouse -->
     <menuitem id="menu_warehouse_control_sheet" name="Warehouse Control Sheet"
-              parent="menu_warehouse"/>
+              parent="menu_warehouse"action="action_warehouse_control_sheet"/>
               <!-- action="action_warehouse_control_sheet" -->
 </odoo>

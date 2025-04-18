@@ -1,0 +1,142 @@
+from odoo import models, fields, api, _
+from odoo.exceptions import UserError
+
+class ShopControlSheet(models.Model):
+    _name = 'control.warehouse_control_sheet'
+    _description = 'Warehouse Control Sheet'
+
+    name = fields.Date(string='Shop Control Dated')
+    control_officer3 = fields.Many2one('res.users',string='Control Officer Dated')
+    packing_room_ids = fields.One2many('control.packing_room', 'sheet_id', string='Packing Room')
+    sale_area_ids = fields.One2many('control.sale_area', 'sheet_id')
+    freezer_ids = fields.One2many('control.freezer', 'sheet_id')
+    staffing_ids = fields.One2many('control.staffing', 'sheet_id')
+    translation_on_products_ids = fields.One2many('control.translation_on_products', 'sheet_id')
+    goods_market_ids = fields.One2many('control.goods_market', 'sheet_id')
+
+
+    @api.model
+    def default_get(self, fields_list):
+        """ Override default_get to prepopulate multiple One2many fields """
+        res = super(ShopControlSheet, self).default_get(fields_list)
+        
+        # Predefined items for different One2many fields
+        packing_room_items = [
+            'Packing Production Report',
+            'Packing Sticker Requirement',
+            'Packing Plastic Requirement',
+            'Hand Soap Lotion',
+            'Cleanness of Flush',
+            'Cleanness of Floor',
+            'Presentation of Staff'
+        ]
+        
+        sale_area_items = [
+            'Invoices and Sales File',
+ 'Cleaning of Floor',
+ 'Counter Area',
+ 'First Aid Box',
+ 'Shop Registration Form',
+ 'Missing Stock of Master Business Products',
+ 'Cleaning of Racks',
+ 'Aldi, Colyrupt and Mns Stocks',
+        ]
+        
+        freezer_items = [
+             'Frozen Goods -  Temperature Devise',
+ 'Freezer - Temperature Monitoring Devise',
+ 'Temperature of Freezer',
+        ]
+        
+        staffing_items = [
+             'Late Staff / Absent Staff',
+ 'Staff Work Contracts',
+ 'Staff Medical Report',
+ 'Presentation',
+        ]
+        
+        translation_on_products_items = []
+        
+        # Create data for each One2many field
+        packing_room_data = [(0, 0, {'item': item}) for item in packing_room_items]
+        sale_area_data = [(0, 0, {'item': item}) for item in sale_area_items]
+        freezer_data = [(0, 0, {'item': item}) for item in freezer_items]
+        staffing_data = [(0, 0, {'item': item}) for item in staffing_items]
+        translation_on_products_data = [(0, 0, {'item': item}) for item in translation_on_products_items]
+        
+        # Update the result dictionary with prepopulated data
+        res.update({
+            'packing_room_ids': packing_room_data,
+            'sale_area_ids': sale_area_data,
+            'freezer_ids': freezer_data,
+            'staffing_ids': staffing_data,
+            'translation_on_products_ids': translation_on_products_data,
+        })
+        
+        return res
+
+
+class ToiletCleaning(models.Model):
+    _name = 'control.packing_room'
+    _description = 'Toilet Cleaning Checklist'
+
+    sheet_id = fields.Many2one('control.warehouse_control_sheet', string='Control Sheet')
+    item = fields.Char(string='Item', readonly=True)  # 'readonly=True' ensures this field cannot be edited
+    yes_no = fields.Selection([('yes', 'Yes'), ('no', 'No')], string='Yes/No', required=True)
+    condition = fields.Selection([('good', 'Good'), ('bad', 'Bad')], string='Condition', required=True)
+    remarks = fields.Text(string='Remarks', required=False)
+
+
+class SaleArea(models.Model):
+    _name = 'control.sale_area'
+    _description = 'Sale Area'
+
+    sheet_id = fields.Many2one('control.warehouse_control_sheet', string='Control Sheet')
+    item = fields.Char(string='Item', readonly=True)  
+    yes_no = fields.Selection([('yes', 'Yes'), ('no', 'No')], string='Yes/No', required=True)
+    condition = fields.Selection([('good', 'Good'), ('bad', 'Bad')], string='Condition', required=True)
+    remarks = fields.Text(string='Remarks', required=False)
+
+
+class Freezer(models.Model):
+    _name = 'control.freezer'
+    _description = 'Freezer'
+
+    sheet_id = fields.Many2one('control.warehouse_control_sheet', string='Control Sheet')
+    item = fields.Char(string='Item', readonly=True)  # 'readonly=True' ensures this field cannot be edited
+    yes_no = fields.Selection([('yes', 'Yes'), ('no', 'No')], string='Yes/No', required=True)
+    condition = fields.Selection([('good', 'Good'), ('bad', 'Bad')], string='Condition', required=True)
+    remarks = fields.Text(string='Remarks', required=False)
+
+
+class Staffing(models.Model):
+    _name = 'control.staffing'
+    _description = 'Staffing'
+
+    sheet_id = fields.Many2one('control.warehouse_control_sheet', string='Control Sheet')
+    item = fields.Char(string='Item', readonly=True)  # 'readonly=True' ensures this field cannot be edited
+    yes_no = fields.Selection([('yes', 'Yes'), ('no', 'No')], string='Yes/No', required=True)
+    condition = fields.Selection([('good', 'Good'), ('bad', 'Bad')], string='Condition', required=True)
+    remarks = fields.Text(string='Remarks', required=False)
+
+
+class  TranslationOnProducts(models.Model):
+    _name = 'control.translation_on_products'
+    _description = 'Translation On Products'
+
+    sheet_id = fields.Many2one('control.warehouse_control_sheet', string='Control Sheet')
+    item = fields.Char(string='Item', readonly=True)  # 'readonly=True' ensures this field cannot be edited
+    yes_no = fields.Selection([('yes', 'Yes'), ('no', 'No')], string='Yes/No', required=True)
+    condition = fields.Selection([('good', 'Good'), ('bad', 'Bad')], string='Condition', required=True)
+    remarks = fields.Text(string='Remarks', required=False)
+
+
+class  GoodsMarket(models.Model):
+    _name = 'control.goods_market'
+    _description = 'GoodsMarket'
+
+    sheet_id = fields.Many2one('control.warehouse_control_sheet', string='Control Sheet')
+    item = fields.Char(string='Item', readonly=True)  # 'readonly=True' ensures this field cannot be edited
+    yes_no = fields.Selection([('yes', 'Yes'), ('no', 'No')], string='Yes/No', required=True)
+    condition = fields.Selection([('good', 'Good'), ('bad', 'Bad')], string='Condition', required=True)
+    remarks = fields.Text(string='Remarks', required=False)                
