@@ -1,0 +1,9 @@
+<odoo>
+    <menuitem id="menu_control_root" name="Control"/>
+
+    <menuitem id="menu_warehouse" name="Warehouse" parent="menu_control_root"/>
+    <menuitem id="menu_control" name="Control" parent="menu_control_root"/>
+
+    <menuitem id="menu_shop_control_sheet" name="Shop Control Sheet"
+              parent="menu_control" action="action_shop_control_sheet"/>
+</odoo>

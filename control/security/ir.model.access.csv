@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_shop_control_sheet,access_shop_control_sheet,model_control_shop_control_sheet,,1,1,1,1
+access_toilet_cleaning,access_toilet_cleaning,model_control_toilet_cleaning,,1,1,1,1
