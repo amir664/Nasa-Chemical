@@ -1,13 +1,19 @@
 <odoo>
+    <!-- Main Control Menu -->
     <menuitem id="menu_control_root" name="Control"/>
 
-    <menuitem id="menu_warehouse" name="Warehouse" parent="menu_control_root"/>
+    <!-- Shop Control Menu under Control -->
     <menuitem id="menu_control" name="Shop Control" parent="menu_control_root"/>
 
+    <!-- Warehouse Menu under Control -->
+    <menuitem id="menu_warehouse" name="Warehouse" parent="menu_control_root"/>
+
+    <!-- Shop Control Sheet under Shop Control -->
     <menuitem id="menu_shop_control_sheet" name="Shop Control Sheet"
               parent="menu_control" action="action_shop_control_sheet"/>
 
-    <menuitem id="menu_shop_control_sheet" name="WareHouse Control Sheet"
-              parent="menu_warehouse" />              
-              <!-- action="action_Warehouse_control_sheet" -->
+    <!-- Warehouse Control Sheet under Warehouse -->
+    <menuitem id="menu_warehouse_control_sheet" name="Warehouse Control Sheet"
+              parent="menu_warehouse" action="action_warehouse_control_sheet"/>
+              <!-- action="action_warehouse_control_sheet" -->
 </odoo>
