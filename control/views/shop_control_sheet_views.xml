@@ -12,7 +12,7 @@
                     <notebook>
                         <page string="Toilet Cleaning">
                             <field name="toilet_cleaning_ids" context="{'show_create': False}" options="{'no_create_edit': True, 'no_create': True}">
-                                <tree editable="bottom">
+                                <tree>
                                     <field name="item"/>
                                     <field name="yes_no"/>
                                     <field name="condition"/>
@@ -21,6 +21,66 @@
                             </field>
                         </page>
                     </notebook>
+                    <notebook>
+                        <page string="Shop - Sale Area">
+                            <field name="sale_area_ids" context="{'show_create': False}" options="{'no_create_edit': True, 'no_create': True}">
+                                <tree>
+                                    <field name="item"/>
+                                    <field name="yes_no"/>
+                                    <field name="condition"/>
+                                    <field name="remarks"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                    <notebook>
+                        <page string="Freezer">
+                            <field name="freezer_id" context="{'show_create': False}" options="{'no_create_edit': True, 'no_create': True}">
+                                <tree>
+                                    <field name="item"/>
+                                    <field name="yes_no"/>
+                                    <field name="condition"/>
+                                    <field name="remarks"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                    <notebook>
+                        <page string="Staffing">
+                            <field name="Staffing_ids" context="{'show_create': False}" options="{'no_create_edit': True, 'no_create': True}">
+                                <tree>
+                                    <field name="item"/>
+                                    <field name="yes_no"/>
+                                    <field name="condition"/>
+                                    <field name="remarks"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                    <notebook>
+                        <page string="Translation on Products">
+                            <field name="translation_on_products_ids" context="{'show_create': False}" options="{'no_create_edit': True, 'no_create': True}">
+                                <tree>
+                                    <field name="item"/>
+                                    <field name="yes_no"/>
+                                    <field name="condition"/>
+                                    <field name="remarks"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                    <notebook>
+                        <page string="Goods as per Market Not Available">
+                            <field name="goods_market_ids" context="{'show_create': False}" options="{'no_create_edit': True, 'no_create': True}">
+                                <tree>
+                                    <field name="item"/>
+                                    <field name="yes_no"/>
+                                    <field name="condition"/>
+                                    <field name="remarks"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>                    
                 </sheet>
             </form>
         </field>

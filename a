@@ -1,0 +1,16 @@
+res = super(ShopControlSheet, self).default_get(fields_list)        
+        default_items = [
+            'Tissue Paper In Toilet',
+            'Spray In Toilet',
+            'Hand Soap Lotion',
+            'Cleanness of Flush',
+            'Cleanness of Floor',
+            'Dusbin',
+        ]        
+        sale_area_data = []
+        for item in default_items:
+            sale_area_data.append((0, 0, {'item': item}))        
+        res.update({
+            'sale_area_ids': sale_area_data,
+        })
+        return res
