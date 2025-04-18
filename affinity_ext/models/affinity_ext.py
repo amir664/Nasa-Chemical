@@ -51,12 +51,12 @@ class ProductTemplateInherited(models.Model):
 class StockPickingInherited(models.Model):
     _inherit = 'stock.picking'
 
-    @api.constrains('location_id')
-    def check_user_location_access(self):
-        for rec in self:
-            allowed_locations = rec.env.user.x_studio_location.ids  
-            if allowed_locations and rec.location_id.id not in allowed_locations:
-                raise UserError("This Location is not accessible for you.")
+    # @api.constrains('location_id')
+    # def check_user_location_access(self):
+    #     for rec in self:
+    #         allowed_locations = rec.env.user.x_studio_location.ids  
+    #         if allowed_locations and rec.location_id.id not in allowed_locations:
+    #             raise UserError("This Location is not accessible for you.")
 
 
 
