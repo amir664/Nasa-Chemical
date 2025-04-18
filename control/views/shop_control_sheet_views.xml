@@ -21,7 +21,7 @@
                             </field>
                         </page>
                     </notebook>
-                    <notebook>
+                    <!-- <notebook> -->
                         <page string="Shop - Sale Area">
                             <field name="sale_area_ids" context="{'show_create': False}" options="{'no_create_edit': True, 'no_create': True}">
                                 <tree>
@@ -32,8 +32,8 @@
                                 </tree>
                             </field>
                         </page>
-                    </notebook>
-                    <notebook>
+                    <!-- </notebook> -->
+                    <!-- <notebook> -->
                         <page string="Freezer">
                             <field name="freezer_ids" context="{'show_create': False}" options="{'no_create_edit': True, 'no_create': True}">
                                 <tree>
@@ -44,8 +44,8 @@
                                 </tree>
                             </field>
                         </page>
-                    </notebook>
-                    <notebook>
+                    <!-- </notebook> -->
+                    <!-- <notebook> -->
                         <page string="Staffing">
                             <field name="staffing_ids" context="{'show_create': False}" options="{'no_create_edit': True, 'no_create': True}">
                                 <tree>
@@ -56,8 +56,8 @@
                                 </tree>
                             </field>
                         </page>
-                    </notebook>
-                    <notebook>
+                    <!-- </notebook> -->
+                    <!-- <notebook> -->
                         <page string="Translation on Products">
                             <field name="translation_on_products_ids" context="{'show_create': False}" options="{'no_create_edit': True, 'no_create': True}">
                                 <tree>
@@ -68,8 +68,8 @@
                                 </tree>
                             </field>
                         </page>
-                    </notebook>
-                    <notebook>
+                    <!-- </notebook> -->
+                    <!-- <notebook> -->
                         <page string="Goods as per Market Not Available">
                             <field name="goods_market_ids" context="{'show_create': False}" options="{'no_create_edit': True, 'no_create': True}">
                                 <tree>
