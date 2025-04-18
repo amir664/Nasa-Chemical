@@ -11,7 +11,7 @@
                     </group>
                     <notebook>
                         <page string="Toilet Cleaning">
-                            <field name="toilet_cleaning_ids">
+                            <field name="toilet_cleaning_ids" context="{'show_create': False}" options="{'no_create_edit': True, 'no_create': True}">
                                 <tree editable="bottom">
                                     <field name="item"/>
                                     <field name="yes_no"/>
