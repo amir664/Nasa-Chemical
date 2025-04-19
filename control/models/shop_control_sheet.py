@@ -113,7 +113,7 @@ class ToiletCleaning(models.Model):
 
     sheet_id = fields.Many2one('control.shop_control_sheet', string='Control Sheet')
     item = fields.Char(string='Item', readonly=True)  # 'readonly=True' ensures this field cannot be edited
-    yes_no = fields.Selection([('yes', 'Yes'), ('no', 'No')], string='Yes/No', required=True)
+    yes_no = fields.Selection([('yes', 'Yes'), ('no', 'No')], string='Yes/No')
     condition = fields.Selection([('good', 'Good'), ('bad', 'Bad')], string='Condition')
     remarks = fields.Text(string='Remarks', required=False)
     attachment = fields.Binary(string='Attachment', attachment=True)
@@ -125,7 +125,7 @@ class SaleArea(models.Model):
 
     sheet_id = fields.Many2one('control.shop_control_sheet', string='Control Sheet')
     item = fields.Char(string='Item', readonly=True)  
-    yes_no = fields.Selection([('yes', 'Yes'), ('no', 'No')], string='Yes/No', required=True)
+    yes_no = fields.Selection([('yes', 'Yes'), ('no', 'No')], string='Yes/No')
     condition = fields.Selection([('good', 'Good'), ('bad', 'Bad')], string='Condition')
     remarks = fields.Text(string='Remarks', required=False)
     attachment = fields.Binary(string='Attachment', attachment=True)
@@ -137,7 +137,7 @@ class Freezer(models.Model):
 
     sheet_id = fields.Many2one('control.shop_control_sheet', string='Control Sheet')
     item = fields.Char(string='Item', readonly=True)  # 'readonly=True' ensures this field cannot be edited
-    yes_no = fields.Selection([('yes', 'Yes'), ('no', 'No')], string='Yes/No', required=True)
+    yes_no = fields.Selection([('yes', 'Yes'), ('no', 'No')], string='Yes/No')
     condition = fields.Selection([('good', 'Good'), ('bad', 'Bad')], string='Condition')
     remarks = fields.Text(string='Remarks', required=False)
     attachment = fields.Binary(string='Attachment', attachment=True)
@@ -149,7 +149,7 @@ class Staffing(models.Model):
 
     sheet_id = fields.Many2one('control.shop_control_sheet', string='Control Sheet')
     item = fields.Char(string='Item', readonly=True)  # 'readonly=True' ensures this field cannot be edited
-    yes_no = fields.Selection([('yes', 'Yes'), ('no', 'No')], string='Yes/No', required=True)
+    yes_no = fields.Selection([('yes', 'Yes'), ('no', 'No')], string='Yes/No')
     condition = fields.Selection([('good', 'Good'), ('bad', 'Bad')], string='Condition')
     remarks = fields.Text(string='Remarks', required=False)
     attachment = fields.Binary(string='Attachment', attachment=True)
@@ -161,7 +161,7 @@ class  TranslationOnProducts(models.Model):
 
     sheet_id = fields.Many2one('control.shop_control_sheet', string='Control Sheet')
     item = fields.Char(string='Item', readonly=True)  # 'readonly=True' ensures this field cannot be edited
-    yes_no = fields.Selection([('yes', 'Yes'), ('no', 'No')], string='Yes/No', required=True)
+    yes_no = fields.Selection([('yes', 'Yes'), ('no', 'No')], string='Yes/No')
     condition = fields.Selection([('good', 'Good'), ('bad', 'Bad')], string='Condition')
     remarks = fields.Text(string='Remarks', required=False)
     attachment = fields.Binary(string='Attachment', attachment=True)
@@ -173,7 +173,7 @@ class  GoodsMarket(models.Model):
 
     sheet_id = fields.Many2one('control.shop_control_sheet', string='Control Sheet')
     item = fields.Char(string='Item', readonly=True)  # 'readonly=True' ensures this field cannot be edited
-    yes_no = fields.Selection([('yes', 'Yes'), ('no', 'No')], string='Yes/No', required=True)
+    yes_no = fields.Selection([('yes', 'Yes'), ('no', 'No')], string='Yes/No')
     condition = fields.Selection([('good', 'Good'), ('bad', 'Bad')], string='Condition')
     remarks = fields.Text(string='Remarks', required=False)                
     attachment = fields.Binary(string='Attachment', attachment=True)
