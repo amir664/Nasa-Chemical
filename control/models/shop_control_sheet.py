@@ -8,7 +8,7 @@ class ShopControlSheet(models.Model):
 
     name = fields.Char(string='Reference', required=True, copy=False, readonly=True, default='New')
     date = fields.Date(string='Shop Control Dated')
-    control_officer = fields.Char('res.users')
+    # control_officer = fields.Char('res.users')
     control_officer3 = fields.Many2one('res.users', string='Control Officer', tracking=True)
 
     toilet_cleaning_ids = fields.One2many('control.toilet_cleaning', 'sheet_id', string='Toilet Cleaning')
