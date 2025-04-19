@@ -53,14 +53,14 @@ class ShopControlSheet(models.Model):
         res = super(ShopControlSheet, self).default_get(fields_list)
         
         # Predefined items for different One2many fields
-        toilet_cleaning_items = [
-            'Tissue Paper In Toilet',
-            'Spray In Toilet',
-            'Hand Soap Lotion',
-            'Cleanness of Flush',
-            'Cleanness of Floor',
-            'Dusbin',
-        ]
+        # toilet_cleaning_items = [
+        #     'Tissue Paper In Toilet',
+        #     'Spray In Toilet',
+        #     'Hand Soap Lotion',
+        #     'Cleanness of Flush',
+        #     'Cleanness of Floor',
+        #     'Dusbin',
+        # ]
         
         sale_area_items = [
             'Invoices and Sales File',
@@ -89,7 +89,7 @@ class ShopControlSheet(models.Model):
         translation_on_products_items = []
         
         # Create data for each One2many field
-        toilet_cleaning_data = [(0, 0, {'item': item, 'yes_no': 'no'}) for item in toilet_cleaning_items]
+        # toilet_cleaning_data = [(0, 0, {'item': item, 'yes_no': 'no'}) for item in toilet_cleaning_items]
         sale_area_data = [(0, 0, {'item': item, 'yes_no': 'no'}) for item in sale_area_items]
         freezer_data = [(0, 0, {'item': item, 'yes_no': 'no'}) for item in freezer_items]
         staffing_data = [(0, 0, {'item': item, 'yes_no': 'no'}) for item in staffing_items]
@@ -97,7 +97,7 @@ class ShopControlSheet(models.Model):
         
         # Update the result dictionary with prepopulated data
         res.update({
-            'toilet_cleaning_ids': toilet_cleaning_data,
+            # 'toilet_cleaning_ids': toilet_cleaning_data,
             'sale_area_ids': sale_area_data,
             'freezer_ids': freezer_data,
             'staffing_ids': staffing_data,
@@ -112,7 +112,16 @@ class ToiletCleaning(models.Model):
     _description = 'Toilet Cleaning Checklist'
 
     sheet_id = fields.Many2one('control.shop_control_sheet', string='Control Sheet')
-    item = fields.Char(string='Item', readonly=True)  # 'readonly=True' ensures this field cannot be edited
+    item = fields.Char(string='Item', readonly=True
+                       default=lambda self: [(0, 0, {'item': i}) for i in [
+            'Tissue Paper In Toilet',
+            'Spray In Toilet',
+            'Hand Soap Lotion',
+            'Cleanness of Flush',
+            'Cleanness of Floor',
+            'Dusbin'
+        ]]
+                       )  # 'readonly=True' ensures this field cannot be edited
     yes_no = fields.Selection([('yes', 'Yes'), ('no', 'No')], string='Yes/No')
     condition = fields.Selection([('good', 'Good'), ('bad', 'Bad')], string='Condition')
     remarks = fields.Text(string='Remarks', required=False)
