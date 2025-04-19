@@ -1,4 +1,16 @@
 <odoo>
+    <record id="view_shop_control_sheet_tree" model="ir.ui.view">
+        <field name="name">shop.control.sheet.tree</field>
+        <field name="model">control.shop_control_sheet</field>
+        <field name="arch" type="xml">
+            <tree string="Shop Control Sheet">
+                <field name="record"/>
+                <field name="name"/>
+                <field name="control_officer3"/>
+            </tree>
+        </field>
+    </record>
+
     <record id="view_shop_control_sheet_form" model="ir.ui.view">
         <field name="name">shop.control.sheet.form</field>
         <field name="model">control.shop_control_sheet</field>
