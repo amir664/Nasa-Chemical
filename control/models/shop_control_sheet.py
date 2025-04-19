@@ -21,7 +21,7 @@ class ShopControlSheet(models.Model):
         def validate_lines(lines, tab_name):
             for line in lines:
                 if not line.yes_no:
-                    raise UserError(_("The tab '%s' is not fully filled. Please complete all required fields.") % tab_name)
+                    raise UserError(_("The tab '%s' is not fully filled. Please complete all required fields." % tab_name))
 
         validate_lines(self.toilet_cleaning_ids, "Toilet Cleaning")
         validate_lines(self.sale_area_ids, "Sale Area")
@@ -55,6 +55,7 @@ class ShopControlSheet(models.Model):
             ]
 
         return res
+
 
 class ToiletCleaning(models.Model):
     _name = 'control.toilet_cleaning'
@@ -101,12 +102,7 @@ class Freezer(models.Model):
     _description = 'Freezer'
 
     sheet_id = fields.Many2one('control.shop_control_sheet', string='Control Sheet')
-    item = fields.Selection([
-        ('frozen_goods', 'Frozen Goods -  Temperature Devise'),
-        ('monitoring_device', 'Freezer - Temperature Monitoring Devise'),
-        ('temperature', 'Temperature of Freezer')
-    ], string='Item')
-    item1 = fields.Char(string="Item")
+    item = fields.Char(string='Item')
     yes_no = fields.Selection([('yes', 'Yes'), ('no', 'No')], string='Yes/No')
     condition = fields.Selection([('good', 'Good'), ('bad', 'Bad')], string='Condition')
     remarks = fields.Text(string='Remarks')
