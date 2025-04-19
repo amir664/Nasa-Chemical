@@ -89,11 +89,11 @@ class ShopControlSheet(models.Model):
         translation_on_products_items = []
         
         # Create data for each One2many field
-        toilet_cleaning_data = [(0, 0, {'item': item}) for item in toilet_cleaning_items]
-        sale_area_data = [(0, 0, {'item': item}) for item in sale_area_items]
-        freezer_data = [(0, 0, {'item': item}) for item in freezer_items]
-        staffing_data = [(0, 0, {'item': item}) for item in staffing_items]
-        translation_on_products_data = [(0, 0, {'item': item}) for item in translation_on_products_items]
+        toilet_cleaning_data = [(0, 0, {'item': item, 'yes_no': 'no'}) for item in toilet_cleaning_items]
+        sale_area_data = [(0, 0, {'item': item, 'yes_no': 'no'}) for item in sale_area_items]
+        freezer_data = [(0, 0, {'item': item, 'yes_no': 'no'}) for item in freezer_items]
+        staffing_data = [(0, 0, {'item': item, 'yes_no': 'no'}) for item in staffing_items]
+        translation_on_products_data = [(0, 0, {'item': item, 'yes_no': 'no'}) for item in translation_on_products_items]
         
         # Update the result dictionary with prepopulated data
         res.update({
