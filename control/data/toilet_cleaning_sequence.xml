@@ -3,7 +3,7 @@
     <data noupdate="1">
         <record id="seq_toilet_cleaning" model="ir.sequence">
             <field name="record">Toilet Cleaning Reference</field>
-            <field name="code">shop_control_sheet</field>
+            <field name="code">control.shop_control_sheet</field>
             <field name="prefix">SC-</field>
             <field name="padding">4</field>
             <field name="number_next">1</field>
