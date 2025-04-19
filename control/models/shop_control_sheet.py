@@ -84,18 +84,6 @@ class ShopControlSheet(models.Model):
                 (0, 0, {'item': 'Presentation', 'yes_no': 'no'})
             ]
 
-        if 'translation_on_products_ids' in fields_list:
-            res['translation_on_products_ids'] = [
-                (0, 0, {'item': 'Missing Labels', 'yes_no': 'no'}),
-                (0, 0, {'item': 'Incorrect Translations', 'yes_no': 'no'})
-            ]
-
-        if 'goods_market_ids' in fields_list:
-            res['goods_market_ids'] = [
-                (0, 0, {'item': 'Outdated Price Tags', 'yes_no': 'no'}),
-                (0, 0, {'item': 'Expired Goods Displayed', 'yes_no': 'no'})
-            ]
-
         return res
 
 
