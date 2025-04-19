@@ -11,8 +11,8 @@
                     </group>
                     <notebook>
                         <page string="Packing Room" >
-                            <field name="packing_room_ids" context="{'show_create': False}" options="{'no_create_edit': True, 'no_create': True}">
-                                <tree>
+                            <field name="packing_room_ids" context="{'show_create': False}" options="{'no_create_edit': True, 'no_create': True}" editable="top">
+                                <tree editable="top">
                                     <field name="item"/>
                                     <field name="yes_no"/>
                                     <field name="condition"/>
@@ -23,8 +23,8 @@
                     <!-- </notebook> -->
                     <!-- <notebook> -->
                         <page string=" Toilet Cleaning  - Women">
-                            <field name="toilet_cleaning_women_ids" context="{'show_create': False}" options="{'no_create_edit': True, 'no_create': True}">
-                                <tree>
+                            <field name="toilet_cleaning_women_ids" context="{'show_create': False}" options="{'no_create_edit': True, 'no_create': True}" editable="top">
+                                <tree editable="top">
                                     <field name="item"/>
                                     <field name="yes_no"/>
                                     <field name="condition"/>
@@ -35,8 +35,8 @@
                     <!-- </notebook> -->
                     <!-- <notebook> -->
                         <page string="Toilet Cleaning  - Men">
-                            <field name="toilet_cleaning_men_ids" context="{'show_create': False}" options="{'no_create_edit': True, 'no_create': True}">
-                                <tree>
+                            <field name="toilet_cleaning_men_ids" context="{'show_create': False}" options="{'no_create_edit': True, 'no_create': True}" editable="top">
+                                <tree editable="top">
                                     <field name="item"/>
                                     <field name="yes_no"/>
                                     <field name="condition"/>
@@ -45,8 +45,8 @@
                             </field>
                         </page>
                         <page string="First Floor Offices -  Area">
-                            <field name="first_floor_offices_area_ids" context="{'show_create': False}" options="{'no_create_edit': True, 'no_create': True}">
-                                <tree>
+                            <field name="first_floor_offices_area_ids" context="{'show_create': False}" options="{'no_create_edit': True, 'no_create': True}" editable="top">
+                                <tree editable="top">
                                     <field name="item"/>
                                     <field name="yes_no"/>
                                     <field name="condition"/>
@@ -57,8 +57,8 @@
                     <!-- </notebook> -->
                     <!-- <notebook> -->
                         <page string="Groud Floor Office - Adminitration ">
-                            <field name="groud_floor_office_adminitration_ids" context="{'show_create': False}" options="{'no_create_edit': True, 'no_create': True}">
-                                <tree>
+                            <field name="groud_floor_office_adminitration_ids" context="{'show_create': False}" options="{'no_create_edit': True, 'no_create': True}" editable="top">
+                                <tree editable="top">
                                     <field name="item"/>
                                     <field name="yes_no"/>
                                     <field name="condition"/>
@@ -69,8 +69,8 @@
                     <!-- </notebook> -->
                     <!-- <notebook> -->
                         <page string="Groud Floor Offices - Logistics Office">
-                            <field name="groud_floor_offices_logistics_office_ids" context="{'show_create': False}" options="{'no_create_edit': True, 'no_create': True}">
-                                <tree>
+                            <field name="groud_floor_offices_logistics_office_ids" context="{'show_create': False}" options="{'no_create_edit': True, 'no_create': True}" editable="top">
+                                <tree editable="top">
                                     <field name="item"/>
                                     <field name="yes_no"/>
                                     <field name="condition"/>
@@ -81,8 +81,8 @@
                     <!-- </notebook> -->
                     <!-- <notebook> -->
                         <page string="Groud Floor Office - Cash and Sales Department">
-                            <field name="groud_floor_office_cash_and_sales_department_ids" context="{'show_create': False}" options="{'no_create_edit': True, 'no_create': True}">
-                                <tree>
+                            <field name="groud_floor_office_cash_and_sales_department_ids" context="{'show_create': False}" options="{'no_create_edit': True, 'no_create': True}" editable="top">
+                                <tree editable="top">
                                     <field name="item"/>
                                     <field name="yes_no"/>
                                     <field name="condition"/>
@@ -91,8 +91,8 @@
                             </field>
                         </page>
                         <page string="Temperature of Freezers">
-                            <field name="temperature_of_freezers_ids" context="{'show_create': False}" options="{'no_create_edit': True, 'no_create': True}">
-                                <tree>
+                            <field name="temperature_of_freezers_ids" context="{'show_create': False}" options="{'no_create_edit': True, 'no_create': True}" editable="top">
+                                <tree editable="top">
                                     <field name="item"/>
                                     <field name="yes_no"/>
                                     <field name="condition"/>
