@@ -33,8 +33,8 @@ class ShopControlSheet(models.Model):
 
     @api.model
     def create(self, vals):
-        if vals.get('record', 'New') == 'New':
-            vals['record'] = self.env['ir.sequence'].next_by_code('control.shop_control_sheet') or 'New'
+        if vals.get('name', 'New') == 'New':
+            vals['name'] = self.env['ir.sequence'].next_by_code('control.shop_control_sheet') or 'New'
         record = super().create(vals)
         record._check_all_tabs_filled()
         return record
