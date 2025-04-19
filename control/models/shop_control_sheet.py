@@ -133,7 +133,7 @@ class SaleArea(models.Model):
     _description = 'Sale Area'
 
     sheet_id = fields.Many2one('control.shop_control_sheet', string='Control Sheet')
-    item = fields.Char(string='Item', readonly=True)  
+    item = fields.Char(string='Item')  
     yes_no = fields.Selection([('yes', 'Yes'), ('no', 'No')], string='Yes/No')
     condition = fields.Selection([('good', 'Good'), ('bad', 'Bad')], string='Condition')
     remarks = fields.Text(string='Remarks', required=False)
@@ -145,7 +145,7 @@ class Freezer(models.Model):
     _description = 'Freezer'
 
     sheet_id = fields.Many2one('control.shop_control_sheet', string='Control Sheet')
-    item = fields.Char(string='Item', readonly=True)  # 'readonly=True' ensures this field cannot be edited
+    item = fields.Char(string='Item')  # 'readonly=True' ensures this field cannot be edited
     yes_no = fields.Selection([('yes', 'Yes'), ('no', 'No')], string='Yes/No')
     condition = fields.Selection([('good', 'Good'), ('bad', 'Bad')], string='Condition')
     remarks = fields.Text(string='Remarks', required=False)
@@ -157,7 +157,7 @@ class Staffing(models.Model):
     _description = 'Staffing'
 
     sheet_id = fields.Many2one('control.shop_control_sheet', string='Control Sheet')
-    item = fields.Char(string='Item', readonly=True)  # 'readonly=True' ensures this field cannot be edited
+    item = fields.Char(string='Item')  # 'readonly=True' ensures this field cannot be edited
     yes_no = fields.Selection([('yes', 'Yes'), ('no', 'No')], string='Yes/No')
     condition = fields.Selection([('good', 'Good'), ('bad', 'Bad')], string='Condition')
     remarks = fields.Text(string='Remarks', required=False)
@@ -169,7 +169,7 @@ class  TranslationOnProducts(models.Model):
     _description = 'Translation On Products'
 
     sheet_id = fields.Many2one('control.shop_control_sheet', string='Control Sheet')
-    item = fields.Char(string='Item', readonly=True)  # 'readonly=True' ensures this field cannot be edited
+    item = fields.Char(string='Item')  # 'readonly=True' ensures this field cannot be edited
     yes_no = fields.Selection([('yes', 'Yes'), ('no', 'No')], string='Yes/No')
     condition = fields.Selection([('good', 'Good'), ('bad', 'Bad')], string='Condition')
     remarks = fields.Text(string='Remarks', required=False)
@@ -181,7 +181,7 @@ class  GoodsMarket(models.Model):
     _description = 'GoodsMarket'
 
     sheet_id = fields.Many2one('control.shop_control_sheet', string='Control Sheet')
-    item = fields.Char(string='Item', readonly=True)  # 'readonly=True' ensures this field cannot be edited
+    item = fields.Char(string='Item')  # 'readonly=True' ensures this field cannot be edited
     yes_no = fields.Selection([('yes', 'Yes'), ('no', 'No')], string='Yes/No')
     condition = fields.Selection([('good', 'Good'), ('bad', 'Bad')], string='Condition')
     remarks = fields.Text(string='Remarks', required=False)                
