@@ -17,6 +17,7 @@
         <field name="arch" type="xml">
             <form string="Shop Control Sheet">
                 <sheet>
+                    <field name="message_ids" widget="mail_thread" class="oe_chatter"/>
                     <group>
                         <field name="date"/>
                         <field name="control_officer3"/>

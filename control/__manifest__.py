@@ -3,7 +3,7 @@
     'version': '1.0',
     'category': 'Warehouse',
     'summary': 'Control App for Shop',
-    'depends': ['base'],
+    'depends': ['base','mail'],
     'data': [
         'security/ir.model.access.csv',        
         'data/toilet_cleaning_sequence.xml',
