@@ -59,7 +59,7 @@ class ShopControlSheet(models.Model):
     @api.model
     def default_get(self, fields_list):
         """ Override default_get to prepopulate multiple One2many fields """
-        res = super(ShopControlSheet, self).default_get(fields_list)
+        res = super().default_get(fields_list)
         
         # Predefined items for different One2many fields
         # toilet_cleaning_items = [
