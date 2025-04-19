@@ -9,6 +9,7 @@
                         <field name="name"/>
                         <field name="control_officer3"/>
                     </group>
+                    
                     <notebook>
                         <page string="Toilet Cleaning">
                             <field name="toilet_cleaning_ids" context="{'show_create': False}" options="{'no_create_edit': True, 'no_create': True}" editable="top">
@@ -91,17 +92,6 @@
             </form>
         </field>
     </record>
-<!-- 
-    <record id="view_shop_control_sheet_tree" model="ir.ui.view">
-        <field name="name">shop.control.sheet.tree</field>
-        <field name="model">control.shop_control_sheet</field>
-        <field name="arch" type="xml">
-            <tree>
-                <field name="name"/>
-                <field name="control_officer"/>
-            </tree>
-        </field>
-    </record> -->
 
     <record id="action_shop_control_sheet" model="ir.actions.act_window">
         <field name="name">Shop Control Sheet</field>
