@@ -43,116 +43,98 @@ class ShopControlSheet(models.Model):
         self._check_all_tabs_filled()
         return res
 
-    @api.model
-    def default_get(self, fields_list):
-        res = super().default_get(fields_list)
-
-        def build_data(items):
-            return [(0, 0, {'item': item, 'yes_no': 'no'}) for item in items]
-
-        if 'toilet_cleaning_ids' in fields_list:
-            res['toilet_cleaning_ids'] = build_data([
-                'Tissue Paper In Toilet',
-                'Spray In Toilet',
-                'Hand Soap Lotion',
-                'Cleanness of Flush',
-                'Cleanness of Floor',
-                'Dusbin',
-            ])
-
-        if 'sale_area_ids' in fields_list:
-            res['sale_area_ids'] = build_data([
-                'Invoices and Sales File',
-                'Cleaning of Floor',
-                'Counter Area',
-                'First Aid Box',
-                'Shop Registration Form',
-                'Missing Stock of Master Business Products',
-                'Cleaning of Racks',
-                'Aldi, Colyrupt and Mns Stocks',
-            ])
-
-        if 'freezer_ids' in fields_list:
-            res['freezer_ids'] = build_data([
-                'Frozen Goods -  Temperature Devise',
-                'Freezer - Temperature Monitoring Devise',
-                'Temperature of Freezer',
-            ])
-
-        if 'staffing_ids' in fields_list:
-            res['staffing_ids'] = build_data([
-                'Late Staff / Absent Staff',
-                'Staff Work Contracts',
-                'Staff Medical Report',
-                'Presentation',
-            ])
-
-        if 'translation_on_products_ids' in fields_list:
-            res['translation_on_products_ids'] = []
-
-        return res
 
 class ToiletCleaning(models.Model):
     _name = 'control.toilet_cleaning'
     _description = 'Toilet Cleaning Checklist'
 
     sheet_id = fields.Many2one('control.shop_control_sheet', string='Control Sheet')
-    item = fields.Char(string='Item', readonly=True)
+    item = fields.Selection([
+        ('tissue', 'Tissue Paper In Toilet'),
+        ('spray', 'Spray In Toilet'),
+        ('soap', 'Hand Soap Lotion'),
+        ('flush', 'Cleanness of Flush'),
+        ('floor', 'Cleanness of Floor'),
+        ('dusbin', 'Dusbin')
+    ], string='Item')
     yes_no = fields.Selection([('yes', 'Yes'), ('no', 'No')], string='Yes/No')
     condition = fields.Selection([('good', 'Good'), ('bad', 'Bad')], string='Condition')
     remarks = fields.Text(string='Remarks')
     attachment = fields.Binary(string='Attachment', attachment=True)
+
 
 class SaleArea(models.Model):
     _name = 'control.sale_area'
     _description = 'Sale Area'
 
     sheet_id = fields.Many2one('control.shop_control_sheet', string='Control Sheet')
-    item = fields.Char(string='Item', readonly=True)
+    item = fields.Selection([
+        ('invoices', 'Invoices and Sales File'),
+        ('floor_clean', 'Cleaning of Floor'),
+        ('counter', 'Counter Area'),
+        ('first_aid', 'First Aid Box'),
+        ('registration', 'Shop Registration Form'),
+        ('missing_stock', 'Missing Stock of Master Business Products'),
+        ('rack_cleaning', 'Cleaning of Racks'),
+        ('aldi_stock', 'Aldi, Colyrupt and Mns Stocks')
+    ], string='Item')
     yes_no = fields.Selection([('yes', 'Yes'), ('no', 'No')], string='Yes/No')
     condition = fields.Selection([('good', 'Good'), ('bad', 'Bad')], string='Condition')
     remarks = fields.Text(string='Remarks')
     attachment = fields.Binary(string='Attachment', attachment=True)
+
 
 class Freezer(models.Model):
     _name = 'control.freezer'
     _description = 'Freezer'
 
     sheet_id = fields.Many2one('control.shop_control_sheet', string='Control Sheet')
-    item = fields.Char(string='Item', readonly=True)
+    item = fields.Selection([
+        ('frozen_goods', 'Frozen Goods -  Temperature Devise'),
+        ('monitoring_device', 'Freezer - Temperature Monitoring Devise'),
+        ('temperature', 'Temperature of Freezer')
+    ], string='Item')
     yes_no = fields.Selection([('yes', 'Yes'), ('no', 'No')], string='Yes/No')
     condition = fields.Selection([('good', 'Good'), ('bad', 'Bad')], string='Condition')
     remarks = fields.Text(string='Remarks')
     attachment = fields.Binary(string='Attachment', attachment=True)
+
 
 class Staffing(models.Model):
     _name = 'control.staffing'
     _description = 'Staffing'
 
     sheet_id = fields.Many2one('control.shop_control_sheet', string='Control Sheet')
-    item = fields.Char(string='Item', readonly=True)
+    item = fields.Selection([
+        ('late_absent', 'Late Staff / Absent Staff'),
+        ('contracts', 'Staff Work Contracts'),
+        ('medical', 'Staff Medical Report'),
+        ('presentation', 'Presentation')
+    ], string='Item')
     yes_no = fields.Selection([('yes', 'Yes'), ('no', 'No')], string='Yes/No')
     condition = fields.Selection([('good', 'Good'), ('bad', 'Bad')], string='Condition')
     remarks = fields.Text(string='Remarks')
     attachment = fields.Binary(string='Attachment', attachment=True)
+
 
 class TranslationOnProducts(models.Model):
     _name = 'control.translation_on_products'
     _description = 'Translation On Products'
 
     sheet_id = fields.Many2one('control.shop_control_sheet', string='Control Sheet')
-    item = fields.Char(string='Item', readonly=True)
+    item = fields.Selection([], string='Item')
     yes_no = fields.Selection([('yes', 'Yes'), ('no', 'No')], string='Yes/No')
     condition = fields.Selection([('good', 'Good'), ('bad', 'Bad')], string='Condition')
     remarks = fields.Text(string='Remarks')
     attachment = fields.Binary(string='Attachment', attachment=True)
+
 
 class GoodsMarket(models.Model):
     _name = 'control.goods_market'
     _description = 'Goods Market'
 
     sheet_id = fields.Many2one('control.shop_control_sheet', string='Control Sheet')
-    item = fields.Char(string='Item', readonly=True)
+    item = fields.Selection([], string='Item')
     yes_no = fields.Selection([('yes', 'Yes'), ('no', 'No')], string='Yes/No')
     condition = fields.Selection([('good', 'Good'), ('bad', 'Bad')], string='Condition')
     remarks = fields.Text(string='Remarks')
