@@ -112,7 +112,7 @@ class ToiletCleaning(models.Model):
     _description = 'Toilet Cleaning Checklist'
 
     sheet_id = fields.Many2one('control.shop_control_sheet', string='Control Sheet')
-    item = fields.Char(string='Item', readonly=True
+    item = fields.Char(string='Item', readonly=True,
                        default=lambda self: [(0, 0, {'item': i}) for i in [
             'Tissue Paper In Toilet',
             'Spray In Toilet',
