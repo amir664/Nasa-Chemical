@@ -85,6 +85,7 @@ class ToiletCleaning(models.Model):
     yes_no = fields.Selection([('yes', 'Yes'), ('no', 'No')], string='Yes/No', required=True)
     condition = fields.Selection([('good', 'Good'), ('bad', 'Bad')], string='Condition', required=True)
     remarks = fields.Text(string='Remarks', required=False)
+    attachment = fields.Binary(string='Attachment', attachment=True)
 
 
 class SaleArea(models.Model):
@@ -96,6 +97,7 @@ class SaleArea(models.Model):
     yes_no = fields.Selection([('yes', 'Yes'), ('no', 'No')], string='Yes/No', required=True)
     condition = fields.Selection([('good', 'Good'), ('bad', 'Bad')], string='Condition', required=True)
     remarks = fields.Text(string='Remarks', required=False)
+    attachment = fields.Binary(string='Attachment', attachment=True)
 
 
 class Freezer(models.Model):
@@ -107,6 +109,7 @@ class Freezer(models.Model):
     yes_no = fields.Selection([('yes', 'Yes'), ('no', 'No')], string='Yes/No', required=True)
     condition = fields.Selection([('good', 'Good'), ('bad', 'Bad')], string='Condition', required=True)
     remarks = fields.Text(string='Remarks', required=False)
+    attachment = fields.Binary(string='Attachment', attachment=True)
 
 
 class Staffing(models.Model):
@@ -118,6 +121,7 @@ class Staffing(models.Model):
     yes_no = fields.Selection([('yes', 'Yes'), ('no', 'No')], string='Yes/No', required=True)
     condition = fields.Selection([('good', 'Good'), ('bad', 'Bad')], string='Condition', required=True)
     remarks = fields.Text(string='Remarks', required=False)
+    attachment = fields.Binary(string='Attachment', attachment=True)
 
 
 class  TranslationOnProducts(models.Model):
@@ -129,6 +133,7 @@ class  TranslationOnProducts(models.Model):
     yes_no = fields.Selection([('yes', 'Yes'), ('no', 'No')], string='Yes/No', required=True)
     condition = fields.Selection([('good', 'Good'), ('bad', 'Bad')], string='Condition', required=True)
     remarks = fields.Text(string='Remarks', required=False)
+    attachment = fields.Binary(string='Attachment', attachment=True)
 
 
 class  GoodsMarket(models.Model):
@@ -140,3 +145,4 @@ class  GoodsMarket(models.Model):
     yes_no = fields.Selection([('yes', 'Yes'), ('no', 'No')], string='Yes/No', required=True)
     condition = fields.Selection([('good', 'Good'), ('bad', 'Bad')], string='Condition', required=True)
     remarks = fields.Text(string='Remarks', required=False)                
+    attachment = fields.Binary(string='Attachment', attachment=True)
