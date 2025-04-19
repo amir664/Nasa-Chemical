@@ -10,9 +10,9 @@
                         <field name="control_officer3"/>
                     </group>
                     <notebook>
-                        <page string="Toilet Cleaning" >
-                            <field name="toilet_cleaning_ids" context="{'show_create': False}" options="{'no_create_edit': True, 'no_create': True}">
-                                <tree>
+                        <page string="Toilet Cleaning">
+                            <field name="toilet_cleaning_ids" context="{'show_create': False}" options="{'no_create_edit': True, 'no_create': True}" editable="top">
+                                <tree editable="top">
                                     <field name="item"/>
                                     <field name="yes_no"/>
                                     <field name="condition"/>
@@ -23,8 +23,8 @@
                     <!-- </notebook> -->
                     <!-- <notebook> -->
                         <page string="Shop - Sale Area">
-                            <field name="sale_area_ids" context="{'show_create': False}" options="{'no_create_edit': True, 'no_create': True}">
-                                <tree>
+                            <field name="sale_area_ids" context="{'show_create': False}" options="{'no_create_edit': True, 'no_create': True}" editable="top">
+                                <tree editable="top">
                                     <field name="item"/>
                                     <field name="yes_no"/>
                                     <field name="condition"/>
@@ -35,8 +35,8 @@
                     <!-- </notebook> -->
                     <!-- <notebook> -->
                         <page string="Freezer">
-                            <field name="freezer_ids" context="{'show_create': False}" options="{'no_create_edit': True, 'no_create': True}">
-                                <tree>
+                            <field name="freezer_ids" context="{'show_create': False}" options="{'no_create_edit': True, 'no_create': True}" editable="top">
+                                <tree editable="top">
                                     <field name="item"/>
                                     <field name="yes_no"/>
                                     <field name="condition"/>
@@ -47,8 +47,8 @@
                     <!-- </notebook> -->
                     <!-- <notebook> -->
                         <page string="Staffing">
-                            <field name="staffing_ids" context="{'show_create': False}" options="{'no_create_edit': True, 'no_create': True}">
-                                <tree>
+                            <field name="staffing_ids" context="{'show_create': False}" options="{'no_create_edit': True, 'no_create': True}" editable="top">
+                                <tree editable="top">
                                     <field name="item"/>
                                     <field name="yes_no"/>
                                     <field name="condition"/>
@@ -59,8 +59,8 @@
                     <!-- </notebook> -->
                     <!-- <notebook> -->
                         <page string="Translation on Products">
-                            <field name="translation_on_products_ids" context="{'show_create': False}" options="{'no_create_edit': True, 'no_create': True}">
-                                <tree>
+                            <field name="translation_on_products_ids" context="{'show_create': False}" options="{'no_create_edit': True, 'no_create': True}" editable="top">
+                                <tree editable="top">
                                     <field name="item"/>
                                     <field name="yes_no"/>
                                     <field name="condition"/>
@@ -71,8 +71,8 @@
                     <!-- </notebook> -->
                     <!-- <notebook> -->
                         <page string="Goods as per Market Not Available">
-                            <field name="goods_market_ids" context="{'show_create': False}" options="{'no_create_edit': True, 'no_create': True}">
-                                <tree>
+                            <field name="goods_market_ids" context="{'show_create': False}" options="{'no_create_edit': True, 'no_create': True}" editable="top">
+                                <tree editable="top">
                                     <field name="item"/>
                                     <field name="yes_no"/>
                                     <field name="condition"/>
