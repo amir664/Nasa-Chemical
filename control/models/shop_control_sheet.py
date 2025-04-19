@@ -9,7 +9,16 @@ class ShopControlSheet(models.Model):
     date = fields.Date(string='Shop Control Dated')
     control_officer = fields.Char('res.users')
     control_officer3 = fields.Many2one('res.users',string='Control Officer Dated')
-    toilet_cleaning_ids = fields.One2many('control.toilet_cleaning', 'sheet_id', string='Toilet Cleaning')
+    toilet_cleaning_ids = fields.One2many('control.toilet_cleaning', 'sheet_id', 
+                                          default=lambda self: [(0, 0, {'item': i}) for i in [
+            'Tissue Paper In Toilet',
+            'Spray In Toilet',
+            'Hand Soap Lotion',
+            'Cleanness of Flush',
+            'Cleanness of Floor',
+            'Dusbin'
+        ]],
+                                          string='Toilet Cleaning')
     sale_area_ids = fields.One2many('control.sale_area', 'sheet_id')
     freezer_ids = fields.One2many('control.freezer', 'sheet_id')
     staffing_ids = fields.One2many('control.staffing', 'sheet_id')
@@ -112,7 +121,7 @@ class ToiletCleaning(models.Model):
     _description = 'Toilet Cleaning Checklist'
 
     sheet_id = fields.Many2one('control.shop_control_sheet', string='Control Sheet')
-    item = fields.Char(string='Item', readonly=True,
+    item = fields.Char(string='Item', readonly=True
                        default=lambda self: [(0, 0, {'item': i}) for i in [
             'Tissue Paper In Toilet',
             'Spray In Toilet',
