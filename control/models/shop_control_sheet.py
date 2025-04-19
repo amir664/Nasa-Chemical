@@ -121,16 +121,7 @@ class ToiletCleaning(models.Model):
     _description = 'Toilet Cleaning Checklist'
 
     sheet_id = fields.Many2one('control.shop_control_sheet', string='Control Sheet')
-    item = fields.Char(string='Item', readonly=True
-                       default=lambda self: [(0, 0, {'item': i}) for i in [
-            'Tissue Paper In Toilet',
-            'Spray In Toilet',
-            'Hand Soap Lotion',
-            'Cleanness of Flush',
-            'Cleanness of Floor',
-            'Dusbin'
-        ]]
-                       )  # 'readonly=True' ensures this field cannot be edited
+    item = fields.Char(string='Item', readonly=True)  # 'readonly=True' ensures this field cannot be edited
     yes_no = fields.Selection([('yes', 'Yes'), ('no', 'No')], string='Yes/No')
     condition = fields.Selection([('good', 'Good'), ('bad', 'Bad')], string='Condition')
     remarks = fields.Text(string='Remarks', required=False)
