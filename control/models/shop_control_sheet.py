@@ -101,11 +101,11 @@ class Freezer(models.Model):
     _description = 'Freezer'
 
     sheet_id = fields.Many2one('control.shop_control_sheet', string='Control Sheet')
-    # item = fields.Selection([
-    #     ('frozen_goods', 'Frozen Goods -  Temperature Devise'),
-    #     ('monitoring_device', 'Freezer - Temperature Monitoring Devise'),
-    #     ('temperature', 'Temperature of Freezer')
-    # ], string='Item')
+    item = fields.Selection([
+        ('frozen_goods', 'Frozen Goods -  Temperature Devise'),
+        ('monitoring_device', 'Freezer - Temperature Monitoring Devise'),
+        ('temperature', 'Temperature of Freezer')
+    ], string='Item')
     item1 = fields.Char(string="Item")
     yes_no = fields.Selection([('yes', 'Yes'), ('no', 'No')], string='Yes/No')
     condition = fields.Selection([('good', 'Good'), ('bad', 'Bad')], string='Condition')
