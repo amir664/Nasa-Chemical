@@ -43,6 +43,18 @@ class ShopControlSheet(models.Model):
         self._check_all_tabs_filled()
         return res
 
+    @api.model
+    def default_get(self, fields_list):
+        res = super().default_get(fields_list)
+
+        if 'freezer_ids' in fields_list:
+            res['freezer_ids'] = [
+                (0, 0, {'item': 'frozen_goods', 'yes_no': 'no'}),
+                (0, 0, {'item': 'monitoring_device', 'yes_no': 'no'}),
+                (0, 0, {'item': 'temperature', 'yes_no': 'no'})
+            ]
+
+        return res
 
 class ToiletCleaning(models.Model):
     _name = 'control.toilet_cleaning'
@@ -89,15 +101,26 @@ class Freezer(models.Model):
     _description = 'Freezer'
 
     sheet_id = fields.Many2one('control.shop_control_sheet', string='Control Sheet')
-    item = fields.Selection([
-        ('frozen_goods', 'Frozen Goods -  Temperature Devise'),
-        ('monitoring_device', 'Freezer - Temperature Monitoring Devise'),
-        ('temperature', 'Temperature of Freezer')
-    ], string='Item')
+    # item = fields.Selection([
+    #     ('frozen_goods', 'Frozen Goods -  Temperature Devise'),
+    #     ('monitoring_device', 'Freezer - Temperature Monitoring Devise'),
+    #     ('temperature', 'Temperature of Freezer')
+    # ], string='Item')
+    item1 = fields.Char(string="Item")
     yes_no = fields.Selection([('yes', 'Yes'), ('no', 'No')], string='Yes/No')
     condition = fields.Selection([('good', 'Good'), ('bad', 'Bad')], string='Condition')
     remarks = fields.Text(string='Remarks')
     attachment = fields.Binary(string='Attachment', attachment=True)
+
+    @api.model
+    def create_default_lines(cls, sheet_id):
+        items = ['frozen_goods', 'monitoring_device', 'temperature']
+        for item in items:
+            cls.create({
+                'sheet_id': sheet_id.id,
+                'item': item,
+                'yes_no': 'no'
+            })
 
 
 class Staffing(models.Model):
