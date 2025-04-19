@@ -4,8 +4,8 @@
         <field name="model">control.shop_control_sheet</field>
         <field name="arch" type="xml">
             <tree string="Shop Control Sheet">
-                <field name="record"/>
                 <field name="name"/>
+                <field name="date"/>
                 <field name="control_officer3"/>
             </tree>
         </field>
@@ -18,7 +18,7 @@
             <form string="Shop Control Sheet">
                 <sheet>
                     <group>
-                        <field name="name"/>
+                        <field name="date"/>
                         <field name="control_officer3"/>
                     </group>
                     
