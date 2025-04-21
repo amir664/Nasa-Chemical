@@ -15,23 +15,25 @@ class MyModelMain(models.Model):
     custom_model_id = fields.Many2one('ir.model', string='Model')
     model_name = fields.Char(related="custom_model_id.model",string="Model Name")
 
-    def check_notification(self, record):
+    def check_notification(self, record, mode=None, write_count=None):
         for rule in self:
             for line in rule.line_ids:
+                if (mode == 'create' and not line.on_create) or \
+                   (mode == 'write' and not line.on_write):
+                    continue
+                if mode == 'write' and line.times and int(line.times) != write_count:
+                    continue
                 try:
                     local_dict = {'record': record}
                     if safe_eval(line.condition, local_dict):
-                        raise UserError(str(local_dict))
-                        message = line.message.format(record=record)
+                        message = line.message_template.format(record=record)
                         record.message_post(
                             body=message,
                             partner_ids=rule.user_ids.mapped('partner_id').ids,
                             subtype_xmlid="mail.mt_comment"
                         )
                 except Exception as e:
-                    _logger.error("Failed condition eval: %s", e)
-
-
+                    _logger.error("Failed to evaluate condition or send message: %s", e)
     
 class MyModelLine(models.Model):
     _name = 'my.model.line'
@@ -44,5 +46,40 @@ class MyModelLine(models.Model):
     on_write = fields.Boolean(string="Write")
     times = fields.Selection([('1','1'),('2','2'),('5','5')],string="How Many Times")
 
+
+class NotificationAbstract(models.AbstractModel):
+    _name = 'notification.abstract'
+    _description = 'Notification Abstract'
+
+    def _get_write_count_key(self, record):
+        return f"{record._name}-{record.id}-write_count"
+
+    def _increment_write_count(self, record):
+        key = self._get_write_count_key(record)
+        count = self.env.context.get(key, 0) + 1
+        self.env.context = dict(self.env.context, **{key: count})
+        return count
+
+    def _get_write_count(self, record):
+        key = self._get_write_count_key(record)
+        return self.env.context.get(key, 1)
+
+    @api.model
+    def create(self, vals):
+        record = super().create(vals)
+        self.env['my.model.main'].search([
+            ('model_name', '=', self._name)
+        ]).check_notification(record, mode='create')
+        return record
+
+    def write(self, vals):
+        for rec in self:
+            count = self._increment_write_count(rec)
+        res = super().write(vals)
+        for rec in self:
+            self.env['my.model.main'].search([
+                ('model_name', '=', self._name)
+            ]).check_notification(rec, mode='write', write_count=self._get_write_count(rec))
+        return res
     
     
