@@ -51,6 +51,21 @@ class ProductTemplateInherited(models.Model):
 class StockPickingInherited(models.Model):
     _inherit = 'stock.picking'
 
+    sampling_id = fields.Char(string="Sampling ID")
+    sampling_time = fields.Char(string="Sampling Time (hrs)")  # You can use Float if you want numeric input
+    test_report_no = fields.Char(string="Test Report No.")
+    vendor_id = fields.Many2one('res.partner', string="Vendor", compute="_compute_vendor", store=True)
+
+    @api.depends('origin')
+    def _compute_vendor(self):
+        for rec in self:
+            vendor = False
+            if rec.origin:
+                po = self.env['purchase.order'].search([('name', '=', rec.origin)], limit=1)
+                if po:
+                    vendor = po.partner_id
+            rec.vendor_id = vendor
+
     # @api.constrains('location_id')
     # def check_user_location_access(self):
     #     for rec in self:
