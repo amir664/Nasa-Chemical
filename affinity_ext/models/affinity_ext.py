@@ -56,6 +56,16 @@ class StockPickingInherit(models.Model):
     test_report_no = fields.Char(string="Test Report No.")
     vendor_id = fields.Many2one('res.partner', string="Vendor", compute="_compute_vendor", store=True)
 
+    @api.depends('origin')
+    def _compute_vendor(self):
+        for rec in self:
+            vendor = False
+            if rec.origin:
+                po = self.env['purchase.order'].search([('name', '=', rec.origin)], limit=1)
+                if po:
+                    vendor = po.partner_id
+            rec.vendor_id = vendor
+
 
 
 class StockPickingInherited(models.Model):
