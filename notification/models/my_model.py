@@ -40,5 +40,9 @@ class MyModelLine(models.Model):
     main_id = fields.Many2one('my.model.main', string='Main Record')    
     condition = fields.Char(string="Condition", help="Use Python syntax. Ex: record.amount_total > 1000")
     message_template = fields.Text(string="Message Template", help="Use ${record.field_name} to include values dynamically.")
+    on_create = fields.Boolean(string="Create")
+    on_write = fields.Boolean(string="Write")
+    times = fields.Selection([('1','1'),('2','2'),('5','5')],string="How Many Times")
 
+    
     

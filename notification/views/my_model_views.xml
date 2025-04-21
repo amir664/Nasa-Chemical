@@ -20,6 +20,9 @@
                   
                   <field name="condition"/>
                   <field name="message_template"/>
+                  <field name="on_create"/>
+                  <field name="on_write"/>
+                  <field name="times" column_invisible="on_write == False"/>
                 </tree>
               </field>
             </page>
