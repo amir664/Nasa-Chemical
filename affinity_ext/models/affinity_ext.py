@@ -53,6 +53,13 @@ class ProductTemplateInherited(models.Model):
 class StockPickingInherited(models.Model):
     _inherit = 'stock.picking'
 
+    def button_validate(self):
+        for rec in self:
+            if rec.location_id.id == 369:
+                if self.env.user.id not in [134, 133]:
+                    raise UserError(("You are not allowed to validate transfers from Qurantine location."))
+        return super(StockPickingInherited, self).button_validate()
+
 
     # Override the write method to check purchase tolerance before saving the record
     @api.model
