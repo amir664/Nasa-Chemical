@@ -73,6 +73,17 @@ class StockPickingInherited(models.Model):
 
 
 
+class AccountAccountInherited(models.Model):
+    _inherit = "account.account"
+
+    @api.model
+    def create(self, vals):
+        if vals.get('account_type') == 'asset_cash':
+            vals['code'] = self.env['ir.sequence'].next_by_code('asset_cash')
+        return super(AccountAccountInherited, self).create(vals)
+
+
+
 class PurchaseOrderInherited(models.Model):
     _inherit = "purchase.order"
 
