@@ -76,11 +76,17 @@ class StockPickingInherited(models.Model):
 class AccountAccountInherited(models.Model):
     _inherit = "account.account"
 
-    @api.model
-    def create(self, vals):
-        if vals.get('account_type') == 'asset_cash':
-            vals['code'] = self.env['ir.sequence'].next_by_code('asset_cash')
-        return super(AccountAccountInherited, self).create(vals)
+    # @api.model
+    # def create(self, vals):
+    #     if vals.get('account_type') == 'asset_cash':
+    #         vals['code'] = self.env['ir.sequence'].next_by_code('asset_cash')
+    #     return super(AccountAccountInherited, self).create(vals)
+    @api.onchange('account_type')
+    def create(self):
+        for rec in self:
+            if rec.account_type == 'asset_cash' and rec.code == False:
+                rec['code'] = self.env['ir.sequence'].next_by_code('asset_cash')
+        # return super(AccountAccountInherited, self).create(vals)
 
     @api.model
     def default_get(self, fields_list):
