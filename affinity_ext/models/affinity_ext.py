@@ -85,7 +85,7 @@ class AccountAccountInherited(models.Model):
     @api.model
     def default_get(self, fields_list):
         res = super(AccountAccountInherited, self).default_get(fields_list)
-        res['code'] = "12"
+        res['code'] = " "
         return res
 
 class PurchaseOrderInherited(models.Model):
