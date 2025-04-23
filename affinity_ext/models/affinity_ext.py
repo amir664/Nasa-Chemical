@@ -88,11 +88,11 @@ class AccountAccountInherited(models.Model):
                 rec['code'] = self.env['ir.sequence'].next_by_code('asset_cash')
         # return super(AccountAccountInherited, self).create(vals)
 
-    @api.model
-    def default_get(self, fields_list):
-        res = super(AccountAccountInherited, self).default_get(fields_list)
-        res['code'] = " "
-        return res
+    # @api.model
+    # def default_get(self, fields_list):
+    #     res = super(AccountAccountInherited, self).default_get(fields_list)
+    #     res['code'] = " "
+    #     return res
 
 class PurchaseOrderInherited(models.Model):
     _inherit = "purchase.order"
