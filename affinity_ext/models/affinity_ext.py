@@ -82,7 +82,7 @@ class AccountAccountInherited(models.Model):
     #         vals['code'] = self.env['ir.sequence'].next_by_code('asset_cash')
     #     return super(AccountAccountInherited, self).create(vals)
     @api.onchange('account_type')
-    def create(self):
+    def get_code1(self):
         for rec in self:
             if rec.account_type == 'asset_cash' and rec.code == False:
                 rec['code'] = self.env['ir.sequence'].next_by_code('asset_cash')
