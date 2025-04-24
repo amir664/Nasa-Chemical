@@ -19,7 +19,7 @@ class RecordExpense(models.Model):
                                  self: self.env.user.company_id.currency_id.id)
     memo = fields.Text(string='Memo', copy=True)
     is_posted = fields.Char(string='Is Posted' ,copy=True)
-    posting_date = fields.Date(string='Posting Date')
+    posting_date = fields.Date(string='Posting Date', required=True)
     date = fields.Date(string='Accounting Date',related="posting_date")
     
 
