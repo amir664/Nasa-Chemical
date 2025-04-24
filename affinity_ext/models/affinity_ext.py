@@ -56,6 +56,14 @@ class StockPickingInherit(models.Model):
     test_report_no = fields.Char(string="Test Report No.")
     vendor_id = fields.Many2one('res.partner', string="Vendor", compute="_compute_vendor", store=True)
 
+    def button_validate(self):
+        for rec in self:
+            if rec.location_id.id == 369:
+                if self.env.user.id not in [134, 133]:
+                    raise UserError(("You are not allowed to validate transfers from Qurantine location."))
+        return super(StockPickingInherited, self).button_validate()
+
+
     @api.depends('origin')
     def _compute_vendor(self):
         for rec in self:
