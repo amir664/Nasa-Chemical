@@ -74,7 +74,7 @@ class Withholdinglines(models.TransientModel):
     wizard_id = fields.Many2one('account.payment.register',string="Wizard Id")
     payment_id = fields.Many2one('account.payment',string="Payment Id")
     # amount_to_withhold = fields.Float(string="Amount To Withhold")
-    wht_amount = fields.Float(string="Witholding Amount", readonly=True)
+    wht_amount = fields.Float(string="Witholding Amount")
     wht_code = fields.Many2one('account.tax',string="Tax Code")
     wht_account = fields.Many2one('account.account',string="Witholding Account")
 
