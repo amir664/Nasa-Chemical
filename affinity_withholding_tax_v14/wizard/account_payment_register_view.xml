@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <record id="account_register_payment_withholding_tax_views" model="ir.ui.view">
+        <field name="name">account.register.payment.withholding.tax.view</field>
+        <field name="model">account.payment.register</field>
+        <field name="inherit_id" ref="account.view_account_payment_register_form"/>
+        <field name="arch" type="xml">
+
+                <xpath expr="//group" position="after">
+                    <notebook>
+                        <page id="withholding_tab" string="Withholding Lines">
+                            <field name="wht_lines" mode="list,form">
+                                <tree editable="bottom" string="Witholding Items">
+                                    <field name="name"/>
+                                    <field name="amount_to_withhold"/>
+                                    <field name="wht_code" />
+                                    <field name="wht_account"/>
+                                    <field name="wht_amount" />
+                                </tree>
+                                <form>
+                                    <sheet>
+                                        <group>
+                                            <field name="name"/>
+                                            <field name="amount_to_withhold"/>
+                                            <field name="wht_code" />
+                                            <field name="wht_amount" />
+                                            <field name="wht_account"/>
+                                        </group>
+                                    </sheet>
+                                </form>
+                            </field>
+                        </page>
+                    </notebook>
+                </xpath>
+
+            </field>
+        </record>
+</odoo>
