@@ -12,7 +12,7 @@
                             <field name="wht_lines" mode="list,form">
                                 <tree editable="bottom" string="Witholding Items">
                                     <field name="name"/>
-                                    <field name="amount_to_withhold"/>
+                                    <!-- <field name="amount_to_withhold"/> -->
                                     <field name="wht_code" />
                                     <field name="wht_account"/>
                                     <field name="wht_amount" />
@@ -21,7 +21,7 @@
                                     <sheet>
                                         <group>
                                             <field name="name"/>
-                                            <field name="amount_to_withhold"/>
+                                            <!-- <field name="amount_to_withhold"/> -->
                                             <field name="wht_code" />
                                             <field name="wht_amount" />
                                             <field name="wht_account"/>

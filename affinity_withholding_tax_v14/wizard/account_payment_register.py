@@ -46,7 +46,7 @@ class AccountPaymentRegister(models.TransientModel):
 
        
 
-    def _create_payment_vals_from_wizard(self):
+    def _create_payment_vals_from_wizard(self, batch_result):
         payment_vals = {
             'date': self.payment_date,
             'amount': self.amount,
@@ -62,8 +62,8 @@ class AccountPaymentRegister(models.TransientModel):
             # WHT
             'wht_lines':self.wht_lines,
             # custom fields
-            'x_studio_cheque_no':self.x_studio_cheque_no,
-            'ref': self.communication
+            # 'x_studio_cheque_no':self.x_studio_cheque_no,
+            # 'ref': self.communication
         }
         return payment_vals
 
@@ -73,8 +73,8 @@ class Withholdinglines(models.TransientModel):
     name = fields.Char(string="Lable")
     wizard_id = fields.Many2one('account.payment.register',string="Wizard Id")
     payment_id = fields.Many2one('account.payment',string="Payment Id")
-    amount_to_withhold = fields.Float(string="Amount To Withhold")
-    wht_amount = fields.Float(string="Witholding Amount")
+    # amount_to_withhold = fields.Float(string="Amount To Withhold")
+    wht_amount = fields.Float(string="Witholding Amount", readonly=True)
     wht_code = fields.Many2one('account.tax',string="Tax Code")
     wht_account = fields.Many2one('account.account',string="Witholding Account")
 
@@ -85,7 +85,7 @@ class Withholdinglines(models.TransientModel):
             if i.wht_code:
                 # if i.amount_to_withhold <= 0 or i.wht_code.amount <= 0:
                 #     raise ValidationError("Total amount and percentage must be non-negative.")
-                i['wht_amount'] =  (i.amount_to_withhold * i.wht_code.amount) / 100
+                i['wht_amount'] =  (i.wizard_id.amount * i.wht_code.amount) / 100
                 for line in i.wht_code.invoice_repartition_line_ids:
                     if line.account_id:
                         i['wht_account'] =  line.account_id.id
