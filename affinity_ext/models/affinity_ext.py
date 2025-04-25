@@ -58,7 +58,7 @@ class StockPickingInherit(models.Model):
 
     def button_validate(self):
         for rec in self:
-            if rec.location_id.id == 369:
+            if rec.picking_type_id.id == 41 and rec.location_id.id == 369:
                 if self.env.user.id not in [134, 133]:
                     raise UserError(("You are not allowed to validate transfers from Qurantine location."))
         return super(StockPickingInherited, self).button_validate()
