@@ -15,9 +15,9 @@ class AccountPaymentRegister(models.TransientModel):
     def default_get(self, fields_list):
         res = super(AccountPaymentRegister, self).default_get(fields_list)
 
- 
-        if self.communication:
-            account_move = self.env['account.move'].search([('name', '=', self.communication)], limit=1)
+        communication = self.env.context.get('default_communication')
+        if communication:
+            account_move = self.env['account.move'].search([('name', '=', communication)], limit=1)
             if account_move.move_type == 'out_invoice':
                 res['wht_account'] = 8     # Customer invoice
             elif account_move.move_type == 'in_invoice':
