@@ -16,9 +16,9 @@ class AccountPaymentRegister(models.TransientModel):
         if communication:
             account_move = self.env['account.move'].search([('name', '=', communication)], limit=1)
             if account_move.move_type == 'out_invoice':
-                return 8  # Account ID for customer invoice
+                return 8  
             elif account_move.move_type == 'in_invoice':
-                return 1157  # Account ID for vendor bill
+                return 1157  
         return False
 
 
@@ -90,7 +90,18 @@ class Withholdinglines(models.TransientModel):
     wht_code = fields.Many2one('account.tax',string="Tax Code")
     wht_account = fields.Many2one('account.account',string="Witholding Account")
 
-   
+    @api.onchange('name','wht_amount','wht_code')
+    def get_account(self):
+        for rec in self:
+            if rec.name or rec.wht_amount or rec.wht_code:
+                if rec.wizard_id.communication:
+                    move = self.env['account.move'].search([('name', '=', rec.wizard_id.communication)], limit=1)
+                    if move:
+                        if move.move_type == 'out_invoice':
+                            rec['wht_account'] = 8  
+                        elif move.move_type == 'in_invoice':
+                            rec['wht_account'] = 1157  
+                            
 
 
     @api.onchange('wht_code')
