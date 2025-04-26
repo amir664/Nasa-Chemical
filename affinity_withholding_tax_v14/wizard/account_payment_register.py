@@ -78,6 +78,18 @@ class Withholdinglines(models.TransientModel):
     wht_code = fields.Many2one('account.tax',string="Tax Code")
     wht_account = fields.Many2one('account.account',string="Witholding Account")
 
+    @api.model
+    def default_get(self, fields_list):
+        defaults = super().default_get(fields_list)
+        wizard_id = self.env.context.get('default_wizard_id')
+        if wizard_id:
+            wizard = self.env['account.payment.register'].browse(wizard_id)
+            if wizard.payment_type == 'outbound':
+                defaults['wht_account'] = 8  # Account ID for customer payment
+            elif wizard.payment_type == 'inbound':
+                defaults['wht_account'] = 1157  # Account ID for vendor bill
+        return defaults
+
 
     @api.onchange('wht_code')
     def getTaxAmount(self):
