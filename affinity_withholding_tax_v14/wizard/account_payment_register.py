@@ -13,17 +13,17 @@ class AccountPaymentRegister(models.TransientModel):
 
     @api.model
     def default_get(self, fields_list):
-        defaults = super().default_get(fields_list)
+        res = super(AccountPaymentRegister, self).default_get(fields_list)
 
-        communication = defaults.get('communication')
-        if communication:
-            account_move = self.env['account.move'].search([('name', '=', communication)], limit=1)
+ 
+        if res.communication:
+            account_move = self.env['account.move'].search([('name', '=', res.communication)], limit=1)
             if account_move.move_type == 'out_invoice':
-                defaults['wht_account'] = 8     # Customer invoice
+                res['wht_account'] = 8     # Customer invoice
             elif account_move.move_type == 'in_invoice':
-                defaults['wht_account'] = 1157  # Vendor bill
+                res['wht_account'] = 1157  # Vendor bill
 
-        return defaults
+        return res
 
 
     def _create_payments(self):
