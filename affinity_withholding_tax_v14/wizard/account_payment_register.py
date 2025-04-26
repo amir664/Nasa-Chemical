@@ -9,21 +9,17 @@ class AccountPaymentRegister(models.TransientModel):
     _inherit = 'account.payment.register'
 
     wht_lines = fields.One2many('withholding.lines','wizard_id',string="Withholding Lines")
-    wht_account = fields.Many2one('account.account',string="Witholding Account")
+    wht_account = fields.Many2one('account.account',string="Witholding Account", default=lambda self: self._get_default_wht_account())
 
-    @api.model
-    def default_get(self, fields_list):
-        res = super(AccountPaymentRegister, self).default_get(fields_list)
-
+    def _get_default_wht_account(self):
         communication = self.env.context.get('default_communication')
         if communication:
             account_move = self.env['account.move'].search([('name', '=', communication)], limit=1)
             if account_move.move_type == 'out_invoice':
-                res['wht_account'] = 8     # Customer invoice
+                return 8  # Account ID for customer invoice
             elif account_move.move_type == 'in_invoice':
-                res['wht_account'] = 1157  # Vendor bill
-
-        return res
+                return 1157  # Account ID for vendor bill
+        return False
 
 
     def _create_payments(self):
