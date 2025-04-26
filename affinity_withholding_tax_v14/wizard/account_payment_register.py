@@ -82,13 +82,18 @@ class Withholdinglines(models.TransientModel):
     def default_get(self, fields_list):
         defaults = super().default_get(fields_list)
         wizard_id = self.env.context.get('default_wizard_id')
+
         if wizard_id:
             wizard = self.env['account.payment.register'].browse(wizard_id)
-            if wizard.payment_type == 'outbound':
-                defaults['wht_account'] = 8  # Account ID for customer payment
-            elif wizard.payment_type == 'inbound':
-                defaults['wht_account'] = 1157  # Account ID for vendor bill
+            if wizard.communication:
+                account_move = self.env['account.move'].search([('name', '=', wizard.communication)], limit=1)
+                if account_move.move_type == 'out_invoice':
+                    defaults['wht_account'] = 8     # Customer invoice
+                elif account_move.move_type == 'in_invoice':
+                    defaults['wht_account'] = 1157  # Vendor bill
+
         return defaults
+
 
 
     @api.onchange('wht_code')
