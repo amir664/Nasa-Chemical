@@ -101,6 +101,12 @@ class Withholdinglines(models.TransientModel):
                             rec['wht_account'] = 8  
                         elif move.move_type == 'in_invoice':
                             rec['wht_account'] = 1157  
+                elif rec.payment_id:
+                        if rec.payment_id.payment_type == 'inbound':
+                            rec['wht_account'] = 8  
+                        elif rec.payment_id.payment_type == 'outbound':
+                            rec['wht_account'] = 1157  
+
                             
 
 
