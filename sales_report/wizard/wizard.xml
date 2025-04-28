@@ -1,0 +1,32 @@
+<!-- views/sales_report_wizard_view.xml -->
+<odoo>
+    <record id="view_sales_report_wizard" model="ir.ui.view">
+        <field name="name">sales.report.wizard.form</field>
+        <field name="model">sales.report.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Sales Report Wizard">
+                <group>
+                    <field name="customer_id"/>
+                    <field name="city"/>
+                    <field name="region"/>
+                    <field name="salesperson_id"/>
+                    <field name="invoice_date_start"/>
+                    <field name="invoice_date_end"/>
+                    <field name="order_date_start"/>
+                    <field name="order_date_end"/>
+                </group>
+                <footer>
+                    <button name="action_generate_report" type="object" string="Generate Report" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_sales_report_wizard" model="ir.actions.act_window">
+        <field name="name">Sales Report</field>
+        <field name="res_model">sales.report.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>
